@@ -1,8 +1,8 @@
 package com.iti.fashny.interfaces;
 
-
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.PartnType;
+import com.iti.fashny.entities.Place;
 import java.util.List;
 
 /*
@@ -16,14 +16,13 @@ import java.util.List;
  */
 public interface Commens<T> {
 
-     T login(String email, String password) throws Exception;
+    T login(String email, String password) throws Exception;
 
 //<editor-fold defaultstate="collapsed" desc="comment">
-     
 ////------------------------------------------------------------------------------
 //    void addPlace(Place place) throws Exception;
 //
-//    List<Place> viewPlaces(int count) throws Exception;
+//    public List<Place> viewPlaces(int count) throws Exception;
 //
 //    List<Place> serchByPlaceExample(Place place) throws Exception;
 //    Place showSpecificPlaceInfo(int id);
@@ -57,19 +56,17 @@ public interface Commens<T> {
 //    Partener showSpecificPartneInfo(int id);
 //
 //------------------------------------------------------------------------------
-     
-     
+
 //</editor-fold>
-  
-    void add(T t) throws Exception;
+   void add(T t) throws Exception;
+
     void update(T t) throws Exception;
 
-    List<T>view() throws Exception;
+    List<T> view() throws Exception;
 
     List<T> searchByExample(T t) throws Exception;
 
     T showSpecificInfo(int id);
-    
+
 //------------------------------------------------------------------------------
-    
 }
