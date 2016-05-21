@@ -79,8 +79,12 @@ public abstract class AbstractFacade<T> {
     public List<T> findByExample(T exampleObj) throws Exception{       
     Session session = (Session) getEntityManager().getDelegate();
     Example example = Example.create(exampleObj);
+    
     Criteria c = session.createCriteria(exampleObj.getClass()).add(example);
+    addAssociationExample(c,exampleObj);
     return c.list();
 }
     
+    protected void addAssociationExample(Criteria c,T mainExample){
+    }
 }

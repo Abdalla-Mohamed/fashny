@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../templates/clientTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title"> Advanced search </ui:define>
+    <ui:define name="content">
+
+
+        <div class="ui-grid-row">
+            <div class=" col-xs-4  ">
+                <div class="banner-bottom-grid1 banner-bottom-grid1-sub col-xs-12  ">
+                    <h3 align="center" class="subTitle">search options</h3>
+                    <p:accordionPanel multiple="true" styleClass="col-xs-12" >
+                        <p:tab title="type">
+                            <h:outputLabel styleClass="col-xs-12">search for: </h:outputLabel>
+                            <p:selectOneMenu value="#{searchMB.selectType}" label="select" styleClass="col-xs-12" >
+                                <f:selectItem  itemLabel="place" itemValue="asd" />
+                                <f:selectItem itemLabel="trip" itemValue="asda" />
+                            </p:selectOneMenu >
+                        </p:tab>
+                        <p:tab title="filters">
+                            <p:outputLabel for="keyName" value="by name:" styleClass="col-xs-12" />
+                            <p:inputText id="keyName" placeholder="enter title" styleClass="col-xs-12 "  />
+                            <p:outputLabel for="tag" value="Tags:" styleClass="col-xs-12" />
+                            <p:selectManyMenu id="tag" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="100" styleClass="col-xs-12">
+                                <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                <f:selectItem itemLabel="Option 3" itemValue="3" />
+                            </p:selectManyMenu>
+                        </p:tab>
+                    </p:accordionPanel>
+
+                </div>
+
+            </div>
+            <div class="well col-xs-8  ">1</div>
+
+        </div>
+    </ui:define>
+
+
+</ui:composition>

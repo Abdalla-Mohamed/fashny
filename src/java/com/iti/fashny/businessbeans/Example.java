@@ -8,9 +8,11 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.AdminFacade;
 import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.TagFacade;
 import com.iti.fashny.entities.Admin;
 import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,7 +26,8 @@ import java.util.List;
 public class Example {
 
     public static void main(String[] args) {
-        exampleForReading();
+//        exampleForReading();
+        tst();
 //        exampleForWriting();
     }
 
@@ -76,6 +79,40 @@ public class Example {
 
             for (Tag tagrslt : tagResults) {
                 System.out.println(tagrslt.getName());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close connection
+            daoFactory.close();
+
+        }
+
+    }
+    static public void tst() {
+        Tag tag = new Tag(2);
+        Place  p = new Place();
+        p.setName("sd");
+        p.setTagList(new ArrayList<>());
+        p.getTagList().add(tag);
+        
+
+        // create DaoFactory to get daos and deal with connection
+        DaoFactory daoFactory = new DaoFactory();
+       
+        List<Place> places = new ArrayList<>();
+
+        try {
+
+            // get doas
+            PlaceFacade placeFacade = daoFactory.getPlaceDoa();
+
+            // search/read/select 
+            places = placeFacade.findByExample(p);
+
+            for (Place place : places) {
+                System.out.println(place.getName());
             }
 
         } catch (Exception e) {
