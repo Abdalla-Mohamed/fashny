@@ -6,6 +6,7 @@
 package com.iti.fashny.daos;
 
 import com.iti.fashny.entities.Admin;
+import com.iti.fashny.entities.Place;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -40,5 +41,7 @@ public class AdminFacade extends AbstractFacade<Admin> {
         
         return valid;
     }
+    
+             
     
 }

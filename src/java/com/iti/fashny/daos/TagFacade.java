@@ -6,6 +6,8 @@
 package com.iti.fashny.daos;
 
 import com.iti.fashny.entities.Tag;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,12 +16,25 @@ import javax.persistence.PersistenceContext;
  *
  * @author Hosam
  */
-
 public class TagFacade extends AbstractFacade<Tag> {
 
-
-     TagFacade(EntityManager em) {
-        super(Tag.class,em);
+    TagFacade(EntityManager em) {
+        super(Tag.class, em);
     }
-    
+
+    public List<Tag> getUnconcirmTags() {
+        List<Tag> unconfirmTags = new ArrayList<>();
+        try {
+
+            unconfirmTags = getEntityManager().createNamedQuery("Tag.findByVaidated").setParameter("validated", false).getResultList();
+
+//            for (Place placerslt : unconfirmPlaces) {
+//                System.out.println(placerslt.getName());
+//            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return unconfirmTags;
+    }
+
 }

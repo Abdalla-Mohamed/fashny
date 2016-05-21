@@ -14,6 +14,8 @@ import com.iti.fashny.entities.Admin;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.entities.Trip;
+import com.iti.fashny.managedbeans.AdminConfirmationPanel;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,8 +29,23 @@ public class Example {
 
     public static void main(String[] args) {
 //        exampleForReading();
-        tst();
+        //tst();
 //        exampleForWriting();
+        AdminConfirmationPanel acp = new AdminConfirmationPanel();
+        System.out.println("places_________________");
+        for (Place p : acp.showUnconfirmPlaces()) {
+            System.out.println("p name" + p.getName());
+        }
+        System.out.println("trips_________________");
+        for ( Trip t : acp.showUnconfirmTrips()) {
+            System.out.println("t name" + t.getName());
+        }
+        System.out.println("tags_________________");
+        for (Tag tg : acp.showUnconfirmTags()) {
+            System.out.println("tg name" + tg.getName());
+        }
+        
+        
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -66,7 +83,7 @@ public class Example {
 
         // create DaoFactory to get daos and deal with connection
         DaoFactory daoFactory = new DaoFactory();
-       
+
         List<Tag> tagResults = new ArrayList<>();
 
         try {
@@ -90,17 +107,17 @@ public class Example {
         }
 
     }
+
     static public void tst() {
         Tag tag = new Tag(2);
-        Place  p = new Place();
+        Place p = new Place();
         p.setName("sd");
         p.setTagList(new ArrayList<>());
         p.getTagList().add(tag);
-        
 
         // create DaoFactory to get daos and deal with connection
         DaoFactory daoFactory = new DaoFactory();
-       
+
         List<Place> places = new ArrayList<>();
 
         try {
