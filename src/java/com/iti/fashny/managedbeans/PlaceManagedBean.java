@@ -20,21 +20,13 @@ import javax.faces.model.ListDataModel;
  *
  * @author Bakar M.M.R
  */
-@ManagedBean
+@ManagedBean(eager = true)
 @ApplicationScoped
+
 public class PlaceManagedBean {
 
     DataModel<Place> places;
-    Place place;
-
-    public Place getPlace() {
-        return place;
-    }
-
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-
+  
     public PlaceManagedBean() {
         try {
             PlaceBusiness placeBusiness = new PlaceBusiness();
@@ -53,7 +45,6 @@ public class PlaceManagedBean {
     }
 
     public void viewPlace(){
-       place = places.getRowData();
     }
     
     public void updatePlace(){}
