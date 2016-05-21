@@ -5,30 +5,49 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.entities.Place;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 /**
  *
  * @author Bakar M.M.R
  */
-@ManagedBean
+@ManagedBean(eager = true)
 @ApplicationScoped
+
 public class PlaceManagedBean {
 
-    List<Place> places;
-    
+    DataModel<Place> places;
+  
     public PlaceManagedBean() {
+        try {
+            PlaceBusiness placeBusiness = new PlaceBusiness();
+            places = new ListDataModel<>(placeBusiness.view());
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public List<Place> getPlaces() {
+    public DataModel<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Place> places) {
+    public void setPlaces(DataModel<Place> places) {
         this.places = places;
     }
+
+    public void viewPlace(){
+    }
+    
+    public void updatePlace(){}
+    public void deactivePlace(){}
 
 }

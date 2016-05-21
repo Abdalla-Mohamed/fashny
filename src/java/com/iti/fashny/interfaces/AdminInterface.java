@@ -5,7 +5,7 @@ package com.iti.fashny.interfaces;
  * and open the template in the editor.
  */
 
-import com.iti.fashny.exceptions.AlreadyExsist;
+import com.iti.fashny.exceptions.Fasa7nyException;
 import com.iti.fashny.entities.Admin;
 import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface AdminInterface {
 
-    public void addAdmin(Admin admin) throws AlreadyExsist;
+    public void addAdmin(Admin admin) throws Fasa7nyException;
 
     public void updateAdmin(Admin admin) throws Exception;
 
