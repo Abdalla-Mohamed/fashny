@@ -10,13 +10,13 @@ package com.iti.fashny.exceptions;
  *
  * @author Bakar M.M.R
  */
-public class AlreadyExsist extends Exception {
+public class Fasa7nyException extends Exception {
 
     /**
      * Creates a new instance of <code>AlreadyExsist</code> without detail
      * message.
      */
-    public AlreadyExsist() {
+    public Fasa7nyException() {
     }
 
     /**
@@ -25,7 +25,7 @@ public class AlreadyExsist extends Exception {
      *
      * @param msg the detail message.
      */
-    public AlreadyExsist(String msg) {
+    public Fasa7nyException(String msg) {
         super(msg);
     }
 }

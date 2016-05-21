@@ -5,10 +5,16 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.entities.Place;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 /**
  *
@@ -18,17 +24,39 @@ import java.util.List;
 @ApplicationScoped
 public class PlaceManagedBean {
 
-    List<Place> places;
-    
-    public PlaceManagedBean() {
+    DataModel<Place> places;
+    Place place;
+
+    public Place getPlace() {
+        return place;
     }
 
-    public List<Place> getPlaces() {
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+    public PlaceManagedBean() {
+        try {
+            PlaceBusiness placeBusiness = new PlaceBusiness();
+            places = new ListDataModel<>(placeBusiness.view());
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public DataModel<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Place> places) {
+    public void setPlaces(DataModel<Place> places) {
         this.places = places;
     }
+
+    public void viewPlace(){
+       place = places.getRowData();
+    }
+    
+    public void updatePlace(){}
+    public void deactivePlace(){}
 
 }
