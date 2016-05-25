@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../templates/templateAdmin.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="contPageName">
+        contPageName
+    </ui:define>
+
+    <ui:define name="contPageDescrp">
+        contPageDescrp
+    </ui:define>
+
+    <ui:define name="contPagePath">
+        contPagePath
+    </ui:define>
+
+    <ui:define name="content">
+           <h:form id="PlaceListForm">
+               <p:panel header="#{bundle.ListPlaceTitle}">
+                <p:dataTable id="datalist" value="#{placeView_1.items}" var="item"
+                             selectionMode="single" selection="#{placeView_1.selected}"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPlaceTitle_name}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPlaceTitle_address}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.address}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPlaceTitle_description}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.description}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPlaceTitle_workHours}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.workHours}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPlaceTitle_lang}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lang}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPlaceTitle_attd}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.attd}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPlaceTitle_validated}"/>
+                        </f:facet>
+                        <p:selectBooleanCheckbox value="#{item.validated}" disabled="true"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPlaceTitle_active}"/>
+                        </f:facet>
+                        <p:selectBooleanCheckbox value="#{item.active}" disabled="true"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{placeView_1.prepareCreate}" update=":PlaceCreateForm" oncomplete="PF('PlaceCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PlaceViewForm" oncomplete="PF('PlaceViewDialog').show()" disabled="#{empty placeView_1.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PlaceEditForm" oncomplete="PF('PlaceEditDialog').show()" disabled="#{empty placeView_1.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{placeView_1.destroy}" update=",datalist" disabled="#{empty placeView_1.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+            
+                <ui:include src="CreatePlace.xhtml"/>
+            <ui:include src="ViewPlace.xhtml"/>
+            <ui:include src="EditPlace.xhtml"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="rightHeader">
+        rightHeader
+    </ui:define>
+
+</ui:composition>
