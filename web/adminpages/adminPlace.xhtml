@@ -32,6 +32,10 @@
                     <h:outputText value="#{place.id}"/>
                 </p:column>
 
+                <p:column filterBy="#{place.id}" headerText="Id" footerText="contains" filterMatchMode="contains">
+                    <h:outputText value="#{place.id}"/>
+                </p:column>
+
                 <p:column filterBy="#{place.name}" headerText="Name" footerText="lte" filterMatchMode="lte">
                     <f:facet name="filter">
                         <p:spinner onchange="PF('placesTable').filter()" styleClass="year-spinner">
@@ -70,10 +74,29 @@
                         </p:selectOneButton>
                     </f:facet>
                     <h:outputText value="#{place.validated ? 'valid': 'invalid'}"/>
+                </p:column>    
+                <p:column style="width: fit-content;text-align: center">
+                    <p:commandButton icon="ui-icon-search" title="View"   oncomplete="PF('placeDialog').show();">
+                    </p:commandButton>
                 </p:column>
-                
             </p:dataTable>
+            <p:dialog header="Place Details" widgetVar="placeDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <h:form id="formId">
+                <p:outputPanel id="placeDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty placeView.selectedPlace}" columnClasses="label,value">
+                   
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{placeView.selectedPlace.id}" />
+
+                        
+                    </p:panelGrid>
+                </p:outputPanel>
+                    </h:form>
+            </p:dialog>
         </h:form>
+
+
     </ui:define>
 
     <ui:define name="rightHeader">
