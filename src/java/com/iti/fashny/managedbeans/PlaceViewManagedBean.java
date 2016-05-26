@@ -9,8 +9,7 @@ import com.iti.fashny.entities.Place;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import java.util.Locale;
-import javax.faces.model.DataModel;
+import java.util.List;
 
 /**
  *
@@ -23,15 +22,17 @@ public class PlaceViewManagedBean {
     @ManagedProperty(value = "#{placeManagedBean}")
     private PlaceManagedBean placeManagedBean;
 
-    DataModel<Place> filterPlaces;
+    private List<Place> filterPlaces;
 
-    public DataModel<Place> getFilterPlaces() {
+    public List<Place> getFilterPlaces() {
         return filterPlaces;
     }
 
-    public void setFilterPlaces(DataModel<Place> filterPlaces) {
+    public void setFilterPlaces(List<Place> filterPlaces) {
         this.filterPlaces = filterPlaces;
     }
+
+    
     public PlaceManagedBean getPlaceManagedBean() {
         return placeManagedBean;
     }
@@ -41,19 +42,6 @@ public class PlaceViewManagedBean {
     }
     
     public PlaceViewManagedBean() {
-    }
-    
-    public boolean filterBy(Object value, Object filter, Locale locale) {
-        String filterText = (filter == null) ? null : filter.toString().trim();
-        if(filterText == null||filterText.equals("")) {
-            return true;
-        }
-         
-        if(value == null) {
-            return false;
-        }
-         
-        return ((Comparable) value).compareTo(Integer.valueOf(filterText)) > 0;
     }
     
 }

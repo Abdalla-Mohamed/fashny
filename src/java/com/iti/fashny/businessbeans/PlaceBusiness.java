@@ -30,12 +30,15 @@ public class PlaceBusiness implements Commens<Place>{
 
     @Override
     public void update(Place t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DaoFactory daoFactory = new DaoFactory();
+        PlaceFacade placeFacade=daoFactory.getPlaceDoa();
+        daoFactory.beginTransaction();
+        placeFacade.edit(t);
+        daoFactory.commitTransaction();
     }
 
     @Override
     public List<Place> view() throws Exception {
-        
         DaoFactory daoFactory = new DaoFactory();
         List<Place> placeResults = new ArrayList<>();
         try {
