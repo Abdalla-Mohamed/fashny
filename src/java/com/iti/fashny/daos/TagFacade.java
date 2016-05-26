@@ -26,7 +26,7 @@ public class TagFacade extends AbstractFacade<Tag> {
         List<Tag> unconfirmTags = new ArrayList<>();
         try {
 
-            unconfirmTags = getEntityManager().createNamedQuery("Tag.findByVaidated").setParameter("validated", false).getResultList();
+            unconfirmTags = getEntityManager().createNamedQuery("Tag.findByVaidated").setParameter("vaidated", false).getResultList();
 
 //            for (Place placerslt : unconfirmPlaces) {
 //                System.out.println(placerslt.getName());

@@ -14,7 +14,6 @@ import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
-import com.iti.fashny.exceptions.AlreadyExsist;
 import com.iti.fashny.interfaces.AdminInterface;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.List;
 public class AdminManager implements AdminInterface {
 
     @Override
-    public void addAdmin(Admin admin) throws AlreadyExsist {
+    public void addAdmin(Admin admin) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
