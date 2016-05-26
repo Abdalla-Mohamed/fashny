@@ -6,6 +6,7 @@
 package com.iti.fashny.entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -117,6 +118,10 @@ public class Company implements Serializable {
         this.lastSeen = lastSeen;
         this.email = email;
         this.mobile1 = mobile1;
+    }
+
+    public Company(Object object, String comp1, String pass, String web, String add, String desc, int i, Timestamp timestamp, String work, String mail, String con, String mob, String mob2, String phone, int i0, String pic) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getId() {
