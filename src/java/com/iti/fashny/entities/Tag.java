@@ -54,6 +54,9 @@ public class Tag implements Serializable {
     private List<Partener> partenerList;
     @ManyToMany(mappedBy = "tagList")
     private List<Trip> tripList;
+      @ManyToMany(mappedBy = "tagList")
+    private List<Company> companyList;
+
 
     public Tag() {
     }
@@ -127,6 +130,15 @@ public class Tag implements Serializable {
     public void setTripList(List<Trip> tripList) {
         this.tripList = tripList;
     }
+
+    public List<Company> getCompanyList() {
+        return companyList;
+    }
+
+    public void setCompanyList(List<Company> companyList) {
+        this.companyList = companyList;
+    }
+    
 
     @Override
     public int hashCode() {

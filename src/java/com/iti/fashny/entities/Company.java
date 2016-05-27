@@ -16,7 +16,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -100,6 +102,11 @@ public class Company implements Serializable {
     @JoinColumn(name = "profile_Pic", referencedColumnName = "id")
     @ManyToOne
     private Resouce profilePic;
+    @JoinTable(name = "company_has_tag", joinColumns = {
+        @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "tag_id", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Tag> tagList;
 
     public Company() {
     }
@@ -280,5 +287,14 @@ public class Company implements Serializable {
     public String toString() {
         return "entities.Company[ id=" + id + " ]";
     }
-    
+
+    @XmlTransient
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
+    }
+
 }
