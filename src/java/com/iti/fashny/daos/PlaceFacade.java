@@ -42,4 +42,21 @@ public class PlaceFacade extends AbstractFacade<Place> {
 
     }
     
+    public List<Place> getUnconcirmPlaces()
+    {
+        List<Place> unconfirmPlaces = new ArrayList<>();
+        try {
+            
+            unconfirmPlaces = getEntityManager().createNamedQuery("Place.findByValidated").setParameter("validated", false).getResultList();
+
+//            for (Place placerslt : unconfirmPlaces) {
+//                System.out.println(placerslt.getName());
+//            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return unconfirmPlaces;
+    }
+
 }

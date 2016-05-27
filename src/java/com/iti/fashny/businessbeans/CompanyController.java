@@ -21,8 +21,10 @@ public class CompanyController implements Commens<Company>{
 
     @Override
     public Company login(String email, String password) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+}
+    
     @Override
     public void add(Company company) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
@@ -66,8 +68,9 @@ public class CompanyController implements Commens<Company>{
 
     @Override
     public List<Company> searchByExample(Company company) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+}
 
     @Override
     public Company showSpecificInfo(int id) {

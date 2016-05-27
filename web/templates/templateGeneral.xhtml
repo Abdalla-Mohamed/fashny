@@ -3,9 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      >
 
     <h:head>
+
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>AdminLTE 2 | Dashboard</title>
@@ -23,21 +25,10 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <h:outputStylesheet name="dist/css/skins/_all-skins.min.css" />
-        <!-- iCheck -->
-        <!--<h:outputStylesheet name="plugins/iCheck/flat/blue.css" />-->
-        <!-- Morris chart -->
-        <!--<h:outputStylesheet name="plugins/morris/morris.css" />-->
-        <!-- jvectormap -->
-        <!--<h:outputStylesheet name="plugins/jvectormap/jquery-jvectormap-1.2.2.css" />-->
-        <!-- Date Picker -->
-        <!--<h:outputStylesheet name="plugins/datepicker/datepicker3.css" />-->
-        <!-- Daterange picker -->
-        <!--<h:outputStylesheet name="plugins/daterangepicker/daterangepicker-bs3.css" />-->
-        <!-- bootstrap wysihtml5 - text editor -->
-        <!--<h:outputStylesheet name="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" />-->
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+
+
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -53,9 +44,9 @@
                 <!-- Logo -->
                 <h:outputLink  value="index2.html" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><b>A</b>LT</span>
+                    <span class="logo-mini"><b>F</b>sh</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Admin</b>LTE</span>
+                    <span class="logo-lg"><b>Fashny</b>FSH</span>
                 </h:outputLink>
 
                 <!-- Header Navbar: style can be found in header.less -->
@@ -70,18 +61,18 @@
                     <div class="navbar-custom-menu ">
                         <ul class="nav navbar-nav">
                             <ui:insert name="headerComp">
-<!--                                <ul class="nav navbar-nav">
-                                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                                    <li><a href="#">login</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">sign up <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">new client</a></li>
-                                            <li><a href="#">new company</a></li>
-                                            <li><a href="#">new partner</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>-->
+                                <!--                                <ul class="nav navbar-nav">
+                                                                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                                                                    <li><a href="#">login</a></li>
+                                                                    <li class="dropdown">
+                                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">sign up <span class="caret"></span></a>
+                                                                        <ul class="dropdown-menu" role="menu">
+                                                                            <li><a href="#">new client</a></li>
+                                                                            <li><a href="#">new company</a></li>
+                                                                            <li><a href="#">new partner</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>-->
                             </ui:insert>
                             <li>
                                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -124,6 +115,8 @@
                         <ui:insert name="contPageName">Page name</ui:insert>
                         <small><ui:insert name="contPageDescrp">Page description </ui:insert></small>
                     </h1>
+                                    <p:messages class="col-lg-12" autoUpdate="true" id="growl" />
+
                     <ol class="breadcrumb">
                         <ui:insert name="contPagePath">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -132,6 +125,7 @@
                     </ol>
                     <section class="content">
                         <div class="col-lg-12" >
+                            <!--<p:growl autoUpdate="true" redisplay="true"  life="3000" />-->
                             <ui:insert class="col-lg-5" name="content">
                                 <div class="col-lg-7">Page content</div>
                                 <div class="col-lg-2"><p:commandButton styleClass=" btn btn-block btn-success btn-xs " /></div>
@@ -199,15 +193,15 @@
         </script>
         <!-- Bootstrap 3.3.5 -->
         <h:outputScript  name="bootstrap/js/bootstrap.min.js" />
-     
+
         <!-- daterangepicker -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-       
+
         <!-- AdminLTE App -->
         <h:outputScript  name="dist/js/app.min.js" />
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <h:outputScript  name="dist/js/pages/dashboard.js" />
-
+        <h:outputScript library="js" name="jsfcrud.js"/>
     </h:body>
 
 </html>

@@ -44,5 +44,25 @@ public class TripFacade extends AbstractFacade<Trip> {
         }
 
     }
+    
+      public List<Trip> getUnconcirmTrips() {
+        List<Trip> unconfirmTrips = new ArrayList<>();
+        try {
+
+            unconfirmTrips = getEntityManager().createNamedQuery("Trip.findByValidated").setParameter("validated", false).getResultList();
+
+//            for (Place placerslt : unconfirmPlaces) {
+//                System.out.println(placerslt.getName());
+//            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return unconfirmTrips;
+
+
+
+
+    }
+    
 
 }
