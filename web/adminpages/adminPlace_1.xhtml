@@ -28,6 +28,8 @@
                              rowKey="#{item.id}"
                              rows="10"
                              rowsPerPageTemplate="10,20,30,40,50"
+                             filteredValue="#{placeView_1.filteredItems}"
+                             widgetVar="placesTable"
                              >
 
                     <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
@@ -69,22 +71,21 @@
                         </f:facet>
                         <h:outputText value="#{item.lang}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListPlaceTitle_attd}"/>
-                        </f:facet>
+                    <p:column headerText="#{bundle.ListPlaceTitle_attd}">
                         <h:outputText value="#{item.attd}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListPlaceTitle_validated}"/>
+                    <p:column filterBy="#{item.validated}" headerText="#{bundle.ListPlaceTitle_validated}" footerText="equals" filterMatchMode="equals">
+                        <f:facet name="filter">
+                            <p:selectOneListbox onchange="PF('placesTable').filter()" >
+                                <f:converter converterId="javax.faces.Boolean"/>
+                                <f:selectItem itemLabel="All" itemValue=""/>
+                                <f:selectItem itemLabel="valid" itemValue="true"/>
+                                <f:selectItem itemLabel="invalid" itemValue="false"/>
+                            </p:selectOneListbox>
                         </f:facet>
-                        <p:selectBooleanCheckbox value="#{item.validated}" disabled="true"/>
+                        <h:outputText value="#{item.validated ? 'valid': 'invalid'}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListPlaceTitle_active}"/>
-                        </f:facet>
+                    <p:column headerText="#{bundle.ListPlaceTitle_active}">
                         <p:selectBooleanCheckbox value="#{item.active}" disabled="true"/>
                     </p:column>
                     <f:facet name="footer">
@@ -96,7 +97,7 @@
                 </p:dataTable>
             </p:panel>
         </h:form>
-        
+
         <ui:include src="CreatePlace.xhtml"/>
         <ui:include src="ViewPlace.xhtml"/>
         <ui:include src="EditPlace.xhtml"/>

@@ -20,7 +20,7 @@ import javax.faces.model.ListDataModel;
  *
  * @author Bakar M.M.R
  */
-@ManagedBean(eager = true)
+@ManagedBean
 @ApplicationScoped
 
 public class PlaceManagedBean {

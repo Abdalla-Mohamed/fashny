@@ -29,6 +29,15 @@ public class PlaceViewManagedBean_1 {
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
+    private List<Place> filteredItems;
+
+    public List<Place> getFilteredItems() {
+        return filteredItems;
+    }
+
+    public void setFilteredItems(List<Place> filteredItems) {
+        this.filteredItems = filteredItems;
+    }
 
     public PlaceViewManagedBean_1() {
         placeBusiness = new PlaceBusiness();
