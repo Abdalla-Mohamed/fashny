@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.daos;
 
+import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import java.util.ArrayList;
@@ -30,31 +31,29 @@ public class PlaceFacade extends AbstractFacade<Place> {
         super(Place.class, em);
     }
 
-//
-//public List<Place> findByExample(Place exampleObj) throws Exception{       
-//    Session session = (Session) getEntityManager().getDelegate();
-//    Example example = Example.create(exampleObj);
-//    
-//    Criteria c = session.createCriteria(exampleObj.getClass()).add(example);
-//    addAssociationExample(c,exampleObj);
-//    return c.list();
-//}
-    @Override
+@Override
     protected void addAssociationExample(Criteria c, Place mainExample) {
 
         List<Tag> tags = mainExample.getTagList();
         
         if (tags != null) {
-        List<Integer> wrappedParameter;
-        wrappedParameter = new ArrayList<>();
-            c.createAlias("tagList", "tag");
-            for (Tag tag : mainExample.getTagList()) {
-                wrappedParameter.add(tag.getId());
-            }
-            c.add(Restrictions.in("tag.id", wrappedParameter));
-
+                addTagConditionOnExample(c, tags, "tagList");
         }
 
+    }
+    
+    public List<Place> getUnconcirmPlaces()
+    {
+        List<Place> unconfirmPlaces = new ArrayList<>();
+        try {
+            
+            unconfirmPlaces = getEntityManager().createNamedQuery("Place.findByValidated").setParameter("validated", false).getResultList();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return unconfirmPlaces;
     }
 
 }

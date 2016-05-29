@@ -6,6 +6,7 @@
 package com.iti.fashny.entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -16,7 +17,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -100,6 +103,11 @@ public class Company implements Serializable {
     @JoinColumn(name = "profile_Pic", referencedColumnName = "id")
     @ManyToOne
     private Resouce profilePic;
+    @JoinTable(name = "company_has_tag", joinColumns = {
+        @JoinColumn(name = "company_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "tag_id", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Tag> tagList;
 
     public Company() {
     }
@@ -118,6 +126,29 @@ public class Company implements Serializable {
         this.email = email;
         this.mobile1 = mobile1;
     }
+
+    public Company(Integer id, String name, String password, String website, String address, String description, boolean validated, Date lastSeen, String workHoures, String email, String contactEmail, String mobile1, String mobile2, String phone, Boolean active, List<Trip> tripList, Resouce profilePic, List<Tag> tagList) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.website = website;
+        this.address = address;
+        this.description = description;
+        this.validated = validated;
+        this.lastSeen = lastSeen;
+        this.workHoures = workHoures;
+        this.email = email;
+        this.contactEmail = contactEmail;
+        this.mobile1 = mobile1;
+        this.mobile2 = mobile2;
+        this.phone = phone;
+        this.active = active;
+        this.tripList = tripList;
+        this.profilePic = profilePic;
+        this.tagList = tagList;
+    }
+
+ 
 
     public Integer getId() {
         return id;
@@ -280,5 +311,14 @@ public class Company implements Serializable {
     public String toString() {
         return "entities.Company[ id=" + id + " ]";
     }
-    
+
+    @XmlTransient
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
+    }
+
 }
