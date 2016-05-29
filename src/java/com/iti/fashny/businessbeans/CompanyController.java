@@ -9,6 +9,7 @@ import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.interfaces.Commens;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import static javassist.bytecode.InnerClassesAttribute.tag;
@@ -17,7 +18,7 @@ import static javassist.bytecode.InnerClassesAttribute.tag;
  *
  * @author Abdalla
  */
-public class CompanyController implements Commens<Company>{
+public class CompanyController implements Commens<Company>,Serializable{
 
     @Override
     public Company login(String email, String password) throws Exception {
