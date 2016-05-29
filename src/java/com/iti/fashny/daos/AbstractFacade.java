@@ -41,7 +41,7 @@ public abstract class AbstractFacade<T> {
     }
 
     public void create(T entity) {
-        getEntityManager().persist(entity);
+        getEntityManager().merge(entity);
 //        getEntityManager().close();
 //        getEntityManager().getTransaction().commit();
     }

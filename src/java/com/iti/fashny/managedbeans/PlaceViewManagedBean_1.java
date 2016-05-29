@@ -27,7 +27,7 @@ import javax.faces.convert.FacesConverter;
 @ViewScoped
 public class PlaceViewManagedBean_1 {
 
-    PlaceBusiness  placeBusiness;
+    PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
 
@@ -68,7 +68,9 @@ public class PlaceViewManagedBean_1 {
 
     public Place prepareCreate() {
         selected = new Place();
-        initializeEmbeddableKey();
+        selected.setName("mosheraaa");
+//        initializeEmbeddableKey();
+        System.out.println("-----pppp-----");
         return selected;
     }
 
@@ -79,22 +81,59 @@ public class PlaceViewManagedBean_1 {
     }
 
     public void create() {
+        //selected = new Place(88, "zoo", "giza","first street" , 12.2, 22.2, Boolean.FALSE);
 
-    }
-
-    public void update() {
-        if (selected != null) {
+        if (getSelected() != null) {
             try {
-                setEmbeddableKeys();
-                placeBusiness.update(selected);
-                System.out.println("updated"+selected.getName());
+                System.out.println("&&& --->> "+ selected.getName());
+                 placeBusiness.add(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        else
+        {System.out.println(" --- xxxxx ----");}
     }
 
+    public void update() {        
+        if (selected != null) {
+            try {
+                setEmbeddableKeys();
+                placeBusiness.update(selected);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        else
+        {System.out.println(" --- yyyyy ----");}
+    }
+    public void update(Place sel) { 
+        selected = sel;
+        if (selected != null) {
+            try {
+                setEmbeddableKeys();
+                placeBusiness.update(selected);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        else
+        {System.out.println(" --- yyyyy ----");}
+    }
     public void destroy() {
+        if (selected != null) {
+            try {
+                setEmbeddableKeys();
+                selected.setActive(Boolean.FALSE);
+                System.out.println("  @@ -->> destrooooy");
+                placeBusiness.update(selected);
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+ public void destroy(Place p) {
+     selected=p;
         if (selected != null) {
             try {
                 setEmbeddableKeys();

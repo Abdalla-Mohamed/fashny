@@ -49,9 +49,6 @@ public class PlaceFacade extends AbstractFacade<Place> {
             
             unconfirmPlaces = getEntityManager().createNamedQuery("Place.findByValidated").setParameter("validated", false).getResultList();
 
-//            for (Place placerslt : unconfirmPlaces) {
-//                System.out.println(placerslt.getName());
-//            }
 
         } catch (Exception e) {
             e.printStackTrace();
