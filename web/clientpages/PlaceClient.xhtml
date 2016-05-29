@@ -32,10 +32,8 @@
 
                                 <h:outputText value="#{place.name}" />
 
-                                <p:commandLink update=":form:placeDetail" oncomplete="PF('placeDialog').show()" title="View Detail">
-                                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
-                                    <f:setPropertyActionListener value="#{place}" target="#{placeView_1.selected}" />
-                                </p:commandLink>
+                                <h:link styleClass="ui-icon ui-icon-search" style="border: #000" outcome="Client_Places" />
+
                             </h:panelGrid>
                         </p:panel>
 
