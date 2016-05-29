@@ -21,7 +21,7 @@
     </ui:define>
 
     <ui:define name="content"> 
-        <h:form id="PlaceListForm">
+        <h:form id="PlaceListForm" prependId="true" >
             <p:panel header="#{bundle.ListPlaceTitle}">
                 <p:dataTable id="datalist" value="#{placeView_1.items}" var="item"
                              selectionMode="single" selection="#{placeView_1.selected}"
@@ -98,9 +98,64 @@
             </p:panel>
         </h:form>
 
-        <ui:include src="CreatePlace.xhtml"/>
+           <p:dialog id="PlaceCreateDlg" widgetVar="PlaceCreateDialog" modal="true" resizable="false"  header="#{bundle.CreatePlaceTitle}">
+        <h:form id="PlaceCreateForm">
+            <h:panelGroup id="display">
+                <p:panelGrid columns="2" rendered="#{placeView_1.selected != null}">
+                 
+                    <p:outputLabel value="#{bundle.CreatePlaceLabel_name}" for="name" />
+                    <p:inputText id="name" value="#{placeView_1.selected.name}" title="#{bundle.CreatePlaceTitle_name}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_name}"/>
+                    
+                    <p:outputLabel value="#{bundle.CreatePlaceLabel_address}" for="address" />
+                    <p:inputText id="address" value="#{placeView_1.selected.address}" title="#{bundle.CreatePlaceTitle_address}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_address}"/>
+                    
+                    <p:outputLabel value="#{bundle.CreatePlaceLabel_description}" for="description" />
+                    <p:inputTextarea rows="4" cols="30" id="description" value="#{placeView_1.selected.description}" title="#{bundle.CreatePlaceTitle_description}" />
+                    
+                    <p:outputLabel value="#{bundle.CreatePlaceLabel_workHours}" for="workHours" />
+                    <p:inputText id="workHours" value="#{placeView_1.selected.workHours}" title="#{bundle.CreatePlaceTitle_workHours}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_workHours}"/>
+                    <p:outputLabel value="#{bundle.CreatePlaceLabel_lang}" for="lang" />
+                    <p:inputText id="lang" value="#{placeView_1.selected.lang}" title="#{bundle.CreatePlaceTitle_lang}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_lang}"/>
+                    <p:outputLabel value="#{bundle.CreatePlaceLabel_attd}" for="attd" />
+                    <p:inputText id="attd" value="#{placeView_1.selected.attd}" title="#{bundle.CreatePlaceTitle_attd}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_attd}"/>
+                    <p:outputLabel value="#{bundle.CreatePlaceLabel_validated}" for="validated" />
+                    <p:selectBooleanCheckbox id="validated" value="#{placeView_1.selected.validated}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/>
+                    <p:outputLabel value="#{bundle.CreatePlaceLabel_active}" for="active" />
+                    <p:selectBooleanCheckbox id="active" value="#{placeView_1.selected.active}" />
+                </p:panelGrid>
+                <p:commandButton actionListener="#{placeView_1.create}" value="#{bundle.Save}" update="display,:PlaceListForm:datalist," oncomplete="handleSubmit(args,'PlaceCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" onclick="PF('PlaceCreateDialog').hide()"/>
+            </h:panelGroup>
+        </h:form>
+    </p:dialog>
         <ui:include src="ViewPlace.xhtml"/>
-        <ui:include src="EditPlace.xhtml"/>
+          <p:dialog id="PlaceEditDlg" widgetVar="PlaceEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPlaceTitle}">
+            <h:form id="PlaceEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{placeView_1.selected != null}">
+                       
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{placeView_1.selected.name}" title="#{bundle.EditPlaceTitle_name}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{placeView_1.selected.address}" title="#{bundle.EditPlaceTitle_address}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_address}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{placeView_1.selected.description}" title="#{bundle.EditPlaceTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_workHours}" for="workHours" />
+                        <p:inputText id="workHours" value="#{placeView_1.selected.workHours}" title="#{bundle.EditPlaceTitle_workHours}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_workHours}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_lang}" for="lang" />
+                        <p:inputText id="lang" value="#{placeView_1.selected.lang}" title="#{bundle.EditPlaceTitle_lang}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_lang}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_attd}" for="attd" />
+                        <p:inputText id="attd" value="#{placeView_1.selected.attd}" title="#{bundle.EditPlaceTitle_attd}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_attd}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_validated}" for="validated" />
+                        <p:selectBooleanCheckbox id="validated" value="#{placeView_1.selected.validated}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{placeView_1.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{placeView_1.update}" value="#{bundle.Save}" update="display,:PlaceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PlaceEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('PlaceEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
 
     </ui:define>
 

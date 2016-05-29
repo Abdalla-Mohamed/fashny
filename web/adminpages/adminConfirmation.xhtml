@@ -7,11 +7,11 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="contPageName">
-        contPageName
+        Confirmation 
     </ui:define>
 
     <ui:define name="contPageDescrp">
-        contPageDescrp
+        
     </ui:define>
 
     <ui:define name="contPagePath">
@@ -19,7 +19,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="form">
+        <h:form id="confirmform">
             <!--<p:growl id="msgs" showDetail="true" />-->
 
 
@@ -49,8 +49,8 @@
                                 <h:outputText value="#{place.workHours}" />
                             </p:column>
                             <p:column style="width:150px;text-align: center">
-                                <p:commandButton  action="#{confirmBean.confirmPlace()}"  value="Confirm">
-                                    <f:setPropertyActionListener value="#{place}" target="#{confirmBean.placeToConfirm}" />
+                                <p:commandButton action="#{confirmBean.confirmPlace()}"  value="Confirm" update=":confirmform">
+                                     
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
@@ -97,7 +97,8 @@
                         </p:column>
 
                         <p:column style="width:150px;text-align: center">
-                            <p:commandButton  oncomplete="PF('carDialog').show()" value="Confirm"/>
+                            <p:commandButton  action="#{confirmBean.confirmTrip()}"  value="Confirm" update=":confirmform" />
+                            <!--                            <p:commandButton  oncomplete="PF('carDialog').show()" value="Confirm"/>-->
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -117,35 +118,23 @@
                             </p:column>
 
                             <p:column style="width:150px;text-align: center">
-                                <p:commandButton  oncomplete="PF('carDialog').show()" value="Confirm"/>
+                                <!--<p:commandButton  oncomplete="PF('carDialog').show()" value="Confirm"/>-->
+                                <p:commandButton  action="#{confirmBean.confirmTag()}"  value="Confirm" update=":confirmform" />
+
                             </p:column>
-                        </p:dataTable>
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Test">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable id="placeDTttt" var="place" value="#{confirmBean.placesList}" selection="#{confirmBean.selectedPlaces}" rowKey="#{place.id}" style="margin-bottom:0">
-<!--                            <p:ajax event="rowSelectCheckbox" listener="#{confirmBean.check}"   />-->
-                            <f:facet name="header">
-                                Checkbox
-                            </f:facet>
-                            <p:column selectionMode="multiple" style="width:30px;text-align:center"/>
-                            
-                            <p:column headerText="Id">
-                                <h:outputText value="#{place.id}" />
-                            </p:column>
-                            <p:column headerText="Name">
-                                <h:outputText value="#{place.name}" />
-                            </p:column>
-                            
-                            <f:facet name="footer">
-                                <p:commandButton process="placeDTttt"  icon="ui-icon-search" value="View" oncomplete="#{confirmBean.confirmPlace()}" />
-                            </f:facet>
                         </p:dataTable>
                     </h:panelGrid>
                 </p:tab>
             </p:tabView>
-        </h:form>  
+<!--            <p:dialog id="Dialog" header="Selected Cars" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="200">
+                <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                    
+                        <h:outputText value="Done" style="display:block"/>
+                   
+                </p:outputPanel>
+            </p:dialog>-->
+        </h:form>
+
     </ui:define>
 
     <ui:define name="rightHeader">
