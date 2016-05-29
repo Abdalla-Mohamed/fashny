@@ -9,9 +9,7 @@
         <h:form id="PlaceCreateForm">
             <h:panelGroup id="display">
                 <p:panelGrid columns="2" rendered="#{placeView_1.selected != null}">
-                    <p:outputLabel value="#{bundle.CreatePlaceLabel_id}" for="id" />
-                    <p:inputText id="id" value="#{placeView_1.selected.id}" title="#{bundle.CreatePlaceTitle_id}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_id}"/>
-                    
+                 
                     <p:outputLabel value="#{bundle.CreatePlaceLabel_name}" for="name" />
                     <p:inputText id="name" value="#{placeView_1.selected.name}" title="#{bundle.CreatePlaceTitle_name}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_name}"/>
                     
@@ -32,8 +30,8 @@
                     <p:outputLabel value="#{bundle.CreatePlaceLabel_active}" for="active" />
                     <p:selectBooleanCheckbox id="active" value="#{placeView_1.selected.active}" />
                 </p:panelGrid>
-                <p:commandButton actionListener="#{placeView_1.create}" value="#{bundle.Save}" update="display,:PlaceListForm:datalist," />
-                <p:commandButton value="#{bundle.Cancel}" onclick="PlaceCreateDialog.hide()"/>
+                <p:commandButton actionListener="#{placeView_1.create}" value="#{bundle.Save}" update="display,:PlaceListForm:datalist," oncomplete="handleSubmit(args,'PlaceCreateDialog');"/>
+                <p:commandButton value="#{bundle.Cancel}" onclick="PF('PlaceCreateDialog').hide()"/>
             </h:panelGroup>
         </h:form>
     </p:dialog>

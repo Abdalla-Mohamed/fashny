@@ -68,6 +68,7 @@ public class PlaceBusiness implements Commens<Place> {
 
     @Override
     public List<Place> view() throws Exception {
+        
         DaoFactory daoFactory = new DaoFactory();
         List<Place> placeResults = new ArrayList<>();
         try {

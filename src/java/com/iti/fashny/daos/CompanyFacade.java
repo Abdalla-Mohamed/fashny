@@ -6,37 +6,49 @@
 package com.iti.fashny.daos;
 
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Tag;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.hibernate.Criteria;
 
 /**
  *
  * @author Hosam
  */
-
 public class CompanyFacade extends AbstractFacade<Company> {
 
-   
-
-     CompanyFacade(EntityManager em) {
-        super(Company.class,em);
+    CompanyFacade(EntityManager em) {
+        super(Company.class, em);
     }
- 
-    
-     public boolean validMail(String mail){
-        
+
+    public boolean validMail(String mail) {
+
         boolean valid = false;
-        
+
         List resultList = getEntityManager().createNamedQuery("Company.findByEmail").setParameter("email", mail).getResultList();
-        
-        
-        if(resultList.size()>1)
-            valid=true;
-        
+
+        if (resultList.size() > 1) {
+            valid = true;
+        }
+
         return valid;
     }
+
     
     
+    
+@Override
+    protected void addAssociationExample(Criteria c,  Company mainExample) {
+
+        List<Tag> tags = mainExample.getTagList();
+        
+        if (tags != null) {
+                addTagConditionOnExample(c, tags, "tagList");
+        }
+
+    }
+
 }

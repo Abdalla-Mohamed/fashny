@@ -5,11 +5,16 @@
  */
 package com.iti.fashny.daos;
 
+import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Tag;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -76,15 +81,48 @@ public abstract class AbstractFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
 
-    public List<T> findByExample(T exampleObj) throws Exception{       
-    Session session = (Session) getEntityManager().getDelegate();
-    Example example = Example.create(exampleObj);
-    
-    Criteria c = session.createCriteria(exampleObj.getClass()).add(example);
-    addAssociationExample(c,exampleObj);
-    return c.list();
-}
-    
-    protected void addAssociationExample(Criteria c,T mainExample){
+    //---------------------------------------------------------------------
+    public List<T> findByExample(T exampleObj) throws Exception {
+        Session session = (Session) getEntityManager().getDelegate();
+        Example example = Example.create(exampleObj);
+
+        Criteria c = session.createCriteria(exampleObj.getClass()).add(example);
+        addAssociationExample(c, exampleObj);
+        return c.list();
     }
+
+    
+
+    protected void addAssociationExample(Criteria c, T mainExample) {
+    }
+
+    protected void addTagConditionOnExample(Criteria c, List<Tag> tags, String listVariableNameInEntity) {
+
+        List<Integer> wrappedParameter;
+        wrappedParameter = new ArrayList<>();
+        c.createAlias(listVariableNameInEntity, "tag");
+        for (Tag tag : tags) {
+            wrappedParameter.add(tag.getId());
+        }
+        c.add(Restrictions.in("tag.id", wrappedParameter));
+    }
+
+    protected void addPlaceConditionOnExample(Criteria c, List<Place> places, String listVariableNameInEntity) {
+
+        List<Integer> wrappedParameter;
+        wrappedParameter = new ArrayList<>();
+        c.createAlias(listVariableNameInEntity, "place");
+        for (Place place : places) {
+            wrappedParameter.add(place.getId());
+        }
+        c.add(Restrictions.in("place.id", wrappedParameter));
+    }
+
+    protected void addCompanyConditionOnExample(Criteria c, Company company, String listVariableNameInEntity) {
+
+        c.createAlias(listVariableNameInEntity, "company");
+
+        c.add(Restrictions.eq("company.id", company.getId()));
+    }
+
 }
