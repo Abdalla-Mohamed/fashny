@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./../templates/clientTemplate.xhtml"  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                Selected Place
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:outputText value="Place Name : "/><br/>
+                <h:outputText value="#{placeView_1.selected.name}"/><br/>
+                <h:outputText value="Place Description : "/><br/>
+                <h:outputText value="Place Address : "/><br/>
+                <h:outputText value="Place Working Hours : "/><br/>
+                <h:outputText value="Comments : "/><br/> 
+                <h:inputTextarea value="You Can Add Your Comments Here......." cols="100" rows="10"/>
+                <h:form id="form">
+                    <p:dataGrid var="place" value="#{placeView_1.items}" columns="3" layout="grid"
+                                rows="12" paginator="true" id="places"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="6,12,16">
+
+                        <f:facet name="header">
+                            Places
+                        </f:facet>
+
+                        <p:panel header="#{place.name}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <p:graphicImage name="demo/images/car/#{place.name}.gif"/> 
+
+                                <h:outputText value="#{place.name}" />
+
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </p:dataGrid>
+                </h:form>
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

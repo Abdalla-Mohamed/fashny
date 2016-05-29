@@ -51,10 +51,14 @@
                                         <h:outputText value="Address:" />
                                         <h:outputText value="#{place.address}" style="font-weight: bold"/>
 
-                                        <h:outputText value="Descrption:" />
-                                        <h:outputText value="#{place.description}" style="font-weight: bold"/>
-                                    </h:panelGrid>
-                                </p:outputPanel>
+                        <p:panel header="#{place.name}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <p:graphicImage name="demo/images/car/#{place.name}.gif"/> 
+
+                                <h:outputText value="#{place.name}" />
+
+                                <h:link styleClass="ui-icon ui-icon-search" style="border: #000" outcome="Client_Places" />
+
                             </h:panelGrid>
                         </p:panel>
                         <!--end-->
