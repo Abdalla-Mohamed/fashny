@@ -31,7 +31,7 @@
                         <h:outputText value="#{bundle.ViewPlaceLabel_active}"/>
                         <p:selectBooleanCheckbox value="#{placeView_1.selected.active}" disabled="true"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PlaceViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PlaceViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

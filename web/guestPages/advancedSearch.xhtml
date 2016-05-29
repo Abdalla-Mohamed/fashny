@@ -4,45 +4,106 @@
                 template="./../templates/clientTemplate.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title"> Advanced search </ui:define>
     <ui:define name="content">
 
 
         <div class="ui-grid-row">
-            <div class=" col-xs-4  ">
+            <div class=" col-md-4 col-xs-12">
                 <div class="banner-bottom-grid1 banner-bottom-grid1-sub col-xs-12  ">
                     <h3 align="center" class="subTitle">search options</h3>
                     <p:accordionPanel multiple="true" styleClass="col-xs-12" >
                         <p:tab title="type">
                             <h:outputLabel styleClass="col-xs-12">search for: </h:outputLabel>
                             <p:selectOneMenu value="#{searchMB.selectType}" label="select" styleClass="col-xs-12" >
-                                <f:selectItem  itemLabel="place" itemValue="asd" />
-                                <f:selectItem itemLabel="trip" itemValue="asda" />
+                                <f:selectItem  itemLabel="place" itemValue="1" />
+                                <f:selectItem itemLabel="trip" itemValue="2" />
+                                <f:selectItem itemLabel="companies" itemValue="3" />
                             </p:selectOneMenu >
                         </p:tab>
                         <p:tab title="filters">
-                            <p:outputLabel for="keyName" value="by name:" styleClass="col-xs-12" />
-                            <p:inputText id="keyName" placeholder="enter title" styleClass="col-xs-12 "  />
-                            <p:outputLabel for="tag" value="Tags:" styleClass="col-xs-12" />
-                            <p:selectManyMenu id="tag" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="100" styleClass="col-xs-12">
-                                <f:selectItem itemLabel="Option 1" itemValue="1" />
-                                <f:selectItem itemLabel="Option 2" itemValue="2" />
-                                <f:selectItem itemLabel="Option 3" itemValue="3" />
-                                <f:selectItem itemLabel="Option 1" itemValue="1" />
-                                <f:selectItem itemLabel="Option 2" itemValue="2" />
-                                <f:selectItem itemLabel="Option 3" itemValue="3" />
-                                <f:selectItem itemLabel="Option 1" itemValue="1" />
-                                <f:selectItem itemLabel="Option 2" itemValue="2" />
-                                <f:selectItem itemLabel="Option 3" itemValue="3" />
-                            </p:selectManyMenu>
+                            <div class="row" >
+                                <p:outputLabel for="keyName" value="by name:" styleClass="col-xs-12" />
+                                <p:inputText id="keyName" placeholder="enter title" styleClass="col-xs-12 "  />
+                            </div>
+                            <p:separator/>
+                            <div class="row" >
+                                <h:form prependId="false">
+                                    <p:outputLabel for="tag" value="Tags:" styleClass="col-xs-12" />
+                                    <p:selectManyMenu id="tag" value="#{searchMB.selectedTags}" tabindex="indx"  converter="converterTag" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="100"  styleClass="col-xs-12">
+                                        <f:selectItems value="#{searchMB.tags}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />
+                                    </p:selectManyMenu>
+                                    <p:commandButton update="up" value="update" />
+                                    <p:selectOneMenu id="up" >
+                                        <f:selectItems value="#{searchMB.selectedTags}" var="st" itemValue="#{st}" itemLabel="#{st.name}"/> 
+                                    </p:selectOneMenu>
+
+                                </h:form>
+                            </div>
+                            <p:separator/>
+                            <div class="row" >
+                                <p:outputLabel value="states:" styleClass="col-xs-12" />
+                                <p:selectOneMenu id="state" filter="true" filterMatchMode="contains" styleClass="col-xs-12">
+                                    <f:selectItems value="#{searchMB.governorate}" var="gov" itemValue="#{gov}" itemLabel="#{gov}"/> 
+
+                                </p:selectOneMenu>
+                                <p:outputLabel value="cities:" styleClass="col-xs-12" />
+                                <p:selectOneMenu id="city" filter="true" filterMatchMode="contains" styleClass="col-xs-12">
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                </p:selectOneMenu>
+                            </div>
+                            <p:separator/>
+                            <div class="row" >
+                                <p:outputLabel for="places" value="places:" styleClass="col-xs-12" />
+                                <p:selectManyMenu id="places" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="100"  styleClass="col-xs-12">
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                </p:selectManyMenu>
+                            </div>
+                            <p:separator/>
+                            <div class="row" >
+                                <p:outputLabel for="companies" value="companies:" styleClass="col-xs-12" />
+                                <p:selectManyMenu id="companies" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="100"  styleClass="col-xs-12">
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                </p:selectManyMenu>
+                            </div>
+                            <p:separator/>
                         </p:tab>
                     </p:accordionPanel>
 
                 </div>
 
             </div>
-            <div class="well col-xs-8  ">1</div>
+            <div class="col-md-8 col-xs-12">
+                <div class="well col-xs-12">
+
+                </div>
+            </div>
 
         </div>
     </ui:define>

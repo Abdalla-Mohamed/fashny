@@ -5,6 +5,8 @@
  */
 package com.iti.fashny.daos;
 
+import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.hibernate.Criteria;
 
 /**
  *
@@ -23,7 +26,26 @@ public class TripFacade extends AbstractFacade<Trip> {
         super(Trip.class, em);
     }
 
-    public List<Trip> getUnconcirmTrips() {
+    @Override
+    protected void addAssociationExample(Criteria c, Trip mainExample) {
+
+        List<Tag> tags = mainExample.getTagList();
+        List<Place> places = mainExample.getPlaceList();
+        Company company =   mainExample.getCompanyId();
+
+        if (tags != null) {
+            addTagConditionOnExample(c, tags, "tagList");
+        }
+        if ( places != null) {
+            addPlaceConditionOnExample(c, places, "placeList");
+        }
+        if (company != null) {
+            this.addCompanyConditionOnExample(c, company, "companyId");
+        }
+
+    }
+    
+      public List<Trip> getUnconcirmTrips() {
         List<Trip> unconfirmTrips = new ArrayList<>();
         try {
 
@@ -36,6 +58,11 @@ public class TripFacade extends AbstractFacade<Trip> {
             e.printStackTrace();
         }
         return unconfirmTrips;
+
+
+
+
     }
+    
 
 }
