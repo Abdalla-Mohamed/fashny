@@ -64,13 +64,13 @@ public class Place implements Serializable {
     private String workHours;
     @Basic(optional = false)
     @Column(name = "lang")
-    private double lang;
+    private Double lang;
     @Basic(optional = false)
     @Column(name = "attd")
-    private double attd;
+    private Double attd;
     @Basic(optional = false)
     @Column(name = "validated")
-    private boolean validated;
+    private Boolean validated;
     @Column(name = "active")
     private Boolean active;
     @ManyToMany(mappedBy = "placeList")
@@ -94,7 +94,7 @@ public class Place implements Serializable {
         this.id = id;
     }
 
-    public Place(Integer id, String name, String address, String workHours, double lang, double attd, boolean validated) {
+    public Place(Integer id, String name, String address, String workHours, Double lang, Double attd, Boolean validated) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -144,27 +144,27 @@ public class Place implements Serializable {
         this.workHours = workHours;
     }
 
-    public double getLang() {
+    public Double getLang() {
         return lang;
     }
 
-    public void setLang(double lang) {
+    public void setLang(Double lang) {
         this.lang = lang;
     }
 
-    public double getAttd() {
+    public Double getAttd() {
         return attd;
     }
 
-    public void setAttd(double attd) {
+    public void setAttd(Double attd) {
         this.attd = attd;
     }
 
-    public boolean getValidated() {
+    public Boolean getValidated() {
         return validated;
     }
 
-    public void setValidated(boolean validated) {
+    public void setValidated(Boolean validated) {
         this.validated = validated;
     }
 
