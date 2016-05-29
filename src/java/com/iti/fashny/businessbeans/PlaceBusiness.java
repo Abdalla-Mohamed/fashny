@@ -5,8 +5,12 @@
  */
 package com.iti.fashny.businessbeans;
 
+import com.iti.fashny.daos.AdminFacade;
+import com.iti.fashny.daos.ClientFacade;
+import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PlaceFacade;
+import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
@@ -16,7 +20,7 @@ import java.util.List;
  *
  * @author Bakar M.M.R
  */
-public class PlaceBusiness implements Commens<Place>{
+public class PlaceBusiness implements Commens<Place> {
 
     @Override
     public Place login(String email, String password) throws Exception {
@@ -25,20 +29,46 @@ public class PlaceBusiness implements Commens<Place>{
 
     @Override
     public void add(Place t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DaoFactory daoFactory = new DaoFactory();
+        PlaceFacade placeFacade = daoFactory.getPlaceDoa();
+//        daoFactory.beginTransaction();
+//        daoFactory.commitTransaction();
+
+        try {
+
+            daoFactory.beginTransaction();
+            placeFacade.create(t);
+            daoFactory.commitTransaction();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
     }
 
     @Override
     public void update(Place t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
-        PlaceFacade placeFacade=daoFactory.getPlaceDoa();
-        daoFactory.beginTransaction();
-        placeFacade.edit(t);
-        daoFactory.commitTransaction();
+        PlaceFacade placeFacade = daoFactory.getPlaceDoa();
+//        daoFactory.beginTransaction();
+//        placeFacade.edit(t);
+//        daoFactory.commitTransaction();
+
+        try {
+
+            daoFactory.beginTransaction();
+            placeFacade.edit(t);
+            daoFactory.commitTransaction();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
     }
 
     @Override
     public List<Place> view() throws Exception {
+        
         DaoFactory daoFactory = new DaoFactory();
         List<Place> placeResults = new ArrayList<>();
         try {

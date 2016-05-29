@@ -8,26 +8,37 @@ package com.iti.fashny.managedbeans;
 import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.entities.Place;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+//import javax.faces.bean.RequestScoped;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+//import javax.faces.view.ViewScoped;
 
 /**
  *
  * @author Bakar M.M.R
  */
 @ManagedBean(name = "placeView_1")
-@RequestScoped
+@ViewScoped
 public class PlaceViewManagedBean_1 {
 
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
+    private List<Place> filteredItems;
+
+    public List<Place> getFilteredItems() {
+        return filteredItems;
+    }
+
+    public void setFilteredItems(List<Place> filteredItems) {
+        this.filteredItems = filteredItems;
+    }
 
     public PlaceViewManagedBean_1() {
         placeBusiness = new PlaceBusiness();
@@ -66,7 +77,7 @@ public class PlaceViewManagedBean_1 {
 
     public Place prepareCreate() {
         selected = new Place();
-        initializeEmbeddableKey();
+//        initializeEmbeddableKey();
         return selected;
     }
 
@@ -77,13 +88,19 @@ public class PlaceViewManagedBean_1 {
     }
 
     public void create() {
-
+        if (getSelected() != null) {
+            try {
+                placeBusiness.add(selected);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void update() {
         if (selected != null) {
             try {
-                setEmbeddableKeys();
+//                setEmbeddableKeys();
                 placeBusiness.update(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -94,7 +111,7 @@ public class PlaceViewManagedBean_1 {
     public void destroy() {
         if (selected != null) {
             try {
-                setEmbeddableKeys();
+//                setEmbeddableKeys();
                 selected.setActive(Boolean.FALSE);
                 placeBusiness.update(selected);
             } catch (Exception ex) {

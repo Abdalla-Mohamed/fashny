@@ -5,10 +5,29 @@
  */
 package com.iti.fashny.assets;
 
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import javax.faces.context.FacesContext;
+
 /**
  *
  * @author Abdalla
  */
 public class Tst {
-    
+
+    public Tst() {
+
+    }
+
+    public static void main(String[] args) {
+
+ 
+                
+                
+//        for (Governorates governorates : Governorates.values()) {
+//            System.out.println(governorates.getGovName());
+//        }
+    }
 }
