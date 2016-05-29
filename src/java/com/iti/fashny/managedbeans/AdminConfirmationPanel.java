@@ -36,6 +36,8 @@ public class AdminConfirmationPanel {
     DataModel<Trip> tripsList;
     DataModel<Tag> tagsList;
     Place placeToConfirm;
+    Trip tripToConfirm;
+    Tag tagToConfirm;
     private List<Place> selectedPlaces;
 
     public void setSelectedPlaces(List<Place> selectedPlaces) {
@@ -89,15 +91,39 @@ public class AdminConfirmationPanel {
     }
     public void confirmPlace()
     {
-//                System.out.println("________confirm____");
-
         placeToConfirm=placesList.getRowData();
-        System.out.println("***********  Name :" + placeToConfirm.getName());
-//        for (Place place : placesList) {
-//          System.out.println("#### --->  Name :" + place.getName());  
-////        }
+        adminInterface = new AdminManager();
+        try {
+            adminInterface.confirmPlace(placeToConfirm);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminConfirmationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("***********  place Name :" + placeToConfirm.getName());
     }
-
+    public void confirmTrip()
+    {   
+        tripToConfirm = tripsList.getRowData();
+        adminInterface = new AdminManager();
+        try {
+            adminInterface.confirmTrip(tripToConfirm);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminConfirmationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("***********  trip Name :" + tripToConfirm.getName());
+    }
+     
+     public void confirmTag()
+    {   
+        tagToConfirm = tagsList.getRowData();
+        adminInterface = new AdminManager();
+        try {
+            adminInterface.confirmTag(tagToConfirm);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminConfirmationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("***********  tag Name :" + tagToConfirm.getName());
+    }
+     
     public void setPlaceToConfirm(Place placeToConfirm) {
         this.placeToConfirm = placeToConfirm;
     }

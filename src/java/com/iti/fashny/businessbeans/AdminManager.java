@@ -15,14 +15,21 @@ import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.AdminInterface;
+import com.iti.fashny.managedbeans.PlaceViewManagedBean_1;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Amira Anis
  */
 public class AdminManager implements AdminInterface {
+
+    private PlaceBusiness placeBusiness;
+    private TripBusiness tripBusiness;
+    private TagBusiness tagBusiness;
 
     @Override
     public void addAdmin(Admin admin) {
@@ -46,7 +53,18 @@ public class AdminManager implements AdminInterface {
 
     @Override
     public void confirmPlace(Place place) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (place != null) {
+            try {
+
+                place.setValidated(Boolean.TRUE);
+                System.out.println(" $$ -->> valid");
+                placeBusiness = new PlaceBusiness();
+                placeBusiness.update(place);
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
@@ -56,12 +74,32 @@ public class AdminManager implements AdminInterface {
 
     @Override
     public void confirmTag(Tag tag) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (tag != null) {
+            try {
+
+                tag.setVaidated(Boolean.TRUE);
+                System.out.println(" $$ -->> tag valid");
+                tagBusiness = new TagBusiness();
+                tagBusiness.update(tag);
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
     public void confirmTrip(Trip trip) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (trip != null) {
+            try {
+
+                trip.setValidated(Boolean.TRUE);
+                System.out.println(" $$ -->> trib valid");
+                tripBusiness = new TripBusiness();
+                tripBusiness.update(trip);
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
@@ -75,10 +113,10 @@ public class AdminManager implements AdminInterface {
         List<Place> unconfirmPlaces = new ArrayList<>();
 
         try {
-            
+
             // get doas
             PlaceFacade palceFacade = daoFactory.getPlaceDoa();
-            unconfirmPlaces=palceFacade.getUnconcirmPlaces();
+            unconfirmPlaces = palceFacade.getUnconcirmPlaces();
 
             for (Place placerslt : unconfirmPlaces) {
                 System.out.println(placerslt.getName());
@@ -90,7 +128,7 @@ public class AdminManager implements AdminInterface {
             // close connection
             daoFactory.close();
         }
-        
+
         return unconfirmPlaces;
     }
 
@@ -100,7 +138,7 @@ public class AdminManager implements AdminInterface {
         List<Trip> unconfirmTrips = new ArrayList<>();
 
         try {
-            
+
             // get doas
             TripFacade tripFacade = daoFactory.getTripDoa();
             unconfirmTrips = tripFacade.getUnconcirmTrips();
@@ -115,7 +153,7 @@ public class AdminManager implements AdminInterface {
             // close connection
             daoFactory.close();
         }
-        
+
         return unconfirmTrips;
     }
 
@@ -124,7 +162,7 @@ public class AdminManager implements AdminInterface {
         DaoFactory daoFactory = new DaoFactory();
         List<Tag> unconfirmTags = new ArrayList<>();
         try {
-            
+
             TagFacade tagFacade = daoFactory.getTagDoa();
             unconfirmTags = tagFacade.getUnconcirmTags();
 //
