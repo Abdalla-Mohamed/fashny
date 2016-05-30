@@ -53,7 +53,7 @@ public class CustomeEmailValidator implements Validator
         }
 
        
-         if (!new AdditionalFns().isMailExist(o.toString())) 
+         if (new AdditionalFns().isMailExist(o.toString())) 
          {
         
          
