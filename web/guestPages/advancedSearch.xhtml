@@ -14,17 +14,14 @@
             <div class=" col-md-3 col-xs-12">
                 <div class="banner-bottom-grid1 banner-bottom-grid1-sub col-xs-12  ">
                     <h3 align="center" class="subTitle">search options</h3>
-                    <h:form id="advncSearchForm" >
-                        <p:commandButton  value="search" action="#{searchMB.search}"  update="resultForm" styleClass="btn btn-info col-xs-12" />
+                    <h:form id="advncSearchForm" prependId="false" >
+                        <h:outputLabel styleClass="col-xs-12">search for: </h:outputLabel>
+                        <p:selectOneMenu   value="#{searchMB.selectType}" styleClass="col-xs-12" >
+                            <f:selectItems  value="#{searchMB.selectTypes}" var="xx" itemLabel="#{xx.name()}" itemValue="#{xx}" />
+                            <p:ajax event="valueChange" process="@this" update="divFilter" />
+                        </p:selectOneMenu >
+                        <p:accordionPanel prependId="false"     multiple="true" styleClass=" col-xs-12" >
 
-                        <p:accordionPanel multiple="true" styleClass=" col-xs-12" >
-                            <p:tab title="type"  titleStyleClass="label-info"  >
-                                <h:outputLabel styleClass="col-xs-12">search for: </h:outputLabel>
-                                <p:selectOneMenu   value="#{searchMB.selectType}" label="select" styleClass="label-info col-xs-12" >
-                                    <f:selectItems value="#{searchMB.selectTypes}" var="xx" itemLabel="#{xx.name()}" itemValue="#{xx}" />
-                                    <p:ajax event="valueChange" process="@this" update="divFilter" />
-                                </p:selectOneMenu >
-                            </p:tab>
                             <p:tab title="filters"   closable="false" titleStyleClass="label-info" >
                                 <h:panelGroup id="divFilter" layout="block" >
                                     <div class="row" >
@@ -72,7 +69,10 @@
                                     </h:panelGroup>
                                 </h:panelGroup>
                             </p:tab>
+
                         </p:accordionPanel>
+                        <br/>
+                        <p:commandButton  value="search" action="#{searchMB.search}"  update="resultForm" style="margin-top: 5px" styleClass="btn btn-info col-xs-12" />
                     </h:form>
 
 
@@ -95,20 +95,20 @@
 
                             </p:panel>
                             -->
-                                <div class="well col-md-4 col-sm-6 col-xs-12 blog-grid" >
-                                    <div class="col-xs-4 blog-grid-left">
-                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
-                                    </div> 
-                                    <div class="col-xs-8 blog-grid-right">
-                                        <a href="single.html">#{placeRslt.name}</a>
-                                        <h4>27 November 2015</h4>
-                                        <p>#{placeRslt.description}</p>
-                                    </div>
-                                    <div class="clearfix"> </div>
-                                    <div class="more m1">
-                                        <a class="btn effect6" href="single.html">Learn More</a>
-                                    </div>
+                            <div class="well col-md-4 col-sm-6 col-xs-12 blog-grid" >
+                                <div class="col-xs-4 blog-grid-left">
+                                    <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                </div> 
+                                <div class="col-xs-8 blog-grid-right">
+                                    <a href="single.html">#{placeRslt.name}</a>
+                                    <h4>27 November 2015</h4>
+                                    <p>#{placeRslt.description}</p>
                                 </div>
+                                <div class="clearfix"> </div>
+                                <div class="more m1">
+                                    <a class="btn effect6" href="single.html">Learn More</a>
+                                </div>
+                            </div>
                         </ui:repeat>
 
                     </h:form>

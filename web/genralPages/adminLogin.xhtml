@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <ui:param name="root" value="#{request.contextPath}" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>AdminLTE 2 | Dashboard</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+        <!-- Bootstrap 3.3.5 -->
+
+        <h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
+        <!-- Font Awesome -->
+        <h:outputStylesheet name="font-awesome-4.6.2/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <!--<h:outputStylesheet name="ionicons-2.0.1/css/ionicons.min.css" />-->
+        <!-- Theme style -->
+        <h:outputStylesheet name="dist/css/AdminLTE.min.css" />
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <h:outputStylesheet name="dist/css/skins/_all-skins.min.css" />
+
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+
+
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </h:head>
+
+    <h:body class="hold-transition login-page">
+
+
+
+        <div class="login-box">
+            <div class="login-logo">
+                <a ><b>Admin</b>LTE</a>
+            </div><!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">Sign in</p>
+                <p:growl autoUpdate="true" />
+
+
+                <h:form id="login" prependId="false"
+                        onsubmit="document.getElementById('login').action = 'j_security_check';">
+                    <div class="form-group has-feedback">
+                        <!--<input type="email" class="form-control" placeholder="Email">-->
+                        <p:inputText id="j_username"  styleClass="form-control" placeholder="user name"  />   
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <!--<input type="password" class="form-control" placeholder="Password">-->
+                        <p:password id="j_password" styleClass="form-control" placeholder="Password"  />   
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <!--<p:checkbox id="ch" /> <h:outputLabel value="Remember Me" for="ch" />-->  
+                                </label>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="col-xs-4">
+                            <!--<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>-->
+                            <h:commandButton value="Sign In" styleClass="btn btn-primary btn-block btn-flat" />
+                        </div><!-- /.col -->
+                    </div>
+                </h:form>
+
+            </div><!-- /.login-box-body -->
+        </div><!-- /.login-box -->
+
+
+
+        <!-- jQuery 2.1.4 -->
+        <h:outputScript  name="jQuery/jQuery-2.1.4.min.js" />
+        <!-- jQuery UI 1.11.4 -->
+        <h:outputScript  name="jQueryUI/jquery-ui.min.js" />
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+        <!-- Bootstrap 3.3.5 -->
+        <h:outputScript  name="bootstrap/js/bootstrap.min.js" />
+
+        <!-- daterangepicker -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+
+        <!-- AdminLTE App -->
+        <h:outputScript  name="dist/js/app.min.js" />
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <h:outputScript  name="dist/js/pages/dashboard.js" />
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:body>
+
+</html>

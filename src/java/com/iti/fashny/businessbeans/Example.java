@@ -163,7 +163,7 @@ public class Example {
             
             tagResults.get(0).setDescription("I am updated");
             //pmb.update(tagResults.get(0));
-            pmb.destroy(tagResults.get(0));
+//            pmb.destroy(tagResults.get(0));
             
             //
             //

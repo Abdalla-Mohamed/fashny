@@ -171,9 +171,10 @@ public class SearchMB implements Serializable {
         }
     }
 
+    String anyChars = "%";
     private void searchForPlaces() {
         Place placeExample = new Place();
-        placeExample.setName(nameSearch.isEmpty()?null:nameSearch);
+        placeExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
         placeExample.setAddress(selectdGovernorat.isEmpty()?null:selectdGovernorat);
         placeExample.setTagList(selectedTags);
         try {
