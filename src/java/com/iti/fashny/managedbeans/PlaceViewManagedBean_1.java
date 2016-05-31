@@ -7,11 +7,9 @@ package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.entities.Place;
-import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.RequestScoped;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ViewScoped;
@@ -27,7 +25,7 @@ import javax.faces.convert.FacesConverter;
  */
 @ManagedBean(name = "placeView_1")
 @ViewScoped
-public class PlaceViewManagedBean_1 implements Serializable{
+public class PlaceViewManagedBean_1 {
 
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
