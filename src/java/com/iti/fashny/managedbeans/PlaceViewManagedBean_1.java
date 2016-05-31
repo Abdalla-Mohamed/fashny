@@ -13,11 +13,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 //import javax.faces.view.ViewScoped;
 
 /**
@@ -101,7 +104,6 @@ public class PlaceViewManagedBean_1 {
     public void update() {
         if (selected != null) {
             try {
-//                setEmbeddableKeys();
                 placeBusiness.update(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -112,7 +114,6 @@ public class PlaceViewManagedBean_1 {
     public void destroy() {
         if (selected != null) {
             try {
-//                setEmbeddableKeys();
                 selected.setActive(Boolean.FALSE);
                 placeBusiness.update(selected);
             } catch (Exception ex) {
@@ -143,6 +144,29 @@ public class PlaceViewManagedBean_1 {
             Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
         }
         return placesList;
+    }
+    
+    
+     public void onRowEdit(RowEditEvent event) {
+         selected=(Place) event.getObject();
+         update();
+        FacesMessage msg = new FacesMessage("Place Edited", ((Place) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Place) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
     }
 
     @FacesConverter(forClass = Place.class)
