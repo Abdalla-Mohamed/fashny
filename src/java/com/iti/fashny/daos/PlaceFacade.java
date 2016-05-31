@@ -36,7 +36,7 @@ public class PlaceFacade extends AbstractFacade<Place> {
 
         List<Tag> tags = mainExample.getTagList();
         
-        if (tags != null) {
+        if (tags != null && !tags.isEmpty()) {
                 addTagConditionOnExample(c, tags, "tagList");
         }
 
