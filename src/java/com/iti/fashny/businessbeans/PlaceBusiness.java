@@ -22,6 +22,8 @@ import java.util.List;
  */
 public class PlaceBusiness implements Commens<Place> {
 
+    Place place;
+
     @Override
     public Place login(String email, String password) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -68,7 +70,7 @@ public class PlaceBusiness implements Commens<Place> {
 
     @Override
     public List<Place> view() throws Exception {
-        
+
         DaoFactory daoFactory = new DaoFactory();
         List<Place> placeResults = new ArrayList<>();
         try {
@@ -95,7 +97,10 @@ public class PlaceBusiness implements Commens<Place> {
 
     @Override
     public Place showSpecificInfo(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DaoFactory dao = new DaoFactory();
+        PlaceFacade p = dao.getPlaceDoa();
+        place = p.find(id);
+        return place;
     }
 
 }
