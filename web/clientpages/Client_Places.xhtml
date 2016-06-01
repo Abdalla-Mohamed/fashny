@@ -16,39 +16,30 @@
 
             <ui:define name="content">
 
-                <h:outputText value="Place Name : "/><br/>
-                <h:outputText value="#{placeView_1.selected.name}"/><br/>
-                <h:outputText value="Place Description : "/><br/>
-                <h:outputText value="Place Address : "/><br/>
-                <h:outputText value="Place Working Hours : "/><br/>
-                <h:outputText value="Comments : "/><br/> 
-                <h:inputTextarea value="You Can Add Your Comments Here......." cols="100" rows="10"/>
-                <h:form id="form">
-                    <p:dataGrid var="place" value="#{placeView_1.items}" columns="3" layout="grid"
-                                rows="12" paginator="true" id="places"
-                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="6,12,16">
+                <h:outputText value="Place Name : "/>
+                <h:outputText value="#{placeView_1.selected.name}"/>
+                <br/><br/>
 
-                        <f:facet name="header">
-                            Places
-                        </f:facet>
+                <h:outputText value="Place Address : "/>
+                <h:outputText value="#{placeView_1.selected.address}"/>
+                <br/><br/>
+                
+                <h:outputText value="Place Working Hours : "/>
+                <h:outputText value="#{placeView_1.selected.workHours}"/>
+                <br/><br/>
+                
+                <h:outputText value="Comments : "/>
+                <h:inputTextarea value="You Can Add Your Comments Here......." cols="100" rows="10"/><br/>
 
-                        <p:panel header="#{place.name}" style="text-align:center">
-                            <h:panelGrid columns="1" style="width:100%">
-                                <p:graphicImage name="demo/images/car/#{place.name}.gif"/> 
 
-                                <h:outputText value="#{place.name}" />
 
-                            </h:panelGrid>
-                        </p:panel>
 
-                    </p:dataGrid>
-                </h:form>
-
+                <!-- Keep the first param for next redirection -->
+                <f:facet name="header">
+                    Places
+                </f:facet>
             </ui:define>
 
-
         </ui:composition>
-
     </body>
 </html>

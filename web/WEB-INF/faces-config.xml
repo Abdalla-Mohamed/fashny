@@ -18,5 +18,11 @@
             <var>bundle</var>            
         </resource-bundle>
     </application>
-
+    <navigation-rule>
+        <from-view-id>/guestPages/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>PlaceClient</from-outcome>
+            <to-view-id>/clientpages/PlaceClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
