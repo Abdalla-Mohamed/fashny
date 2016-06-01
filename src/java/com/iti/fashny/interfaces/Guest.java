@@ -1,3 +1,4 @@
+package com.iti.fashny.interfaces;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,6 +24,8 @@ public interface Guest
 
     void forgetPassword(String email) throws Exception; //CustomException;
     void confirmForgetPassword(String email,String confirmationCode) throws Exception ; //CustomException;
+    
+    public void signUp(Client c) ;
 
     
     

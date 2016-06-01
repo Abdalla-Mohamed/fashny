@@ -6,14 +6,20 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.CompanyController;
+import com.iti.fashny.businessbeans.SearchManager;
 import com.iti.fashny.businessbeans.TagsController;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.interfaces.SearchEngine;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -25,32 +31,61 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "searchMB")
 @ViewScoped
-public class SearchMB {
+public class SearchMB implements Serializable {
 
-    String selectType;
-    
+    SearchType selectType;
+
     TagsController tagsController;
     CompanyController companyController;
-    
+
     List<String> governorate;
+    String selectdGovernorat;
 
     List<Tag> selectedTags;
-    Company selectedCompany;
-     /**
+    List<Company> selectedCompanies;
+
+    String nameSearch;
+
+    SearchEngine searchEngine = new SearchManager();
+
+    List<Place> placesResult;
+
+    /**
      * Creates a new instance of SearchMB
      */
     public SearchMB() {
         tagsController = new TagsController();
         companyController = new CompanyController();
         governorate = new ArrayList<>();
+        selectType = SearchType.Place;
 
     }
 
-    public String getSelectType() {
+    public String getNameSearch() {
+        return nameSearch;
+    }
+
+    public void setNameSearch(String nameSearch) {
+        this.nameSearch = nameSearch;
+    }
+
+    public String getSelectdGovernorat() {
+        return selectdGovernorat;
+    }
+
+    public void setSelectdGovernorat(String selectdGovernorat) {
+        this.selectdGovernorat = selectdGovernorat;
+    }
+
+    public SearchType[] getSelectTypes() {
+        return SearchType.values();
+    }
+
+    public SearchType getSelectType() {
         return selectType;
     }
 
-    public void setSelectType(String selectType) {
+    public void setSelectType(SearchType selectType) {
         this.selectType = selectType;
     }
 
@@ -71,10 +106,11 @@ public class SearchMB {
         }
         return tags;
     }
+
     public List<Company> getCompanies() {
-        List<Company> companies = new ArrayList<>();
+        List<Company> companies = new ArrayList<>(0);
         try {
-            companies = companyController.view();
+            companies = this.companyController.view();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -83,7 +119,7 @@ public class SearchMB {
 
     public List<String> getGovernorate() {
         if (governorate.isEmpty()) {
-            fillbndlGovernorateList();
+            this.fillbndlGovernorateList();
         }
         return governorate;
     }
@@ -102,7 +138,6 @@ public class SearchMB {
 //        FacesContext facesContext = FacesContext.getCurrentInstance();
 //        Locale locale = facesContext.getViewRoot().getLocale();
 //        ResourceBundle bundle = facesContext.getApplication().getResourceBundle(facesContext, "bndlGovernorate");
-
         System.out.println("enum");
         Enumeration<String> enumeration = bundle.getKeys();
         while (enumeration.hasMoreElements()) {
@@ -111,15 +146,69 @@ public class SearchMB {
         }
     }
 
-    public Company getSelectedCompany() {
-        return selectedCompany;
+    public void setSelectedCompanies(List<Company> selectedCompanies) {
+        this.selectedCompanies = selectedCompanies;
     }
 
-    public void setSelectedCompany(Company selectedCompany) {
-        this.selectedCompany = selectedCompany;
+    public List<Company> getSelectedCompanies() {
+        return selectedCompanies;
     }
-    
-    
+
+    public void search() {
     
 
+//        return null;
+        switch (selectType) {
+            case Company:
+                break;
+            case Place:
+                searchForPlaces();
+                break;
+            case Trip:
+                break;
+            case Tag:
+                break;
+        }
+    }
+
+    String anyChars = "%";
+    private void searchForPlaces() {
+        Place placeExample = new Place();
+        placeExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
+        placeExample.setAddress(selectdGovernorat.isEmpty()?null:selectdGovernorat);
+        placeExample.setTagList(selectedTags);
+        try {
+            placesResult = getSearchEngine().searchByExample(placeExample);
+            System.out.println(placesResult.size()+"*************************************");
+        } catch (Exception ex) {
+            Logger.getLogger(SearchMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public SearchEngine getSearchEngine() {
+        return searchEngine;
+    }
+
+    public boolean renderForTrip() {
+        return  selectType == SearchType.Trip;
+    }
+    public boolean renderForPlace() {
+        return  selectType == SearchType.Place;
+    }
+    public boolean renderForCompany() {
+        return  selectType == SearchType.Company;
+    }
+
+    public List<Place> getPlacesResult() {
+        return placesResult;
+    }
+
+    public void setPlacesResult(List<Place> placesResult) {
+        this.placesResult = placesResult;
+    }
+   
+    
+    
+    
+    
 }

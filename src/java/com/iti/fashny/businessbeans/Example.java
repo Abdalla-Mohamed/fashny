@@ -24,6 +24,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -93,7 +95,7 @@ public class Example {
             // rollBack all edit if any exception happened and close entityManager automatic
             daoFactory.rollbackTransaction();
         }
-
+        
     }
 
     static public void exampleForReading() {
