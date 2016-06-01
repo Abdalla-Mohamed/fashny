@@ -6,12 +6,16 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.PlaceBusiness;
+import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.entities.Place;
 import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.RequestScoped;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -24,13 +28,28 @@ import javax.faces.convert.FacesConverter;
  * @author Bakar M.M.R
  */
 @ManagedBean(name = "placeView_1")
-@ViewScoped
+@SessionScoped
 public class PlaceViewManagedBean_1 {
 
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
     private List<Place> filteredItems;
+    private String tst;
+    int id;
+
+    public String placeDetails(int id) {
+        selected = placeBusiness.showSpecificInfo(id);
+        return "Client_Places";
+    }
+
+    public void setTst(String tst) {
+        this.tst = tst;
+    }
+
+    public String getTst() {
+        return tst;
+    }
 
     public List<Place> getFilteredItems() {
         return filteredItems;
@@ -184,4 +203,5 @@ public class PlaceViewManagedBean_1 {
         }
 
     }
+
 }
