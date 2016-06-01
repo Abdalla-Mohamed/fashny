@@ -10,6 +10,7 @@ import com.iti.fashny.daos.TagFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +48,23 @@ public class TagBusiness implements Commens<Tag> {
 
     @Override
     public List<Tag> view() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DaoFactory daoFactory = new DaoFactory();
+        List<Tag> tagResults = new ArrayList<>();
+        try {
+            // get doas
+            TagFacade tagFacade = daoFactory.getTagDoa();
+            // search/read/select 
+            tagResults = tagFacade.findAll();
+            for (Tag tag : tagResults) {
+                System.out.println(tag.getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return tagResults;
     }
 
     @Override

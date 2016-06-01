@@ -7,17 +7,25 @@ package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.entities.Place;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.map.MarkerDragEvent;
+import org.primefaces.event.map.PointSelectEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -25,14 +33,84 @@ import javax.faces.convert.FacesConverter;
  */
 @ManagedBean(name = "placeView_1")
 @ViewScoped
-public class PlaceViewManagedBean_1 {
+public class PlaceViewManagedBean_1 implements Serializable{
 
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
+    private MapModel draggableModel;
+    LatLng latLng;
+
+    private Marker marker;
+    private double lat;
+
+    private double lng;
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public void count() {
+        
+        int size = draggableModel.getMarkers().size();
+        System.out.println("---->> " + size);
+    }
 
     public PlaceViewManagedBean_1() {
         placeBusiness = new PlaceBusiness();
+        draggableModel = new DefaultMapModel();
+        
+//       marker = new LatLng 
+        
+       
+    }
+
+    public void onPointSelect(PointSelectEvent event) {
+        System.out.println("#####################");
+
+        latLng = event.getLatLng();
+        System.out.println(latLng);
+        addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Lat:" + latLng.getLat() + ", Lng:" + latLng.getLng(),"Point Selected"));
+    }
+
+    public void addMessage(FacesMessage message) {
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public MapModel getDraggableModel() {
+        return draggableModel;
+    }
+
+    public void onMarkerDrag(MarkerDragEvent event) {
+
+        marker = event.getMarker();
+        LatLng coord1 = new LatLng(marker.getLatlng().getLat(), marker.getLatlng().getLng());
+        //if ((draggableModel.getMarkers()).size()==0)
+        draggableModel.addOverlay(new Marker(coord1, ""));
+        for (Marker premarker : draggableModel.getMarkers()) {
+            premarker.setDraggable(true);
+        }
+//        else 
+//        {
+//            for (Marker mark : draggableModel.getMarkers()) {
+//                mark.setVisible(false);
+//                mark=null;
+//            }
+//            draggableModel.addOverlay(new Marker(coord1, ""));
+//        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Dragged", "Lat:" + marker.getLatlng().getLat() + ", Lng:" + marker.getLatlng().getLng()));
     }
 
     public PlaceBusiness getPlaceBusiness() {
@@ -68,9 +146,6 @@ public class PlaceViewManagedBean_1 {
 
     public Place prepareCreate() {
         selected = new Place();
-        selected.setName("mosheraaa");
-//        initializeEmbeddableKey();
-        System.out.println("-----pppp-----");
         return selected;
     }
 
@@ -85,17 +160,17 @@ public class PlaceViewManagedBean_1 {
 
         if (getSelected() != null) {
             try {
-                System.out.println("&&& --->> "+ selected.getName());
-                 placeBusiness.add(selected);
+                System.out.println("&&& --->> " + selected.getName());
+                placeBusiness.add(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        } else {
+            System.out.println(" --- xxxxx ----");
         }
-        else
-        {System.out.println(" --- xxxxx ----");}
     }
 
-    public void update() {        
+    public void update() {
         if (selected != null) {
             try {
                 setEmbeddableKeys();
@@ -103,11 +178,12 @@ public class PlaceViewManagedBean_1 {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        } else {
+            System.out.println(" --- yyyyy ----");
         }
-        else
-        {System.out.println(" --- yyyyy ----");}
     }
-    public void update(Place sel) { 
+
+    public void update(Place sel) {
         selected = sel;
         if (selected != null) {
             try {
@@ -116,10 +192,11 @@ public class PlaceViewManagedBean_1 {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        } else {
+            System.out.println(" --- yyyyy ----");
         }
-        else
-        {System.out.println(" --- yyyyy ----");}
     }
+
     public void destroy() {
         if (selected != null) {
             try {
@@ -132,8 +209,9 @@ public class PlaceViewManagedBean_1 {
             }
         }
     }
- public void destroy(Place p) {
-     selected=p;
+
+    public void destroy(Place p) {
+        selected = p;
         if (selected != null) {
             try {
                 setEmbeddableKeys();
