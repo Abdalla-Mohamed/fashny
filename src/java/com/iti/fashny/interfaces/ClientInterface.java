@@ -28,5 +28,6 @@ public interface ClientInterface {
     public ArrayList<Trip> showClientOldTrips(Client client) throws Exception;
     public void rateOldTrip(Client client, Trip trip , int rate) throws Exception;
     public ArrayList<Trip> showBookedTrips(Client client) throws Exception;
+    
     public void cancelBookedTrips(Client client, Trip trip) throws Exception;
 }

@@ -73,11 +73,9 @@
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.active}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-   
+
                     <p:column style="width:32px">
-                        <p:commandLink id="viewButton" value="#{bundle.View}" update=":PlaceViewForm" title="View Detail" styleClass="ui-icon ui-icon-search" oncomplete="PF('PlaceViewDialog').show()">
-                            <f:setPropertyActionListener value="#{item}" target="#{placeView_1.selected}" />
-                        </p:commandLink>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" action="#{placeView_1.goToViewPlace(item.id)}"/>
                     </p:column>
 
                     <p:column style="width:32px">
@@ -85,17 +83,17 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{placeView_1.prepareCreate}" update=":PlaceCreateForm" oncomplete="PF('PlaceCreateDialog').show()"/>
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" />
                     </f:facet>
 
 
                 </p:dataTable>
-                <p:graphicImage value="#{placeView_1.im}"/>
+                <p:graphicImage value="#{placeView_1.img}"/>
 
             </p:panel>
 
         </h:form>      
-        
+
     </ui:define>
 
     <ui:define name="rightHeader">

@@ -22,12 +22,12 @@ import java.util.List;
  * @author Bakar M.M.R
  */
 public class PlaceBusiness implements Commens<Place> {
-    
+
     @Override
     public Place login(String email, String password) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void add(Place t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
@@ -36,36 +36,36 @@ public class PlaceBusiness implements Commens<Place> {
 //        daoFactory.commitTransaction();
 
         try {
-            
+
             daoFactory.beginTransaction();
             placeFacade.create(t);
             daoFactory.commitTransaction();
-            
+
         } catch (Exception exception) {
             exception.printStackTrace();
             daoFactory.rollbackTransaction();
         }
     }
-    
+
     @Override
     public void update(Place t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         PlaceFacade placeFacade = daoFactory.getPlaceDoa();
         try {
-            
+
             daoFactory.beginTransaction();
             placeFacade.edit(t);
             daoFactory.commitTransaction();
-            
+
         } catch (Exception exception) {
             exception.printStackTrace();
             daoFactory.rollbackTransaction();
         }
     }
-    
+
     @Override
     public List<Place> view() throws Exception {
-        
+
         DaoFactory daoFactory = new DaoFactory();
         List<Place> placeResults = new ArrayList<>();
         try {
@@ -88,15 +88,19 @@ public class PlaceBusiness implements Commens<Place> {
         }
         return placeResults;
     }
-    
+
     @Override
     public List<Place> searchByExample(Place t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public Place showSpecificInfo(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Place place = new Place();
+        DaoFactory dao = new DaoFactory();
+        PlaceFacade p = dao.getPlaceDoa();
+        place = p.find(id);
+        return place;
     }
-    
+
 }
