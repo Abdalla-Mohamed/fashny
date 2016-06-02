@@ -7,10 +7,8 @@ package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.entities.Place;
-import javax.faces.bean.ManagedBean;
-//import javax.faces.bean.RequestScoped;
-import java.util.List;
-import java.util.ResourceBundle;
+import com.iti.fashny.entities.Resouce;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -21,7 +19,15 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
-//import javax.faces.view.ViewScoped;
+import org.primefaces.model.StreamedContent;
+import java.awt.image.BufferedImage;
+import javax.faces.bean.ManagedBean;
+import org.primefaces.model.DefaultStreamedContent;
+import java.io.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.faces.context.ExternalContext;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -29,12 +35,37 @@ import org.primefaces.event.RowEditEvent;
  */
 @ManagedBean(name = "placeView_1")
 @ViewScoped
-public class PlaceViewManagedBean_1 {
+public class PlaceViewManagedBean_1 implements Serializable{
 
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
     private List<Place> filteredItems;
+    private List<StreamedContent> imagesList;
+    private StreamedContent im;
+
+    public StreamedContent getIm() {
+        InputStream input = null;
+        try {
+            File f = new File("C:\\images\\pic.jpg");
+            input = new FileInputStream(f);
+            im = new DefaultStreamedContent(input, "image/jpeg");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                input.close();
+            } catch (IOException ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return im;
+
+    }
+
+    public void setIm(StreamedContent im) {
+        this.im = im;
+    }
 
     public List<Place> getFilteredItems() {
         return filteredItems;
@@ -72,6 +103,7 @@ public class PlaceViewManagedBean_1 {
     }
 
     public Place getSelected() {
+
         return selected;
     }
 
@@ -81,7 +113,7 @@ public class PlaceViewManagedBean_1 {
 
     public Place prepareCreate() {
         selected = new Place();
-//        initializeEmbeddableKey();
+
         return selected;
     }
 
@@ -145,28 +177,52 @@ public class PlaceViewManagedBean_1 {
         }
         return placesList;
     }
-    
-    
-     public void onRowEdit(RowEditEvent event) {
-         selected=(Place) event.getObject();
-         update();
+
+    public void onRowEdit(RowEditEvent event) {
+        selected = (Place) event.getObject();
+        update();
         FacesMessage msg = new FacesMessage("Place Edited", ((Place) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Place) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
+
+        if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+    }
+
+    public List<StreamedContent> getImagesList() {
+        imagesList = new ArrayList();
+        StreamedContent imageRes;
+        try {
+            System.out.println(selected.getName());
+
+            for (Resouce resouce : selected.getResouceList()) {
+                File f = new File(resouce.getPath());
+                InputStream input = new FileInputStream(f);
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                imageRes = new DefaultStreamedContent(input, externalContext.getMimeType(f.getName()), f.getName());
+
+                imageRes = new DefaultStreamedContent(input, "image/jpeg");
+                imagesList.add(imageRes);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return imagesList;
+    }
+
+    public void setImagesList(List<StreamedContent> imagesList) {
+        this.imagesList = imagesList;
     }
 
     @FacesConverter(forClass = Place.class)

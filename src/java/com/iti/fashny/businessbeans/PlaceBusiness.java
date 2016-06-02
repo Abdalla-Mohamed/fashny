@@ -12,6 +12,7 @@ import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,12 @@ import java.util.List;
  * @author Bakar M.M.R
  */
 public class PlaceBusiness implements Commens<Place> {
-
+    
     @Override
     public Place login(String email, String password) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void add(Place t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
@@ -35,37 +36,33 @@ public class PlaceBusiness implements Commens<Place> {
 //        daoFactory.commitTransaction();
 
         try {
-
+            
             daoFactory.beginTransaction();
             placeFacade.create(t);
             daoFactory.commitTransaction();
-
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             daoFactory.rollbackTransaction();
         }
     }
-
+    
     @Override
     public void update(Place t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         PlaceFacade placeFacade = daoFactory.getPlaceDoa();
-//        daoFactory.beginTransaction();
-//        placeFacade.edit(t);
-//        daoFactory.commitTransaction();
-
         try {
-
+            
             daoFactory.beginTransaction();
             placeFacade.edit(t);
             daoFactory.commitTransaction();
-
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             daoFactory.rollbackTransaction();
         }
     }
-
+    
     @Override
     public List<Place> view() throws Exception {
         
@@ -78,6 +75,10 @@ public class PlaceBusiness implements Commens<Place> {
             placeResults = placeFacade.findAll();
             for (Place place : placeResults) {
                 System.out.println(place.getName());
+                List<Resouce> resouceList = place.getResouceList();
+                for (Resouce resouceList1 : resouceList) {
+                    System.out.println(resouceList1.getPath());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,15 +88,15 @@ public class PlaceBusiness implements Commens<Place> {
         }
         return placeResults;
     }
-
+    
     @Override
     public List<Place> searchByExample(Place t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public Place showSpecificInfo(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

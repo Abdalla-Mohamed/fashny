@@ -7,7 +7,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    
+
     <ui:define name="contPageName">
         <h:outputText value="Places"></h:outputText>
     </ui:define>
@@ -60,11 +60,7 @@
                             <f:facet name="input"><p:inputText id="modelInput_desc" value="#{item.description}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Map">
-                        <p:commandLink id="btnMap" value="map" update=":PlaceViewForm" title="View Detail" styleClass="ui-icon ui-icon-pin-s" oncomplete="PF('mapDlg').show()">
-                            <f:setPropertyActionListener value="#{item}" target="#{placeView_1.selected}" />
-                        </p:commandLink>
-                    </p:column>
+
                     <p:column headerText="#{bundle.ListPlaceTitle_validated}">
                         <p:cellEditor>
                             <f:facet name="output"><p:selectBooleanCheckbox value="#{item.validated}" disabled="true"/></f:facet>
@@ -77,6 +73,7 @@
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.active}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
+   
                     <p:column style="width:32px">
                         <p:commandLink id="viewButton" value="#{bundle.View}" update=":PlaceViewForm" title="View Detail" styleClass="ui-icon ui-icon-search" oncomplete="PF('PlaceViewDialog').show()">
                             <f:setPropertyActionListener value="#{item}" target="#{placeView_1.selected}" />
@@ -86,28 +83,19 @@
                     <p:column style="width:32px">
                         <p:rowEditor />
                     </p:column>
+
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{placeView_1.prepareCreate}" update=":PlaceCreateForm" oncomplete="PF('PlaceCreateDialog').show()"/>
-
-                        <ui:remove>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PlaceViewForm" oncomplete="PF('PlaceViewDialog').show()" disabled="#{empty placeView_1.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PlaceEditForm" oncomplete="PF('PlaceEditDialog').show()" disabled="#{empty placeView_1.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{placeView_1.destroy}" update=",datalist" disabled="#{empty placeView_1.selected}"/>
-                        </ui:remove>
                     </f:facet>
+
+
                 </p:dataTable>
+                <p:graphicImage value="#{placeView_1.im}"/>
+
             </p:panel>
 
-        </h:form>
-
-        <ui:include src="ViewPlace.xhtml"/>
-
-        <ui:include src="CreatePlace.xhtml"/>
-
-        <ui:include src="EditPlace.xhtml"/>
-
-        <ui:include src="MapPlace.xhtml"/>
-
+        </h:form>      
+        
     </ui:define>
 
     <ui:define name="rightHeader">
