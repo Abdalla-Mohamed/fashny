@@ -6,23 +6,29 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.PlaceBusiness;
-import com.iti.fashny.businessbeans.TagBusiness;
 import com.iti.fashny.entities.Place;
-import com.iti.fashny.entities.Tag;
-import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
-//import javax.faces.bean.RequestScoped;
-import java.util.List;
+import com.iti.fashny.entities.Resouce;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.event.map.MarkerDragEvent;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.StreamedContent;
+import java.awt.image.BufferedImage;
+import javax.faces.bean.ManagedBean;
+import org.primefaces.model.DefaultStreamedContent;
+import java.io.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.imageio.ImageIO;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -40,6 +46,9 @@ public class PlaceViewManagedBean_1 implements Serializable {
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
+    private List<Place> filteredItems;
+    private List<StreamedContent> imagesList;
+    private StreamedContent img;
     private MapModel draggableModel;
     private MapModel viewMap;
     LatLng latLng;
@@ -49,39 +58,9 @@ public class PlaceViewManagedBean_1 implements Serializable {
 
     private double lng;
 
-    public String goToViewPlace(int id) {
-        System.out.println("==========");
-        selected = placeBusiness.showSpecificInfo(id);
-        System.out.println("==========" + selected.getName());
-        return "ViewPlacePage";
-    }
-    public String goToCreatePlace() {
-        
-        return "CreatePlacePage";
-    }
-    private List<Place> filteredItems;
-    private String tst;
-    int id;
-
     public String placeDetails(int id) {
         selected = placeBusiness.showSpecificInfo(id);
         return "Client_Places";
-    }
-
-    public void setTst(String tst) {
-        this.tst = tst;
-    }
-
-    public String getTst() {
-        return tst;
-    }
-
-    public List<Place> getFilteredItems() {
-        return filteredItems;
-    }
-
-    public void setFilteredItems(List<Place> filteredItems) {
-        this.filteredItems = filteredItems;
     }
 
     public double getLat() {
@@ -105,6 +84,47 @@ public class PlaceViewManagedBean_1 implements Serializable {
         System.out.println("---->> " + size);
     }
 
+    public String goToViewPlace(int id) {
+        selected = placeBusiness.showSpecificInfo(id);
+        return "ViewPlacePage";
+    }
+
+    public String goToCreatePlace() {
+        selected = new Place();
+        return "CreatePlacePage";
+    }
+
+    public StreamedContent getImg() {
+        InputStream input = null;
+        try {
+            File f = new File("C:\\images\\pic.jpg");
+            input = new FileInputStream(f);
+            img = new DefaultStreamedContent(input, "image/jpeg");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                input.close();
+            } catch (IOException ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return img;
+
+    }
+
+    public void setImg(StreamedContent im) {
+        this.img = im;
+    }
+
+    public List<Place> getFilteredItems() {
+        return filteredItems;
+    }
+
+    public void setFilteredItems(List<Place> filteredItems) {
+        this.filteredItems = filteredItems;
+    }
+
     public PlaceViewManagedBean_1() {
         placeBusiness = new PlaceBusiness();
         draggableModel = new DefaultMapModel();
@@ -113,11 +133,9 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public void onPointSelect(PointSelectEvent event) {
-        System.out.println("#####################");
         latLng = event.getLatLng();
         selected.setAttd(latLng.getLat());
         selected.setLang(latLng.getLng());
-        System.out.println(latLng);
         addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Lat:" + latLng.getLat() + ", Lng:" + latLng.getLng(), "Point Selected"));
     }
 
@@ -126,41 +144,20 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public MapModel getViewMap() {
-       if (selected != null)
-       { System.out.println("get map ......."+selected.getAttd()+ selected.getLang());
-       LatLng coord1 = new LatLng(selected.getAttd(), selected.getLang());
-       viewMap.addOverlay(new Marker(coord1, ""));
-       }
-       else 
-       {System.out.println("N00000000``````");}
+        if (selected != null) {
+            LatLng coord1 = new LatLng(selected.getAttd(), selected.getLang());
+            viewMap.addOverlay(new Marker(coord1, ""));
+        } else {
+        }
         return viewMap;
     }
 
     public void setViewMap(MapModel viewMap) {
         this.viewMap = viewMap;
     }
-    
+
     public MapModel getDraggableModel() {
         return draggableModel;
-    }
-
-    public void onMarkerDrag(MarkerDragEvent event) {
-        marker = event.getMarker();
-        LatLng coord1 = new LatLng(marker.getLatlng().getLat(), marker.getLatlng().getLng());
-        //if ((draggableModel.getMarkers()).size()==0)
-        draggableModel.addOverlay(new Marker(coord1, ""));
-        for (Marker premarker : draggableModel.getMarkers()) {
-            premarker.setDraggable(true);
-        }
-//        else 
-//        {
-//            for (Marker mark : draggableModel.getMarkers()) {
-//                mark.setVisible(false);
-//                mark=null;
-//            }
-//            draggableModel.addOverlay(new Marker(coord1, ""));
-//        }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Dragged", "Lat:" + marker.getLatlng().getLat() + ", Lng:" + marker.getLatlng().getLng()));
     }
 
     public PlaceBusiness getPlaceBusiness() {
@@ -187,6 +184,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public Place getSelected() {
+
         return selected;
     }
 
@@ -196,6 +194,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
 
     public Place prepareCreate() {
         selected = new Place();
+
         return selected;
     }
 
@@ -212,28 +211,22 @@ public class PlaceViewManagedBean_1 implements Serializable {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else {
-            System.out.println(" --- xxxxx ----");
         }
     }
 
     public void update() {
         if (selected != null) {
             try {
-//                setEmbeddableKeys();
                 placeBusiness.update(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else {
-            System.out.println(" --- yyyyy ----");
         }
     }
 
     public void destroy() {
         if (selected != null) {
             try {
-//                setEmbeddableKeys();
                 selected.setActive(Boolean.FALSE);
                 placeBusiness.update(selected);
             } catch (Exception ex) {
@@ -264,6 +257,53 @@ public class PlaceViewManagedBean_1 implements Serializable {
             Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
         }
         return placesList;
+    }
+
+    public void onRowEdit(RowEditEvent event) {
+        selected = (Place) event.getObject();
+        update();
+        FacesMessage msg = new FacesMessage("Place Edited", ((Place) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Place) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public List<StreamedContent> getImagesList() {
+        imagesList = new ArrayList();
+        StreamedContent imageRes;
+        try {
+            System.out.println(selected.getName());
+
+            for (Resouce resouce : selected.getResouceList()) {
+                File f = new File(resouce.getPath());
+                InputStream input = new FileInputStream(f);
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                imageRes = new DefaultStreamedContent(input, externalContext.getMimeType(f.getName()), f.getName());
+
+                imageRes = new DefaultStreamedContent(input, "image/jpeg");
+                imagesList.add(imageRes);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return imagesList;
+    }
+
+    public void setImagesList(List<StreamedContent> imagesList) {
+        this.imagesList = imagesList;
     }
 
     @FacesConverter(forClass = Place.class)
@@ -306,5 +346,4 @@ public class PlaceViewManagedBean_1 implements Serializable {
         }
 
     }
-
 }
