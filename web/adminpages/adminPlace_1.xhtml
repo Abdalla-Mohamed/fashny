@@ -21,7 +21,7 @@
     </ui:define>
 
     <ui:define name="content"> 
-        <h:form id="PlaceListForm">
+        <h:form id="PlaceListForm" prependId="true" >
             <p:panel header="#{bundle.ListPlaceTitle}">
                 <p:dataTable id="datalist" value="#{placeView_1.items}" var="item"
                              selectionMode="single" selection="#{placeView_1.selected}"
@@ -90,17 +90,21 @@
                     </p:column>
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{placeView_1.prepareCreate}" update=":PlaceCreateForm" oncomplete="PF('PlaceCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PlaceViewForm" oncomplete="PF('PlaceViewDialog').show()" disabled="#{empty placeView_1.selected}"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" action="#{placeView_1.goToViewPlace(placeView_1.selected.id)}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PlaceEditForm" oncomplete="PF('PlaceEditDialog').show()" disabled="#{empty placeView_1.selected}"/>
                         <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{placeView_1.destroy}" update=",datalist" disabled="#{empty placeView_1.selected}"/>
                     </f:facet>
                 </p:dataTable>
             </p:panel>
+        
         </h:form>
 
         <ui:include src="CreatePlace.xhtml"/>
         <ui:include src="ViewPlace.xhtml"/>
         <ui:include src="EditPlace.xhtml"/>
+
+
+        
 
     </ui:define>
 

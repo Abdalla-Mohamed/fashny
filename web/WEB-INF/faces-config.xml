@@ -4,6 +4,12 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     
+    
+    <validator>
+        <validator-id>com.iti.fashny.validators.CustomeEmailValidator</validator-id>
+        <validator-class>com.iti.fashny.validators.CustomeEmailValidator</validator-class>
+    </validator>
+    
     <application>
         <locale-config>
             <default-locale>en</default-locale>
@@ -17,6 +23,12 @@
             <base-name>Bundle</base-name>
             <var>bundle</var>            
         </resource-bundle>
+        
+        <resource-bundle>
+            <base-name>MyPropertyFile</base-name>
+            <var>MyPropertyFile</var>            
+        </resource-bundle>
+       
     </application>
     <managed-bean>
         <managed-bean-name>tagManagedBeen</managed-bean-name>

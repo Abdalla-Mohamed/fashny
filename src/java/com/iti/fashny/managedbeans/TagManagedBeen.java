@@ -7,6 +7,7 @@ package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.TagBusiness;
 import com.iti.fashny.entities.Tag;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "tagBean") 
 @ViewScoped
-public class TagManagedBeen {
+public class TagManagedBeen implements Serializable{
     TagBusiness tagBusiness;
     private List<Tag> items = null;
 
@@ -28,6 +29,7 @@ public class TagManagedBeen {
      * Creates a new instance of TagManagedBeen
      */
     public TagManagedBeen() {
+        tagBusiness = new TagBusiness();
     }
     
     public void setTagBusiness(TagBusiness tagBusiness) {
@@ -52,5 +54,13 @@ public class TagManagedBeen {
         }
         return items;
     }
+    public static void main(String[] args) {
+        TagManagedBeen been =new TagManagedBeen();
+        List<Tag> items1 = been.getItems();
+        for (Tag tag : items1) {
+            System.out.println(tag.getName());
+        }
+    }
+    
    
 }

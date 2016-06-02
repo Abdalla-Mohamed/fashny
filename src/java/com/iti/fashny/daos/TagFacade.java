@@ -34,6 +34,8 @@ public class TagFacade extends AbstractFacade<Tag> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
         return unconfirmTags;
     }
 

@@ -21,6 +21,7 @@ import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import java.util.List;
  *
  * @author Abdalla
  */
-public class SearchManager implements SearchEngine {
+public class SearchManager implements SearchEngine,Serializable {
 
     @Override
     public List<Client> searchByExample(Client client) throws Exception {
@@ -143,6 +144,10 @@ public class SearchManager implements SearchEngine {
 
             PlaceFacade placesFacade = daoFactory.getPlaceDoa();
             placesResult = placesFacade.findByExample(place);
+            for (Place placeRslt : placesResult) {
+                placeRslt.getResouceList();
+                
+            }
 
         } catch (Exception e) {
 
