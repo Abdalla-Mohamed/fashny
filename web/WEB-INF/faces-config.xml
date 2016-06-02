@@ -30,9 +30,11 @@
         </resource-bundle>
        
     </application>
-    <managed-bean>
-        <managed-bean-name>tagManagedBeen</managed-bean-name>
-        <managed-bean-class>com.iti.fashny.managedbeans.TagManagedBeen</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/guestPages/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>PlaceClient</from-outcome>
+            <to-view-id>/clientpages/PlaceClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
