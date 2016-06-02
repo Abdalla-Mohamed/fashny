@@ -35,7 +35,7 @@ public class ClientFacade extends AbstractFacade<Client> {
         List resultList = getEntityManager().createNamedQuery("Client.findByEmail").setParameter("email", mail).getResultList();
         
         
-        if(resultList.size()>1)
+        if(resultList.size()>=1)
             valid=true;
         
         return valid;

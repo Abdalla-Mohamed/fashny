@@ -123,7 +123,7 @@
 
                                 <tr>
                                     <td> <h:outputText value="#{MyPropertyFile.BirthDate}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.birthDate}" id="birthDate">
+                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.birthDate}" id="birthDate" required="true">
                                             <f:convertDateTime pattern="dd/mm/yyyy"/>
                                             <!--<f:converter converterId="javax.faces.DateTime"  />-->
                                         </h:inputText>
@@ -133,13 +133,16 @@
 
                                 <tr>
                                     <td> <h:outputText value="#{MyPropertyFile.LastSeen}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.lastSeen}" id="lastSeen">
+                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.lastSeen}" id="lastSeen" required="true">
                                             <f:convertDateTime pattern="dd/mm/yyyy"/>
                                             <!--<f:converter converterId="javax.faces.DateTime"  />-->
                                         </h:inputText>
                                         <h:message for="lastSeen" style="color:red" />
                                     </td>
                                 </tr> 
+                                <tr>
+                                    <h:graphicImage url="#{EditClientProfileInfoBean.c.profilePic.path}" width="200" height="171" />
+                                </tr>
 
                             </table>
 

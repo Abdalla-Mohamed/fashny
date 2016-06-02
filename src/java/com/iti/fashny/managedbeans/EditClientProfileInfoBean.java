@@ -11,6 +11,7 @@ import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Client;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -25,6 +26,14 @@ public class EditClientProfileInfoBean
 {
     Client c = new AdditionalFns().getClientObject() ;
     
+     @ManagedProperty(value = "#{navigationBean}")
+    private NavigationBean navigationBean;
+     
+      @ManagedProperty(value = "#{loginBean}")
+    private LoginBean loginBean;
+      
+      public Boolean isEditable;
+    
     // to get object from session
 
    // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("yourKey", yourObject);
@@ -33,6 +42,22 @@ public class EditClientProfileInfoBean
 //sessionMap.put("somekey", yourVariable);
     //----
     //SomeObject yourVariable = (SomeObject) sessionMap.get("somekey");
+
+    public NavigationBean getNavigationBean() {
+        return navigationBean;
+    }
+
+    public void setNavigationBean(NavigationBean navigationBean) {
+        this.navigationBean = navigationBean;
+    }
+
+    public LoginBean getLoginBean() {
+        return loginBean;
+    }
+
+    public void setLoginBean(LoginBean loginBean) {
+        this.loginBean = loginBean;
+    }
     
 
     
@@ -57,7 +82,7 @@ public class EditClientProfileInfoBean
      daoFactory.commitTransaction();
      daoFactory.close();
      
-     return"index";
+     return navigationBean.toWelcome();
         
     }
     

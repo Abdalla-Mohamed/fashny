@@ -29,14 +29,14 @@
 
                                 <tr>
                                     <td> <h:outputText value="#{MyPropertyFile.Name}"/> </td>
-                                    <td> <h:inputText value="#{SignUpBean.c.name}" id="name" required="true"/>
+                                    <td> <h:inputText value="#{SignUpBean.c.name}" id="name" required="true" requiredMessage="#{MyPropertyFile.ThisFieldIsRequired}"/>
                                         <h:message for="name" style="color:red" />
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td> <h:outputText value="#{MyPropertyFile.Password}"/> </td>
-                                    <td> <h:inputSecret value="#{SignUpBean.c.password}" id="password" required="true"> 
+                                    <td> <h:inputSecret value="#{SignUpBean.c.password}" id="password" required="true" requiredMessage="#{MyPropertyFile.ThisFieldIsRequired}> 
                                             <f:validateLength minimum="5" maximum="10"/>
                                         </h:inputSecret>
                                         <h:message for="password" style="color:red" />
@@ -46,7 +46,7 @@
 
                                 <tr>
                                     <td> <h:outputText value="#{MyPropertyFile.Mail}"/> </td>
-                                    <td> <h:inputText value="#{SignUpBean.c.email}" id="mail" required="true">
+                                    <td> <h:inputText value="#{SignUpBean.c.email}" id="mail" required="true" requiredMessage="#{MyPropertyFile.ThisFieldIsRequired}>
                                         <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
                                         </h:inputText>
                                         <h:message for="mail" style="color:red" />
@@ -102,6 +102,21 @@
                                 </tr>
 
                                 <tr>
+                                    <td> <h:outputText value="#{MyPropertyFile.MaritalStatus}"/> </td>
+                                    <td>
+                                        <h:selectOneMenu value="#{SignUpBean.c.maritalStatus}">
+                                            <f:selectItem itemValue="1" itemLabel="Singel" />
+                                            <f:selectItem itemValue="2" itemLabel="Engaged" />
+                                            <f:selectItem itemValue="3" itemLabel="Married" />
+                                            <f:selectItem itemValue="4" itemLabel="Divorced" />
+                                            <f:selectItem itemValue="5" itemLabel="Widow" />
+                                            <f:selectItem itemValue="6" itemLabel="ay 7aga" />
+                                        </h:selectOneMenu>
+                                    </td>
+                                </tr>
+                                
+                                
+                                <tr>
                                     <td> <h:outputText value="#{MyPropertyFile.Phone}"/> </td>
                                     <td> <h:inputText value="#{SignUpBean.c.phone}" id="phone"/> 
                                         <h:message for="phone" style="color:red" />
@@ -117,7 +132,7 @@
 
                                 <tr>
                                     <td> <h:outputText value="#{MyPropertyFile.BirthDate}"/> </td>
-                                    <td> <h:inputText value="#{SignUpBean.c.birthDate}" id="birthDate">
+                                    <td> <h:inputText value="#{SignUpBean.c.birthDate}" id="birthDate" required="true" requiredMessage="#{MyPropertyFile.ThisFieldIsRequired}>
                                             <f:convertDateTime pattern="dd/mm/yyyy"/>
                                             <!--<f:converter converterId="javax.faces.DateTime"  />-->
                                         </h:inputText>
@@ -127,7 +142,7 @@
                                
                                 <tr>
                                     <td> <h:outputText value="#{MyPropertyFile.LastSeen}"/> </td>
-                                    <td> <h:inputText value="#{SignUpBean.c.lastSeen}" id="lastSeen">
+                                    <td> <h:inputText value="#{SignUpBean.c.lastSeen}" id="lastSeen" required="true" requiredMessage="#{MyPropertyFile.ThisFieldIsRequired}">
                                             <f:convertDateTime pattern="dd/mm/yyyy"/>
                                             <!--<f:converter converterId="javax.faces.DateTime"  />-->
                                         </h:inputText>
@@ -152,6 +167,17 @@
                                     </td>
                                 </tr>
 
+                                <tr>
+                                    <td> <h:outputText value="#{MyPropertyFile.Photo}"/> </td>
+                                    <td>
+                                    <p:fileUpload fileUploadListener="#{SignUpBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
+                                                  sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <h:graphicImage url="#{SignUpBean.c.profilePic.path}" width="200" height="171" />
+                                </tr>
+                                
                             </table>
 
                             <center>
