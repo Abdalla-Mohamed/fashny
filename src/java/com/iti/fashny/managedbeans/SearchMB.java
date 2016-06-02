@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -30,7 +31,7 @@ import javax.faces.context.FacesContext;
  * @author Abdalla
  */
 @ManagedBean(name = "searchMB")
-@ViewScoped
+@ViewScoped() 
 public class SearchMB implements Serializable {
 
     SearchType selectType;

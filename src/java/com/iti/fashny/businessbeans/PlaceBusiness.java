@@ -97,9 +97,13 @@ public class PlaceBusiness implements Commens<Place> {
 
     @Override
     public Place showSpecificInfo(int id) {
+        System.out.println(" -- +++++ --" + id);
         DaoFactory dao = new DaoFactory();
         PlaceFacade p = dao.getPlaceDoa();
-        place = p.find(id);
+        place = new Place();
+        System.out.println(":::: " +(p.find(id)).getName());
+        place =p.find(id);
+        System.out.println("**>> "+ place.getName());
         return place;
     }
 

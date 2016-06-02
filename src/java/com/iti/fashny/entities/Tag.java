@@ -65,6 +65,10 @@ public class Tag implements Serializable {
         this.id = id;
     }
 
+    public Tag(String name) {
+        this.name = name;
+    }
+
     public Tag(Integer id, String name, Boolean vaidated) {
         this.id = id;
         this.name = name;
@@ -162,7 +166,7 @@ public class Tag implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Tag[ id=" + id + " ]";
+        return name;
     }
     
 }

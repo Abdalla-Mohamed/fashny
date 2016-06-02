@@ -6,22 +6,28 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.PlaceBusiness;
-import com.iti.fashny.daos.DaoFactory;
-import com.iti.fashny.daos.PlaceFacade;
+import com.iti.fashny.businessbeans.TagBusiness;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Tag;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.RequestScoped;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.bean.ApplicationScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-//import javax.faces.view.ViewScoped;
+import org.primefaces.event.map.MarkerDragEvent;
+import org.primefaces.event.map.PointSelectEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -29,11 +35,30 @@ import javax.faces.convert.FacesConverter;
  */
 @ManagedBean(name = "placeView_1")
 @SessionScoped
-public class PlaceViewManagedBean_1 {
+public class PlaceViewManagedBean_1 implements Serializable {
 
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
+    private MapModel draggableModel;
+    private MapModel viewMap;
+    LatLng latLng;
+
+    private Marker marker;
+    private double lat;
+
+    private double lng;
+
+    public String goToViewPlace(int id) {
+        System.out.println("==========");
+        selected = placeBusiness.showSpecificInfo(id);
+        System.out.println("==========" + selected.getName());
+        return "ViewPlacePage";
+    }
+    public String goToCreatePlace() {
+        
+        return "CreatePlacePage";
+    }
     private List<Place> filteredItems;
     private String tst;
     int id;
@@ -59,8 +84,83 @@ public class PlaceViewManagedBean_1 {
         this.filteredItems = filteredItems;
     }
 
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public void count() {
+        int size = draggableModel.getMarkers().size();
+        System.out.println("---->> " + size);
+    }
+
     public PlaceViewManagedBean_1() {
         placeBusiness = new PlaceBusiness();
+        draggableModel = new DefaultMapModel();
+        viewMap = new DefaultMapModel();
+        selected = new Place();
+    }
+
+    public void onPointSelect(PointSelectEvent event) {
+        System.out.println("#####################");
+        latLng = event.getLatLng();
+        selected.setAttd(latLng.getLat());
+        selected.setLang(latLng.getLng());
+        System.out.println(latLng);
+        addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Lat:" + latLng.getLat() + ", Lng:" + latLng.getLng(), "Point Selected"));
+    }
+
+    public void addMessage(FacesMessage message) {
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public MapModel getViewMap() {
+       if (selected != null)
+       { System.out.println("get map ......."+selected.getAttd()+ selected.getLang());
+       LatLng coord1 = new LatLng(selected.getAttd(), selected.getLang());
+       viewMap.addOverlay(new Marker(coord1, ""));
+       }
+       else 
+       {System.out.println("N00000000``````");}
+        return viewMap;
+    }
+
+    public void setViewMap(MapModel viewMap) {
+        this.viewMap = viewMap;
+    }
+    
+    public MapModel getDraggableModel() {
+        return draggableModel;
+    }
+
+    public void onMarkerDrag(MarkerDragEvent event) {
+        marker = event.getMarker();
+        LatLng coord1 = new LatLng(marker.getLatlng().getLat(), marker.getLatlng().getLng());
+        //if ((draggableModel.getMarkers()).size()==0)
+        draggableModel.addOverlay(new Marker(coord1, ""));
+        for (Marker premarker : draggableModel.getMarkers()) {
+            premarker.setDraggable(true);
+        }
+//        else 
+//        {
+//            for (Marker mark : draggableModel.getMarkers()) {
+//                mark.setVisible(false);
+//                mark=null;
+//            }
+//            draggableModel.addOverlay(new Marker(coord1, ""));
+//        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Dragged", "Lat:" + marker.getLatlng().getLat() + ", Lng:" + marker.getLatlng().getLng()));
     }
 
     public PlaceBusiness getPlaceBusiness() {
@@ -96,7 +196,6 @@ public class PlaceViewManagedBean_1 {
 
     public Place prepareCreate() {
         selected = new Place();
-//        initializeEmbeddableKey();
         return selected;
     }
 
@@ -113,6 +212,8 @@ public class PlaceViewManagedBean_1 {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        } else {
+            System.out.println(" --- xxxxx ----");
         }
     }
 
@@ -124,6 +225,8 @@ public class PlaceViewManagedBean_1 {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        } else {
+            System.out.println(" --- yyyyy ----");
         }
     }
 
