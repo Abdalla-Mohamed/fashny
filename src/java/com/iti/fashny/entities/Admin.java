@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.entities;
 
+import com.iti.fashny.interfaces.UserAccount;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -39,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Admin.findByLastSeen", query = "SELECT a FROM Admin a WHERE a.lastSeen = :lastSeen"),
     @NamedQuery(name = "Admin.findByEmail", query = "SELECT a FROM Admin a WHERE a.email = :email"),
     @NamedQuery(name = "Admin.findByPhone", query = "SELECT a FROM Admin a WHERE a.phone = :phone")})
-public class Admin implements Serializable {
+public class Admin implements Serializable,UserAccount {
 
     private static final long serialVersionUID = 1L;
     @Id

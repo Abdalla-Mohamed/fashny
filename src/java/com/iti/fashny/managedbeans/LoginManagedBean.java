@@ -5,6 +5,8 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.assets.LoginAccount;
+import com.iti.fashny.assets.Role;
 import com.iti.fashny.businessbeans.LoginBusiness;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.exceptions.Fasa7nyException;
@@ -17,7 +19,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Administrator
  */
-@ManagedBean(name = "login")
+@ManagedBean(name = "login",eager = true) 
 @SessionScoped
 public class LoginManagedBean {
 
@@ -25,8 +27,23 @@ public class LoginManagedBean {
     private String mail;
     private String password;
     LoginBusiness loginB = new LoginBusiness();
+    private LoginAccount loginAccount ;
     Client c;
 
+    public LoginAccount getLoginAccount() {
+        return loginAccount;
+    }
+
+    public void setLoginAccount(LoginAccount loginAccount) {
+        this.loginAccount = loginAccount;
+    }
+
+    public boolean isLogged() {
+        return isLogged;
+    }
+
+    
+    
     public void setMail(String mail) {
         this.mail = mail;
     }
@@ -48,6 +65,7 @@ public class LoginManagedBean {
         try {
             c = loginB.login(mail, password);
             isLogged = true;
+            loginAccount = new  LoginAccount(c);
             destination = "PlaceClient";
         } catch (Fasa7nyException ex) {
             ex.printStackTrace();
@@ -57,6 +75,7 @@ public class LoginManagedBean {
 
     public String logOut() {
         isLogged = false;
+        loginAccount = null;
         return "login";
     }
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.iti.fashny.assets;
+package com.iti.fashny.interfaces;
 
 /**
  *
  * @author Abdalla
  */
-public enum Role {
-    Admin,Client,Company,Partner,Guest
+public interface UserAccount {
+    
 }

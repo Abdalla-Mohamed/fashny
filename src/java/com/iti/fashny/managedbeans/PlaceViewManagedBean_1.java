@@ -171,7 +171,8 @@ public class PlaceViewManagedBean_1 {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PlaceViewManagedBean_1 controller = (PlaceViewManagedBean_1) facesContext.getApplication().getELResolver().
+            PlaceViewManagedBean_1 controller;
+            controller = (PlaceViewManagedBean_1) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "placeView_1");
             return controller.getPlace(getKey(value));
         }

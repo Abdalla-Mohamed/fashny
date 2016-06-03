@@ -5,7 +5,11 @@
  */
 package com.iti.fashny.assets;
 
+import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.interfaces.UserAccount;
 import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.List;
@@ -21,8 +25,10 @@ public class LoginAccount {
     private BufferedImage personalImage;
     private List<Tag> intersets;
     private Date lastSeen;
+    private UserAccount account;
 
-    public LoginAccount() {
+    public LoginAccount(UserAccount userAccount) {
+        this.account = userAccount;
     }
 
     public LoginAccount(Role role, String email, BufferedImage personalImage, List<Tag> intersets, Date lastSeen) {
@@ -33,11 +39,18 @@ public class LoginAccount {
         this.lastSeen = lastSeen;
     }
 
-    
-    
-    
-    
-    
+    private void spcifyRoleOfAccount(UserAccount account) {
+        if (account instanceof Client) {
+            role = Role.Client;
+        } else if (account instanceof Company) {
+            role = Role.Company;
+
+        } else if (account instanceof Partener) {
+            role = Role.Partner;
+        }
+
+    }
+
     public Role getRole() {
         return role;
     }
@@ -77,6 +90,5 @@ public class LoginAccount {
     public void setLastSeen(Date lastSeen) {
         this.lastSeen = lastSeen;
     }
-    
-    
+
 }
