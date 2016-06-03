@@ -35,11 +35,11 @@ public class ClientFacade extends AbstractFacade<Client> {
         boolean valid = false;
 
         List resultList = getEntityManager().createNamedQuery("Client.findByEmail").setParameter("email", mail).getResultList();
-
-        if (resultList.size() > 1) {
-            valid = true;
-        }
-
+        
+        
+        if(resultList.size()>=1)
+            valid=true;
+        
         return valid;
     }
 
