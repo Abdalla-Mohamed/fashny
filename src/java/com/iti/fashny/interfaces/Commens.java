@@ -3,6 +3,7 @@ package com.iti.fashny.interfaces;
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.PartnType;
 import com.iti.fashny.entities.Place;
+import java.io.Serializable;
 import java.util.List;
 
 /*
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author Abdalla
  */
-public interface Commens<T> {
+public interface Commens<T> extends Serializable{
 
     T login(String email, String password) throws Exception;
 

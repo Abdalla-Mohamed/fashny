@@ -12,6 +12,7 @@ import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +51,6 @@ public class PlaceBusiness implements Commens<Place> {
     public void update(Place t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         PlaceFacade placeFacade = daoFactory.getPlaceDoa();
-//        daoFactory.beginTransaction();
-//        placeFacade.edit(t);
-//        daoFactory.commitTransaction();
-
         try {
 
             daoFactory.beginTransaction();
@@ -68,7 +65,7 @@ public class PlaceBusiness implements Commens<Place> {
 
     @Override
     public List<Place> view() throws Exception {
-        
+
         DaoFactory daoFactory = new DaoFactory();
         List<Place> placeResults = new ArrayList<>();
         try {
@@ -78,6 +75,10 @@ public class PlaceBusiness implements Commens<Place> {
             placeResults = placeFacade.findAll();
             for (Place place : placeResults) {
                 System.out.println(place.getName());
+                List<Resouce> resouceList = place.getResouceList();
+                for (Resouce resouceList1 : resouceList) {
+                    System.out.println(resouceList1.getPath());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +96,11 @@ public class PlaceBusiness implements Commens<Place> {
 
     @Override
     public Place showSpecificInfo(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Place place = new Place();
+        DaoFactory dao = new DaoFactory();
+        PlaceFacade p = dao.getPlaceDoa();
+        place = p.find(id);
+        return place;
     }
 
 }

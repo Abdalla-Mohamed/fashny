@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="guestPages/advancedSearch.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="templates/templateAdmin.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="genralPages/adminLogin.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="genralPages/genralPageEx.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="adminpages/adminHome.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="partnerpages/partnerPageEx.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="guestPages/SignUp.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="adminpages/EditPlace.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="adminpages/adminPlace_1.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="clientpages/EditClientProfileInfo.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="templates/templatePartener.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="clientpages/PlaceDetails.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="templates/templateGeneral.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="templates/templateCompany.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="templates/clientTemplate.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="guestPages/login.xhtml" x="466" y="339" zoom="false"/>
+        <Node id="clientpages/single.html" x="1650" y="150" zoom="true"/>
+        <Node id="companypages/companPageEx.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="adminpages/adminConfirmation.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="info.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="secured/welcome.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="clientpages/Client_Places.xhtml" x="185" y="226" zoom="false"/>
+        <Node id="clientpages/PlaceClient.xhtml" x="400" y="450" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

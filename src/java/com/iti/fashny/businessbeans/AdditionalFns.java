@@ -18,6 +18,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.event.FileUploadEvent;
 
 /**
@@ -81,7 +83,11 @@ public class AdditionalFns
     public Client getCurrentClientObjectFromSession()
     {
         Client c = new Client();
-        
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        c = (Client) session.getAttribute("c");
+
         return c;
     }
      

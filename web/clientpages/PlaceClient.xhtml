@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -21,80 +22,26 @@
                                 rows="12" paginator="true" id="places"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 rowsPerPageTemplate="6,12,16">
-                        <ui:remove>
-                            <f:facet name="header">
-                                Places
-                            </f:facet>
-                        </ui:remove>
-                        <!--old style-->
-                        <ui:remove>
-                            <p:panel header="#{place.name}" style="text-align:center">
-                                <h:panelGrid columns="1" style="width:100%">
-                                    <p:graphicImage name="demo/images/car/#{place.name}.gif"/> 
-                                    <h:outputText value="#{place.name}" />
-                                    <p:commandLink update=":form:placeDetail" oncomplete="PF('placeDialog').show()" title="View Detail">
-                                        <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
-                                        <f:setPropertyActionListener value="#{place}" target="#{placeView_1.selected}" />
-                                    </p:commandLink>
-                                </h:panelGrid>
-                            </p:panel>
-                        </ui:remove>
-                        <!--new style-->
-                        <p:panel style="text-align:center">
-                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                <p:graphicImage name="demo/images/car/#{place.name}-big.gif" /> 
-                                <p:outputPanel>
-                                    <h:panelGrid columns="2" cellpadding="5">
-                                        <h:outputText value="Name:" />
-                                        <h:outputText value="#{place.name}" style="font-weight: bold"/>
 
-                                        <h:outputText value="Address:" />
-                                        <h:outputText value="#{place.address}" style="font-weight: bold"/>
 
-                        <p:panel header="#{place.name}" style="text-align:center">
-                            <h:panelGrid columns="1" style="width:100%">
-                                <p:graphicImage name="demo/images/car/#{place.name}.gif"/> 
-
-                                <h:outputText value="#{place.name}" />
-
-                                <h:link styleClass="ui-icon ui-icon-search" style="border: #000" outcome="Client_Places" />
-
-                            </h:panelGrid>
-                        </p:panel>
-                        <!--end-->
-
+                        <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                            <div class="col-xs-4 blog-grid-left">
+                                <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                            </div> 
+                            <div class="col-xs-8 blog-grid-right">
+                                <a href="single.html">#{place.name}</a>
+                                <h4>#{place.address}</h4>
+                                <p>#{place.description}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                            <div class="more m1">
+                                <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details"/>
+                            </div>
+                        </div>
                     </p:dataGrid>
-
-                    <p:dialog header="Place Info" widgetVar="placeDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                        <p:outputPanel id="placeDetail" style="text-align:center;">
-                            <p:panelGrid  columns="2" rendered="#{not empty placeView_1.selected}" columnClasses="label,value">
-                                <f:facet name="header">
-                                    <p:graphicImage name="demo/images/car/#{placeView_1.selected.name}-big.gif"/> 
-                                </f:facet>
-
-                                <h:outputText value="#{bundle.ViewPlaceLabel_id}"/>
-                                <h:outputText value="#{placeView_1.selected.id}" title="#{bundle.ViewPlaceTitle_id}"/>
-                                <h:outputText value="#{bundle.ViewPlaceLabel_name}"/>
-                                <h:outputText value="#{placeView_1.selected.name}" title="#{bundle.ViewPlaceTitle_name}"/>
-                                <h:outputText value="#{bundle.ViewPlaceLabel_address}"/>
-                                <h:outputText value="#{placeView_1.selected.address}" title="#{bundle.ViewPlaceTitle_address}"/>
-                                <h:outputText value="#{bundle.ViewPlaceLabel_description}"/>
-                                <h:outputText value="#{placeView_1.selected.description}" title="#{bundle.ViewPlaceTitle_description}"/>
-                                <h:outputText value="#{bundle.ViewPlaceLabel_workHours}"/>
-                                <h:outputText value="#{placeView_1.selected.workHours}" title="#{bundle.ViewPlaceTitle_workHours}"/>
-                                <h:outputText value="#{bundle.ViewPlaceLabel_lang}"/>
-                                <h:outputText value="#{placeView_1.selected.lang}" title="#{bundle.ViewPlaceTitle_lang}"/>
-                                <h:outputText value="#{bundle.ViewPlaceLabel_attd}"/>
-                                <h:outputText value="#{placeView_1.selected.attd}" title="#{bundle.ViewPlaceTitle_attd}"/>
-                                <h:outputText value="#{bundle.ViewPlaceLabel_validated}"/>
-                                <p:selectBooleanCheckbox value="#{placeView_1.selected.validated}" disabled="true"/>
-                                <h:outputText value="#{bundle.ViewPlaceLabel_active}"/>
-                                <p:selectBooleanCheckbox value="#{placeView_1.selected.active}" disabled="true"/>
-
-                            </p:panelGrid>
-                        </p:outputPanel>
-                    </p:dialog>
                 </h:form>
+
             </ui:define>
 
         </ui:composition>

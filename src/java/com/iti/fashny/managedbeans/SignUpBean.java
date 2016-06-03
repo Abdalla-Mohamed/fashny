@@ -39,16 +39,16 @@ public class SignUpBean
     
     Client c = new Client();
 
-    public NavigationBean getNavigationBean() {
-        return navigationBean;
-    }
-
-    public void setNavigationBean(NavigationBean navigationBean) {
-        this.navigationBean = navigationBean;
-    }
-
-     @ManagedProperty(value = "#{navigationBean}")
-    private NavigationBean navigationBean;
+//    public NavigationBean getNavigationBean() {
+//        return navigationBean;
+//    }
+//
+//    public void setNavigationBean(NavigationBean navigationBean) {
+//        this.navigationBean = navigationBean;
+//    }
+//
+//     @ManagedProperty(value = "#{navigationBean}")
+//    private NavigationBean navigationBean;
     
     
     public Client getC() {
@@ -90,7 +90,8 @@ public class SignUpBean
         
         new guestImpl().signUp(c);
       
-      return navigationBean.toWelcome();
+//      return navigationBean.toWelcome();
+        return "/info";
     }
     
       public void uploadedPicture()

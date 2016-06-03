@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -16,7 +17,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean(name = "test")
 @RequestScoped
-public class TestPlaceBean {
+public class PlaceDetailsBean {
 
     @ManagedProperty(value = "#{placeView_1}")
     private PlaceViewManagedBean_1 placeView;
@@ -33,6 +34,14 @@ public class TestPlaceBean {
 
     public PlaceViewManagedBean_1 getPlaceView() {
         return placeView;
+    }
+
+    public String getParam() {
+        /**
+         * Takes the parameter from the flash context
+         */
+        return (String) FacesContext.getCurrentInstance().getExternalContext()
+                .getFlash().get("param");
     }
 
 }
