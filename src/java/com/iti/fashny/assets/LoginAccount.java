@@ -21,23 +21,12 @@ import java.util.List;
 public class LoginAccount {
 
     private Role role;
-    private String email;
-    private BufferedImage personalImage;
-    private List<Tag> intersets;
-    private Date lastSeen;
     private UserAccount account;
 
     public LoginAccount(UserAccount userAccount) {
         this.account = userAccount;
     }
 
-    public LoginAccount(Role role, String email, BufferedImage personalImage, List<Tag> intersets, Date lastSeen) {
-        this.role = role;
-        this.email = email;
-        this.personalImage = personalImage;
-        this.intersets = intersets;
-        this.lastSeen = lastSeen;
-    }
 
     private void spcifyRoleOfAccount(UserAccount account) {
         if (account instanceof Client) {
@@ -59,36 +48,27 @@ public class LoginAccount {
         this.role = role;
     }
 
-    public String getEmail() {
-        return email;
+    public Client getClient(){
+        Client client=null;
+        if(role == Role.Client) {
+            client = (Client) account;
+        }
+        return client;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Company getCompany(){
+        Company company=null;
+        if(role == Role.Company) {
+            company = (Company) account;
+        }
+        return company;
     }
 
-    public BufferedImage getPersonalImage() {
-        return personalImage;
+    public Partener getPartener(){
+        Partener partener=null;
+        if(role == Role.Partner) {
+            partener = (Partener) account;
+        }
+        return partener;
     }
-
-    public void setPersonalImage(BufferedImage personalImage) {
-        this.personalImage = personalImage;
-    }
-
-    public List<Tag> getIntersets() {
-        return intersets;
-    }
-
-    public void setIntersets(List<Tag> intersets) {
-        this.intersets = intersets;
-    }
-
-    public Date getLastSeen() {
-        return lastSeen;
-    }
-
-    public void setLastSeen(Date lastSeen) {
-        this.lastSeen = lastSeen;
-    }
-
 }

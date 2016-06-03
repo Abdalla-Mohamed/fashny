@@ -30,7 +30,7 @@ public class CompanyFacade extends AbstractFacade<Company> {
 
         List resultList = getEntityManager().createNamedQuery("Company.findByEmail").setParameter("email", mail).getResultList();
 
-        if (resultList.size() > 1) {
+        if (resultList.size() >= 1) {
             valid = true;
         }
 

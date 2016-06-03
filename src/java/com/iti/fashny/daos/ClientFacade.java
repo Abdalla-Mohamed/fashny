@@ -35,11 +35,11 @@ public class ClientFacade extends AbstractFacade<Client> {
         boolean valid = false;
 
         List resultList = getEntityManager().createNamedQuery("Client.findByEmail").setParameter("email", mail).getResultList();
-
-        if (resultList.size() > 1) {
-            valid = true;
-        }
-
+        
+        
+        if(resultList.size()>=1)
+            valid=true;
+        
         return valid;
     }
 
@@ -48,7 +48,7 @@ public class ClientFacade extends AbstractFacade<Client> {
         System.out.println(email +","+pass);
         System.out.println("=========================");
         Client singleResult = (Client) getEntityManager().createQuery(HQL_LOGIN)
-                .setParameter("email", email).setParameter("password", pass).getSingleResult();
+                .setParameter("email", email).setParameter("password", pass).getResultList().get(0);
         if (singleResult == null) {
             throw new Fasa7nyException();
         }

@@ -10,9 +10,6 @@ import com.iti.fashny.assets.Role;
 import com.iti.fashny.interfaces.Guest;
 import com.iti.fashny.managedbeans.LoginManagedBean;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -29,12 +26,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author Abdalla
  */
-@WebFilter(filterName = "ClientPagesFilter", urlPatterns = {"/faces/clientpages/none*"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.INCLUDE})
-public class ClientPagesFilter implements Filter {
+@WebFilter(filterName = "PartnerPagesFilter", urlPatterns = {"/faces/companypages/none*"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.INCLUDE})
+public class PartnerPagesFilter implements Filter {
 
     private FilterConfig filterConfig = null;
 
-    public ClientPagesFilter() {
+    public PartnerPagesFilter() {
     }
 
     public void destroy() {
@@ -58,10 +55,10 @@ public class ClientPagesFilter implements Filter {
             if (loginManagedBean != null && loginManagedBean.isLogged()) {
                 LoginAccount loginAccount = loginManagedBean.getLoginAccount();
 
-                if (loginAccount.getRole().equals(Role.Client)) {
+                if (loginAccount.getRole().equals(Role.Partner)) {
                     chain.doFilter(request, response);
 
-                } else {
+                }else {
 
                     ((HttpServletResponse) response).sendRedirect(Guest.DENIED_PAGE_URL);
 
