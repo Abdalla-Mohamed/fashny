@@ -35,21 +35,13 @@ public class PlaceViewManagedBean_1 {
     private List<Place> items = null;
     private Place selected;
     private List<Place> filteredItems;
-    private String tst;
-    int id;
 
     public String placeDetails(int id) {
         selected = placeBusiness.showSpecificInfo(id);
         return "Client_Places";
     }
 
-    public void setTst(String tst) {
-        this.tst = tst;
-    }
-
-    public String getTst() {
-        return tst;
-    }
+ 
 
     public List<Place> getFilteredItems() {
         return filteredItems;

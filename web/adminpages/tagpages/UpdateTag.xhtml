@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PlaceEditDlg" widgetVar="PlaceEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPlaceTitle}">
+            <h:form id="PlaceEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{placeView_1.selected != null}">
+                       
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{placeView_1.selected.name}" title="#{bundle.EditPlaceTitle_name}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{placeView_1.selected.address}" title="#{bundle.EditPlaceTitle_address}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_address}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_description}" for="description" />
+                        <p:inputTextarea rows="4" cols="30" id="description" value="#{placeView_1.selected.description}" title="#{bundle.EditPlaceTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_workHours}" for="workHours" />
+                        <p:inputText id="workHours" value="#{placeView_1.selected.workHours}" title="#{bundle.EditPlaceTitle_workHours}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_workHours}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_lang}" for="lang" />
+                        <p:inputText id="lang" value="#{placeView_1.selected.lang}" title="#{bundle.EditPlaceTitle_lang}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_lang}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_attd}" for="attd" />
+                        <p:inputText id="attd" value="#{placeView_1.selected.attd}" title="#{bundle.EditPlaceTitle_attd}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_attd}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_validated}" for="validated" />
+                        <p:selectBooleanCheckbox id="validated" value="#{placeView_1.selected.validated}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/>
+                        <p:outputLabel value="#{bundle.EditPlaceLabel_active}" for="active" />
+                        <p:selectBooleanCheckbox id="active" value="#{placeView_1.selected.active}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{placeView_1.update}" value="#{bundle.Save}" update="display,:PlaceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PlaceEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('PlaceEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
