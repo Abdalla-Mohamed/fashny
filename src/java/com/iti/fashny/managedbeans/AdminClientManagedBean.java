@@ -21,22 +21,23 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  *
  * @author Bakar M.M.R
  */
-@ManagedBean(name =  "adminClient")
+@ManagedBean(name = "adminClient")
 @ViewScoped
-public class AdminClientManagedBean{
+public class AdminClientManagedBean {
 
     ClientBusiness clientBusiness;
     private List<Client> items = null;
     private Client selected;
     private List<Client> filteredItems;
-    
+
     public AdminClientManagedBean() {
-        clientBusiness=new ClientBusiness();
+        clientBusiness = new ClientBusiness();
     }
 
     public ClientBusiness getClientBusiness() {
@@ -77,7 +78,7 @@ public class AdminClientManagedBean{
     public void setFilteredItems(List<Client> filteredItems) {
         this.filteredItems = filteredItems;
     }
-    
+
     public Client prepareCreate() {
         selected = new Client();
         return selected;
@@ -86,6 +87,7 @@ public class AdminClientManagedBean{
     public void create() {
         if (getSelected() != null) {
             try {
+                selected.setLastSeen(new Timestamp(System.currentTimeMillis()));
                 clientBusiness.add(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -102,7 +104,6 @@ public class AdminClientManagedBean{
             }
         }
     }
-
 
     public Client getClient(java.lang.Integer id) {
         return clientBusiness.showSpecificInfo(id);
@@ -127,30 +128,39 @@ public class AdminClientManagedBean{
         }
         return clientList;
     }
-    
-    
-     public void onRowEdit(RowEditEvent event) {
-         selected=(Client) event.getObject();
-         update();
-         FacesMessage msg = new FacesMessage("Client Edited", ((Client) event.getObject()).getName());
-         FacesContext.getCurrentInstance().addMessage(null, msg);
+
+    public void onRowEdit(RowEditEvent event) {
+        selected = (Client) event.getObject();
+        update();
+        FacesMessage msg = new FacesMessage("Client Edited", ((Client) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Client) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
+
+        if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
+
+    public String goToViewClient(int id) {
+        selected = clientBusiness.showSpecificInfo(id);
+        return "ViewClient";
+    }
+
+    public String goToCreateClient() {
+        selected = new Client();
+        return "CreateClient";
+    }
+
     @FacesConverter(forClass = Client.class)
     public static class ClientControllerConverter implements Converter {
 
@@ -159,7 +169,7 @@ public class AdminClientManagedBean{
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AdminClientManagedBean controller =  (AdminClientManagedBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clientController");
+            AdminClientManagedBean controller = (AdminClientManagedBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clientController");
             return controller.getClient(getKey(value));
         }
 

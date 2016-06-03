@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../templates/templateAdmin.xhtml">
+
+            <ui:define name="heads">
+                heads
+            </ui:define>
+
+            <ui:define name="contPageName">
+                Client
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+                Create New Client
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                admin>client>create client
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="ClientCreateForm">
+                    <h:panelGroup id="display" class="col-sm-8">
+                        <p:panelGrid columns="2" class="col-sm-12">
+
+                            <ui:remove>    <p:outputLabel value="#{bundle.CreateClientLabel_id}" for="id" />
+                                <p:inputText id="id" value="#{adminClient.selected.id}" title="#{bundle.CreateClientTitle_id}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_id}"/>
+                            </ui:remove>
+                            <p:outputLabel value="#{bundle.CreateClientLabel_name}" for="name" />
+                            <p:inputText id="name" value="#{adminClient.selected.name}" title="#{bundle.CreateClientTitle_name}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_name}"/>
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_email}" for="email" />
+                            <p:inputText id="email" value="#{adminClient.selected.email}" title="#{bundle.CreateClientTitle_email}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_email}"/>
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_contactEmail}" for="contactEmail" />
+                            <p:inputText id="contactEmail" value="#{adminClient.selected.contactEmail}" title="#{bundle.CreateClientTitle_contactEmail}" />
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_password}" for="password" />
+                            <p:inputText id="password" value="#{adminClient.selected.password}" title="#{bundle.CreateClientTitle_password}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_password}"/>
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_address}" for="address" />
+                            <p:inputText id="address" value="#{adminClient.selected.address}" title="#{bundle.CreateClientTitle_address}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_address}"/>
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_birthDate}" for="birthDate" />
+                            <p:calendar id="birthDate" pattern="MM/dd/yyyy" value="#{adminClient.selected.birthDate}" title="#{bundle.EditClientTitle_birthDate}" required="true" requiredMessage="#{bundle.EditClientRequiredMessage_birthDate}" showOn="button"/>
+                           
+                            <p:outputLabel value="#{bundle.CreateClientLabel_gender}" for="gender" />
+                            <p:selectOneMenu id="gender" value="#{adminClient.selected.gender}" title="#{bundle.CreateClientTitle_gender}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_gender}">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="Male" itemValue="0" />
+                                <f:selectItem itemLabel="Female" itemValue="1" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_maritalStatus}" for="maritalStatus" />
+                            <p:selectOneMenu id="maritalStatus" value="#{adminClient.selected.maritalStatus}" title="#{bundle.CreateClientTitle_maritalStatus}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_maritalStatus}"/>
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="Single" itemValue="0" />
+                                <f:selectItem itemLabel="Double" itemValue="1" />
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="#{bundle.CreateClientLabel_mobile1}" for="mobile1" />
+                            <p:inputText id="mobile1" value="#{adminClient.selected.mobile1}" title="#{bundle.CreateClientTitle_mobile1}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_mobile1}"/>
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_mobile2}" for="mobile2" />
+                            <p:inputText id="mobile2" value="#{adminClient.selected.mobile2}" title="#{bundle.CreateClientTitle_mobile2}" />
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_phone}" for="phone" />
+                            <p:inputText id="phone" value="#{adminClient.selected.phone}" title="#{bundle.CreateClientTitle_phone}" />
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_active}" for="active" />
+                            <p:selectBooleanCheckbox id="active" value="#{adminClient.selected.active}" />
+
+                            <p:outputLabel value="#{bundle.CreateClientLabel_profilePic}" for="profilePic" />
+                            <p:selectOneMenu id="profilePic" value="#{adminClient.selected.profilePic}" >
+                                <f:selectItems value="#{resouceController.itemsAvailableSelectOne}"
+                                               var="profilePicItem"
+                                               itemValue="#{profilePicItem}"/>
+                            </p:selectOneMenu>
+
+
+                        </p:panelGrid>
+                        <p:commandButton actionListener="#{adminClient.create}" value="#{bundle.Save}" />
+                        <p:commandButton value="#{bundle.Cancel}" immediate="true"/>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="rightHeader">
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
