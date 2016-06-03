@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../templates/templateAdmin.xhtml">
+
+            <ui:define name="contPageName">
+                contPageName
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+                contPageDescrp
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                contPagePath
+            </ui:define>
+
+            <ui:define name="content">
+               <br/> <br/> <br/>
+                <h:form id="PlaceViewForm">
+                    <div  class="col-sm-12" align="center">
+                        <div class="col-sm-6" align="center">    
+                            <font size="10">
+                                <p:panelGrid  columns="2" rendered="#{CompanyMB.selected != null}" styleClass="col-sm-12" style="font: bold;">
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_name}"/>
+                                    <h:outputText value="#{CompanyMB.selected.name}" title="#{bundle.ViewCompanyTitle_name}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_description}"/>
+                                    <h:outputText value="#{CompanyMB.selected.description}" title="#{bundle.ViewCompanyTitle_description}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_email}"/>
+                                    <h:outputText value="#{CompanyMB.selected.email}" title="#{bundle.ViewCompanyTitle_email}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_contactEmail}"/>
+                                    <h:outputText value="#{CompanyMB.selected.contactEmail}" title="#{bundle.ViewCompanyTitle_contactEmail}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_website}"/>
+                                    <h:outputText value="#{CompanyMB.selected.website}" title="#{bundle.ViewCompanyTitle_website}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_phone}"/>
+                                    <h:outputText value="#{CompanyMB.selected.phone}" title="#{bundle.ViewCompanyTitle_phone}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_mobile1}"/>
+                                    <h:outputText value="#{CompanyMB.selected.mobile1}" title="#{bundle.ViewCompanyTitle_mobile1}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_mobile2}"/>
+                                    <h:outputText value="#{CompanyMB.selected.mobile2}" title="#{bundle.ViewCompanyTitle_mobile2}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_address}"/>
+                                    <h:outputText value="#{CompanyMB.selected.address}" title="#{bundle.ViewCompanyTitle_address}"/>
+
+                                    
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_validated}"/>
+                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" disabled="true"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_active}"/>
+                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.active}" disabled="true"/>
+                                </p:panelGrid>
+                            </font>   
+                        </div> 
+                        <div class="col-sm-6" align="center">
+
+                        </div>
+
+                    </div> 
+                </h:form>
+            </ui:define>
+
+            <ui:define name="rightHeader"> 
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

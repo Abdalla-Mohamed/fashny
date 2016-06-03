@@ -8,18 +8,20 @@ package com.iti.fashny.managedbeans;
 import com.iti.fashny.businessbeans.CompanyController;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Amira Anis
  */
-@ManagedBean(name="CompanyMB")
-@ViewScoped
+@ManagedBean(name="CompanyMB" )
+@SessionScoped
 public class CompanyManagedBean {
 
     CompanyController companyController;
@@ -70,6 +72,7 @@ public class CompanyManagedBean {
     
    public void create() {
         if (getSelected() != null) {
+            selected.setLastSeen(new Timestamp(System.currentTimeMillis()));
             try {
                 companyController.add(selected);
             } catch (Exception ex) {
@@ -105,7 +108,19 @@ public class CompanyManagedBean {
         }
     }
 
-    public Company getPlace(java.lang.Integer id) {
+    public Company getCompany(java.lang.Integer id) {
         return companyController.showSpecificInfo(id);
-    } 
+    }
+    
+    // --------------------------- for page --------------------------------//
+    public String goToViewCompany(int id) {
+        selected = companyController.showSpecificInfo(id);
+        System.out.println("---%%--" + selected.getName());
+        return "ViewCompany";
+    }
+
+    public String goToCreateCompany() {
+        selected = new Company();
+        return "CreateCompany";
+    }
 }
