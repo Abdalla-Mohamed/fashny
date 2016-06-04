@@ -3,11 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.iti.fashny.managedbeans;
+package com.iti.fashny.converters;
 
+import com.iti.fashny.businessbeans.PlaceBusiness;
+import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.managedbeans.SearchMB;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -16,47 +23,30 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author Amira Anis
+ * @author Abdalla
  */
-@FacesConverter("tagConverter")
-public class TagConverter implements Converter {
+@FacesConverter("converterPlace")
+public class ConverterPlace implements Converter {
 
-//    @Override
-//    public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-//        Tag tag = new Tag(value);
-//        return tag;
-//    }
-//
-//    @Override
-//    public String getAsString(FacesContext fc, UIComponent uic, Object tagObject) {
-//        if (tagObject == null) {
-//            return "";
-//        }
-//
-//        if(tagObject instanceof Tag) {
-//            // return String.valueOf(((Tag) o).getName());
-//            return tagObject.toString();
-//        }
-//        else 
-//        return ""; 
-//    }
-     public TagConverter() {
+    public ConverterPlace() {
     }
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if (value != null && value.trim().length() > 0) {
             try {
-                TagManagedBeen tagManagedBeen = (TagManagedBeen) fc.getViewRoot().getViewMap().get("tagBean");
-                List<Tag> tags = tagManagedBeen.getItems();
-                for (Tag tag : tags) {
-                    if (tag.getId() == Integer.parseInt(value)) {
-                        return tag;
+                PlaceBusiness placeBusiness = new PlaceBusiness();
+                List<Place> places = placeBusiness.view();
+                for (Place place : places) {
+                    if (place.getId() == Integer.parseInt(value)) {
+                        return place;
                     }
                 }
 
             } catch (NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
+            } catch (Exception ex) {
+                Logger.getLogger(ConverterPlace.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
@@ -66,9 +56,10 @@ public class TagConverter implements Converter {
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if (object != null) {
-            return String.valueOf(((Tag) object).getId());
+            return String.valueOf(((Place) object).getId());
         } else {
             return null;
         }
     }
+
 }
