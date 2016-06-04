@@ -36,7 +36,7 @@ public class AdminFacade extends AbstractFacade<Admin> {
         List resultList = getEntityManager().createNamedQuery("Admin.findByEmail").setParameter("email", mail).getResultList();
         
         
-        if(resultList.size()>1)
+        if(resultList.size()>=1)
             valid=true;
         
         return valid;

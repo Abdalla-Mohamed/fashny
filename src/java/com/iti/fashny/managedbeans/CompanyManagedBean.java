@@ -8,6 +8,7 @@ package com.iti.fashny.managedbeans;
 import com.iti.fashny.businessbeans.CompanyController;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,7 +23,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name="CompanyMB" )
 @SessionScoped
-public class CompanyManagedBean {
+public class CompanyManagedBean implements Serializable{
 
     CompanyController companyController;
     private List<Company> items = null;
@@ -78,28 +79,22 @@ public class CompanyManagedBean {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else {
-            System.out.println(" --- xxxxx ----");
-        }
+        } 
     }
 
     public void update() {
         if (selected != null) {
             try {
-//                setEmbeddableKeys();
                 companyController.update(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else {
-            System.out.println(" --- yyyyy ----");
         }
     }
 
     public void destroy() {
         if (selected != null) {
             try {
-//                setEmbeddableKeys();
                 selected.setActive(Boolean.FALSE);
                 companyController.update(selected);
             } catch (Exception ex) {
@@ -115,12 +110,14 @@ public class CompanyManagedBean {
     // --------------------------- for page --------------------------------//
     public String goToViewCompany(int id) {
         selected = companyController.showSpecificInfo(id);
-        System.out.println("---%%--" + selected.getName());
-        return "ViewCompany";
+        return "viewCompany";
     }
 
     public String goToCreateCompany() {
         selected = new Company();
-        return "CreateCompany";
+        return "createCompany";
+    }
+    public String goToCompanies(){
+        return "compaies";
     }
 }

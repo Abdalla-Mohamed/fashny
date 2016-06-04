@@ -32,9 +32,6 @@ public class PlaceBusiness implements Commens<Place> {
     public void add(Place t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         PlaceFacade placeFacade = daoFactory.getPlaceDoa();
-//        daoFactory.beginTransaction();
-//        daoFactory.commitTransaction();
-
         try {
 
             daoFactory.beginTransaction();

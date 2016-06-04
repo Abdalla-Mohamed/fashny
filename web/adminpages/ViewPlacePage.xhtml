@@ -29,23 +29,26 @@
                         <div class="col-sm-6" align="center">    
                             <font size="10">
                             <p:panelGrid  columns="2" rendered="#{placeView_1.selected != null}" styleClass="col-sm-12" style="font: bold;">
-                                <p:outputLabel value="#{bundle.ViewPlaceLabel_id}" style="font-size: 24px"/>
+                                    <h:outputText value="#{bundle.ViewPlaceLabel_id}" style="font-size: 24px"/>
                                     <h:outputText value="#{placeView_1.selected.id}" title="#{bundle.ViewPlaceTitle_id}"/>
+                                    
                                     <h:outputText value="#{bundle.ViewPlaceLabel_name}"/>
                                     <h:outputText value="#{placeView_1.selected.name}" title="#{bundle.ViewPlaceTitle_name}"/>
+                                    
                                     <h:outputText value="#{bundle.ViewPlaceLabel_address}"/>
                                     <h:outputText value="#{placeView_1.selected.address}" title="#{bundle.ViewPlaceTitle_address}"/>
+                                    
                                     <h:outputText value="#{bundle.ViewPlaceLabel_description}"/>
                                     <h:outputText value="#{placeView_1.selected.description}" title="#{bundle.ViewPlaceTitle_description}"/>
+                                    
                                     <h:outputText value="#{bundle.ViewPlaceLabel_workHours}"/>
                                     <h:outputText value="#{placeView_1.selected.workHours}" title="#{bundle.ViewPlaceTitle_workHours}"/>
+                                    
                                     <h:outputText value="#{bundle.ViewPlaceLabel_lang}"/>
                                     <h:outputText value="#{placeView_1.selected.lang}" title="#{bundle.ViewPlaceTitle_lang}"/>
+
                                     <h:outputText value="#{bundle.ViewPlaceLabel_attd}"/>
                                     <h:outputText value="#{placeView_1.selected.attd}" title="#{bundle.ViewPlaceTitle_attd}"/>
-
-                                    <p:outputLabel value="#{bundle.ViewPlaceLabel_tags}"/>
-                                    <p:dataList value="#{placeView_1.selected.tagList}" var="tag" >#{tag.name}</p:dataList>
 
                                     <h:outputText value="#{bundle.ViewPlaceLabel_validated}"/>
                                     <p:selectBooleanCheckbox value="#{placeView_1.selected.validated}" disabled="true"/>

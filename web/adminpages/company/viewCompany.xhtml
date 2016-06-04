@@ -23,10 +23,11 @@
             </ui:define>
 
             <ui:define name="content">
-               <br/> <br/> <br/>
+                <br/> <br/> <br/>
                 <h:form id="PlaceViewForm">
                     <div  class="col-sm-12" align="center">
-                        <div class="col-sm-6" align="center">    
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="col-sm-8" align="center">    
                             <font size="10">
                                 <p:panelGrid  columns="2" rendered="#{CompanyMB.selected != null}" styleClass="col-sm-12" style="font: bold;">
 
@@ -57,7 +58,6 @@
                                     <h:outputText value="#{bundle.ViewCompanyLabel_address}"/>
                                     <h:outputText value="#{CompanyMB.selected.address}" title="#{bundle.ViewCompanyTitle_address}"/>
 
-                                    
                                     <h:outputText value="#{bundle.ViewCompanyLabel_validated}"/>
                                     <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" disabled="true"/>
 
@@ -66,11 +66,37 @@
                                 </p:panelGrid>
                             </font>   
                         </div> 
-                        <div class="col-sm-6" align="center">
+                    </div>
+                    
+                    <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
+                    
+                    <div class="col-sm-12" align="center">
+                         <h:form id="form">
+                             <!--CompanyMB.selected.tripList-->
+                             <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
+                                            rows="12" paginator="true" id="trip"
+                                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                            rowsPerPageTemplate="6,12,16">
 
-                        </div>
 
-                    </div> 
+                                    <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                        <div class="col-xs-4 blog-grid-left">
+                                            <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                        </div> 
+                                        <div class="col-xs-8 blog-grid-right">
+                                            <a href="single.html"><h4>#{trip.name}</h4></a>
+                                            <p>Trip Date : #{trip.date}</p>
+                                            <p>#{trip.countBooking} joined</p>
+                                            <h5>#{trip.cost} EGP</h5>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                        <div class="more m1">
+                                            <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                        </div>
+                                    </div>
+                                </p:dataGrid>
+                            </h:form>
+                        </div>    
                 </h:form>
             </ui:define>
 
