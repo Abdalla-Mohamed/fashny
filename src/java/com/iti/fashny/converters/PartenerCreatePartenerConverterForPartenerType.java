@@ -22,6 +22,8 @@ public class PartenerCreatePartenerConverterForPartenerType implements Converter
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) 
     {
+        
+        
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return new PartnType(Integer.parseInt(string));
     }
@@ -31,7 +33,7 @@ public class PartenerCreatePartenerConverterForPartenerType implements Converter
     {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
    
-        return new PartnType().getId().toString();
+        return ((PartnType)o).getId().toString();
     }
     
 }
