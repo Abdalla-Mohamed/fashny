@@ -31,12 +31,19 @@ public class guestImpl implements Guest
     
      DaoFactory daoFactory = new DaoFactory();
      ClientFacade clientFacade = daoFactory.getClientDoa();
-        
+        try
+        {
       daoFactory.beginTransaction();
       clientFacade.create(c);
       //clientFacade.create(new Client(null, "omr", "2cli2@cc.com", "asasd2", "asdasd2", new Date(), (short) 1, (short) 2, new Timestamp(System.currentTimeMillis()), "2"));
       daoFactory.commitTransaction();
-      daoFactory.close();
+        }
+         catch (Exception exception) 
+         {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
+      //daoFactory.close();
     
     }
 

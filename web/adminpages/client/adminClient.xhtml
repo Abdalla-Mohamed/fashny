@@ -118,11 +118,11 @@
 
                     <p:column headerText="#{bundle.ListClientTitle_active}">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.active}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_active" value="#{item.active}" style="width:100%"/></f:facet>
+                            <f:facet name="output"><p:selectBooleanCheckbox value="#{item.active}" disabled="true"/></f:facet>
+                            <f:facet name="input"><p:selectBooleanCheckbox value="#{item.active}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-
+                    
                     <p:column style="width:32px">
                         <p:commandLink id="viewButton" value="#{bundle.View}" styleClass="ui-icon ui-icon-search" action="#{adminClient.goToViewClient(item.id)}"/>
                     </p:column>

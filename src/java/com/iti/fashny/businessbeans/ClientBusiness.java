@@ -8,6 +8,7 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PlaceFacade;
+import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.interfaces.Commens;
 import java.util.List;
@@ -28,8 +29,10 @@ public class ClientBusiness implements Commens<Client> {
     public void add(Client t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         ClientFacade clientFacade = daoFactory.getClientDoa();
+        ResouceFacade resouceFacade = daoFactory.getResouceDoa();
         try {
             daoFactory.beginTransaction();
+            resouceFacade.create(t.getProfilePic());
             clientFacade.create(t);
             daoFactory.commitTransaction();
         } catch (Exception exception) {
