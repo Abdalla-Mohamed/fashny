@@ -32,9 +32,6 @@ public class PlaceBusiness implements Commens<Place> {
     public void add(Place t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         PlaceFacade placeFacade = daoFactory.getPlaceDoa();
-//        daoFactory.beginTransaction();
-//        daoFactory.commitTransaction();
-
         try {
 
             daoFactory.beginTransaction();
@@ -89,6 +86,21 @@ public class PlaceBusiness implements Commens<Place> {
         return placeResults;
     }
 
+        public void getPlaceResoures(Place place) {
+        DaoFactory daoFactory = new DaoFactory();
+
+        try {
+            PlaceFacade placeFacade = daoFactory.getPlaceDoa();
+            daoFactory.beginTransaction();
+            placeFacade.refresh(place);
+            place.getResouceList();
+            daoFactory.commitTransaction();
+        } catch (Exception e) {
+            daoFactory.rollbackTransaction();
+            e.printStackTrace();
+        }
+
+    }
     @Override
     public List<Place> searchByExample(Place t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
