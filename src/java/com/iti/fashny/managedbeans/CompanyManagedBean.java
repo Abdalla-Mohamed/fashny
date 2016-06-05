@@ -110,6 +110,11 @@ public class CompanyManagedBean implements Serializable{
     // --------------------------- for page --------------------------------//
     public String goToViewCompany(int id) {
         selected = companyController.showSpecificInfo(id);
+        try {
+            companyController.gitTripsOfCompany(selected);
+        } catch (Exception ex) {
+            Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "viewCompany";
     }
 

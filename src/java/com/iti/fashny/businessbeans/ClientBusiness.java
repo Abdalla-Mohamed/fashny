@@ -35,7 +35,7 @@ public class ClientBusiness implements Commens<Client>{
 
     @Override
     public List<Client> view() throws Exception {
-          DaoFactory daoFactory = new DaoFactory();
+        DaoFactory daoFactory = new DaoFactory();
         List<Client> clientResults = new ArrayList<>();
         try {
             ClientFacade clientFacade = daoFactory.getClientDoa();
@@ -51,6 +51,7 @@ public class ClientBusiness implements Commens<Client>{
         }
         return clientResults;
     }
+    
 
     @Override
     public List<Client> searchByExample(Client t) throws Exception {
