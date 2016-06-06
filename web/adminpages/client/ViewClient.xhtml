@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../templates/templateAdmin.xhtml">
+
+            <ui:define name="heads">
+                heads
+            </ui:define>
+
+            <ui:define name="contPageName">
+                contPageName
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+                contPageDescrp
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                contPagePath
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="ClientViewForm">
+                    <h:panelGroup id="display" class="col-sm-8">
+                        <p:panelGrid columns="2" rendered="#{adminClient.selected != null}" class="col-sm-12">
+                            <h:outputText value="#{bundle.ViewClientLabel_id}"/>
+                            <h:outputText value="#{adminClient.selected.id}" title="#{bundle.ViewClientTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_name}"/>
+                            <h:outputText value="#{adminClient.selected.name}" title="#{bundle.ViewClientTitle_name}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_email}"/>
+                            <h:outputText value="#{adminClient.selected.email}" title="#{bundle.ViewClientTitle_email}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_contactEmail}"/>
+                            <h:outputText value="#{adminClient.selected.contactEmail}" title="#{bundle.ViewClientTitle_contactEmail}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_password}"/>
+                            <h:outputText value="#{adminClient.selected.password}" title="#{bundle.ViewClientTitle_password}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_address}"/>
+                            <h:outputText value="#{adminClient.selected.address}" title="#{bundle.ViewClientTitle_address}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_birthDate}"/>
+                            <h:outputText value="#{adminClient.selected.birthDate}" title="#{bundle.ViewClientTitle_birthDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{bundle.ViewClientLabel_gender}"/>
+                            <h:outputText value="#{adminClient.selected.gender}" title="#{bundle.ViewClientTitle_gender}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_maritalStatus}"/>
+                            <h:outputText value="#{adminClient.selected.maritalStatus}" title="#{bundle.ViewClientTitle_maritalStatus}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_lastSeen}"/>
+                            <h:outputText value="#{adminClient.selected.lastSeen}" title="#{bundle.ViewClientTitle_lastSeen}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                            <h:outputText value="#{bundle.ViewClientLabel_mobile1}"/>
+                            <h:outputText value="#{adminClient.selected.mobile1}" title="#{bundle.ViewClientTitle_mobile1}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_mobile2}"/>
+                            <h:outputText value="#{adminClient.selected.mobile2}" title="#{bundle.ViewClientTitle_mobile2}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_phone}"/>
+                            <h:outputText value="#{adminClient.selected.phone}" title="#{bundle.ViewClientTitle_phone}"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_active}"/>
+                            <p:selectBooleanCheckbox value="#{adminClient.selected.active}" disabled="true"/>
+                            <h:outputText value="#{bundle.ViewClientLabel_profilePic}"/>
+                            <h:outputText value="#{adminClient.selected.profilePic}" title="#{bundle.ViewClientTitle_profilePic}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="#{bundle.Close}" action="adminClient" immediate="true"/>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="rightHeader">
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -13,6 +13,7 @@ import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,5 +115,7 @@ public class PlaceBusiness implements Commens<Place> {
         place = p.find(id);
         return place;
     }
+
+  
 
 }

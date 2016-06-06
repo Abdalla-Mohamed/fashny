@@ -9,6 +9,7 @@ import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Resouce;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;

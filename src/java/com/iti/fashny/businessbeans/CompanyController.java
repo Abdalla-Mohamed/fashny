@@ -8,6 +8,7 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.io.Serializable;
 import java.util.ArrayList;
