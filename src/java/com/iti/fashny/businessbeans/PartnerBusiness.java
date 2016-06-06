@@ -12,6 +12,7 @@ import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.PartnType;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,6 +156,7 @@ public class PartnerBusiness implements Commens<Partener>
 //            Logger.getLogger(PartnerBusiness.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-    
+
+ 
     
 }
