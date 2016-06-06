@@ -10,6 +10,7 @@ import com.iti.fashny.daos.PartenerFacade;
 import com.iti.fashny.daos.PartnTypeFacade;
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.PartnType;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
@@ -124,5 +125,7 @@ public class PartnerTypeBusiness implements Commens<PartnType>
     public PartnType showSpecificInfo(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+   
     
 }

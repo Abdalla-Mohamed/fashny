@@ -8,6 +8,7 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.util.List;
 import java.util.ArrayList;
@@ -61,5 +62,6 @@ public class ClientBusiness implements Commens<Client>{
     public Client showSpecificInfo(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+  
 }
