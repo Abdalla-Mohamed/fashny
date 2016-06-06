@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.entities;
 
+import com.iti.fashny.interfaces.UserAccount;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +52,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Client.findByMobile2", query = "SELECT c FROM Client c WHERE c.mobile2 = :mobile2"),
     @NamedQuery(name = "Client.findByPhone", query = "SELECT c FROM Client c WHERE c.phone = :phone"),
     @NamedQuery(name = "Client.findByActive", query = "SELECT c FROM Client c WHERE c.active = :active")})
-public class Client implements Serializable {
+public class Client implements Serializable,UserAccount {
 
     private static final long serialVersionUID = 1L;
     @Id
