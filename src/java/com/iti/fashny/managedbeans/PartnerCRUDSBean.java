@@ -17,10 +17,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -29,15 +36,23 @@ import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean(name = "PartnerCRUDSBean")
 @SessionScoped
-public class PartnerCRUDSBean 
+public class PartnerCRUDSBean implements Serializable
 {
  
     PartnerBusiness partnerBusiness;
     
     private List<Partener> items = null;
-    private Partener selected = new Partener();
+    private Partener selected ;
+    //private Partener selected = new Partener();
     private List<Partener> filteredItems;
 
+    
+    public PartnerCRUDSBean()
+    {
+        partnerBusiness = new PartnerBusiness();
+    }
+    
+    
     public PartnerBusiness getPartnerBusiness() {
         return partnerBusiness;
     }
@@ -48,6 +63,17 @@ public class PartnerCRUDSBean
 
 
     public List<Partener> getItems() {
+        if(items==null)
+        {
+            try 
+            {
+                items=partnerBusiness.view();
+            } catch (Exception ex) 
+            {
+               // Logger.getLogger(PartnerCRUDSBean.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+            }
+        }
         return items;
     }
 
@@ -71,6 +97,77 @@ public class PartnerCRUDSBean
         this.filteredItems = filteredItems;
     }
     
+    
+    /////////////////////////////////////////////////////
+    public Partener prepareCreate()
+    {
+        selected = new Partener();
+        return selected;
+    }
+    
+    public Partener getPartener(java.lang.Integer id) {
+        return partnerBusiness.showSpecificInfo(id);
+    }
+    
+       public List<Partener> getItemsAvailableSelectMany() {
+        List<Partener> partenerList = null;
+        try {
+            partenerList = partnerBusiness.view();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return partenerList;
+    }
+       
+       
+    public List<Partener> getItemsAvailableSelectOne() {
+        List<Partener> partenerList = null;
+        try {
+            partenerList = partnerBusiness.view();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return partenerList;
+    }
+    
+         public void onRowEdit(RowEditEvent event) {
+         selected=(Partener) event.getObject();
+         update();
+         FacesMessage msg = new FacesMessage("Partener Edited", ((Partener) event.getObject()).getName());
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+         
+           public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Partener Edit Cancelled", ((Partener) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+           
+           
+     
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+           
+    
+      public void destroy() {
+        if (selected != null) {
+            try {
+                selected.setActive(Boolean.FALSE);
+                partnerBusiness.update(selected);
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    /////////////////////////////////////////////////////
+    
       public void create() {
 //          selected = new Partener();
 //          selected.setName("dfa");
@@ -90,13 +187,12 @@ public class PartnerCRUDSBean
 //          selected.setPhone("wfa");
 //          selected.setActive(Boolean.TRUE);
           
-          
-          selected.setType(new PartnType(1));
+          //selected.setType(new PartnType(1));
           
         if (getSelected() != null) {
             try {
                 System.out.println(selected.getName());
-                new PartnerBusiness().add(selected);
+                partnerBusiness.add(selected);
                 //return"/info";
                 
             } catch (Exception ex) {
@@ -109,8 +205,20 @@ public class PartnerCRUDSBean
       
       
       
-      
-      
+     public String partenerDetails(int id)
+     {
+         selected = partnerBusiness.showSpecificInfo(id);
+        return "Partener";
+     }
+          public void update() {
+        if (selected != null) {
+            try {
+                partnerBusiness.update(selected);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
       
       
       

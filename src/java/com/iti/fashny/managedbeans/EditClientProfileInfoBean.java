@@ -36,13 +36,20 @@ public class EditClientProfileInfoBean
  // Client c=loginManagedBean.c;
     
    
+    Client c;
+    public LoginManagedBean loginManagedBean;
+    
    //Client c = new LoginManagedBean().c;
     
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-    Client c = (Client) session.getAttribute("c");
+//    FacesContext facesContext = FacesContext.getCurrentInstance();
+//    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+//    Client c = (Client) session.getAttribute("c");
     
-    
+    public EditClientProfileInfoBean()
+    {
+        loginManagedBean = new LoginManagedBean();
+        c=loginManagedBean.c;
+    }
 
 //     @ManagedProperty(value = "#{navigationBean}")
 //    private NavigationBean navigationBean;
@@ -106,7 +113,7 @@ public class EditClientProfileInfoBean
     
     public String editProfile()
     {
-     c.setId(c.getId());
+     c.setId(loginManagedBean.c.getId());
 //        System.out.println(c.getName()+c.getEmail()+c.getId());
      DaoFactory daoFactory = new DaoFactory();
      ClientFacade clientFacade = daoFactory.getClientDoa();

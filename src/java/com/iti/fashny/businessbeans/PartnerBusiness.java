@@ -12,7 +12,6 @@ import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.PartnType;
 import com.iti.fashny.entities.Place;
-import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +125,13 @@ public class PartnerBusiness implements Commens<Partener>
 
     @Override
     public Partener showSpecificInfo(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Partener partenr = new Partener();
+        DaoFactory dao = new DaoFactory();
+        PartenerFacade partenerDoa = dao.getPartenerDoa();
+        partenr=partenerDoa.find(id);
+        return partenr;
     }
     
   
@@ -156,7 +161,6 @@ public class PartnerBusiness implements Commens<Partener>
 //            Logger.getLogger(PartnerBusiness.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
- 
+    
     
 }
