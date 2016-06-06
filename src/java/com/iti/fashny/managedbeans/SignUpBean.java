@@ -74,7 +74,7 @@ public class SignUpBean
         System.out.println(c.getActive());
         System.out.println(c.getGender());
         System.out.println(c.getId());
-        
+               
     }
     
     public String registerNewClient()
@@ -115,7 +115,7 @@ public class SignUpBean
     }
     String fileName;
     String logo;
-    String path = "C:\\Users\\MANAR ADEL\\Downloads\\ITI\\";
+    String path = "C:\\Users\\";
     public String handleFileUpload(FileUploadEvent event) {
        
         fileName = event.getFile().getFileName();
