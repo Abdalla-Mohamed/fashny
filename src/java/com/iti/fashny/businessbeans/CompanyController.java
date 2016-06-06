@@ -88,10 +88,5 @@ public class CompanyController implements Commens<Company>,Serializable{
         
     }
 
-    @Override
-    public void delete(Tag t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     
 }

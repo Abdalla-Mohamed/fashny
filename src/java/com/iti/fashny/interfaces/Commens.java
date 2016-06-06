@@ -63,8 +63,6 @@ public interface Commens<T> extends Serializable {
 
     void update(T t) throws Exception;
 
-    void delete(Tag t) throws Exception;
-
     List<T> view() throws Exception;
 
     List<T> searchByExample(T t) throws Exception;

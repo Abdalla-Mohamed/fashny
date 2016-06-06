@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../templates/templateAdmin.xhtml">
+
+            <ui:define name="contPageName">
+                contPageName
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+                contPageDescrp
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                contPagePath
+            </ui:define>
+
+            <ui:define name="content">
+                <br/> <br/> <br/>
+                <h:form id="PlaceViewForm">
+                    <div  class="col-sm-12" align="center">
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="col-sm-8" align="center">    
+                            <font size="10">
+                                <p:panelGrid  columns="2" rendered="#{tripMB.selected != null}" styleClass="col-sm-12" style="font: bold;">
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_name}"/>
+                                    <h:outputText value="#{tripMB.selected.name}" title="#{bundle.ViewTripTitle_name}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_cost}"/>
+                                    <h:outputText value="#{tripMB.selected.cost}" title="#{bundle.ViewTripTitle_cost}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_countBooking}"/>
+                                    <h:outputText value="#{tripMB.selected.countBooking}" title="#{bundle.ViewTripTitle_countBooking}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_date}"/>
+                                    <h:outputText value="#{tripMB.selected.date}" title="#{bundle.ViewTripTitle_date}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_hint}"/>
+                                    <h:outputText value="#{tripMB.selected.hint}" title="#{bundle.ViewTripTitle_hint}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_joinDeadline}"/>
+                                    <h:outputText value="#{tripMB.selected.joinDeadline}" title="#{bundle.ViewTripTitle_joinDeadline}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_maxbooking}"/>
+                                    <h:outputText value="#{tripMB.selected.maxbooking}" title="#{bundle.ViewTripTitle_maxbooking}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_needTools}"/>
+                                    <h:outputText value="#{tripMB.selected.needTools}" title="#{bundle.ViewTripTitle_needTools}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_program}"/>
+                                    <h:outputText value="#{tripMB.selected.program}" title="#{bundle.ViewTripTitle_program}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_validated}"/>
+                                    <p:selectBooleanCheckbox value="#{tripMB.selected.validated}" disabled="true"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_offer}"/>
+                                    <p:selectBooleanCheckbox value="#{tripMB.selected.offer}" disabled="true"/>
+                                </p:panelGrid>
+                            </font>   
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
+
+                    <div class="col-sm-12" align="center">
+                        <h:form id="form">
+                            <p:dataGrid var="place" value="#{placeView_1.items}" columns="3" layout="grid"
+                                        rows="12" paginator="true" id="places"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="6,12,16">
+
+
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right">
+                                        <a href="single.html">#{place.name}</a>
+                                        <h4>#{place.address}</h4>
+                                        <p>#{place.description}</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                        <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details"/>
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </h:form>
+                    </div>    
+                </h:form>
+            </ui:define>
+
+            <ui:define name="rightHeader"> 
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

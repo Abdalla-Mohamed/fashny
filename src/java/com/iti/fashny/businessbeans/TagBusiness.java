@@ -60,22 +60,7 @@ public class TagBusiness implements Commens<Tag> {
             daoFactory.rollbackTransaction();
         }
     }
- @Override
-    public void delete(Tag t) throws Exception {
-        DaoFactory daoFactory = new DaoFactory();
-        TagFacade tagFacade = daoFactory.getTagDoa();
-
-        try {
-
-            daoFactory.beginTransaction();
-            tagFacade.remove(t);
-            daoFactory.commitTransaction();
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            daoFactory.rollbackTransaction();
-        }
-    }
+ 
     @Override
     public List<Tag> view() throws Exception {
         DaoFactory daoFactory = new DaoFactory();

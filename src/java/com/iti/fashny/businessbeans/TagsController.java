@@ -85,9 +85,6 @@ public class TagsController implements Commens<Tag> {
 
     }
 
-    @Override
-    public void delete(Tag t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 
 }

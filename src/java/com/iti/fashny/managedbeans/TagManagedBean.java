@@ -116,15 +116,7 @@ public class TagManagedBean {
         }
     }
 
-    public void delete() {
-        if (selectedTag != null) {
-            try {
-                tagBusiness.delete(selectedTag);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
+   
 
     public Tag getTag(java.lang.Integer id) {
         return tagBusiness.showSpecificInfo(id);
