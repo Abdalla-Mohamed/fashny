@@ -8,6 +8,7 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -85,6 +86,11 @@ public class CompanyController implements Commens<Company>,Serializable{
         }
         return company;
         
+    }
+
+    @Override
+    public void delete(Tag t) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

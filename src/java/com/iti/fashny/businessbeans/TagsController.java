@@ -53,17 +53,17 @@ public class TagsController implements Commens<Tag> {
 
     @Override
     public List<Tag> view() throws Exception {
-  
+
         DaoFactory daoFactory = new DaoFactory();
         List<Tag> tags = new ArrayList<>();
         try {
             TagFacade tagFacade = daoFactory.getTagDoa();
-            tags=tagFacade.findAll();
+            tags = tagFacade.findAll();
         } finally {
             daoFactory.close();
         }
         return tags;
-        
+
     }
 
     @Override
@@ -73,16 +73,21 @@ public class TagsController implements Commens<Tag> {
 
     @Override
     public Tag showSpecificInfo(int id) {
-          DaoFactory daoFactory = new DaoFactory();
-        Tag tag ;
+        DaoFactory daoFactory = new DaoFactory();
+        Tag tag;
         try {
             TagFacade tagFacade = daoFactory.getTagDoa();
-            tag=tagFacade.find(id);
+            tag = tagFacade.find(id);
         } finally {
             daoFactory.close();
         }
         return tag;
-        
+
+    }
+
+    @Override
+    public void delete(Tag t) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

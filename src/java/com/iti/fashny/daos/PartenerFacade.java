@@ -33,7 +33,7 @@ public class PartenerFacade extends AbstractFacade<Partener> {
         List resultList = getEntityManager().createNamedQuery("Partener.findByEmail").setParameter("email", mail).getResultList();
         
         
-        if(resultList.size()>1)
+        if(resultList.size()>=1)
             valid=true;
         
         return valid;

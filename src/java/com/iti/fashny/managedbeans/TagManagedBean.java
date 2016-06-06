@@ -18,20 +18,21 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Administrator
  */
-@ManagedBean(name = "tagBean")
-@ApplicationScoped
+@ManagedBean(name = "tagAdminBean")
+@SessionScoped
 public class TagManagedBean {
 
     TagBusiness tagBusiness;
     private List<Tag> tags = null;
-    private Tag selectedTag;
     private List<Tag> filteredItems;
+    private Tag selectedTag;
 
     public List<Tag> getFilteredItems() {
         return filteredItems;
@@ -45,12 +46,36 @@ public class TagManagedBean {
         tagBusiness = new TagBusiness();
     }
 
+    public TagBusiness getTagBusiness() {
+        return tagBusiness;
+    }
+
+    public Tag getSelectedTag() {
+        return selectedTag;
+    }
+
+    public void setTagBusiness(TagBusiness tagBusiness) {
+        this.tagBusiness = tagBusiness;
+    }
+
+    public void setSelectedTag(Tag selectedTag) {
+        this.selectedTag = selectedTag;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
     public List<Tag> getItems() {
         if (tags == null) {
             try {
                 tags = tagBusiness.view();
             } catch (Exception ex) {
-                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return tags;
@@ -60,17 +85,8 @@ public class TagManagedBean {
         this.tags = tags;
     }
 
-    public void setSelectedTag(Tag selectedTag) {
-        this.selectedTag = selectedTag;
-    }
-
-    public Tag getSelectedTag() {
-        return selectedTag;
-    }
-
     public Tag prepareCreate() {
         selectedTag = new Tag();
-
         return selectedTag;
     }
 
@@ -100,34 +116,44 @@ public class TagManagedBean {
         }
     }
 
-    public Tag getPlace(java.lang.Integer id) {
+    public void delete() {
+        if (selectedTag != null) {
+            try {
+                tagBusiness.delete(selectedTag);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public Tag getTag(java.lang.Integer id) {
         return tagBusiness.showSpecificInfo(id);
     }
 
     public List<Tag> getItemsAvailableSelectMany() {
-        List<Tag> placesList = null;
+        List<Tag> tagsList = null;
         try {
-            placesList = tagBusiness.view();
+            tagsList = tagBusiness.view();
         } catch (Exception ex) {
-            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return placesList;
+        return tagsList;
     }
 
     public List< Tag> getItemsAvailableSelectOne() {
-        List< Tag> placesList = null;
+        List< Tag> tagsList = null;
         try {
-            placesList = tagBusiness.view();
+            tagsList = tagBusiness.view();
         } catch (Exception ex) {
-            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return placesList;
+        return tagsList;
     }
 
     public void onRowEdit(RowEditEvent event) {
         selectedTag = (Tag) event.getObject();
         update();
-        FacesMessage msg = new FacesMessage("Place Edited", ((Tag) event.getObject()).getName());
+        FacesMessage msg = new FacesMessage("Tag Edited", ((Tag) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -147,16 +173,16 @@ public class TagManagedBean {
     }
 
     @FacesConverter(forClass = Tag.class)
-    public static class PlaceControllerConverter implements Converter {
+    public static class TagControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PlaceViewManagedBean_1 controller = (PlaceViewManagedBean_1) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tabBean");
-            return controller.getPlace(getKey(value));
+            TagManagedBean controller = (TagManagedBean) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "tagAdminBean");
+            return controller.getTag(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {

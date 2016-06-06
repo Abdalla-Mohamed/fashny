@@ -9,11 +9,16 @@ import com.iti.fashny.businessbeans.AdditionalFns;
 import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Client;
+import static com.sun.faces.facelets.util.Path.context;
+import java.util.Enumeration;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,7 +28,45 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class EditClientProfileInfoBean 
 {
-    Client c = new AdditionalFns().getClientObject() ;
+    //Client c = new AdditionalFns().getClientObject() ;
+    
+//    @ManagedProperty("#{loginManagedBean}")
+//    private LoginManagedBean loginManagedBean; // +setter (no getter!)
+//    Client c =loginManagedBean.c;
+ // Client c=loginManagedBean.c;
+    
+   
+   //Client c = new LoginManagedBean().c;
+    
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+    Client c = (Client) session.getAttribute("c");
+    
+    
+
+//     @ManagedProperty(value = "#{navigationBean}")
+//    private NavigationBean navigationBean;
+//     
+//      @ManagedProperty(value = "#{loginBean}")
+//    private LoginBean loginBean;
+
+//    public LoginManagedBean getLoginManagedBean() {
+//        return loginManagedBean;
+//    }
+//
+//    public void setLoginManagedBean(LoginManagedBean loginManagedBean) {
+//        this.loginManagedBean = loginManagedBean;
+//    }
+
+    public Boolean getIsEditable() {
+        return isEditable;
+    }
+
+    public void setIsEditable(Boolean isEditable) {
+        this.isEditable = isEditable;
+    }
+      
+      public Boolean isEditable;
     
     // to get object from session
 
@@ -33,6 +76,22 @@ public class EditClientProfileInfoBean
 //sessionMap.put("somekey", yourVariable);
     //----
     //SomeObject yourVariable = (SomeObject) sessionMap.get("somekey");
+
+//    public NavigationBean getNavigationBean() {
+//        return navigationBean;
+//    }
+//
+//    public void setNavigationBean(NavigationBean navigationBean) {
+//        this.navigationBean = navigationBean;
+//    }
+//
+//    public LoginBean getLoginBean() {
+//        return loginBean;
+//    }
+//
+//    public void setLoginBean(LoginBean loginBean) {
+//        this.loginBean = loginBean;
+//    }
     
 
     
@@ -47,7 +106,7 @@ public class EditClientProfileInfoBean
     
     public String editProfile()
     {
-     c.setId(new AdditionalFns().getClientObject().getId());
+     c.setId(c.getId());
 //        System.out.println(c.getName()+c.getEmail()+c.getId());
      DaoFactory daoFactory = new DaoFactory();
      ClientFacade clientFacade = daoFactory.getClientDoa();
@@ -57,7 +116,8 @@ public class EditClientProfileInfoBean
      daoFactory.commitTransaction();
      daoFactory.close();
      
-     return"index";
+//     return navigationBean.toWelcome();
+     return"/info";
         
     }
     

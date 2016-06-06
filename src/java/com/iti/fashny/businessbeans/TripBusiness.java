@@ -8,6 +8,7 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;
 import java.util.List;
@@ -57,6 +58,11 @@ public class TripBusiness implements Commens<Trip> {
 
     @Override
     public Trip showSpecificInfo(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Tag t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

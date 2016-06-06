@@ -9,6 +9,11 @@
 
 
 
+    <ui:define name="heads">
+        <script src="http://maps.google.com/maps/api/js?sensor=false" 
+        type="text/javascript"></script>
+        <ui:insert name="heads" />
+    </ui:define>
     <ui:define name="headerComp">
 
 
@@ -78,7 +83,7 @@
                 <span class="hidden-xs">Alexander Pierce</span>
             </a>
             <ul class="dropdown-menu">
-                
+
                 <!-- Menu Footer-->
                 <li class="user-footer">
                     <div class="pull-left">
