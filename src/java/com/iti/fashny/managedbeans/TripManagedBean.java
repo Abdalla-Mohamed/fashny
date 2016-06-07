@@ -140,10 +140,12 @@ public class TripManagedBean implements Serializable {
     } 
     public String save(){
         create();
+        selected = new Trip();
         return "trips";
     } 
     public String cansel(){
-        return "createTrip";
+        selected = new Trip();
+        return "trips";
     } 
     
     

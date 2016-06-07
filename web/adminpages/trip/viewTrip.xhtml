@@ -11,15 +11,17 @@
         <ui:composition template="./../../templates/templateAdmin.xhtml">
 
             <ui:define name="contPageName">
-                contPageName
+                Trip Details
             </ui:define>
 
             <ui:define name="contPageDescrp">
-                contPageDescrp
+                
             </ui:define>
 
             <ui:define name="contPagePath">
-                contPagePath
+                <a href="">Home</a> >
+                <a href="./../../adminpages/trip/trips.xhtml">Show All Trips</a> >
+                <a href="./../../adminpages/trip/viewTrip.xhtml">Trip Details</a>
             </ui:define>
 
             <ui:define name="content">
@@ -29,11 +31,14 @@
                         <div class="col-sm-2" align="center"></div>
                         <div class="col-sm-8" align="center">    
                             <font size="10">
-                                <p:panelGrid  columns="2" rendered="#{tripMB.selected != null}" styleClass="col-sm-12" style="font: bold;">
+                                <p:panelGrid  columns="2" rendered="#{tripMB.selected != null}" styleClass="col-sm-12" >
 
                                     <h:outputText value="#{bundle.ViewTripLabel_name}"/>
                                     <h:outputText value="#{tripMB.selected.name}" title="#{bundle.ViewTripTitle_name}"/>
-
+                                    
+                                    <p:outputLabel value="#{bundle.ViewTripLabel_companyId}"/>
+                                    <h:outputText value="#{tripMB.selected.companyId.name}" title="#{bundle.ViewTripTitle_companyId}" />
+                                    
                                     <h:outputText value="#{bundle.ViewTripLabel_cost}"/>
                                     <h:outputText value="#{tripMB.selected.cost}" title="#{bundle.ViewTripTitle_cost}"/>
 

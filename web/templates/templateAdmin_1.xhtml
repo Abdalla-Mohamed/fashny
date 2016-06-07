@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./templateGeneral.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:define name="heads">
+        <script src="http://maps.google.com/maps/api/js?sensor=false" 
+        type="text/javascript"></script>
+        <ui:insert name="heads" />
+    </ui:define>
+    <ui:define name="headerComp">
+
+
+        <!-- Notifications Menu -->
+        <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">You have 10 notifications</li>
+                <li>
+                    <!-- Inner Menu: contains the notifications -->
+                    <div style="position: relative; overflow: hidden; width: auto; height: 200px;" class="slimScrollDiv"><ul style="overflow: hidden; width: 100%; height: 200px;" class="menu">
+                            <li><!-- start notification -->
+                                <a href="#">
+                                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                </a>
+                            </li><!-- end notification -->
+                        </ul><div style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;" class="slimScrollBar"></div><div style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;" class="slimScrollRail"></div></div>
+                </li>
+                <li class="footer"><a href="#">View all</a></li>
+            </ul>
+        </li>
+        <!-- Tasks Menu -->
+        <li class="dropdown tasks-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-flag-o"></i>
+                <span class="label label-danger">9</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">You have 9 tasks</li>
+                <li>
+                    <!-- Inner menu: contains the tasks -->
+                    <div style="position: relative; overflow: hidden; width: auto; height: 200px;" class="slimScrollDiv"><ul style="overflow: hidden; width: 100%; height: 200px;" class="menu">
+                            <li><!-- Task item -->
+                                <a href="#">
+                                    <!-- Task title and progress text -->
+                                    <h3>
+                                        Design some buttons
+                                        <small class="pull-right">20%</small>
+                                    </h3>
+                                    <!-- The progress bar -->
+                                    <div class="progress xs">
+                                        <!-- Change the css width attribute to simulate progress -->
+                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="sr-only">20% Complete</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li><!-- end task item -->
+                        </ul><div style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;" class="slimScrollBar"></div><div style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;" class="slimScrollRail"></div></div>
+                </li>
+                <li class="footer">
+                    <a href="#">View all tasks</a>
+                </li>
+            </ul>
+        </li>
+        <!-- User Account Menu -->
+        <li class="dropdown user user-menu open">
+            <!-- Menu Toggle Button -->
+            <a aria-expanded="true" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <!-- The user image in the navbar-->
+                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                <span class="hidden-xs">Alexander Pierce</span>
+            </a>
+            <ul class="dropdown-menu">
+
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                    <div class="pull-left">
+                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                        <h:form>
+                            <h:commandLink action="#{adminLogin.logout()}" styleClass="btn btn-default btn-flat" value="logout" />
+                        </h:form> 
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+
+    </ui:define>
+
+    <ui:define name="leftSearch">
+        leftSearch
+    </ui:define>
+
+    <ui:define name="leftMenu">
+        <li class=" treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Home Page</span> 
+            </a>
+            <!--    
+            <ul class="treeview-menu">
+                <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+            </ul>-->
+        </li>
+        <li class=" treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span> Admins </span> 
+            </a>
+        </li>
+        <li class=" treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Tags </span> 
+            </a>
+        </li>
+        <li class=" treeview">
+            <a href="#">
+                <i class="fa fa-users"></i> <span> Clients</span> 
+            </a>
+        </li>
+        <li class=" treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span> Companies </span> 
+            </a>
+        </li>
+        <li class=" treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span> Partners</span> 
+            </a>
+        </li>
+        <li class=" treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span> Trips</span> 
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-comments"></i> <span> Comments </span> 
+            </a>
+        </li>
+        <li>
+            <a href="documentation/index.html">
+                <i class="fa fa-line-chart"></i> <span>Statistics</span>
+            </a>
+        </li>
+        <li>
+            <a href="documentation/index.html">
+                <i class="fa fa-dashboard"></i> <span>Confirmations</span>
+            </a>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-users"></i> <span>Preview</span> 
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i>Trips</a></li>
+                <li><a href="index2.html"><i class="fa fa-circle-o"></i>Places</a></li>
+                <li><a href="index2.html"><i class="fa fa-circle-o"></i>Companies</a></li>
+                <li><a href="index.html"><i class="fa fa-bed"></i>Hotels</a></li>
+                <li><a href="index2.html"><i class="fa fa-cutlery"></i>Restaurants</a></li>
+                <li><a href="index.html"><i class="fa fa-car"></i>Transport</a></li>
+                <li><a href="index2.html"><i class="fa fa-circle-o"></i>Photographer</a></li>
+            </ul>
+        </li>
+
+    </ui:define>
+
+
+    <ui:define name="contPageName">
+        <ui:insert name="contPageName"/>
+    </ui:define>
+
+    <ui:define name="contPageDescrp">
+        <ui:insert name="contPageDescrp"/>
+
+    </ui:define>
+
+    <ui:define name="contPagePath">
+        <ui:insert name="contPagePath"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <ui:insert name="content"/>
+         <p:outputLabel value="#{bundle.CreateTripLabel_companyId}"  for="com"/>
+                                    <p:selectOneMenu id="com" value="#{tripMB.selected.tagList}" style="width:150px" converter="tagConverter">
+                                        <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />                                    
+                                        </p:selectOneMenu>
+     <p:outputLabel for="datetime" value="Datetime:" />
+                                    <p:calendar id="datetime" value="#{calendarView.date10}" pattern="MM/dd/yyyy HH:mm:ss" />
+
+    </ui:define>
+
+    <ui:define name="rightHeader">
+        <ui:insert name="rightHeader"/>
+    </ui:define>
+
+    <!--</ui:define>-->
+
+    <!--    <ui:define name="rightTabs">
+            rightTabs
+        </ui:define>-->
+
+</ui:composition>
