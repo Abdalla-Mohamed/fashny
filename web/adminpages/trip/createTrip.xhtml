@@ -33,8 +33,8 @@
                                     <p:outputLabel value="#{bundle.CreateTripLabel_name}" for="name" />
                                     <p:inputText id="name" value="#{tripMB.selected.name}" title="#{bundle.CreateTripTitle_name}" required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_name}"/>
 
-                                    <p:outputLabel value="#{bundle.CreateTripLabel_companyId}" for="companyId" />
-                                    <p:inputText id="companyId" value="#{tripMB.selected.companyId}" title="#{bundle.CreateTripTitle_companyId}" required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_companyId}"/>
+
+
 
                                     <p:outputLabel value="#{bundle.CreateTripLabel_cost}" for="cost" />
                                     <p:inputText id="cost" value="#{tripMB.selected.cost}" title="#{bundle.CreateTripTitle_cost}" required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_cost}"/>
@@ -65,14 +65,16 @@
                                         <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />
                                     </p:selectManyMenu>
 
+                                   
+                                        
                                     <p:outputLabel value="#{bundle.CreateTripLabel_validated}" for="validated" />
                                     <p:selectBooleanCheckbox id="validated" value="#{tripMB.selected.validated}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/>
 
                                     <p:outputLabel value="#{bundle.CreateTripLabel_offer}" for="offer" />
                                     <p:selectBooleanCheckbox id="offer" value="#{tripMB.selected.offer}" />
 
-                                    <p:commandButton actionListener="#{tripMB.create}" value="#{bundle.Save}" />
-                                    <p:commandButton value="#{bundle.Cancel}" action="#{tripMB.goToTrips()}"/>
+                                    <p:commandButton actionListener="#{tripMB.save()}" value="#{bundle.Save}" />
+                                    <p:commandButton value="#{bundle.Cancel}" action="#{tripMB.goToTrips}"/>
                                 </p:panelGrid>
 
                             </h:panelGroup>

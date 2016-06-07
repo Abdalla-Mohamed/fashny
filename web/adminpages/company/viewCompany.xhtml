@@ -58,6 +58,9 @@
                                     <h:outputText value="#{bundle.ViewCompanyLabel_address}"/>
                                     <h:outputText value="#{CompanyMB.selected.address}" title="#{bundle.ViewCompanyTitle_address}"/>
 
+                                    <p:outputLabel value="#{bundle.ViewCompanyLabel_tag}"/>
+                                    <p:dataList value="#{CompanyMB.selected.tagList}" var="tag" >#{tag.name}</p:dataList>
+                                    
                                     <h:outputText value="#{bundle.ViewCompanyLabel_validated}"/>
                                     <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" disabled="true"/>
 
@@ -72,7 +75,7 @@
                     
                     <div class="col-sm-12" align="center">
                          <h:form id="form">
-                             CompanyMB.selected.tripList
+                             <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
                              <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
                                             rows="12" paginator="true" id="trip"
                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

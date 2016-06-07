@@ -8,6 +8,7 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;
 import java.io.Serializable;
@@ -68,15 +69,14 @@ public class CompanyController implements Commens<Company>, Serializable {
 
     }
 
-    public void gitTripsOfCompany(Company company) throws Exception {
+    public Company gitTripsOfCompany(Company company) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         try {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
             daoFactory.beginTransaction();
-            Company find = companyFacade.find(company.getId());
-
-            System.out.println(find.getName());
-            List<Trip> tripsOfCompanyList = find.getTripList();
+            company = companyFacade.refreshObj(company);
+            System.out.println(company.getName());
+            List<Trip> tripsOfCompanyList = company.getTripList();
             System.out.println(tripsOfCompanyList.size());
             for (Trip trip : tripsOfCompanyList) {
                 System.out.println(trip.getName());
@@ -90,9 +90,62 @@ public class CompanyController implements Commens<Company>, Serializable {
             // close connection
             daoFactory.close();
         }
-//        return tripResults;
+        return company;
     }
+    public Company gitTagsOfCompany(Company company) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+            daoFactory.beginTransaction();
+            company = companyFacade.refreshObj(company);
+            System.out.println(company.getName());
+            List<Tag> tagsOfCompanyList = company.getTagList();
+            System.out.println(tagsOfCompanyList.size());
+            for (Tag tag : tagsOfCompanyList) {
+                System.out.println(tag.getName());
+            }
+            daoFactory.commitTransaction();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return company;
+    }
+    public Company gitAllCompanyLists(Company companyObj) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+            daoFactory.beginTransaction();
+            Company company = new Company();
+            company = companyFacade.refreshObj(companyObj);
+            companyObj.setTagList(company.getTagList());
+            companyObj.setTripList(company.getTripList());
+            
+//            System.out.println(company.getName());
+//            List<Trip> tripsOfCompanyList = company.getTripList();
+//            List<Tag> tagsOfCompanyList = company.getTagList();
+//         
+//                    
+//            System.out.println("trips : -->"+tripsOfCompanyList.size());
+//            System.out.println("tags : -->"+tagsOfCompanyList.size());
+//            for (Trip trip : tripsOfCompanyList) {
+//                System.out.println(trip.getName());
+//            }
+            daoFactory.commitTransaction();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return companyObj;
+    }
 //    public List<Company> gitTripsOfCompany(List<Company> companiesList) throws Exception {
 //
 //        DaoFactory daoFactory = new DaoFactory();
@@ -132,5 +185,4 @@ public class CompanyController implements Commens<Company>, Serializable {
         return company;
 
     }
-
 }

@@ -13,9 +13,13 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -98,7 +102,7 @@ public class CompanyManagedBean implements Serializable{
                 selected.setActive(Boolean.FALSE);
                 companyController.update(selected);
             } catch (Exception ex) {
-                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -108,10 +112,33 @@ public class CompanyManagedBean implements Serializable{
     }
     
     // --------------------------- for page --------------------------------//
+         
+    public void onRowEdit(RowEditEvent event) {
+        selected = (Company) event.getObject();
+        update();
+        FacesMessage msg = new FacesMessage("Company Edited", ((Company) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Company) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    //________________________________________________________________________//
     public String goToViewCompany(int id) {
         selected = companyController.showSpecificInfo(id);
         try {
-            companyController.gitTripsOfCompany(selected);
+           selected=companyController.gitAllCompanyLists(selected);
         } catch (Exception ex) {
             Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }

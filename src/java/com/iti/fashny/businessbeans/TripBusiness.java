@@ -8,7 +8,9 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.daos.TripFacade;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
+import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;
@@ -94,6 +96,37 @@ public class TripBusiness implements Commens<Trip> {
         TripFacade p = dao.getTripDoa();
         trip = p.find(id);
         return trip;
+    }
+
+    public Trip gitAllCompanyLists(Trip tripObj) {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            TripFacade tripFacade = daoFactory.getTripDoa();
+            daoFactory.beginTransaction();
+            Trip trip = new Trip();
+            trip = tripFacade.refreshObj(tripObj);
+            tripObj.setPlaceList(trip.getPlaceList());
+            tripObj.setTagList(trip.getTagList());
+//            System.out.println(trip.getName());
+//            List<Place> placesOfTripList = trip.getPlaceList();
+//            List<Tag> tagsOfPlaceList = trip.getTagList();
+//         
+                    
+            System.out.println("places : -->"+tripObj.getPlaceList().size());
+            System.out.println("tags : -->"+tripObj.getTagList().size());
+//            for (Place place : placesOfTripList) {
+//                System.out.println(place.getName());
+//            }
+            daoFactory.commitTransaction();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return tripObj;
     }
 
 }

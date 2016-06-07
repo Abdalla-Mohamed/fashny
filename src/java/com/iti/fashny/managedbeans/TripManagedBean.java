@@ -6,13 +6,18 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.TripBusiness;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Trip;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import java.io.*;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 
 @ManagedBean(name = "tripMB")
@@ -93,8 +98,35 @@ public class TripManagedBean implements Serializable {
         return "tripDetails";
     }
     // --------------------------- for page --------------------------------//
+    
+    public void onRowEdit(RowEditEvent event) {
+        selected = (Trip) event.getObject();
+        update();
+        FacesMessage msg = new FacesMessage("Trip Edited", ((Trip) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Trip) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
     public String goToViewTrip(int id) {
         selected = tripBusiness.showSpecificInfo(id);
+        try {
+           selected=tripBusiness.gitAllCompanyLists(selected);
+        } catch (Exception ex) {
+            Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "viewTrip";
     }
 
@@ -105,6 +137,15 @@ public class TripManagedBean implements Serializable {
     
     public String goToTrips(){
         return "trips";
-    }        
+    } 
+    public String save(){
+        create();
+        return "trips";
+    } 
+    public String cansel(){
+        return "createTrip";
+    } 
+    
+    
 
 }
