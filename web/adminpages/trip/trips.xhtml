@@ -9,7 +9,7 @@
 
 
     <ui:define name="contPageName">
-        <h:outputText value="Companies"></h:outputText>
+        <h:outputText value="Trips"></h:outputText>
     </ui:define>
 
     <ui:define name="contPageDescrp">
@@ -17,7 +17,9 @@
     </ui:define>
 
     <ui:define name="contPagePath">
-
+        <a href="">Home</a> >
+        <a href="./../../adminpages/trip/trips.xhtml">Show All Trips</a> 
+        
     </ui:define>
 
     <ui:define name="content"> 
@@ -38,81 +40,58 @@
                     <p:ajax event="rowEdit" listener="#{tripMB.onRowEdit}" update="TripssListForm:msgs" />
                     <p:ajax event="rowEditCancel" listener="#{tripMB.onRowCancel}" update="TripssListForm:msgs" />
 
-                    <p:column headerText="#{bundle.ListTripTitle_id}">
-                        <h:outputText value="#{item.id}" />
-                    </p:column>
+
                     <p:column headerText="#{bundle.ListTripTitle_name}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.name}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_name" value="#{item.name}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.ListTripTitle_cost}">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.cost}" /></f:facet>
+                            <f:facet name="output"><h:outputText value="#{item.cost} EGP" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_cost" value="#{item.cost}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-<!--                    <p:column headerText="#{bundle.ListTripTitle_date}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.date}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_date" value="#{item.date}" style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="#{bundle.ListTripTitle_joinDeadline}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.joinDeadline}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_joinDeadline" value="#{item.joinDeadline}" style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>-->
+
                     <p:column headerText="#{bundle.ListTripTitle_countBooking}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.countBooking}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_countBooking" value="#{item.countBooking}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.ListTripTitle_maxbooking}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.maxbooking}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_maxbookinge" value="#{item.maxbooking}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    
-                    
+
+
                     <p:column headerText="#{bundle.ListTripTitle_validated}" >
                         <p:cellEditor>
                             <f:facet name="output"><p:selectBooleanCheckbox value="#{item.validated}" disabled="true"/></f:facet>
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.validated}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                
+
                     <p:column style="width:40px">
                         <p:commandButton style="width:20px" id="viewButton" icon="ui-icon-search" action="#{tripMB.goToViewTrip(item.id)}"/>
                     </p:column>
-                    
+
                     <p:column style="width:32px">
                         <p:rowEditor />
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" action="#{tripMB.goToCreateTrip()}"/>
+                        <p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" action="#{tripMB.goToCreateTrip()}" />
                     </f:facet>
                 </p:dataTable>
 
             </p:panel>
 
         </h:form>      
-
-        <!--        <ui:include src="ViewPlace.xhtml"/>
-        
-                <ui:include src="CreatePlace.xhtml"/>
-        
-                <ui:include src="EditPlace.xhtml"/>
-        
-                <ui:include src="MapPlace.xhtml"/>
-        
-                <ui:include src="ImagePlace.xhtml"/>-->
 
     </ui:define>
 

@@ -149,6 +149,11 @@ public class CompanyManagedBean implements Serializable{
         selected = new Company();
         return "createCompany";
     }
+    public String save() {
+        create();
+        selected = new Company();
+        return "createCompany";
+    }
     public String goToCompanies(){
         return "compaies";
     }

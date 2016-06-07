@@ -200,6 +200,9 @@
                                     <p:selectOneMenu id="com" value="#{tripMB.selected.tagList}" style="width:150px" converter="tagConverter">
                                         <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />                                    
                                         </p:selectOneMenu>
+     <p:outputLabel for="datetime" value="Datetime:" />
+                                    <p:calendar id="datetime" value="#{calendarView.date10}" pattern="MM/dd/yyyy HH:mm:ss" />
+
     </ui:define>
 
     <ui:define name="rightHeader">
