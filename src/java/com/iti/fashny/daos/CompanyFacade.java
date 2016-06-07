@@ -8,6 +8,7 @@ package com.iti.fashny.daos;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -37,18 +38,29 @@ public class CompanyFacade extends AbstractFacade<Company> {
         return valid;
     }
 
-    
-    
-    
-@Override
-    protected void addAssociationExample(Criteria c,  Company mainExample) {
+    @Override
+    protected void addAssociationExample(Criteria c, Company mainExample) {
 
         List<Tag> tags = mainExample.getTagList();
-        
+
         if (tags != null) {
-                addTagConditionOnExample(c, tags, "tagList");
+            addTagConditionOnExample(c, tags, "tagList");
         }
 
+    }
+
+    public List<Company> getUnconcirmCompanies() {
+        List<Company> unconfirmCompanies = new ArrayList<>();
+        try {
+
+            unconfirmCompanies = getEntityManager().createNamedQuery("Company.findByValidated").setParameter("validated", false).getResultList();
+//            for (Place placerslt : unconfirmPlaces) {
+//                System.out.println(placerslt.getName());
+//            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return unconfirmCompanies;
     }
 
 }

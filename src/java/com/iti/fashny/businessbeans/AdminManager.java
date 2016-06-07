@@ -5,12 +5,14 @@
  */
 package com.iti.fashny.businessbeans;
 
+import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.TagFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Admin;
 import com.iti.fashny.entities.ClientReviewPlace;
+import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
@@ -30,6 +32,7 @@ public class AdminManager implements AdminInterface {
     private PlaceBusiness placeBusiness;
     private TripBusiness tripBusiness;
     private TagBusiness tagBusiness;
+    private CompanyController companyController;
 
     @Override
     public void addAdmin(Admin admin) {
@@ -58,7 +61,6 @@ public class AdminManager implements AdminInterface {
             try {
 
                 place.setValidated(Boolean.TRUE);
-                System.out.println(" $$ -->> valid");
                 placeBusiness = new PlaceBusiness();
                 placeBusiness.update(place);
             } catch (Exception ex) {
@@ -78,7 +80,6 @@ public class AdminManager implements AdminInterface {
             try {
 
                 tag.setVaidated(Boolean.TRUE);
-                System.out.println(" $$ -->> tag valid");
                 tagBusiness = new TagBusiness();
                 tagBusiness.update(tag);
             } catch (Exception ex) {
@@ -86,14 +87,26 @@ public class AdminManager implements AdminInterface {
             }
         }
     }
+    @Override
+    public void confirmCompany(Company company) throws Exception {
+        if (company != null) {
+            try {
 
+                company.setValidated(Boolean.TRUE);
+                companyController= new CompanyController();
+                companyController.update(company);
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     @Override
     public void confirmTrip(Trip trip) throws Exception {
         if (trip != null) {
             try {
 
                 trip.setValidated(Boolean.TRUE);
-                System.out.println(" $$ -->> trib valid");
                 tripBusiness = new TripBusiness();
                 tripBusiness.update(trip);
             } catch (Exception ex) {
@@ -125,7 +138,6 @@ public class AdminManager implements AdminInterface {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // close connection
             daoFactory.close();
         }
 
@@ -142,18 +154,12 @@ public class AdminManager implements AdminInterface {
             // get doas
             TripFacade tripFacade = daoFactory.getTripDoa();
             unconfirmTrips = tripFacade.getUnconcirmTrips();
-//
-//            for (Trip triprslt : unconfirmTrips) {
-//                System.out.println(triprslt.getName());
-//            }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // close connection
             daoFactory.close();
         }
-
         return unconfirmTrips;
     }
 
@@ -165,11 +171,6 @@ public class AdminManager implements AdminInterface {
 
             TagFacade tagFacade = daoFactory.getTagDoa();
             unconfirmTags = tagFacade.getUnconcirmTags();
-//
-//            for (Trip triprslt : unconfirmTrips) {
-//                System.out.println(triprslt.getName());
-//            }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -179,4 +180,19 @@ public class AdminManager implements AdminInterface {
         return unconfirmTags;
     }
 
+    @Override
+    public List<Company> findAllUncofirmCompany() {
+        DaoFactory daoFactory = new DaoFactory();
+        List<Company> unconfirmCompanies = new ArrayList<>();
+        try {
+            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+            unconfirmCompanies = companyFacade.getUnconcirmCompanies();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return unconfirmCompanies;
+    }
 }

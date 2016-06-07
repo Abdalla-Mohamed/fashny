@@ -33,8 +33,10 @@
                              editable="true"
                              >
 
-                    <!--                    <p:ajax event="rowSelect"   update="createButton"/>
-                                        <p:ajax event="rowUnselect" update="createButton"/>-->
+                    <p:ajax event="rowSelect"   update="createButton"/>
+                    <p:ajax event="rowUnselect" update="createButton"/>
+                    <p:ajax event="rowEdit" listener="#{CompanyMB.onRowEdit}" update="CompaniesListForm:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{CompanyMB.onRowCancel}" update="CompaniesListForm:msgs" />
 
                     <p:column headerText="#{bundle.ListCompanyTitle_id}">
                         <h:outputText value="#{item.id}" />
