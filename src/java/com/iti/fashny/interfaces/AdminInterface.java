@@ -9,6 +9,7 @@ package com.iti.fashny.interfaces;
 import com.iti.fashny.exceptions.Fasa7nyException;
 import com.iti.fashny.entities.Admin;
 import com.iti.fashny.entities.ClientReviewPlace;
+import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
@@ -33,11 +34,15 @@ public interface AdminInterface {
     public void deactivateTag(Tag tag) throws Exception;
 
     public void confirmTag(Tag tag) throws Exception;
+    
+    public void confirmCompany(Company company) throws Exception;
 
     public void confirmTrip(Trip trip) throws Exception;
 
     public List<ClientReviewPlace> FindAllComment();
-
+    
+    public List<Company> findAllUncofirmCompany();
+    
     public List<Place> findAllUncofirmPlaces();
 
     public List<Trip> findAllUncofirmTrips();

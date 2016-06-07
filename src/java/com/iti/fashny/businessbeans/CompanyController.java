@@ -9,6 +9,7 @@ import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,14 +20,14 @@ import static javassist.bytecode.InnerClassesAttribute.tag;
  *
  * @author Abdalla
  */
-public class CompanyController implements Commens<Company>,Serializable{
+public class CompanyController implements Commens<Company>, Serializable {
 
     @Override
     public Company login(String email, String password) throws Exception {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return null;
-}
-    
+    }
+
     @Override
     public void add(Company company) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
@@ -55,38 +56,133 @@ public class CompanyController implements Commens<Company>,Serializable{
 
     @Override
     public List<Company> view() throws Exception {
-  
+
         DaoFactory daoFactory = new DaoFactory();
         List<Company> tags = new ArrayList<>();
         try {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
-            tags=companyFacade.findAll();
+            tags = companyFacade.findAll();
         } finally {
             daoFactory.close();
         }
         return tags;
-        
+
+    }
+
+    public Company gitTripsOfCompany(Company company) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+            daoFactory.beginTransaction();
+            company = companyFacade.refreshObj(company);
+            System.out.println(company.getName());
+            List<Trip> tripsOfCompanyList = company.getTripList();
+            System.out.println(tripsOfCompanyList.size());
+            for (Trip trip : tripsOfCompanyList) {
+                System.out.println(trip.getName());
+            }
+            daoFactory.commitTransaction();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return company;
+    }
+    public Company gitTagsOfCompany(Company company) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+            daoFactory.beginTransaction();
+            company = companyFacade.refreshObj(company);
+            System.out.println(company.getName());
+            List<Tag> tagsOfCompanyList = company.getTagList();
+            System.out.println(tagsOfCompanyList.size());
+            for (Tag tag : tagsOfCompanyList) {
+                System.out.println(tag.getName());
+            }
+            daoFactory.commitTransaction();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return company;
+    }
+    public Company gitAllCompanyLists(Company companyObj) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+            daoFactory.beginTransaction();
+            Company company = new Company();
+            company = companyFacade.refreshObj(companyObj);
+            companyObj.setTagList(company.getTagList());
+            companyObj.setTripList(company.getTripList());
+            
+//            System.out.println(company.getName());
+//            List<Trip> tripsOfCompanyList = company.getTripList();
+//            List<Tag> tagsOfCompanyList = company.getTagList();
+//         
+//                    
+//            System.out.println("trips : -->"+tripsOfCompanyList.size());
+//            System.out.println("tags : -->"+tagsOfCompanyList.size());
+//            for (Trip trip : tripsOfCompanyList) {
+//                System.out.println(trip.getName());
+//            }
+            daoFactory.commitTransaction();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return companyObj;
+    }
+//    public List<Company> gitTripsOfCompany(List<Company> companiesList) throws Exception {
+//
+//        DaoFactory daoFactory = new DaoFactory();
+////        List<Company> companyResults = new ArrayList<>();
+//        try {
+//            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+//            for (Company company: companiesList) {
+//                System.out.println(company.getName());
+//                List<Trip> tripsOfCompanyList = company.getTripList();
+//                for (Trip trip : tripsOfCompanyList) {
+//                    System.out.println(trip.getName());
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            // close connection
+//            daoFactory.close();
+//        }
+//        return companiesList;
+//}
+    @Override
+    public List<Company> searchByExample(Company company) throws Exception {
+        return null;
     }
 
     @Override
-    public List<Company> searchByExample(Company company) throws Exception {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return null;
-}
-
-    @Override
     public Company showSpecificInfo(int id) {
-          DaoFactory daoFactory = new DaoFactory();
-        Company company ;
+        DaoFactory daoFactory = new DaoFactory();
+        Company company;
         try {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
-            company=companyFacade.find(id);
+            company = companyFacade.find(id);
         } finally {
             daoFactory.close();
         }
         return company;
-        
-    }
 
-    
+    }
 }

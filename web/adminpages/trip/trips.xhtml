@@ -21,7 +21,7 @@
     </ui:define>
 
     <ui:define name="content"> 
-        <h:form id="CompaniesListForm">
+        <h:form id="TripssListForm">
             <p:growl id="msgs" showDetail="true"/>
             <p:panel header="Trips">
                 <p:dataTable id="tripDatalist" value="#{tripMB.items}" var="item"
@@ -33,8 +33,10 @@
                              editable="true"
                              >
 
-                    <!--                    <p:ajax event="rowSelect"   update="createButton"/>
-                                        <p:ajax event="rowUnselect" update="createButton"/>-->
+                    <p:ajax event="rowSelect"   update="createButton"/>
+                    <p:ajax event="rowUnselect" update="createButton"/>
+                    <p:ajax event="rowEdit" listener="#{tripMB.onRowEdit}" update="TripssListForm:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{tripMB.onRowCancel}" update="TripssListForm:msgs" />
 
                     <p:column headerText="#{bundle.ListTripTitle_id}">
                         <h:outputText value="#{item.id}" />
@@ -52,7 +54,7 @@
                             <f:facet name="input"><p:inputText id="modelInput_cost" value="#{item.cost}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="#{bundle.ListTripTitle_date}">
+<!--                    <p:column headerText="#{bundle.ListTripTitle_date}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.date}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_date" value="#{item.date}" style="width:100%"/></f:facet>
@@ -63,7 +65,7 @@
                             <f:facet name="output"><h:outputText value="#{item.joinDeadline}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_joinDeadline" value="#{item.joinDeadline}" style="width:100%"/></f:facet>
                         </p:cellEditor>
-                    </p:column>
+                    </p:column>-->
                     <p:column headerText="#{bundle.ListTripTitle_countBooking}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.countBooking}" /></f:facet>

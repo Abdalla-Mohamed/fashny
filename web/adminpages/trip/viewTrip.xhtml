@@ -58,6 +58,9 @@
                                     <h:outputText value="#{bundle.ViewTripLabel_program}"/>
                                     <h:outputText value="#{tripMB.selected.program}" title="#{bundle.ViewTripTitle_program}"/>
 
+                                    <p:outputLabel value="#{bundle.ViewTripLabel_tag}"/>
+                                    <p:dataList value="#{tripMB.selected.tagList}" var="tag" >#{tag.name}</p:dataList>
+                                    
                                     <h:outputText value="#{bundle.ViewTripLabel_validated}"/>
                                     <p:selectBooleanCheckbox value="#{tripMB.selected.validated}" disabled="true"/>
 
@@ -71,8 +74,9 @@
                     <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
 
                     <div class="col-sm-12" align="center">
+                        <h3> #{tripMB.selected.name} involves visiting to these places </h3>
                         <h:form id="form">
-                            <p:dataGrid var="place" value="#{placeView_1.items}" columns="3" layout="grid"
+                            <p:dataGrid var="place" value="#{tripMB.selected.placeList}" columns="3" layout="grid"
                                         rows="12" paginator="true" id="places"
                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                         rowsPerPageTemplate="6,12,16">
