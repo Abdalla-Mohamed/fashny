@@ -19,9 +19,9 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/PlaceClient.xhtml</welcome-file>
+        <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-<!--    <security-constraint>
+    <!--    <security-constraint>
         <display-name>adminConstraint</display-name>
         <web-resource-collection>
             <web-resource-name>adminRes</web-resource-name>
