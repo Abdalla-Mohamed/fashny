@@ -33,14 +33,10 @@
                              editable="true"
                              >
 
-                    <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
-                    <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
+                    <p:ajax event="rowSelect"   update="createButton viewButton"/>
+                    <p:ajax event="rowUnselect" update="createButton viewButton"/>
                     <p:ajax event="rowEdit" listener="#{adminClient.onRowEdit}" update="ClientListForm:msgs" />
                     <p:ajax event="rowEditCancel" listener="#{adminClient.onRowCancel}" update="ClientListForm:msgs" />
-
-                    <p:column headerText="#{bundle.ListClientTitle_id}">
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>
 
                     <p:column headerText="#{bundle.ListClientTitle_name}">
                         <p:cellEditor>
@@ -106,32 +102,10 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="#{bundle.ListClientTitle_lastSeen}">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{item.lastSeen}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </h:outputText>
-                            </f:facet>
-                            <f:facet name="input">
-                                <h:inputText id="modelInput_ls" value="#{item.lastSeen}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </h:inputText>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
                     <p:column headerText="#{bundle.ListClientTitle_mobile1}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.mobile1}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_mob1" value="#{item.mobile1}" style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
-                    <p:column headerText="#{bundle.ListClientTitle_mobile2}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.mobile2}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_mob2" value="#{item.mobile2}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
@@ -144,22 +118,13 @@
 
                     <p:column headerText="#{bundle.ListClientTitle_active}">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.active}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_active" value="#{item.active}" style="width:100%"/></f:facet>
+                            <f:facet name="output"><p:selectBooleanCheckbox value="#{item.active}" disabled="true"/></f:facet>
+                            <f:facet name="input"><p:selectBooleanCheckbox value="#{item.active}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-
-                    <p:column headerText="#{bundle.ListClientTitle_profilePic}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.profilePic}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_pic" value="#{item.profilePic}" style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
+                    
                     <p:column style="width:32px">
-                        <p:commandLink id="viewButton_" value="#{bundle.View}" update=":ClientViewForm" title="View Detail" styleClass="ui-icon ui-icon-search" oncomplete="PF('ClientViewDialog').show()">
-                            <f:setPropertyActionListener value="#{item}" target="#{adminClient.selected}" />
-                        </p:commandLink>
+                        <p:commandLink id="viewButton" value="#{bundle.View}" styleClass="ui-icon ui-icon-search" action="#{adminClient.goToViewClient(item.id)}"/>
                     </p:column>
 
                     <p:column style="width:32px">
@@ -167,17 +132,13 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{adminClient.prepareCreate}" update=":ClientCreateForm" oncomplete="PF('ClientCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClientViewForm" oncomplete="PF('ClientViewDialog').show()" disabled="#{empty adminClient.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClientEditForm" oncomplete="PF('ClientEditDialog').show()" disabled="#{empty adminClient.selected}"/>
+                        <p:commandButton id="createButton" value="Create"  icon="ui-icon-plus" action="#{adminClient.goToCreateClient()}"/>
                     </f:facet>
                 </p:dataTable>
             </p:panel>
         </h:form>
 
-        <ui:include src="Create.xhtml"/>
         <ui:include src="Edit.xhtml"/>
-        <ui:include src="View.xhtml"/>
     </ui:define>
 
     <ui:define name="rightHeader">

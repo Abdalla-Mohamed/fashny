@@ -125,7 +125,13 @@ public class PartnerBusiness implements Commens<Partener>
 
     @Override
     public Partener showSpecificInfo(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Partener partenr = new Partener();
+        DaoFactory dao = new DaoFactory();
+        PartenerFacade partenerDoa = dao.getPartenerDoa();
+        partenr=partenerDoa.find(id);
+        return partenr;
     }
     
   
