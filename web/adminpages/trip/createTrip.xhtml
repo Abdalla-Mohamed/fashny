@@ -28,13 +28,14 @@
                     <div class="container-fluid" >
                         <div class="col-sm-6">
                             <h:panelGroup id="display">
-                                <p:panelGrid columns="2" >
+                                <p:panelGrid columns="4" >
 
                                     <p:outputLabel value="#{bundle.CreateTripLabel_name}" for="name" />
                                     <p:inputText id="name" value="#{tripMB.selected.name}" title="#{bundle.CreateTripTitle_name}" required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_name}"/>
 
 
-
+                                    <p:outputLabel for="datetime" value="Datetime:" />
+                                    <p:calendar id="datetime" value="#{calendarView.date10}" pattern="MM/dd/yyyy HH:mm:ss" />
 
                                     <p:outputLabel value="#{bundle.CreateTripLabel_cost}" for="cost" />
                                     <p:inputText id="cost" value="#{tripMB.selected.cost}" title="#{bundle.CreateTripTitle_cost}" required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_cost}"/>
@@ -60,13 +61,13 @@
                                     <p:outputLabel value="#{bundle.CreateTripLabel_program}" for="program" />
                                     <p:inputText id="program" value="#{tripMB.selected.program}" title="#{bundle.CreateTripTitle_program}" required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_program}"/>
 
-                                    <p:outputLabel value="Tags:" styleClass="col-xs-12" for="tag"/>
-                                    <p:selectManyMenu id="tag" value="#{tripMB.selected.tagList}" tabindex="indx"  converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="60"  styleClass="col-xs-12">
-                                        <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />
+                                    <p:outputLabel value="#{bundle.CreateTripLabel_tag}" styleClass="col-xs-12" for="tag"/>
+                                    <p:selectManyMenu id="tag" value="#{tripMB.selected.tagList}" tabindex="indx"  converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
+                                        <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="       #{tag.name}" itemValue="#{tag}" />
                                     </p:selectManyMenu>
 
-                                   
-                                        
+
+
                                     <p:outputLabel value="#{bundle.CreateTripLabel_validated}" for="validated" />
                                     <p:selectBooleanCheckbox id="validated" value="#{tripMB.selected.validated}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/>
 

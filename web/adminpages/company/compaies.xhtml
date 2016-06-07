@@ -38,13 +38,18 @@
                     <p:ajax event="rowEdit" listener="#{CompanyMB.onRowEdit}" update="CompaniesListForm:msgs" />
                     <p:ajax event="rowEditCancel" listener="#{CompanyMB.onRowCancel}" update="CompaniesListForm:msgs" />
 
-                    <p:column headerText="#{bundle.ListCompanyTitle_id}">
-                        <h:outputText value="#{item.id}" />
-                    </p:column>
+                    
                     <p:column headerText="#{bundle.ListCompanyTitle_name}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.name}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_name" value="#{item.name}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                   
+                    <p:column headerText="#{bundle.ListCompanyTitle_email}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{item.email}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_email" value="#{item.email}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
                     <p:column headerText="#{bundle.ListCompanyTitle_address}">
@@ -53,46 +58,36 @@
                             <f:facet name="input"><p:inputText id="modelInput_address" value="#{item.address}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-
-                    <p:column headerText="#{bundle.ListCompanyTitle_contactEmail}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.contactEmail}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_contactEmail" value="#{item.contactEmail}" style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="#{bundle.ListCompanyTitle_phone}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.phone}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_phone" value="#{item.phone}" style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                    
                     <p:column headerText="#{bundle.ListCompanyTitle_mobile1}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.mobile1}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_mobile1" value="#{item.mobile1}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="#{bundle.ListCompanyTitle_mobile2}">
+                    
+                    <p:column headerText="#{bundle.ListCompanyTitle_phone}">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.mobile2}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_mobile2" value="#{item.mobile2}" style="width:100%"/></f:facet>
+                            <f:facet name="output"><h:outputText value="#{item.phone}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_phone" value="#{item.phone}" style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
+                    
                     <p:column headerText="#{bundle.ListCompanyTitle_validated}">
                         <p:cellEditor>
                             <f:facet name="output"><p:selectBooleanCheckbox value="#{item.validated}" disabled="true"/></f:facet>
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.validated}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="#{bundle.ListCompanyTitle_active}">
+                    <p:column headerText="#{bundle.ListCompanyTitle_active}" style="width:80px">
                         <p:cellEditor>
                             <f:facet name="output"><p:selectBooleanCheckbox value="#{item.active}" disabled="true"/></f:facet>
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.active}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
                     
-                    <p:column style="width:40px">
-                        <p:commandButton style="width:20px" id="viewButton" icon="ui-icon-search" action="#{CompanyMB.goToViewCompany(item.id)}"/>
+                    <p:column  style="width:40px">
+                        <p:commandButton  style="width:20px" id="viewButton" icon="ui-icon-search" action="#{CompanyMB.goToViewCompany(item.id)}"/>
                     </p:column>
                     
                     <p:column style="width:32px">
