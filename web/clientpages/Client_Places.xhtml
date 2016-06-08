@@ -15,23 +15,39 @@
             </ui:define>
 
             <ui:define name="content">
+                <div>
+                    <h:outputText value="Place Name : "/>
+                    <h:outputText value="#{placeView_1.selected.name}"/>
+                    <br/><br/>
 
-                <h:outputText value="Place Name : "/>
-                <h:outputText value="#{placeView_1.selected.name}"/>
-                <br/><br/>
+                    <h:outputText value="Place Address : "/>
+                    <h:outputText value="#{placeView_1.selected.address}"/>
+                    <br/><br/>
 
-                <h:outputText value="Place Address : "/>
-                <h:outputText value="#{placeView_1.selected.address}"/>
-                <br/><br/>
-                
-                <h:outputText value="Place Working Hours : "/>
-                <h:outputText value="#{placeView_1.selected.workHours}"/>
-                <br/><br/>
-                
-                <h:outputText value="Comments : "/>
-                <h:inputTextarea value="You Can Add Your Comments Here......." cols="100" rows="10"/><br/>
+                    <h:outputText value="Place Working Hours : "/>
+                    <h:outputText value="#{placeView_1.selected.workHours}"/>
+                    <br/><br/>
 
+                    <h3>leave a comment</h3>
+                    <br/>
+                    <h:inputTextarea value="Message" onfocus="this.value = '';" onblur="if (this.value === '') {
+                                this.value = 'Message';
+                            }"></h:inputTextarea>	<br/>
+                    <p:commandButton type="submit" value="Send"/>
+                    <br/>
+                </div>
+                <h3 style="margin-top:0">Manual</h3>
+                <p:commandButton type="button" onclick="PF('switcher').previous();"
+                                 icon="ui-icon-circle-triangle-w" id="prev"/>
+                <p:commandButton type="button" onclick="PF('switcher').next();"
+                                 icon="ui-icon-circle-triangle-e" id="next"/>
 
+                <p:imageSwitch effect="wipe" widgetVar="switcher" id="manuelSwitcher"
+                               slideshowAuto="false">
+                    <ui:repeat value="" var="image" id="manuelSwitcherImages">
+                        <p:graphicImage name="./../clientpages/resource/#{image}" id="image"/>
+                    </ui:repeat>
+                </p:imageSwitch>
 
 
                 <!-- Keep the first param for next redirection -->
