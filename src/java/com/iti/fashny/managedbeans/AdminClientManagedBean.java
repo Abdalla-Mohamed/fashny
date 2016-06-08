@@ -40,8 +40,8 @@ import org.primefaces.model.UploadedFile;
  */
 @ManagedBean(name = "adminClient")
 @SessionScoped
-public class AdminClientManagedBean implements Serializable{
-
+public class AdminClientManagedBean implements Serializable {
+    
     ClientBusiness clientBusiness;
     private List<Client> items = null;
     private Client selected;
@@ -53,15 +53,15 @@ public class AdminClientManagedBean implements Serializable{
         clientBusiness = new ClientBusiness();
         selected = new Client();
     }
-
+    
     public ClientBusiness getClientBusiness() {
         return clientBusiness;
     }
-
+    
     public void setClientBusiness(ClientBusiness clientBusiness) {
         this.clientBusiness = clientBusiness;
     }
-
+    
     public List<Client> getItems() {
         if (items == null) {
             try {
@@ -72,56 +72,54 @@ public class AdminClientManagedBean implements Serializable{
         }
         return items;
     }
-
+    
     public void setItems(List<Client> items) {
         this.items = items;
     }
-
+    
     public Client getSelected() {
         return selected;
     }
-
+    
     public void setSelected(Client selected) {
         this.selected = selected;
     }
-
+    
     public UploadedFile getFile() {
         return file;
     }
-
+    
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-
+    
     public List<Client> getFilteredItems() {
         return filteredItems;
     }
-
+    
     public void setFilteredItems(List<Client> filteredItems) {
         this.filteredItems = filteredItems;
     }
-
+    
     public Client prepareCreate() {
         selected = new Client();
         return selected;
     }
-
+    
     public String create() {
-        String next=null;
+        String next = null;
         if (getSelected() != null) {
             try {
-//                copyFile(file.getFileName(),file.getInputstream());
                 selected.setLastSeen(new Timestamp(System.currentTimeMillis()));
-                selected.setProfilePic(resouce);
                 clientBusiness.add(selected);
-                next="adminClient";
+                next = "adminClient";
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
         return next;
     }
-
+    
     public void update() {
         if (selected != null) {
             try {
@@ -131,11 +129,11 @@ public class AdminClientManagedBean implements Serializable{
             }
         }
     }
-
+    
     public Client getClient(java.lang.Integer id) {
         return clientBusiness.showSpecificInfo(id);
     }
-
+    
     public List<Client> getItemsAvailableSelectMany() {
         List<Client> clientList = null;
         try {
@@ -145,7 +143,7 @@ public class AdminClientManagedBean implements Serializable{
         }
         return clientList;
     }
-
+    
     public List<Client> getItemsAvailableSelectOne() {
         List<Client> clientList = null;
         try {
@@ -155,100 +153,54 @@ public class AdminClientManagedBean implements Serializable{
         }
         return clientList;
     }
-
+    
     public void onRowEdit(RowEditEvent event) {
         selected = (Client) event.getObject();
         update();
         FacesMessage msg = new FacesMessage("Client Edited", ((Client) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Client) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-
+        
         if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     public String goToViewClient(int id) {
         selected = clientBusiness.showSpecificInfo(id);
         return "ViewClient";
     }
-
+    
     public String goToCreateClient() {
         selected = new Client();
         return "CreateClient";
     }
-
-    String fileName;
-    String path = "C:\\images\\";
-    public void handleFileUpload(FileUploadEvent event) {
-        resouce = new Resouce();
-        try {
-            fileName = event.getFile().getFileName();
-            InputStream inputstream = event.getFile().getInputstream();
-            OutputStream out = new FileOutputStream(new File(path + fileName));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = inputstream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            resouce.setDescription(fileName);
-            resouce.setPath(path + fileName);
-            resouce.setType(1);
-
-            inputstream.close();
-            out.flush();
-            out.close();
-
-            System.out.println("New file created!");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private Resouce copyFile(String fileName, InputStream inputstream) {
-        resouce = new Resouce();
-        try {
-            OutputStream out = new FileOutputStream(new File(path + fileName));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = inputstream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            resouce.setDescription(fileName);
-            resouce.setPath(path + fileName);
-            resouce.setType(1);
-
-            inputstream.close();
-            out.flush();
-            out.close();
-
-            System.out.println("New file created!");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } finally {
-
-        }
-        return resouce;
-
-    }
+    
     public void getFileData(FileUploadEvent event) {
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-
+    
+    public void vMailUniqe(FacesContext context, UIComponent comp, Object value) {
+        
+        FacesMessage message = new FacesMessage("in valid mail");
+        context.addMessage(comp.getClientId(context), message);
+        
+    }
+    
     @FacesConverter(forClass = Client.class)
     public static class ClientControllerConverter implements Converter {
-
+        
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -257,19 +209,19 @@ public class AdminClientManagedBean implements Serializable{
             AdminClientManagedBean controller = (AdminClientManagedBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clientController");
             return controller.getClient(getKey(value));
         }
-
+        
         java.lang.Integer getKey(String value) {
             java.lang.Integer key;
             key = Integer.valueOf(value);
             return key;
         }
-
+        
         String getStringKey(java.lang.Integer value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
-
+        
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
@@ -283,6 +235,6 @@ public class AdminClientManagedBean implements Serializable{
                 return null;
             }
         }
-
+        
     }
 }

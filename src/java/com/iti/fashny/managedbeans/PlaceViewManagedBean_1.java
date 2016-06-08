@@ -87,6 +87,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
     public String goToViewPlace(int id) {
         selected = placeBusiness.showSpecificInfo(id);
         return "ViewPlacePage";
+
     }
 
     public String goToCreatePlace() {
