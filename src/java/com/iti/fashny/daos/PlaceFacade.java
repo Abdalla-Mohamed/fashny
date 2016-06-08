@@ -8,11 +8,14 @@ package com.iti.fashny.daos;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.entities.Wishes;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
@@ -56,4 +59,30 @@ public class PlaceFacade extends AbstractFacade<Place> {
         return unconfirmPlaces;
     }
 
+    
+    public List<Wishes> getClientsWishes(){
+        Place p  = new Place();
+        
+        List<Wishes> wishes = new ArrayList<>();
+        
+      String GET_WISHES = "select p.name , size(p.clientList) as l from Place p group by p.name order by l desc";// order by p.clientList.size() 
+       
+      try{
+      Query q = getEntityManager().createQuery(GET_WISHES);
+         Iterator it = q.getResultList().iterator();
+         while(it.hasNext()){
+             Object[] o = (Object[]) it.next();
+             Wishes wish = new Wishes();
+             wish.setPlace((String) o[0]);
+             wish.setPlaceCount((int) o[1]);
+             
+             wishes.add(wish);
+         }
+      }catch(Exception e){
+          e.printStackTrace();
+      }
+          
+        return wishes;
+    }
+    
 }
