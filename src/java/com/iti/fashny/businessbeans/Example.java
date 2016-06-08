@@ -83,7 +83,7 @@ public class Example {
             //companyFacade.create(new Company(null,"comp1","pass","add",true,new Timestamp(System.currentTimeMillis()),  "mail","mob" ));
             //Integer id, String name, int cost, int countBooking, String program, Date date, Date joinDeadline, int maxbooking, boolean validated)
             // tripFacade.create(new Trip(null, "trip1",100,0,"p",new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),10,false));
-//            tripFacade.create(new Trip(null, "trip2",200,0,"pp",new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),20, true,1));
+            //            tripFacade.create(new Trip(null, "trip2",200,0,"pp",new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),20, true,1));
 //            tripFacade.create(new Trip(null, "trip3",300,0,"ppp",new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),30,false,1));
 //            tripFacade.create(new Trip(null, "trip4",400,0,"pppp",new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),40,false,1));
             // commit all edit and close entityManager automatic

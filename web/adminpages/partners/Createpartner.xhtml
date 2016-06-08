@@ -1,104 +1,84 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title> Create Partner Admin </title>
-    </h:head>
-
-    <h:body>
-
-        <ui:composition template="./../../templates/templateAdmin.xhtml">
-
-            <ui:define name="content">
-                <center>
-                    <h2>Welcome To Fashny :)</h2>
+      xmlns:p="http://primefaces.org/ui">       
+    <ui:composition>
+        <p:dialog id="PartenerCreateDlg" widgetVar="PartenerCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{MyPropertyFile.PartnerCreatePartner}">   
+            <h:form id="PartenerCreateForm">
+                <h:panelGroup  id="display">
+                    <p:panelGrid columns="2"  rendered="#{PartnerCRUDSBean.selected != null}">
+                        <p:outputLabel value="#{MyPropertyFile.PartnerName}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.name}" title="#{MyPropertyFile.PartnerName}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                    <h:form>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerPassword}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.password}" title="#{MyPropertyFile.PartnerPassword}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
-                        <h:panelGroup>
-                            <p:panelGrid columns="2" >
-
-                                <p:outputLabel value="#{MyPropertyFile.PartnerName}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.name}" title="#{MyPropertyFile.PartnerName}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerWebSite}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerPassword}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.password}" title="#{MyPropertyFile.PartnerPassword}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
-
-                                <p:outputLabel value="#{MyPropertyFile.PartnerWebSite}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerAddress}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.address}" title="#{MyPropertyFile.PartnerAddress}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerAddress}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.address}" title="#{MyPropertyFile.PartnerAddress}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerDescription}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerDescription}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
+                            <f:converter converterId="PartenerCreatePartenerConverterForPartenerType" />
+                        </p:inputText>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
-                                    <f:converter converterId="PartenerCreatePartenerConverterForPartenerType" />
-                                </p:inputText>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerWorkHours}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerWorkHours}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerValidated}"/>
+                        <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.validated}" title="#{MyPropertyFile.PartnerValidated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
+                        <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+                        <p:outputLabel value="#{MyPropertyFile.PartnerEmail}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.email}" title="#{MyPropertyFile.PartnerEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerValidated}"/>
-                                <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.validated}" title="#{MyPropertyFile.PartnerValidated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
-                                <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
-
-                                <p:outputLabel value="#{MyPropertyFile.PartnerEmail}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.email}" title="#{MyPropertyFile.PartnerEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerContactEmail}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.contactEmail}" title="#{MyPropertyFile.PartnerContactEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerContactEmail}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.contactEmail}" title="#{MyPropertyFile.PartnerContactEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerMobile1}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.mobile1}" title="#{MyPropertyFile.PartnerMobile1}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerMobile1}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.mobile1}" title="#{MyPropertyFile.PartnerMobile1}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerMobile2}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.mobile2}" title="#{MyPropertyFile.PartnerMobile2}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerMobile2}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.mobile2}" title="#{MyPropertyFile.PartnerMobile2}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerPhone}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.phone}" title="#{MyPropertyFile.PartnerPhone}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerPhone}"/>
-                                <p:inputText value="#{PartnerCRUDSBean.selected.phone}" title="#{MyPropertyFile.PartnerPhone}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:outputLabel value="#{MyPropertyFile.PartnerProfilePic}"/>
+                        <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.profilePic}" title="#{MyPropertyFile.PartnerProfilePic}"/></ui:remove>
+                        <p:fileUpload fileUploadListener="#{PartnerCRUDSBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
+                                      sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
 
-                                <p:outputLabel value="#{MyPropertyFile.PartnerProfilePic}"/>
-                                <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.profilePic}" title="#{MyPropertyFile.PartnerProfilePic}"/></ui:remove>
-                                <p:fileUpload fileUploadListener="#{PartnerCRUDSBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
-                                                  sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                        <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
+                        <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
+                        <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.active}" />
 
-
-                                <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
-                                <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
-                                <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.active}" />
-
-
-                                <p:commandButton actionListener="#{PartnerCRUDSBean.create()}" value="#{MyPropertyFile.Save}"/>
-                                <p:commandButton value="#{MyPropertyFile.Cancel}"/>
-
-
-                            </p:panelGrid>
-                        </h:panelGroup>
-                    </h:form>
-
-                </center>
-
-            </ui:define>
-        </ui:composition>
-    </h:body>
-
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{PartnerCRUDSBean.create()}" value="#{MyPropertyFile.Save}" update="display,:PartenerListForm:datalist,:growl" oncomplete="handleSubmit(args,'PartenerCreateDialog');"/>
+                    <p:commandButton value="#{MyPropertyFile.Cancel}" onclick="PartenerCreateDialog.hide()" immediate="true"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+        
+    </ui:composition>
 </html>

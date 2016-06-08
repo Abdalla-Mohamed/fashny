@@ -27,6 +27,7 @@
                 <p:dataTable id="datalist" value="#{placeView_1.items}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
+                             reflow="true"
                              rows="10"
                              rowsPerPageTemplate="10,20,30,40,50"
                              filteredValue="#{placeView_1.filteredItems}"
@@ -67,6 +68,7 @@
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.validated}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
+                    
                     <p:column headerText="#{bundle.ListPlaceTitle_active}">
                         <p:cellEditor>
                             <f:facet name="output"><p:selectBooleanCheckbox value="#{item.active}" disabled="true"/></f:facet>
@@ -74,11 +76,11 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column style="width:32px">
+                    <p:column >
                         <p:commandButton id="viewButton"   icon="ui-icon-search" action="#{placeView_1.goToViewPlace(item.id)}"/>
                     </p:column>
 
-                    <p:column style="width:32px">
+                    <p:column >
                         <p:rowEditor />
                     </p:column>
 
@@ -88,8 +90,12 @@
 
 
                 </p:dataTable>
-                <p:graphicImage value="#{placeView_1.img}"/>
 
+                           <p:selectOneMenu value="#{searchMB.selectdGovernorat}" id="state" filter="true" filterMatchMode="contains" styleClass="col-xs-12">
+                                            <f:selectItem itemValue="#{null}" itemLabel="select Governorat: "/> 
+                                            <f:selectItems value="#{searchMB.governorate}" var="gov" itemValue="#{gov}" itemLabel="#{gov}"/> 
+                                        </p:selectOneMenu>
+                             
             </p:panel>
 
         </h:form>      

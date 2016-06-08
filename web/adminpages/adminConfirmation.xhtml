@@ -11,7 +11,7 @@
     </ui:define>
 
     <ui:define name="contPageDescrp">
-        
+
     </ui:define>
 
     <ui:define name="contPagePath">
@@ -20,22 +20,14 @@
 
     <ui:define name="content">
         <h:form id="confirmform">
-            <!--<p:growl id="msgs" showDetail="true" />-->
-
 
             <p:tabView dynamic="true" cache="true">
                 <p:tab title="Places">
                     <h:panelGrid columns="2" cellpadding="10">
-                        <!--                        <p:graphicImage name="demo/images/godfather/godfather1.jpg" />
-                                                <h:outputText
-                                                    value="The story begins as Don Vito Corleone..." />-->
                         <p:dataTable id="placeDT" var="place" value="#{confirmBean.placesList}">
                             <f:facet name="header">
                                 Places
                             </f:facet>
-                            <p:column headerText="Id">
-                                <h:outputText value="#{place.id}" />
-                            </p:column>
                             <p:column headerText="Name">
                                 <h:outputText value="#{place.name}" />
                             </p:column>
@@ -56,17 +48,10 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Trips">
-                    <!--                    <h:panelGrid columns="2" cellpadding="10">
-                                            <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
-                                            <h:outputText value="Francis Ford Coppola's legendary..." />
-                                        </h:panelGrid>-->
                     <p:dataTable id="tripsDT" var="trip" value="#{confirmBean.tripsList}">
                         <f:facet name="header">
                             Trips
                         </f:facet>
-                        <p:column headerText="Id">
-                            <h:outputText value="#{trip.id}" />
-                        </p:column>
                         <p:column headerText="Name">
                             <h:outputText value="#{trip.name}" />
                         </p:column>
@@ -97,14 +82,11 @@
 
                         <p:column style="width:150px;text-align: center">
                             <p:commandButton  action="#{confirmBean.confirmTrip()}"  value="Confirm" update=":confirmform" />
-                            <!--                            <p:commandButton  oncomplete="PF('carDialog').show()" value="Confirm"/>-->
                         </p:column>
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Tags">
                     <h:panelGrid columns="2" cellpadding="10">
-                        <!--                        <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
-                                                <h:outputText value="After a break of more than 15 years..." />-->
                         <p:dataTable id="tagsDT" var="tag" value="#{confirmBean.tagsList}">
                             <f:facet name="header">
                                 Tags
@@ -117,21 +99,40 @@
                             </p:column>
 
                             <p:column style="width:150px;text-align: center">
-                                <!--<p:commandButton  oncomplete="PF('carDialog').show()" value="Confirm"/>-->
                                 <p:commandButton  action="#{confirmBean.confirmTag()}"  value="Confirm" update=":confirmform" />
 
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
                 </p:tab>
+
+                <p:tab title="Companies">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:dataTable id="companiesDT" var="company" value="#{confirmBean.companyList}">
+                            <f:facet name="header">
+                                Companies
+                            </f:facet>
+                            <p:column headerText="Name">
+                                <h:outputText value="#{company.name}" />
+                            </p:column>
+                            <p:column headerText="Address">
+                                <h:outputText value="#{company.address}" />
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{company.email}" />
+                            </p:column>
+                            <p:column headerText="Mobile 1">
+                                <h:outputText value="#{company.mobile1}" />
+                            </p:column>
+
+                            <p:column style="width:150px;text-align: center">
+                                <p:commandButton  action="#{confirmBean.confirmCompany()}"  value="Confirm" update=":confirmform" />
+
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:tab> 
             </p:tabView>
-<!--            <p:dialog id="Dialog" header="Selected Cars" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="200">
-                <p:outputPanel id="multiCarDetail" style="text-align:center;">
-                    
-                        <h:outputText value="Done" style="display:block"/>
-                   
-                </p:outputPanel>
-            </p:dialog>-->
         </h:form>
 
     </ui:define>
