@@ -37,6 +37,9 @@
                             <div class="more m1">
                                 <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
                                 <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details"/>
+                               
+                                
+                                <h:commandButton action="#{wishes.addWish(login.loginAccount.client, place)}" value="Add to wishes"/>
                             </div>
                         </div>
                     </p:dataGrid>

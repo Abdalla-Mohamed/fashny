@@ -5,7 +5,10 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.ClientBusiness;
 import com.iti.fashny.businessbeans.WishesBusiness;
+import com.iti.fashny.daos.ClientFacade;
+import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Wishes;
@@ -27,9 +30,22 @@ public class WishesMB implements Serializable{
   
     private WishesBusiness wishesBusiness ;
     private List<Wishes>wishes ;
+    private Client client ;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
     
     public WishesMB(){
         wishesBusiness = new WishesBusiness();
+        DaoFactory daoFactory = new DaoFactory();
+        ClientFacade cf = daoFactory.getClientDoa();
+        client = cf.find(5);
+              
     }
 
     public List<Wishes> getWishes() {
@@ -59,6 +75,7 @@ public class WishesMB implements Serializable{
     
         try {
             wishesBusiness.addWish(client, place);
+            
         } catch (Exception ex) {
             Logger.getLogger(WishesMB.class.getName()).log(Level.SEVERE, null, ex);
         }
