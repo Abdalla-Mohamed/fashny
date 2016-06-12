@@ -28,7 +28,7 @@
 
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
 
-
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -116,7 +116,7 @@
                         <ui:insert name="contPageName">Page name</ui:insert>
                         <small><ui:insert name="contPageDescrp">Page description </ui:insert></small>
                     </h1>
-                                    <p:messages class="col-lg-12" autoUpdate="true" id="growl" />
+                    <p:messages class="col-lg-12" autoUpdate="true" id="growl" />
 
                     <ol class="breadcrumb">
                         <ui:insert name="contPagePath">
@@ -185,9 +185,9 @@
 
         </div>
         <!-- jQuery 2.1.4 -->
-        <h:outputScript  name="jQuery/jQuery-2.1.4.min.js" />
+        <!--<h:outputScript  name="jQuery/jQuery-2.1.4.min.js" />-->
         <!-- jQuery UI 1.11.4 -->
-        <h:outputScript  name="jQueryUI/jquery-ui.min.js" />
+        <!--<h:outputScript  name="jQueryUI/jquery-ui.min.js" />-->
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button);

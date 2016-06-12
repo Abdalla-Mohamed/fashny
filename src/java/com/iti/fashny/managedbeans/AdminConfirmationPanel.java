@@ -8,6 +8,7 @@ package com.iti.fashny.managedbeans;
 import com.iti.fashny.businessbeans.AdminManager;
 import static com.iti.fashny.businessbeans.Example.tst;
 import com.iti.fashny.businessbeans.PlaceBusiness;
+import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
@@ -27,14 +28,16 @@ import org.primefaces.event.UnselectEvent;
  *
  * @author Amira Anis
  */
-@ManagedBean(name = "confirmBean") 
+@ManagedBean(name = "confirmBean")
 @RequestScoped
 public class AdminConfirmationPanel {
 
     AdminInterface adminInterface;
+    DataModel<Company> companiesList;
     DataModel<Place> placesList;
     DataModel<Trip> tripsList;
     DataModel<Tag> tagsList;
+    Company companyToConfirm;
     Place placeToConfirm;
     Trip tripToConfirm;
     Tag tagToConfirm;
@@ -59,6 +62,11 @@ public class AdminConfirmationPanel {
         return adminInterface;
     }
 
+    public DataModel<Company> getCompanyList() {
+        companiesList = new ListDataModel<Company>(adminInterface.findAllUncofirmCompany());
+        return companiesList;
+    }
+
     public DataModel<Place> getPlacesList() {
         placesList = new ListDataModel<Place>(adminInterface.findAllUncofirmPlaces());
         return placesList;
@@ -70,7 +78,7 @@ public class AdminConfirmationPanel {
     }
 
     public DataModel<Tag> getTagsList() {
-        tagsList= new ListDataModel<Tag>(adminInterface.findAllUncofirmTags());
+        tagsList = new ListDataModel<Tag>(adminInterface.findAllUncofirmTags());
         return tagsList;
     }
 
@@ -89,19 +97,18 @@ public class AdminConfirmationPanel {
     public void setTagsList(DataModel<Tag> tagsList) {
         this.tagsList = tagsList;
     }
-    public void confirmPlace()
-    {
-        placeToConfirm=placesList.getRowData();
+
+    public void confirmPlace() {
+        placeToConfirm = placesList.getRowData();
         adminInterface = new AdminManager();
         try {
             adminInterface.confirmPlace(placeToConfirm);
         } catch (Exception ex) {
             Logger.getLogger(AdminConfirmationPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("***********  place Name :" + placeToConfirm.getName());
     }
-    public void confirmTrip()
-    {   
+
+    public void confirmTrip() {
         tripToConfirm = tripsList.getRowData();
         adminInterface = new AdminManager();
         try {
@@ -109,11 +116,9 @@ public class AdminConfirmationPanel {
         } catch (Exception ex) {
             Logger.getLogger(AdminConfirmationPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("***********  trip Name :" + tripToConfirm.getName());
     }
-     
-     public void confirmTag()
-    {   
+
+    public void confirmTag() {
         tagToConfirm = tagsList.getRowData();
         adminInterface = new AdminManager();
         try {
@@ -121,9 +126,18 @@ public class AdminConfirmationPanel {
         } catch (Exception ex) {
             Logger.getLogger(AdminConfirmationPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("***********  tag Name :" + tagToConfirm.getName());
     }
-     
+
+    public void confirmCompany() {
+        companyToConfirm = companiesList.getRowData();
+        adminInterface = new AdminManager();
+        try {
+            adminInterface.confirmCompany(companyToConfirm);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminConfirmationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void setPlaceToConfirm(Place placeToConfirm) {
         this.placeToConfirm = placeToConfirm;
     }
@@ -131,20 +145,21 @@ public class AdminConfirmationPanel {
     public Place getPlaceToConfirm() {
         return placeToConfirm;
     }
-    
-     public void onRowSelect(SelectEvent event) {
+
+    public void onRowSelect(SelectEvent event) {
         System.out.println("________sel____");
 
-         System.out.println("select :::   " +((Place) event.getObject()).getId());
+        System.out.println("select :::   " + ((Place) event.getObject()).getId());
     }
- 
+
     public void onRowUnselect(UnselectEvent event) {
         System.out.println("________un____");
-        System.out.println("unselect :::   " +((Place) event.getObject()).getId());
-        
+        System.out.println("unselect :::   " + ((Place) event.getObject()).getId());
+
     }
+
     public void check(SelectEvent event) {
-    System.out.println("in check");
-}
-    
+        System.out.println("in check");
+    }
+
 }

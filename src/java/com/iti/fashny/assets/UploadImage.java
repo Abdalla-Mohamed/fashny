@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.iti.fashny.managedbeans;
+package com.iti.fashny.assets;
 
 import com.iti.fashny.entities.Resouce;
 import java.io.File;
@@ -11,31 +11,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 
 /**
  *
  * @author Bakar M.M.R
  */
-@ManagedBean(name = "fileUploadView")
-@SessionScoped
-public class TestImage {
+public class UploadImage {
 
-    /**
-     * Creates a new instance of TestImage
-     */
-    public TestImage() {
-    }
+    private String fileName;
+    private String path = "C:\\images\\";
+    private Resouce resouce;
 
-    String fileName;
-    String path = "C:\\images\\";
-    Resouce resouce;
-
+    
     public void handleFileUpload(FileUploadEvent event) {
         resouce = new Resouce();
         try {
@@ -59,7 +47,22 @@ public class TestImage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public Resouce getResouce() {
@@ -70,5 +73,4 @@ public class TestImage {
         this.resouce = resouce;
     }
     
-
 }
