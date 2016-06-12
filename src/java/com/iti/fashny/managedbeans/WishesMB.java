@@ -6,9 +6,13 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.WishesBusiness;
+import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Wishes;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -49,6 +53,15 @@ public class WishesMB implements Serializable{
        
         WishesMB wishesMB = new WishesMB();
         wishesMB.getWishes();
+    }
+    
+    public void addWish(Client client , Place place){
+    
+        try {
+            wishesBusiness.addWish(client, place);
+        } catch (Exception ex) {
+            Logger.getLogger(WishesMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
