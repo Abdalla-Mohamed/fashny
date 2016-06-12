@@ -5,19 +5,11 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.businessbeans.ClientBusiness;
-import com.iti.fashny.businessbeans.PlaceBusiness;
-import com.iti.fashny.daos.DaoFactory;
-import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Resouce;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,27 +33,26 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean(name = "adminClient")
 @SessionScoped
 public class AdminClientManagedBean implements Serializable {
-    
+
+    //<editor-fold defaultstate="collapsed" desc="Attribute">
     ClientBusiness clientBusiness;
     private List<Client> items = null;
     private Client selected;
     private List<Client> filteredItems;
     private Resouce resouce;
     private UploadedFile file;
-    
-    public AdminClientManagedBean() {
-        clientBusiness = new ClientBusiness();
-        selected = new Client();
-    }
-    
+    private UploadImage uploadImage;
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
     public ClientBusiness getClientBusiness() {
         return clientBusiness;
     }
-    
+
     public void setClientBusiness(ClientBusiness clientBusiness) {
         this.clientBusiness = clientBusiness;
     }
-    
+
     public List<Client> getItems() {
         if (items == null) {
             try {
@@ -72,40 +63,60 @@ public class AdminClientManagedBean implements Serializable {
         }
         return items;
     }
-    
+
     public void setItems(List<Client> items) {
         this.items = items;
     }
-    
+
     public Client getSelected() {
         return selected;
     }
-    
+
     public void setSelected(Client selected) {
         this.selected = selected;
     }
-    
+
     public UploadedFile getFile() {
         return file;
     }
-    
+
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
+
     public List<Client> getFilteredItems() {
         return filteredItems;
     }
-    
+
     public void setFilteredItems(List<Client> filteredItems) {
         this.filteredItems = filteredItems;
     }
-    
+
+    public Client getClient(java.lang.Integer id) {
+        return clientBusiness.showSpecificInfo(id);
+    }
+
+    public UploadImage getUploadImage() {
+        return uploadImage;
+    }
+
+    public void setUploadImage(UploadImage uploadImage) {
+        this.uploadImage = uploadImage;
+    }
+
+//</editor-fold>
+
+    //-----------constructor
+    public AdminClientManagedBean() {
+        clientBusiness = new ClientBusiness();
+        selected = new Client();
+    }
+
     public Client prepareCreate() {
         selected = new Client();
         return selected;
     }
-    
+
     public String create() {
         String next = null;
         if (getSelected() != null) {
@@ -119,7 +130,7 @@ public class AdminClientManagedBean implements Serializable {
         }
         return next;
     }
-    
+
     public void update() {
         if (selected != null) {
             try {
@@ -129,11 +140,7 @@ public class AdminClientManagedBean implements Serializable {
             }
         }
     }
-    
-    public Client getClient(java.lang.Integer id) {
-        return clientBusiness.showSpecificInfo(id);
-    }
-    
+
     public List<Client> getItemsAvailableSelectMany() {
         List<Client> clientList = null;
         try {
@@ -143,7 +150,7 @@ public class AdminClientManagedBean implements Serializable {
         }
         return clientList;
     }
-    
+
     public List<Client> getItemsAvailableSelectOne() {
         List<Client> clientList = null;
         try {
@@ -153,54 +160,59 @@ public class AdminClientManagedBean implements Serializable {
         }
         return clientList;
     }
-    
+
+    public String goToViewClient(int id) {
+        selected = clientBusiness.showSpecificInfo(id);
+        return "ViewClient";
+    }
+
+    public String goToCreateClient() {
+        selected = new Client();
+        return "CreateClient";
+    }
+
+    public void getFileData(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void vMailUniqe(FacesContext context, UIComponent comp, Object value) {
+
+        FacesMessage message = new FacesMessage("in valid mail");
+        context.addMessage(comp.getClientId(context), message);
+
+    }
+
+     
+    //<editor-fold desc="update in table">
     public void onRowEdit(RowEditEvent event) {
         selected = (Client) event.getObject();
         update();
         FacesMessage msg = new FacesMessage("Client Edited", ((Client) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Client) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-        
+
         if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+
+    //</editor-fold>
     
-    public String goToViewClient(int id) {
-        selected = clientBusiness.showSpecificInfo(id);
-        return "ViewClient";
-    }
-    
-    public String goToCreateClient() {
-        selected = new Client();
-        return "CreateClient";
-    }
-    
-    public void getFileData(FileUploadEvent event) {
-        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-    
-    public void vMailUniqe(FacesContext context, UIComponent comp, Object value) {
-        
-        FacesMessage message = new FacesMessage("in valid mail");
-        context.addMessage(comp.getClientId(context), message);
-        
-    }
-    
+    //<editor-fold desc="converter">
     @FacesConverter(forClass = Client.class)
     public static class ClientControllerConverter implements Converter {
-        
+
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -209,19 +221,19 @@ public class AdminClientManagedBean implements Serializable {
             AdminClientManagedBean controller = (AdminClientManagedBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clientController");
             return controller.getClient(getKey(value));
         }
-        
+
         java.lang.Integer getKey(String value) {
             java.lang.Integer key;
             key = Integer.valueOf(value);
             return key;
         }
-        
+
         String getStringKey(java.lang.Integer value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
-        
+
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
@@ -235,6 +247,7 @@ public class AdminClientManagedBean implements Serializable {
                 return null;
             }
         }
-        
+
     }
+    //</editor-fold>
 }

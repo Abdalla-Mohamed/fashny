@@ -36,8 +36,10 @@
                             <p:message for="name"/>
 
                             <p:outputLabel value="#{bundle.CreateClientLabel_email}" for="email" />
-                            <p:inputText id="email" value="#{adminClient.selected.email}" title="#{bundle.CreateClientTitle_email}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_email}"/>
-                            <p:message for="email"/>
+                            <p:inputText id="email" value="#{adminClient.selected.email}" title="#{bundle.CreateClientTitle_email}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_email}">
+                                <p:ajax update="emailmsg" event="blure"/>
+                            </p:inputText>
+                            <p:message for="email" id="emailmsg"/>
 
                             <p:outputLabel value="#{bundle.CreateClientLabel_contactEmail}" for="contactEmail" />
                             <p:inputText id="contactEmail" value="#{adminClient.selected.contactEmail}" title="#{bundle.CreateClientTitle_contactEmail}" validator="com.iti.fashny.validators.CustomeEmailValidator" required="true"/>
@@ -85,11 +87,11 @@
                             <p:selectBooleanCheckbox id="active" value="#{adminClient.selected.active}" />
                             <p:message for="active"/>
                             
-                            <ui:remove>
+                            
                                 <p:outputLabel value="#{bundle.CreateClientLabel_profilePic}" for="profilePic" />
-                                <p:fileUpload id="profilePic" fileUploadListener="#{adminClient.handleFileUpload}" mode="simple" dragDropSupport="false"
+                                <p:fileUpload id="profilePic" fileUploadListener="#{adminClient.uploadImage.handleFileUpload}" mode="simple" dragDropSupport="false"
                                               auto="true" label="choose" sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-                            </ui:remove>
+                            
                         </p:panelGrid>
                         <p:commandButton actionListener="#{adminClient.create}" value="#{bundle.Save}"/>
                         <p:commandButton action="adminClient" value="#{bundle.Cancel}" immediate="true"/>
