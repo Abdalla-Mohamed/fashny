@@ -59,6 +59,9 @@ public class DaoFactory {
     public TripFacade getTripDoa() {
         return new TripFacade(getEntityManager());
     }
+    public  ClientReviewPlaceFacade getClientReviewPlaceFacade(){
+        return new ClientReviewPlaceFacade(getEntityManager());
+    }
 
 //    --------------------------------------------------------------------------
     

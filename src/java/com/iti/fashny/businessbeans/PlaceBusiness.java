@@ -11,6 +11,7 @@ import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.TripFacade;
+import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.entities.Tag;
@@ -87,7 +88,7 @@ public class PlaceBusiness implements Commens<Place> {
         return placeResults;
     }
 
-        public void getPlaceResoures(Place place) {
+    public void getPlaceResoures(Place place) {
         DaoFactory daoFactory = new DaoFactory();
 
         try {
@@ -102,6 +103,7 @@ public class PlaceBusiness implements Commens<Place> {
         }
 
     }
+
     @Override
     public List<Place> searchByExample(Place t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -116,6 +118,27 @@ public class PlaceBusiness implements Commens<Place> {
         return place;
     }
 
-  
+    public Place getComments(Place place) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            PlaceFacade placeFacade = daoFactory.getPlaceDoa();
+            daoFactory.beginTransaction();
+            place = placeFacade.find(place.getId());
+            List<ClientReviewPlace> clientReviewPlaceList = place.getClientReviewPlaceList();
+            System.out.println(clientReviewPlaceList.size());
+            for (ClientReviewPlace crl: clientReviewPlaceList) {
+                System.out.println(crl.getClientId().getName()+":"+crl.getComment());
+            }
+            daoFactory.commitTransaction();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return place;
+    }
 
 }
