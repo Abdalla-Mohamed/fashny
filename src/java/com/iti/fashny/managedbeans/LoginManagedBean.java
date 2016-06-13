@@ -10,6 +10,7 @@ import com.iti.fashny.assets.Role;
 import com.iti.fashny.businessbeans.LoginBusiness;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.exceptions.Fasa7nyException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -21,7 +22,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "login",eager = true) 
 @SessionScoped
-public class LoginManagedBean {
+public class LoginManagedBean implements Serializable{
 
     boolean isLogged = false;
     private String mail;
