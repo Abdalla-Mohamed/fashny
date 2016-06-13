@@ -12,51 +12,56 @@
 
     <ui:define name="content">
         <h:form id="TagForm">
-            <p:panel header="#{bundle.ListTagTitle}">
-                <p:dataTable id="datalist" value="#{tagAdminBean.items}" var="tag"
-                             paginator="true"
-                             rowKey="#{tag.id}"
-                             rows="10"
-                             rowsPerPageTemplate="10,20,30,40,50"
-                             filteredValue="#{tagAdminBean.filteredItems}"
-                             widgetVar="tagTable"
-                             editable="true"
-                             >
+            <div  class="col-sm-12" align="center">
+                <div class="col-sm-2" align="center"></div>
+                <div class="col-sm-8" align="center"> 
+                    <p:panel header="#{bundle.ListTagTitle}">
+                        <p:dataTable id="datalist" value="#{tagAdminBean.items}" var="tag"
+                                     paginator="true"
+                                     rowKey="#{tag.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     filteredValue="#{tagAdminBean.filteredItems}"
+                                     widgetVar="tagTable"
+                                     editable="true"
+                                     >
 
-                    <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
-                    <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
-                    <p:ajax event="rowEdit" listener="#{tagAdminBean.onRowEdit}"/><!--update="TagForm:msg2"-->
-                    <p:ajax event="rowEditCancel" listener="#{tagAdminBean.onRowCancel}"/>
+                            <p:ajax event="rowSelect"   update="createButton"/>
+                            <p:ajax event="rowUnselect" update="createButton"/>
+                            <p:ajax event="rowEdit" listener="#{tagAdminBean.onRowEdit}"/><!--update="TagForm:msg2"-->
+                            <p:ajax event="rowEditCancel" listener="#{tagAdminBean.onRowCancel}"/>
 
-                    <p:column headerText="#{bundle.ListTagTitle_id}">
-                        <h:outputText value="#{tag.id}"/>
-                    </p:column>
+                            <p:column headerText="#{bundle.ListTagTitle_id}">
+                                <h:outputText value="#{tag.id}"/>
+                            </p:column>
 
-                    <p:column headerText="#{bundle.ListTagTitle_name}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{tag.name}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_name" value="#{tag.name}" style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                            <p:column headerText="#{bundle.ListTagTitle_name}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{tag.name}" /></f:facet>
+                                    <f:facet name="input"><p:inputText id="modelInput_name" value="#{tag.name}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
 
-                    <p:column headerText="#{bundle.ListTagTitle_vaidated}">
-                        <p:cellEditor>
-                            <f:facet name="output"><p:selectBooleanCheckbox value="#{tag.vaidated}" disabled="true"/></f:facet>
-                            <f:facet name="input"><p:selectBooleanCheckbox value="#{tag.vaidated}" disabled="false"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                            <p:column headerText="#{bundle.ListTagTitle_vaidated}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><p:selectBooleanCheckbox value="#{tag.vaidated}" disabled="true"/></f:facet>
+                                    <f:facet name="input"><p:selectBooleanCheckbox value="#{tag.vaidated}" disabled="false"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
 
-                    <p:column style="width:32px">
-                        <p:rowEditor />
-                    </p:column>
+                            <p:column style="width:32px">
+                                <p:rowEditor />
+                            </p:column>
 
-                    <f:facet name="footer">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tagAdminBean.prepareCreate()}"  update=":TagForm" oncomplete="PF('TagCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TagForm" oncomplete="PF('TagViewDialog').show()" disabled="#{empty tagAdminBean.selectedTag}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TagForm" oncomplete="PF('TagEditDialog').show()" disabled="#{empty tagAdminBean.selectedTag}"/>
-                    </f:facet>
-                </p:dataTable>
-            </p:panel>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tagAdminBean.prepareCreate()}"  update=":TagForm" oncomplete="PF('TagCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TagForm" oncomplete="PF('TagViewDialog').show()" disabled="#{empty tagAdminBean.selectedTag}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TagForm" oncomplete="PF('TagEditDialog').show()" disabled="#{empty tagAdminBean.selectedTag}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </div>
+            </div>
         </h:form>
 
 
