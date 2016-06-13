@@ -11,7 +11,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -19,58 +22,76 @@ import org.primefaces.event.FileUploadEvent;
  */
 public class UploadImage {
 
-    private String fileName;
-    private String path = "C:\\images\\";
-    private Resouce resouce;
+    UploadedFile file;
+    String folderName = "C:" + File.separator + "uploaded"+File.separator;
 
-    
+    ;
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public String getFolderName() {
+        return folderName;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
+
+    public void forClient(String id) {
+        folderName += "clients" + File.separator + id;
+    }
+
+    public void forCompany(String id) {
+        folderName += "companies" + File.separator + id;
+    }
+
+    public void forPartner(String id) {
+        folderName += "partners" + File.separator + id;
+    }
+
+    public void forPlace(String id) {
+        folderName += "places" + File.separator + id;
+    }
+
+    public void forTrip(String id) {
+        folderName += "Trips" + File.separator + id;
+    }
+
     public void handleFileUpload(FileUploadEvent event) {
-        resouce = new Resouce();
+        file = event.getFile();
+    }
+
+    public void copyFile() {
+
+        String newFileName = this.folderName + File.separator + file.getFileName();
         try {
-            fileName = event.getFile().getFileName();
-            InputStream inputstream = event.getFile().getInputstream();
-            OutputStream out = new FileOutputStream(new File(path + fileName));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = inputstream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
+            new File(folderName).mkdirs();
+            FileOutputStream fos = new FileOutputStream(new File(newFileName));
+            InputStream is = file.getInputstream();
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int a;
+            while (true) {
+                a = is.read(buffer);
+                if (a < 0) {
+                    break;
+                }
+                fos.write(buffer, 0, a);
+                fos.flush();
             }
-            resouce.setDescription(fileName);
-            resouce.setPath(path + fileName);
-            resouce.setType(1);
-
-            inputstream.close();
-            out.flush();
-            out.close();
-
-            System.out.println("New file created!");
+            fos.close();
+            is.close();
+            FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public Resouce getResouce() {
-        return resouce;
-    }
-
-    public void setResouce(Resouce resouce) {
-        this.resouce = resouce;
-    }
-    
 }

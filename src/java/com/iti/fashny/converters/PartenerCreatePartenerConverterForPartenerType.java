@@ -6,6 +6,7 @@
 package com.iti.fashny.converters;
 
 import com.iti.fashny.entities.PartnType;
+//import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -15,6 +16,7 @@ import javax.faces.convert.FacesConverter;
  *
  * @author MANAR ADEL
  */
+//@ManagedBean(name = "PartenerCreatePartenerConverterForPartenerTypeBean")
 @FacesConverter("PartenerCreatePartenerConverterForPartenerType")
 public class PartenerCreatePartenerConverterForPartenerType implements Converter
 {

@@ -105,11 +105,15 @@
                                           auto="true" label="choose" sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
                         </p:panelGrid>
-                        <p:commandButton action="#{adminClient.create}" value="#{bundle.Save}"/>
-                        <p:commandButton action="adminClient" value="#{bundle.Cancel}" immediate="true"/>
+                        <p:commandButton action="#{adminClient.create}" value="#{bundle.Save}" id="create"/>
+                        <p:commandButton id="cancel" action="adminClient" value="#{bundle.Cancel}" immediate="true"/>
 
 
                     </h:panelGroup>
+                    <p:blockUI block="bobo" trigger="cancel">
+                        LOADING<br />
+                        <p:graphicImage name="/processing-bar.gif"/>
+                    </p:blockUI>
                 </h:form>
             </ui:define>
 
@@ -118,6 +122,7 @@
             </ui:define>
 
         </ui:composition>
+
 
     </body>
 </html>

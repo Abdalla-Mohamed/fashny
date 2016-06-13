@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Abdalla
  */
-@WebFilter(filterName = "ClientPagesFilter", urlPatterns = {"/faces/clientpages/none*"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.INCLUDE})
+@WebFilter(filterName = "ClientPagesFilter", urlPatterns = {"/faces/clientpages/*"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.INCLUDE})
 public class ClientPagesFilter implements Filter {
 
     private FilterConfig filterConfig = null;

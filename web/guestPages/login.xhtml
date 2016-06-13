@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:body>
         <h3>Login here</h3>
@@ -11,23 +12,50 @@
         <ui:composition template="./../templates/clientTemplate.xhtml">
 
             <ui:define name="title">
-                title
+                Login Page
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="login-form">
-                    <h:outputText value="Email : "/>
-                    <p:inputText type="email" value="#{login.mail}" id="username"/>
-                    <br/>
-                    <h:outputText value="Password : "/>
-                    <h:inputSecret value="#{login.password}"/>
-                    <br/>
-                    <h:commandButton id="button" value="Login" action="#{login.login()}"/><br/>
-                    <h:commandLink action="#{login.logOut()}" value="Info page"/>
-                    <br/>
-                    <h:messages />
-                    <br/>
-                </h:form>    
+                <div class="portfolio">
+                    <div class="container col-lg-12">
+                        <div class=" col-lg-4" />
+                        <h:form id="login-form" >
+                            <div class="well col-lg-4 " style="
+                                 padding-bottom: 0px;
+                                 margin-bottom: 0px;
+                                 " >
+                                <h:panelGrid columns="1" styleClass=" resp-tabs-list"  >
+                                    <h:outputText value="Email : "/>
+                                    <p:inputText type="email" value="#{login.mail}" id="username"/>
+                                    <p:spacer />
+
+                                    <h:outputText value="Password : "/>
+                                    <p:password value="#{login.password}"/>
+
+                                    <p:spacer />
+
+                                    <h:outputText value="login as: "/>
+                                    <p:selectOneMenu  styleClass="emptyWhite"  >
+                                        <f:selectItem  itemLabel="Client" itemValue="0" />
+                                        <f:selectItem   itemLabel="Company" itemValue="1" />
+                                        <f:selectItem  itemLabel="Partner" itemValue="2" />
+                                        <p:ajax event="valueChange" process="@this"  />
+                                    </p:selectOneMenu >
+                                    <p:spacer height="1" />
+                                    <p:commandButton id="button" value="Login" action="#{login.login()}"/><br/>
+                                    <p:commandLink action="#{login.logOut()}" value="Info page"/>
+                                </h:panelGrid>
+
+                                <br/>
+                                <h:messages />
+                                <br/>
+                            </div>
+                        </h:form>    
+                        <div class="  col-lg-4" />
+
+                    </div>
+                </div>
+                        <p:spacer height="2"/>
             </ui:define>
 
         </ui:composition>

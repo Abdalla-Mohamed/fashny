@@ -47,12 +47,12 @@ public class ClientFacade extends AbstractFacade<Client> {
         System.out.println("=========================");
         System.out.println(email +","+pass);
         System.out.println("=========================");
-        Client singleResult = (Client) getEntityManager().createQuery(HQL_LOGIN)
-                .setParameter("email", email).setParameter("password", pass).getResultList().get(0);
-        if (singleResult == null) {
+        List result = (List) getEntityManager().createQuery(HQL_LOGIN)
+                .setParameter("email", email).setParameter("password", pass).getResultList();
+        if (result == null||result.isEmpty()) {
             throw new Fasa7nyException();
         }
-        return singleResult;
+        return (Client) result.get(0);
     }
 
 }

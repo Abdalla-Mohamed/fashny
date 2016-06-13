@@ -20,9 +20,9 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="ClientListForm">
+        <h:form id="ClientListForm" prependId="false">
             <p:growl id="msgs" showDetail="true"/>
-            <p:panel header="#{bundle.ListClientTitle}">
+            <p:panel header="#{bundle.ListClientTitle}" id="pnlList">
                 <p:dataTable id="datalist" value="#{adminClient.viewItems()}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
@@ -35,8 +35,8 @@
 
                     <p:ajax event="rowSelect"   update="createButton viewButton"/>
                     <p:ajax event="rowUnselect" update="createButton viewButton"/>
-                    <p:ajax event="rowEdit" listener="#{adminClient.onRowEdit}" update="ClientListForm:msgs" />
-                    <p:ajax event="rowEditCancel" listener="#{adminClient.onRowCancel}" update="ClientListForm:msgs" />
+                    <p:ajax event="rowEdit" listener="#{adminClient.onRowEdit}" update="msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{adminClient.onRowCancel}" update="msgs" />
 
                     <p:column headerText="#{bundle.ListClientTitle_name}">
                         <p:cellEditor>
@@ -138,6 +138,12 @@
                     </f:facet>
                 </p:dataTable>
             </p:panel>
+
+            <p:blockUI block="pnlList" trigger="datalist:createButton">
+                LOADING<br />
+                <p:graphicImage name="/processing-bar.gif"/>
+            </p:blockUI>
+
         </h:form>
 
         <ui:include src="Edit.xhtml"/>

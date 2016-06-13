@@ -21,8 +21,7 @@
                     <p:dataGrid var="place" value="#{placeView_1.items}" columns="3" layout="grid"
                                 rows="12" paginator="true" id="places"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="6,12,16"
-                                styleClass="no-border">
+                                rowsPerPageTemplate="6,12,16">
 
 
                         <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
@@ -37,6 +36,10 @@
                             <div class="clearfix"> </div>
                             <div class="more m1">
                                 <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details"/>
+                               
+                                
+                                <h:commandButton action="#{wishes.addWish(login.loginAccount.client, place)}" value="Add to wishes"/>
                                 <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details" styleClass="btn btn-info col-xs-12"/>
                             </div>
                         </div>
