@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../templates/clientTemplate.xhtml">
+                    <c:set var="home" value="active" />
+
+            <ui:define name="activePage">
+                  <c:set var="Home" value="active" />
+            </ui:define>
+
+            <ui:define name="title">
+                Home
+                <p:growl />
+            </ui:define>
+
+            <ui:define name="content">
+
+
+                <p:contentFlow style="border-width: 0px   " value="#{homeMB.barImages}" var="image"  >
+                    <p:graphicImage name="fashnyBar/#{image.imgPath}" styleClass="content" onclick="none" />
+                    <h4  class="caption title"
+                         style="color: rgb(255, 255, 255);
+                         font-family: 'Oswald', sans-serif;
+                         font-weight: bolder;
+                         text-shadow: 0px 2px 0 #000, 0px -2px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">#{image.placeName}</h4>
+                </p:contentFlow>
+
+
+                <h3 class="title"> Places </h3>
+
+                <div class="banner-bottom">
+                    <div class="container">
+                        <div class="banner-bottom-grids">
+                            <div class="well col-md-4 banner-bottom-grid" style="margin-bottom: 20px;">
+                                <p:graphicImage name="fashnyBar/place.jpg" styleClass="img-responsive" />
+
+                                <div class="social_icons social_icons_sub">
+                                    <ul>
+                                        <li><a href="#" class="p"></a></li>
+                                        <li><a href="#" class="facebook"></a></li>
+
+                                    </ul>
+                                    <p>Voluptates repudiandae sint et 
+                                        molestiae non recusandae.</p>
+                                </div>
+                                <div class="banner-bottom-grid1">
+                                    <h3>Mountains In Alaska</h3>
+                                    <p>Temporibus autem quibusdam et aut officiis debitis aut rerum 
+                                        necessitatibus saepe eveniet ut et voluptates repudiandae sint et 
+                                        molestiae non recusandae.</p>
+                                </div>
+                                <div class="more m1">
+                                    <h:form>
+                                    <h:commandLink class="btn effect6" >Learn More</h:commandLink> 
+                                    </h:form>
+					</div>
+                            </div>
+
+                            <div class="well col-md-4 banner-bottom-grid" style="margin-bottom: 20px;" >
+                                <div class="banner-bottom-grid1 banner-bottom-grid1-sub">
+                                    <h3>Salmon Fish In Alaska</h3>
+                                    <p>Temporibus autem quibusdam et aut officiis debitis aut rerum 
+                                        necessitatibus saepe eveniet ut et voluptates repudiandae sint et 
+                                        molestiae non recusandae.</p>
+                                </div>
+                                <p:graphicImage name="fashnyBar/place.jpg" styleClass="img-responsive" />
+
+                                <div class="social_icons social_icons_sub1">
+                                    <ul>
+                                        <li><a href="#" class="p"></a></li>
+                                        <li><a href="#" class="facebook"></a></li>
+
+                                    </ul>
+                                    <p>Voluptates repudiandae sint et 
+                                        molestiae non recusandae.</p>
+                                </div>
+                                <div class="more m1">
+						<a class="btn effect6" href="single.html">Learn More</a>
+					</div>
+                            </div>
+                            <div class="well col-md-4 banner-bottom-grid">
+                                <p:graphicImage name="fashnyBar/place.jpg" styleClass="img-responsive" />
+
+                                <div class="social_icons social_icons_sub">
+                                    <ul>
+                                        <li><a href="#" class="p"></a></li>
+                                        <li><a href="#" class="facebook"></a></li>
+
+                                    </ul>
+                                    <p>Voluptates repudiandae sint et 
+                                        molestiae non recusandae.</p>
+                                </div>
+                                <div class="banner-bottom-grid1">
+                                    <h3>Mountains In Alaska</h3>
+                                    <p>Temporibus autem quibusdam et aut officiis debitis aut rerum 
+                                        necessitatibus saepe eveniet ut et voluptates repudiandae sint et 
+                                        molestiae non recusandae.</p>
+                                </div>
+                                <div class="more m1">
+						<a class="btn effect6" href="single.html">Learn More</a>
+					</div>
+                            </div>
+
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container">
+			 <h3 class="title"> Places </h3>
+			<div class="blog-grids">
+				<div class="well col-md-6 blog-grid">
+					<div class="col-xs-4 blog-grid-left">
+                                            <a href="single.html"><img src="../../resources/clientTempl/images/16.jpg" alt=" " class="img-responsive"/></a>
+					</div> 
+					<div class="col-xs-8 blog-grid-right">
+						<a href="single.html">sint occaecat cupidatat non proident</a>
+						<h4>27 November 2015</h4>
+						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse 
+							cillum dolore eu fugiat nulla pariatur.</p>
+					</div>
+					<div class="clearfix"> </div>
+					<div class="more m1">
+						<a class="btn effect6" href="single.html">Learn More</a>
+					</div>
+				</div>
+				<div class="well col-md-6 blog-grid">
+					<div class="col-xs-4 blog-grid-left">
+						<a href="single.html"><img src="../../resources/clientTempl/images/17.jpg" alt=" " class="img-responsive"/></a>
+					</div> 
+					<div class="col-xs-8 blog-grid-right">
+						<a href="single.html">sint occaecat cupidatat non proident</a>
+						<h4>28 November 2015</h4>
+						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse 
+							cillum dolore eu fugiat nulla pariatur.</p>
+					</div>
+					<div class="clearfix"> </div>
+					<div class="more m1">
+						<a class="btn effect6" href="single.html">Learn More</a>
+					</div>
+				</div>
+				<!--<div class="clearfix"> </div>-->
+			</div>
+			<div class="blog-grids">
+				<div class="well col-md-6 blog-grid">
+					<div class="col-xs-4 blog-grid-left">
+						<a href="single.html"><img src="../../resources/clientTempl/images/18.jpg" alt=" " class="img-responsive"/></a>
+					</div> 
+					<div class="col-xs-8 blog-grid-right">
+						<a href="single.html">sint occaecat cupidatat non proident</a>
+						<h4>27 November 2015</h4>
+						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse 
+							cillum dolore eu fugiat nulla pariatur.</p>
+					</div>
+					<div class="clearfix"> </div>
+					<div class="more m1">
+						<a class="btn effect6" href="single.html">Learn More</a>
+					</div>
+				</div>
+				<div class="well col-md-6 blog-grid">
+					<div class="col-xs-4 blog-grid-left">
+						<a href="single.html"><img src="../../resources/clientTempl/images/19.jpg" alt=" " class="img-responsive"/></a>
+					</div> 
+					<div class="col-xs-8 blog-grid-right">
+						<a href="single.html">sint occaecat cupidatat non proident</a>
+						<h4>28 November 2015</h4>
+						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse 
+							cillum dolore eu fugiat nulla pariatur.</p>
+					</div>
+					<div class="clearfix"> </div>
+					<div class="more m1">
+						<a class="btn effect6" href="single.html">Learn More</a>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+				
+		</div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

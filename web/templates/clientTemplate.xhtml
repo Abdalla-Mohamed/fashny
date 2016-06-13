@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
 
@@ -29,6 +31,24 @@
             });
         </script>
         <!-- start-smoth-scrolling -->
+        <h:outputScript library="MyMenu1" name="MyMenu1.js" />
+        <h:outputStylesheet name="font-awesome-4.6.2/css/font-awesome.min.css" />
+        <style>
+
+            .ui-icon.fa {
+                text-indent:0px;
+                background-image:none;
+            }
+            .emptyWhite{
+                background: none !important;
+                font-size:small !important;
+            }
+            .ui-widget-header .ui-state-default {
+                background: none !important;
+            }
+
+        </style>
+
     </h:head>
 
     <h:body>
@@ -36,27 +56,102 @@
             <h:outputStylesheet library="clientTempl" name="css/bootstrap.css" />
             <h:outputStylesheet library="clientTempl" name="css/style.css" />
             <h:outputScript library="clientTempl"  name="js/jquery-1.11.1.min.js" />
+            <!--<h:outputStylesheet library="font-awesome-4.6.2" name="css/font-awesome.css" />-->
 
         </f:facet>
+        <!--<div id="MyMenu1"></div>-->
+
+        <p:toolbar rendered="#{login.logged}"  styleClass="emptyWhite" >
+
+            <f:facet name="right">
+                <h:form style="margin: 0px">
+
+                    <p:commandButton id="notficationButton" type="button" icon="fa fa-bell"/>
+                    <p:menu style="font-size: small" overlay="true" trigger="notficationButton" my="left top" at="left bottom">
+                        <p:submenu  label="Ajax">
+                            <p:menuitem value="Save"  icon="ui-icon-disk"/>
+                            <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
+                        </p:submenu>
+                        <p:submenu label="Non-Ajax">
+                            <p:menuitem value="Delete"  ajax="false" icon="ui-icon-close"/>
+                        </p:submenu>
+                        <p:submenu label="Navigations">
+                            <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
+                            <p:menuitem value="Internal" icon="ui-icon-star"/>
+                        </p:submenu>
+                    </p:menu>
+
+                    <p:commandButton id="dynaButton" value="Profile" type="button" icon="fa fa-user"/>
+                    <p:menu style="font-size: small" overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                        <p:submenu  label="Ajax">
+                            <p:menuitem value="Save"  icon="ui-icon-disk"/>
+                            <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
+                        </p:submenu>
+                        <p:submenu label="Non-Ajax">
+                            <p:menuitem value="Delete"  ajax="false" icon="ui-icon-close"/>
+                        </p:submenu>
+                        <p:submenu label="Navigations">
+                            <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
+                            <p:menuitem value="Internal" icon="ui-icon-star"/>
+                        </p:submenu>
+                    </p:menu>
+
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+
+                    <p:commandButton   action="#{login.logOut}" styleClass="emptyWhite"  value="Logout"  icon="fa fa-sign-out" />
+
+                </h:form>
+            </f:facet>
+
+        </p:toolbar>
+
+        <p:toolbar  rendered="#{!login.logged}"  styleClass="emptyWhite" >
+
+            <f:facet name="right">
+                <h:form style="margin: 0px">
+                    email
+                    <p:inputText type="email" value="#{login.mail}" id="username"/>
+                    password
+                    <h:inputSecret value="#{login.password}"/>
+
+                    login as: 
+                    <p:selectOneMenu  styleClass="emptyWhite" style="font-size: small;vertical-align: middle" >
+                        <f:selectItem  itemLabel="Client" itemValue="0" />
+                        <f:selectItem   itemLabel="Company" itemValue="1" />
+                        <f:selectItem  itemLabel="Partner" itemValue="2" />
+                        <p:ajax event="valueChange" process="@this"  />
+                    </p:selectOneMenu >
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+
+                    <p:commandButton  action="#{login.login}"  value="Login"  icon="fa fa-sign-in" />
+                </h:form>
+            </f:facet>
+
+        </p:toolbar>
 
 
         <!-- banner -->
         <div class="banner">
             <div class="container">
                 <div class="banner_top">
-                    <div class="banner_top_left">
-
-                        <!--<dir style="background:url(../resources//) no-repeat 0px 0px;" />-->
-                        <p>  <h:graphicImage library="clientTempl" name="images/1.png" /> I am travelling to <span>Alaska Mountains.</span></p>
-                    </div>
-                    <div class="banner_top_right">
-                        <form>
-                            <input type="text" value="Search Here..." onfocus="this.value = '';" onblur="if (this.value == '') {
+                    <!--                    <div class="banner_top_left">
+                    
+                                            <dir style="background:url(../resources//) no-repeat 0px 0px;" />
+                                            <p>  <h:graphicImage library="clientTempl" name="images/1.png" /> I am travelling to <span>Alaska Mountains.</span></p>
+                                        </div>
+                    
+                                        <div class="banner_top_right">
+                                            <form>
+                                                <input type="text" value="Search Here..." onfocus="this.value = '';" onblur="if (this.value == '') {
                                                             this.value = 'Email Address';
                                                         }" required="" />
-                            <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
-                        </form>
-                    </div>
+                                                <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+                                            </form>
+                                        </div>-->
                     <div class="clearfix"> </div>
                 </div>
                 <nav class="navbar navbar-default">
@@ -70,38 +165,42 @@
                         </button>
                     </div>
 
+
+                    <ui:insert name="activePage"> </ui:insert>
+
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav cl-effect-14">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="features.html">Features</a></li>
-                            <li><a href="portfolio.html">Portfolio</a></li>
-                            <li><a href="codes.html" class="active">Pages</a></li>
-                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="index.html" class='${Home}' > Home</a></li>
+                            <li><a href="about.html" class='${Places}'>Places</a></li>
+                            <li><a href="features.html" class='${Trips}'>Trips</a></li>
+                            <li><a href="portfolio.html" class='${Companies}'>Companies</a></li>
+                            <li><a href="codes.html" class='${Hotels}' >Hotels</a></li>
+                            <li><a href="blog.html" class='${Restaurants}' >Restaurants </a></li>
                             <li><a href="#contact" class="scroll">Contact Us</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->	
 
                 </nav>
                 <div class="logo">
-                    <a href="index.html">Your Trip<span>Alaska Mountains</span></a>
+                    <a href="index.html">Fashny<span>Your Trips </span></a>
                 </div>
                 <div class="dummy_text">
-                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, 
-                        adipisci velit, sed quia non numquam eius modi.</p>
+                    <p>New places , Creative Trips , professional companies
+                        special offers, best Restaurant , comfortable‬‏ hotels  .</p>
                 </div>
                 <div class="social_icons">
-                    <ul>
-                        <li><a href="#" class="p"></a></li>
-                        <li><a href="#" class="facebook"></a></li>
-                        <li><a href="#" class="g"></a></li>
-                        <li><a href="#" class="instagram"></a></li>
-                    </ul>
+                    <!--                    <ul>
+                                            <li><a href="#" class="p"></a></li>
+                                            <li><a href="#" class="facebook"></a></li>
+                                            <li><a href="#" class="g"></a></li>
+                                            <li><a href="#" class="instagram"></a></li>
+                                        </ul>-->
                 </div>
             </div>
         </div>
         <!-- //banner -->
+
         <!--typography-page -->
         <div class="typo">
             <div >
@@ -109,7 +208,7 @@
                 <ui:insert name="content">content</ui:insert>
             </div>
         </div>
-        <!-- //typography-page -->
+        <!-- //typography-page -->  
         <!-- contact -->
         <div class="contact" id="contact">
             <div class="container">

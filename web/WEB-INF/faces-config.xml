@@ -31,10 +31,21 @@
        
     </application>
     <navigation-rule>
-        <from-view-id>/guestPages/login.xhtml</from-view-id>
+        <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>PlaceClient</from-outcome>
             <to-view-id>/clientpages/PlaceClient.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>advSearch</from-outcome>
+            <to-view-id>/guestPages/advancedSearch.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/guestPages/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
