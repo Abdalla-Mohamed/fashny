@@ -24,7 +24,7 @@ import org.primefaces.model.UploadedFile;
  */
 @ManagedBean
 @ViewScoped
-public class FileUploadMB implements Serializable{
+public class FileUploadMB implements Serializable {
 
     /**
      * Creates a new instance of FileUploadMB
@@ -33,6 +33,7 @@ public class FileUploadMB implements Serializable{
     }
 
     UploadedFile file;
+    String fileName;
 
     public UploadedFile getFile() {
         return file;
@@ -41,16 +42,42 @@ public class FileUploadMB implements Serializable{
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void forClient(String id) {
+        fileName = "clients" + File.separator + id;
+    }
+
+    public void forCompany(String id) {
+        fileName = "companies" + File.separator + id;
+    }
+
+    public void forPartner(String id) {
+        fileName = "partners" + File.separator + id;
+    }
+
+    public void forPlace(String id) {
+        fileName = "places" + File.separator + id;
+    }
+
+    public void forTrip(String id) {
+        fileName = "Trips" + File.separator + id;
+    }
 
     public void handleFileUpload(FileUploadEvent event) {
         file = event.getFile();
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String folderName = "D:" + File.separator + "uploaded" ;
-        String newFileName = folderName+ File.separator + file.getFileName();
+        String folderName = "C:" + File.separator + "uploaded";
+        String newFileName = folderName + File.separator + fileName + File.separator + file.getFileName();
 
         try {
-            new File(folderName).mkdirs();
+            boolean mkdirs = new File(folderName).mkdirs();
             FileOutputStream fos = new FileOutputStream(new File(newFileName));
             InputStream is = file.getInputstream();
             int BUFFER_SIZE = 8192;
