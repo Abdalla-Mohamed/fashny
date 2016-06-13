@@ -44,10 +44,15 @@ public class WishesBusiness {
             Client client1 = new Client();
             client1 = clientFacade.refreshObj(client);
             if (!client1.getPlaceList().contains(place)) {
-                try {
+                
                     client1.getPlaceList().add(place);
-
-                    
+                    client.getPlaceList().add(place);
+                     }
+            else{
+                client1.getPlaceList().remove(place);
+                client.getPlaceList().remove(place);
+            }
+                 try {   
                     clientFacade.edit(client1);
                     daoFactory.commitTransaction();
                     
@@ -55,9 +60,9 @@ public class WishesBusiness {
                     exception.printStackTrace();
                     daoFactory.rollbackTransaction();
                 }
-
-            }
-       
+                
+           
+            
     }
 
     public List<Place> getNotWishedPlaces(Client client) {
