@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <body>
+
+        <ui:composition template="./../templates/clientTemplate.xhtml"
+                        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                Trip Details
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form prependId="false">
+                    <h:outputText value="Trip : "/>
+                    <h:outputText value="#{tripMB.selected.name}"/>
+                    <br/><br/>
+
+                    <h:outputText value="Company  : "/>
+                    <h:outputText value="#{tripMB.selected.companyId.name}"/>
+                    <br/><br/>
+                    
+                    <h:outputText value="Trip Cost : "/>
+                    <h:outputText value="#{tripMB.selected.cost}"/>
+                    <br/><br/>
+
+                    <h:outputText value="Trip program : "/>
+                    <h:outputText value="#{tripMB.selected.program}"/>
+                    <br/><br/>
+                    
+                    <h:outputText value="Tools needed : "/>
+                    <h:outputText value="#{tripMB.selected.needTools}"/>
+                    <br/><br/>
+                    
+                    <h:outputText value="Trip date  : "/>
+                    <h:outputText value="#{tripMB.selected.date}"/>
+                    <br/><br/>
+                    
+                    <h:outputText value="Trip Join deadline  : "/>
+                    <h:outputText value="#{tripMB.selected.joinDeadline}"/>
+                    <br/><br/>
+
+                    <h:graphicImage value="/clientpages/cairotower.jpg" width="800" height="400"/>
+
+                                     
+
+                   
+                </h:form>
+
+                <!-- Keep the first param for next redirection -->
+                <f:facet name="header">
+                    Places
+                </f:facet>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
