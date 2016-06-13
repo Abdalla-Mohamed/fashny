@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ImageReader", urlPatterns = {"/Image"})
 public class ImageReader extends HttpServlet {
- static public final String uplodedImgFolderDestntion = "C:/Book_Shop/images/";
+ static public final String uplodedImgFolderDestntion = "C:/images/";
 //../productImage?imageName=${bookdetials.BFrontImg}"   
 
  /**

@@ -5,19 +5,11 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.businessbeans.ClientBusiness;
-import com.iti.fashny.businessbeans.PlaceBusiness;
-import com.iti.fashny.daos.DaoFactory;
-import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Resouce;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,20 +32,19 @@ import org.primefaces.model.UploadedFile;
  */
 @ManagedBean(name = "adminClient")
 @SessionScoped
-public class AdminClientManagedBean implements Serializable{
+public class AdminClientManagedBean implements Serializable {
 
+    //<editor-fold defaultstate="collapsed" desc="Attribute">
     ClientBusiness clientBusiness;
     private List<Client> items = null;
     private Client selected;
     private List<Client> filteredItems;
     private Resouce resouce;
     private UploadedFile file;
-    
-    public AdminClientManagedBean() {
-        clientBusiness = new ClientBusiness();
-        selected = new Client();
-    }
+    private UploadImage uploadImage;
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
     public ClientBusiness getClientBusiness() {
         return clientBusiness;
     }
@@ -101,20 +92,38 @@ public class AdminClientManagedBean implements Serializable{
         this.filteredItems = filteredItems;
     }
 
+    public Client getClient(java.lang.Integer id) {
+        return clientBusiness.showSpecificInfo(id);
+    }
+
+    public UploadImage getUploadImage() {
+        return uploadImage;
+    }
+
+    public void setUploadImage(UploadImage uploadImage) {
+        this.uploadImage = uploadImage;
+    }
+
+//</editor-fold>
+
+    //-----------constructor
+    public AdminClientManagedBean() {
+        clientBusiness = new ClientBusiness();
+        selected = new Client();
+    }
+
     public Client prepareCreate() {
         selected = new Client();
         return selected;
     }
 
     public String create() {
-        String next=null;
+        String next = null;
         if (getSelected() != null) {
             try {
-//                copyFile(file.getFileName(),file.getInputstream());
                 selected.setLastSeen(new Timestamp(System.currentTimeMillis()));
-                selected.setProfilePic(resouce);
                 clientBusiness.add(selected);
-                next="adminClient";
+                next = "adminClient";
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -130,10 +139,6 @@ public class AdminClientManagedBean implements Serializable{
                 ex.printStackTrace();
             }
         }
-    }
-
-    public Client getClient(java.lang.Integer id) {
-        return clientBusiness.showSpecificInfo(id);
     }
 
     public List<Client> getItemsAvailableSelectMany() {
@@ -156,6 +161,30 @@ public class AdminClientManagedBean implements Serializable{
         return clientList;
     }
 
+    public String goToViewClient(int id) {
+        selected = clientBusiness.showSpecificInfo(id);
+        return "ViewClient";
+    }
+
+    public String goToCreateClient() {
+        selected = new Client();
+        return "CreateClient";
+    }
+
+    public void getFileData(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void vMailUniqe(FacesContext context, UIComponent comp, Object value) {
+
+        FacesMessage message = new FacesMessage("in valid mail");
+        context.addMessage(comp.getClientId(context), message);
+
+    }
+
+     
+    //<editor-fold desc="update in table">
     public void onRowEdit(RowEditEvent event) {
         selected = (Client) event.getObject();
         update();
@@ -178,74 +207,9 @@ public class AdminClientManagedBean implements Serializable{
         }
     }
 
-    public String goToViewClient(int id) {
-        selected = clientBusiness.showSpecificInfo(id);
-        return "ViewClient";
-    }
-
-    public String goToCreateClient() {
-        selected = new Client();
-        return "CreateClient";
-    }
-
-    String fileName;
-    String path = "C:\\images\\";
-    public void handleFileUpload(FileUploadEvent event) {
-        resouce = new Resouce();
-        try {
-            fileName = event.getFile().getFileName();
-            InputStream inputstream = event.getFile().getInputstream();
-            OutputStream out = new FileOutputStream(new File(path + fileName));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = inputstream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            resouce.setDescription(fileName);
-            resouce.setPath(path + fileName);
-            resouce.setType(1);
-
-            inputstream.close();
-            out.flush();
-            out.close();
-
-            System.out.println("New file created!");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private Resouce copyFile(String fileName, InputStream inputstream) {
-        resouce = new Resouce();
-        try {
-            OutputStream out = new FileOutputStream(new File(path + fileName));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = inputstream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            resouce.setDescription(fileName);
-            resouce.setPath(path + fileName);
-            resouce.setType(1);
-
-            inputstream.close();
-            out.flush();
-            out.close();
-
-            System.out.println("New file created!");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } finally {
-
-        }
-        return resouce;
-
-    }
-    public void getFileData(FileUploadEvent event) {
-        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
+    //</editor-fold>
+    
+    //<editor-fold desc="converter">
     @FacesConverter(forClass = Client.class)
     public static class ClientControllerConverter implements Converter {
 
@@ -285,4 +249,5 @@ public class AdminClientManagedBean implements Serializable{
         }
 
     }
+    //</editor-fold>
 }

@@ -25,7 +25,7 @@ public class LoginAccount {
 
     public LoginAccount(UserAccount userAccount) {
         this.account = userAccount;
-        spcifyRoleOfAccount(userAccount);
+        spcifyRoleOfAccount(account);
     }
 
 

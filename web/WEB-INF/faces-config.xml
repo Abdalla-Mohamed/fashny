@@ -48,4 +48,12 @@
             <to-view-id>/guestPages/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/adminpages/*</from-view-id>
+        <navigation-case>
+            <from-outcome>adminCompnies</from-outcome>
+            <to-view-id>/adminpages/company/compaies.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

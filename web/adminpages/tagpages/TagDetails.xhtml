@@ -41,8 +41,8 @@
 
                     <p:column headerText="#{bundle.ListTagTitle_vaidated}">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{tag.vaidated}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_email" value="#{tag.vaidated}" style="width:100%"/></f:facet>
+                            <f:facet name="output"><p:selectBooleanCheckbox value="#{tag.vaidated}" disabled="true"/></f:facet>
+                            <f:facet name="input"><p:selectBooleanCheckbox value="#{tag.vaidated}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
