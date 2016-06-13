@@ -16,7 +16,6 @@
         <!-- Bootstrap 3.3.5 -->
 
 
-<h:outputScript library="primefaces" name="jquery/jquery.js" />
         <h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
         <!-- Font Awesome -->
         <h:outputStylesheet name="font-awesome-4.6.2/css/font-awesome.min.css" />
@@ -130,8 +129,21 @@
                         <div class="col-lg-12" >
                             <!--<p:growl autoUpdate="true" redisplay="true"  life="3000" />-->
                             <ui:insert class="col-lg-5" name="content">
+                                
                                 <div class="col-lg-7">Page content</div>
                                 <div class="col-lg-2"><p:commandButton styleClass=" btn btn-block btn-success btn-xs " /></div>
+                                
+         <h:form prependId="false"  >
+                    <p:outputLabel for="event" value="Select Event:" />
+                    <p:calendar id="event" value="#{calendarView.date4}">
+                        <p:ajax event="dateSelect" process="@this" listener="#{calendarView.onDateSelect}" update="cal2" />
+                        <p:ajax event="change" update="cal2"></p:ajax>
+                    </p:calendar>
+                    <p:calendar maxdate="#{calendarView.date4}" id="cal2" >
+                        <p:ajax event="dateSelect" listener="#{calendarView.onDateSelect}"  />
+                    </p:calendar>
+
+                </h:form>
                             </ui:insert>
                         </div>
                     </section>  
@@ -142,17 +154,7 @@
             <!-- /.content-wrapper -->
 
 
-            <!--................................... footer ..............................-->
-
-
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> 2.3.0
-                </div>
-                <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-            </footer>
-
-
+           
 
             <!--....................................right bar ...............................-->
 
@@ -202,8 +204,7 @@
 
         <!-- AdminLTE App -->
         <h:outputScript  name="dist/js/app.min.js" />
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <h:outputScript  name="dist/js/pages/dashboard.js" />
+     
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:body>
 
