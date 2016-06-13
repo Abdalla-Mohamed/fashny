@@ -24,10 +24,17 @@ public class LoginBusiness {
         DaoFactory factory = new DaoFactory();
         ClientFacade cf = factory.getClientDoa();
         try {
-            Client c = cf.login(email, pass);
+            Client c;
+            c = cf.login(email, pass);
             return c;
 
-        } finally {
+        }catch(Fasa7nyException fasa7nyException){
+            throw fasa7nyException;
+        }catch(Exception exception){
+            exception.printStackTrace();
+            throw exception;
+        }
+                finally {
             factory.close();
         }
     }

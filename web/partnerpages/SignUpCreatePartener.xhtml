@@ -25,7 +25,6 @@
         
         <center>
          <h:form id="SignUpCreatePartenerForm">
-                <h:panelGroup  id="SignUpCreatePartenerdisplay">
                     <p:panelGrid columns="2">
                         <p:outputLabel value="#{MyPropertyFile.PartnerName}"/>
                         <p:inputText value="#{SignUpCreatePartenerBean.selected.name}" title="#{MyPropertyFile.PartnerName}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
@@ -102,7 +101,6 @@
                     <p:commandButton actionListener="#{SignUpCreatePartenerBean.registerNewPartener()}" value="#{MyPropertyFile.Save}"/>
                     <p:commandButton value="#{MyPropertyFile.Cancel}" immediate="true"/>
                     
-                </h:panelGroup>
          </h:form>
         </center>
     </ui:define>

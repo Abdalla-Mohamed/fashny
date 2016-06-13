@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
 
 /**
@@ -25,7 +26,10 @@ public class Tst {
 
  
                 
-                
+                Logger logger = Logger.getLogger("notify");
+                logger.fine("new companies");
+                System.out.println(logger);
+//                logger.
 //        for (Governorates governorates : Governorates.values()) {
 //            System.out.println(governorates.getGovName());
 //        }
