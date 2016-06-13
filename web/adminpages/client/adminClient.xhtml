@@ -16,14 +16,14 @@
     </ui:define>
 
     <ui:define name="contPagePath">
-        
+
     </ui:define>
 
     <ui:define name="content">
         <h:form id="ClientListForm">
             <p:growl id="msgs" showDetail="true"/>
             <p:panel header="#{bundle.ListClientTitle}">
-                <p:dataTable id="datalist" value="#{adminClient.items}" var="item"
+                <p:dataTable id="datalist" value="#{adminClient.viewItems()}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
                              rows="10"
@@ -122,13 +122,15 @@
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.active}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    
+
                     <p:column style="width:32px">
                         <p:commandLink id="viewButton" value="#{bundle.View}" styleClass="ui-icon ui-icon-search" action="#{adminClient.goToViewClient(item.id)}"/>
+                        <p:tooltip id="toolTipView" for="viewButton" value="View Client Data" trackMouse="true" />
                     </p:column>
 
                     <p:column style="width:32px">
-                        <p:rowEditor />
+                        <p:rowEditor id="Edit"/>
+                        <p:tooltip id="toolTipEdit" for="Edit" value="Edit Active Property" trackMouse="true" />
                     </p:column>
 
                     <f:facet name="footer">
