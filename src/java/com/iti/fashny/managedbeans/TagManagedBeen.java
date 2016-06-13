@@ -5,14 +5,16 @@
  */
 package com.iti.fashny.managedbeans;
 
-import com.iti.fashny.businessbeans.TagBusiness;
+import com.iti.fashny.businessbeans.TagsController;
 import com.iti.fashny.entities.Tag;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -20,47 +22,50 @@ import javax.faces.bean.ViewScoped;
  * @author Amira Anis
  */
 @ManagedBean(name = "tagBean") 
-@ViewScoped
+@SessionScoped
 public class TagManagedBeen implements Serializable{
-    TagBusiness tagBusiness;
+    TagsController tagsController;
     private List<Tag> items = null;
 
     /**
      * Creates a new instance of TagManagedBeen
      */
     public TagManagedBeen() {
-        tagBusiness = new TagBusiness();
-    }
-    
-    public void setTagBusiness(TagBusiness tagBusiness) {
-        this.tagBusiness = tagBusiness;
+        tagsController = new TagsController();
+        items = new ArrayList<>();
     }
 
+    public void setTagsController(TagsController tagsController) {
+        this.tagsController = tagsController;
+    }
+        
     public void setItems(List<Tag> items) {
         this.items = items;
     }
 
-    public TagBusiness getTagBusiness() {
-        return tagBusiness;
+    public TagsController getTagsController() {
+        return tagsController;
     }
 
     public List<Tag> getItems() {
-        if (items == null) {
-            try {
-                items = tagBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//        //if (items == null) {
+//        items = new ArrayList<>();
+//            try {
+//                items = tagsController.view();
+//                for (Tag item : items) {
+//                    System.out.println("!!!!!!!!!!!!!!!!!!!1" + item.getName());
+//                }
+//            } catch (Exception ex) {
+//                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//       // }
+//        return items;
+        List<Tag> tags = new ArrayList<>();
+        try {
+            tags = tagsController.view();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        return items;
+        return tags;
     }
-    public static void main(String[] args) {
-        TagManagedBeen been =new TagManagedBeen();
-        List<Tag> items1 = been.getItems();
-        for (Tag tag : items1) {
-            System.out.println(tag.getName());
-        }
-    }
-    
-   
 }

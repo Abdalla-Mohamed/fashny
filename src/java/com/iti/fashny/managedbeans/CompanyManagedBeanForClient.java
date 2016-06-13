@@ -25,9 +25,9 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author Amira Anis
  */
-@ManagedBean(name="CompanyMB" )
+@ManagedBean(name="CompanyMBClient" )
 @SessionScoped
-public class CompanyManagedBean implements Serializable{
+public class CompanyManagedBeanForClient implements Serializable{
 
     CompanyController companyController;
     private List<Company> items = null;
@@ -35,7 +35,7 @@ public class CompanyManagedBean implements Serializable{
     /**
      * Creates a new instance of CompanyManagedBean
      */
-    public CompanyManagedBean() {
+    public CompanyManagedBeanForClient() {
         companyController = new CompanyController();
         selected = new Company();
     }
@@ -47,13 +47,13 @@ public class CompanyManagedBean implements Serializable{
     }
 
     public List<Company> getItems() {
-       
+        if (items == null) {
             try {
-                items = companyController.view();
+                items = companyController.getValidateCompanyForClient();
             } catch (Exception ex) {
                 Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+        }
         return items;
     }
 
@@ -75,65 +75,13 @@ public class CompanyManagedBean implements Serializable{
     
 //_________________________  managed Bean Functions _________________________//
     
-   public void create() {
-        if (getSelected() != null) {
-            selected.setLastSeen(new Timestamp(System.currentTimeMillis()));
-            try {
-                companyController.add(selected);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        } 
-    }
-
-    public void update() {
-        if (selected != null) {
-            try {
-                companyController.update(selected);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    public void destroy() {
-        if (selected != null) {
-            try {
-                selected.setActive(Boolean.FALSE);
-                companyController.update(selected);
-            } catch (Exception ex) {
-                Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
+  
     public Company getCompany(java.lang.Integer id) {
         return companyController.showSpecificInfo(id);
     }
     
     // --------------------------- for page --------------------------------//
-         
-    public void onRowEdit(RowEditEvent event) {
-        selected = (Company) event.getObject();
-        update();
-        FacesMessage msg = new FacesMessage("Company Edited", ((Company) event.getObject()).getName());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
 
-    public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Company) event.getObject()).getName());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-
-        if (newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
     
     public void prepareViewCompany(int id)
     {
@@ -141,31 +89,11 @@ public class CompanyManagedBean implements Serializable{
         try {
            selected=companyController.gitAllCompanyLists(selected);
         } catch (Exception ex) {
-            Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CompanyManagedBeanForClient.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
     //_________________  for button in admin pages   ________________________//
-    public String goToViewCompany(int id) {
-       // prepareViewCompany(id);
-       selected = companyController.showSpecificInfo(id);
-        try {
-           selected=companyController.gitAllCompanyLists(selected);
-        } catch (Exception ex) {
-            Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-       return "viewCompany";
-    }
-    
-    public String goToCreateCompany() {
-        selected = new Company();
-        return "createCompany";
-    }
-    public String save() {
-        create();
-        items = getItems();
-        selected = new Company();
-        return "createCompany";
-    }
+
     public String goToCompanies(){
         return "compaies";
     }

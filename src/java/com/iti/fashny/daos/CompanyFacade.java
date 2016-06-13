@@ -49,18 +49,24 @@ public class CompanyFacade extends AbstractFacade<Company> {
 
     }
 
-    public List<Company> getUnconcirmCompanies() {
+    public List<Company> getUnconfirmCompanies() {
         List<Company> unconfirmCompanies = new ArrayList<>();
         try {
 
             unconfirmCompanies = getEntityManager().createNamedQuery("Company.findByValidated").setParameter("validated", false).getResultList();
-//            for (Place placerslt : unconfirmPlaces) {
-//                System.out.println(placerslt.getName());
-//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return unconfirmCompanies;
     }
+    public List<Company> getConfirmCompanies() {
+        List<Company> unconfirmCompanies = new ArrayList<>();
+        try {
 
+            unconfirmCompanies = getEntityManager().createNamedQuery("Company.findByValidated").setParameter("validated", true).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return unconfirmCompanies;
+    }
 }

@@ -60,16 +60,18 @@
                                     <p:outputLabel value="#{bundle.CreateCompanyLabel_mobile1}" for="mobile1" />
                                     <p:inputText id="mobile1" value="#{CompanyMB.selected.mobile1}" title="#{bundle.CreateCompanyTitle_mobile1}" 
                                                  required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}">
-                                        <f:validateLongRange minimum="11" maximum="11"/>
+                                        <f:convertNumber  type="number" />
+                                        <f:validateLength minimum="11" maximum="11"/>
                                     </p:inputText>
 
                                     <p:outputLabel value="#{bundle.CreateCompanyLabel_mobile2}" for="mobile2" />
                                     <p:inputText id="mobile2" value="#{CompanyMB.selected.mobile2}" title="#{bundle.CreateCompanyTitle_mobile2}" >
-                                        <f:validateLongRange minimum="11" maximum="11"/>
-                                    </p:inputText>    
+                                        <f:convertNumber  type="number" />
+                                        <f:validateLength minimum="11" maximum="11"/>                                    </p:inputText>    
                                     <p:outputLabel value="#{bundle.CreateCompanyLabel_phone}" for="phone" />
                                     <p:inputText id="phone" value="#{CompanyMB.selected.phone}" title="#{bundle.CreateCompanyTitle_phone}" >
-                                        <f:validateLongRange minimum="9" maximum="10" />
+                                        <f:convertNumber  type="number" />
+                                        <f:validateLength minimum="9" maximum="10"/>
                                     </p:inputText>
 
                                     <p:outputLabel value="#{bundle.CreateCompanyLabel_workHoures}" for="workHours" />

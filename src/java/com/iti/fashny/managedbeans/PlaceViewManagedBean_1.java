@@ -8,6 +8,7 @@ package com.iti.fashny.managedbeans;
 import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
+import com.iti.fashny.entities.Tag;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,6 +53,8 @@ public class PlaceViewManagedBean_1 implements Serializable {
     private MapModel draggableModel;
     private MapModel viewMap;
     LatLng latLng;
+
+    private List<Integer> tagsIds = new ArrayList(0);
 
     private Marker marker;
     private double lat;
@@ -160,6 +163,14 @@ public class PlaceViewManagedBean_1 implements Serializable {
         return draggableModel;
     }
 
+    public List<Integer> getTagsIds() {
+        return tagsIds;
+    }
+
+    public void setTagsIds(List<Integer> tagsIds) {
+        this.tagsIds = tagsIds;
+    }
+
     public PlaceBusiness getPlaceBusiness() {
         return placeBusiness;
     }
@@ -204,9 +215,23 @@ public class PlaceViewManagedBean_1 implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
+    public List<Tag> getTagsOfPlace() {
+        List<Tag> tags = new ArrayList<Tag>(0);
+        for (int i = 0; i < tagsIds.size(); i++) {
+
+            //System.out.println(tagsIds.get(i));
+            String s = tagsIds.get(i) + "";
+            int idValue = Integer.parseInt(s);
+            //System.out.println(tagsIds.get(i));
+            tags.add(new Tag((idValue)));
+        }
+        return tags;
+    }
+
     public void create() {
         if (getSelected() != null) {
             try {
+                selected.setTagList(getTagsOfPlace());
                 placeBusiness.add(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
