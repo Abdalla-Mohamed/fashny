@@ -124,7 +124,7 @@
                     </p:column>
 
                     <p:column style="width:32px">
-                        <p:commandLink id="viewButton" value="#{bundle.View}" styleClass="ui-icon ui-icon-search" action="#{adminClient.goToViewClient(item.id)}"/>
+                        <p:commandLink id="viewButton" value="#{bundle.View}" styleClass="ui-icon ui-icon-search btnview" action="#{adminClient.goToViewClient(item.id)}"/>
                         <p:tooltip id="toolTipView" for="viewButton" value="View Client Data" trackMouse="true" />
                     </p:column>
 
@@ -137,12 +137,14 @@
                         <p:commandButton id="createButton" value="Create"  icon="ui-icon-plus" action="#{adminClient.goToCreateClient()}"/>
                     </f:facet>
                 </p:dataTable>
+                
+                <p:blockUI block="bobo" trigger="@(.btnview) datalist:createButton">
+                    LOADING<br />
+                    <p:graphicImage name="/processing-bar.gif"/>
+                </p:blockUI>
             </p:panel>
 
-            <p:blockUI block="pnlList" trigger="datalist:createButton">
-                LOADING<br />
-                <p:graphicImage name="/processing-bar.gif"/>
-            </p:blockUI>
+
 
         </h:form>
 
