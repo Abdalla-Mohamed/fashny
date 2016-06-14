@@ -40,9 +40,6 @@
                     <p:ajax event="rowEdit" listener="#{placeView_1.onRowEdit}" update="PlaceListForm:msgs" />
                     <p:ajax event="rowEditCancel" listener="#{placeView_1.onRowCancel}" update="PlaceListForm:msgs" />
 
-                    <p:column headerText="ID">
-                        <h:outputText value="#{item.id}" />
-                    </p:column>
                     <p:column headerText="#{bundle.ListPlaceTitle_name}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.name}" /></f:facet>
@@ -68,7 +65,7 @@
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.validated}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.ListPlaceTitle_active}">
                         <p:cellEditor>
                             <f:facet name="output"><p:selectBooleanCheckbox value="#{item.active}" disabled="true"/></f:facet>
@@ -77,7 +74,7 @@
                     </p:column>
 
                     <p:column >
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" action="#{placeView_1.goToViewPlace(item.id)}"/>
+                        <p:commandButton id="viewButton" icon="ui-icon-search" action="#{placeView_1.goToViewPlace(item.id)}" styleClass="btnview"/>
                     </p:column>
 
                     <p:column >
@@ -90,12 +87,10 @@
 
 
                 </p:dataTable>
-
-                           <p:selectOneMenu value="#{searchMB.selectdGovernorat}" id="state" filter="true" filterMatchMode="contains" styleClass="col-xs-12">
-                                            <f:selectItem itemValue="#{null}" itemLabel="select Governorat: "/> 
-                                            <f:selectItems value="#{searchMB.governorate}" var="gov" itemValue="#{gov}" itemLabel="#{gov}"/> 
-                                        </p:selectOneMenu>
-                             
+                <p:blockUI block="bobo" trigger="@(.btnview) datalist:createButton">
+                    LOADING<br />
+                    <p:graphicImage name="/processing-bar.gif"/>
+                </p:blockUI>
             </p:panel>
 
         </h:form>      
