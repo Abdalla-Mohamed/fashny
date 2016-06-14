@@ -32,6 +32,7 @@ public class TagManagedBean {
     private List<Tag> tags = null;
     private List<Tag> filteredItems;
     private Tag selectedTag;
+//Setters & Getters
 
     public List<Tag> getFilteredItems() {
         return filteredItems;
@@ -114,8 +115,6 @@ public class TagManagedBean {
             }
         }
     }
-
-   
 
     public Tag getTag(java.lang.Integer id) {
         return tagBusiness.showSpecificInfo(id);

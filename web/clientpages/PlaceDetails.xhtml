@@ -17,44 +17,50 @@
             <ui:define name="content">
 
                 <h:form prependId="false">
-                    <h:outputText value="Place Name : "/>
-                    <h:outputText value="#{placeView_1.selected.name}"/>
-                    <br/><br/>
 
-                    <h:outputText value="Place Address : "/>
-                    <h:outputText value="#{placeView_1.selected.address}"/>
-                    <br/><br/>
+                    <div  class="col-sm-12">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <h:outputText value="Place Name : "/>
+                            <h:outputText value="#{placeView_1.selected.name}"/>
+                            <br/><br/>
 
-                    <h:outputText value="Place Working Hours : "/>
-                    <h:outputText value="#{placeView_1.selected.workHours}"/>
-                    <br/><br/>
+                            <h:outputText value="Place Address : "/>
+                            <h:outputText value="#{placeView_1.selected.address}"/>
+                            <br/><br/>
 
-                    <h:graphicImage value="/clientpages/cairotower.jpg" width="800" height="400"/>
+                            <h:outputText value="Place Working Hours : "/>
+                            <h:outputText value="#{placeView_1.selected.workHours}"/>
+                            <br/><br/>
 
-                    <p:dataGrid var="comment" value="#{placeView_1.reviewPlaces()}" columns="1" layout="grid"
-                                rows="12" id="places"
-                                rowsPerPageTemplate="6,12,16">
+                            <h:graphicImage value="/clientpages/cairotower.jpg" width="800" height="400"/>
 
-                        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                            <p:outputPanel>
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="Name:" />
-                                    <h:outputText value="#{comment.clientId.name}"/>
+                            <p:dataGrid var="comment" value="#{placeView_1.reviewPlaces()}" columns="1" layout="grid"
+                                        rows="12" id="places"
+                                        rowsPerPageTemplate="6,12,16">
 
-                                    <h:outputText value="Comment:" />
-                                    <h:outputText value="#{comment.comment}"/>
+                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputText value="Name:" />
+                                            <h:outputText value="#{comment.clientId.name}"/>
+
+                                            <h:outputText value="Comment:" />
+                                            <h:outputText value="#{comment.comment}"/>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
                                 </h:panelGrid>
-                            </p:outputPanel>
-                        </h:panelGrid>
-                        <hr />
-                    </p:dataGrid>
+                                <hr />
+                            </p:dataGrid>
 
-                    <p:panel id="leave" header="leave a comment" footer="Comments" style="margin-bottom:20px" rendered="#{login.logged and login.loginAccount.role=='Client'}">
-                        <div class="table-form">
-                            <p:inputTextarea id="commenttxt" value="#{placeView_1.clientReviewPlace.comment}" rows="6" cols="33" />	
-                            <p:commandButton value="Comment" id="comment" action="#{placeView_1.comment(login.loginAccount.client)}"  update="places commenttxt" styleClass="ui-priority-primary" />
+                            <p:panel id="leave" header="leave a comment" footer="Comments" style="margin-bottom:20px" rendered="#{login.logged and login.loginAccount.role=='Client'}">
+                                <div class="table-form">
+                                    <p:inputTextarea id="commenttxt" value="#{placeView_1.clientReviewPlace.comment}" rows="6" cols="33" />	
+                                    <p:commandButton value="Comment" id="comment" action="#{placeView_1.comment(login.loginAccount.client)}"  update="places commenttxt" styleClass="ui-priority-primary" />
+                                </div>
+                            </p:panel>
                         </div>
-                    </p:panel>
+                    </div>
                 </h:form>
 
                 <!-- Keep the first param for next redirection -->
