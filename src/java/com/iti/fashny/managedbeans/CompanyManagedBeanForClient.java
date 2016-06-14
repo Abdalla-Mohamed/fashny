@@ -72,7 +72,21 @@ public class CompanyManagedBeanForClient implements Serializable{
     public void setSelected(Company selected) {
         this.selected = selected;
     }
-    
+//___________________________________________________________________________//
+
+    public void create() {
+        if (getSelected() != null) {
+            selected.setLastSeen(new Timestamp(System.currentTimeMillis()));
+            selected.setValidated(false);
+            selected.setActive(true);
+            try {
+                companyController.add(selected);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } 
+    }
+
 //_________________________  managed Bean Functions _________________________//
     
   
@@ -102,5 +116,11 @@ public class CompanyManagedBeanForClient implements Serializable{
     public String goToViewCompanyForClient(int id) {
         prepareViewCompany(id);
         return "viewCompanyClient";
+    }
+    public String save() {
+        create();
+        items = getItems();
+        selected = new Company();
+        return "compaies";
     }
 }

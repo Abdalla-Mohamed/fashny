@@ -29,5 +29,7 @@ public interface Guest {
     void confirmForgetPassword(String email, String confirmationCode) throws Exception; //CustomException;
 
     public void signUp(Client c);
-
+    public void signUp(Partener p);
+    public void signUp(Company C);
+    
 }

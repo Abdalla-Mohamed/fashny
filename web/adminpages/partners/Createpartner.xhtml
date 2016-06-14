@@ -9,7 +9,7 @@
         <p:dialog id="PartenerCreateDlg" widgetVar="PartenerCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{MyPropertyFile.PartnerCreatePartner}">   
             <h:form id="PartenerCreateForm">
                 <h:panelGroup  id="display">
-                    <p:panelGrid columns="2"  rendered="#{PartnerCRUDSBean.selected != null}">
+                    <p:panelGrid columns="4"  rendered="#{PartnerCRUDSBean.selected != null}">
                         <p:outputLabel value="#{MyPropertyFile.PartnerName}"/>
                         <p:inputText value="#{PartnerCRUDSBean.selected.name}" title="#{MyPropertyFile.PartnerName}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 

@@ -5,6 +5,8 @@
  */
 package com.iti.fashny.managedbeans;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -22,10 +24,20 @@ public class PlaceDetailsBean {
     @ManagedProperty(value = "#{placeView_1}")
     private PlaceViewManagedBean_1 placeView;
 
+//    private List<String> images;
+//
+//    public List<String> getImages() {
+//        return images;
+//    }
+//
+//    public void setImages(List<String> images) {
+//        this.images = images;
+//    }
     @PostConstruct
     public void init() {
         placeView.getSelected();
         System.out.println(placeView.getSelected().getName());
+
     }
 
     public void setPlaceView(PlaceViewManagedBean_1 placeView) {

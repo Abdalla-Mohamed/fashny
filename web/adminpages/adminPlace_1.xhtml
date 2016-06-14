@@ -13,11 +13,12 @@
     </ui:define>
 
     <ui:define name="contPageDescrp">
-
+        Show information about all places
     </ui:define>
 
     <ui:define name="contPagePath">
-
+        <a href="">Home > </a> 
+        <a href="./../adminpages/adminPlace_1.xhtml">Show All Places </a> 
     </ui:define>
 
     <ui:define name="content"> 
@@ -68,7 +69,7 @@
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.validated}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    
+
                     <p:column headerText="#{bundle.ListPlaceTitle_active}">
                         <p:cellEditor>
                             <f:facet name="output"><p:selectBooleanCheckbox value="#{item.active}" disabled="true"/></f:facet>
@@ -87,15 +88,7 @@
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" action="#{placeView_1.goToCreatePlace()}" />
                     </f:facet>
-
-
                 </p:dataTable>
-
-                           <p:selectOneMenu value="#{searchMB.selectdGovernorat}" id="state" filter="true" filterMatchMode="contains" styleClass="col-xs-12">
-                                            <f:selectItem itemValue="#{null}" itemLabel="select Governorat: "/> 
-                                            <f:selectItems value="#{searchMB.governorate}" var="gov" itemValue="#{gov}" itemLabel="#{gov}"/> 
-                                        </p:selectOneMenu>
-                             
             </p:panel>
 
         </h:form>      

@@ -7,7 +7,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <script>
+  <script>
             window.fbAsyncInit = function () {
                 FB.init({
                     appId: '791061227696446',
@@ -27,7 +27,7 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
-        <p:graphicImage value="/Image?imageName=42/javalogo52x88.gif" >
+        <p:graphicImage value="/Image?imageName=C:\images\pic.jpg" >
             <div id="shareBtn1"
                 class="fb-like"
                 data-share="true"
@@ -54,6 +54,48 @@
 
         </script>
        
-        </h:body>
-        </html>
+              <h:graphicImage library="nature" name="nature1.jpg"   style="height: 77px; width: 100px" />  
+ 
+
+        <h3 style="margin-top: 0">Images</h3>
+<p:lightBox styleClass="imagebox" id="lighbox1">  
+    <h:outputLink value="../resources/nature/nature1.jpg" title="Nature 1">  
+        <h:graphicImage library="nature" name="nature1.jpg" id="nature1" style="height: 77px; width: 100px" />  
+    </h:outputLink>
+ 
+    <h:outputLink value="../resources/nature/nature2.jpg" title="Nature 2">  
+        <h:graphicImage name="nature/nature2.jpg" id="nature2" style="height: 77px; width: 100px" />  
+    </h:outputLink>
+ 
+    <h:outputLink value="../resources/nature/nature3.jpg" title="Nature 3">  
+        <h:graphicImage name="nature/nature3.jpg" id="nature3" style="height: 77px; width: 100px" />  
+    </h:outputLink>
+ 
+    <h:outputLink value="../resources/nature/nature4.jpg" title="Nature 4">  
+        <h:graphicImage name="nature/nature4.jpg" id="nature4" style="height: 77px; width: 100px" />  
+    </h:outputLink>
+</p:lightBox>
+ 
+
+
+        <p:contentFlow value="#{homeMB.images}" var="image">
+            <p:graphicImage name="nature/#{image.imgPath}" styleClass="content" />
+            <div class="caption">#{image.placeName}</div>
+        </p:contentFlow>
+
+        
+        
+        	<h:form enctype="multipart/form-data" style="width:500px">
+				<p:growl id="msg"></p:growl>
+                                <p:fileUpload value="#{fileUploadMB.file}"
+								invalidSizeMessage="Invalid Size"
+								invalidFileMessage="Invalid File Type"
+								fileLimitMessage="more of max files" 
+								mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{2048*1000*1000}"
+								allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                                fileUploadListener="#{fileUploadMB.handleFileUpload}" 
+								update="msg"></p:fileUpload>
+		</h:form>
+    </h:body>
+</html>
 

@@ -6,14 +6,15 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.PlaceBusiness;
+import com.iti.fashny.businessbeans.ReviewPlaceBusiness;
+import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
-import com.iti.fashny.entities.Tag;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -21,15 +22,11 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.StreamedContent;
-import java.awt.image.BufferedImage;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.model.DefaultStreamedContent;
 import java.io.*;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
-import javax.imageio.ImageIO;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -44,6 +41,8 @@ import org.primefaces.model.map.Marker;
 @SessionScoped
 public class PlaceViewManagedBean_1 implements Serializable {
 
+    //--------------------attribute
+    //<editor-fold defaultstate="collapsed" desc="Attribute">
     PlaceBusiness placeBusiness;
     private List<Place> items = null;
     private Place selected;
@@ -53,17 +52,20 @@ public class PlaceViewManagedBean_1 implements Serializable {
     private MapModel draggableModel;
     private MapModel viewMap;
     LatLng latLng;
-
-    private List<Integer> tagsIds = new ArrayList(0);
-
+    private ClientReviewPlace clientReviewPlace;
     private Marker marker;
     private double lat;
-
     private double lng;
 
-    public String placeDetails(int id) {
-        selected = placeBusiness.showSpecificInfo(id);
-        return "Client_Places";
+    //</editor-fold>
+    //--------------------getter setter
+    //<editor-fold defaultstate="collapsed" desc="Getter&Setter">
+    public ClientReviewPlace getClientReviewPlace() {
+        return clientReviewPlace;
+    }
+
+    public void setClientReviewPlace(ClientReviewPlace clientReviewPlace) {
+        this.clientReviewPlace = clientReviewPlace;
     }
 
     public double getLat() {
@@ -82,19 +84,58 @@ public class PlaceViewManagedBean_1 implements Serializable {
         this.lng = lng;
     }
 
-    public void count() {
-        int size = draggableModel.getMarkers().size();
-        System.out.println("---->> " + size);
+    public List<Place> getFilteredItems() {
+        return filteredItems;
     }
 
-    public String goToViewPlace(int id) {
-        selected = placeBusiness.showSpecificInfo(id);
-        return "ViewPlacePage";
+    public void setFilteredItems(List<Place> filteredItems) {
+        this.filteredItems = filteredItems;
     }
 
-    public String goToCreatePlace() {
-        selected = new Place();
-        return "CreatePlacePage";
+    public MapModel getViewMap() {
+        if (selected != null) {
+            LatLng coord1 = new LatLng(selected.getAttd(), selected.getLang());
+            viewMap.addOverlay(new Marker(coord1, ""));
+        } else {
+        }
+        return viewMap;
+    }
+
+    public void setViewMap(MapModel viewMap) {
+        this.viewMap = viewMap;
+    }
+
+    public List<Place> getItems() {
+             try {
+                items = placeBusiness.view();
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return items;
+    }
+
+    public void setItems(List<Place> items) {
+        this.items = items;
+    }
+
+    public Place getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Place selected) {
+        this.selected = selected;
+    }
+
+    public MapModel getDraggableModel() {
+        return draggableModel;
+    }
+
+    public PlaceBusiness getPlaceBusiness() {
+        return placeBusiness;
+    }
+
+    public void setPlaceBusiness(PlaceBusiness placeBusiness) {
+        this.placeBusiness = placeBusiness;
     }
 
     public StreamedContent getImg() {
@@ -120,19 +161,55 @@ public class PlaceViewManagedBean_1 implements Serializable {
         this.img = im;
     }
 
-    public List<Place> getFilteredItems() {
-        return filteredItems;
+    public Place getPlace(java.lang.Integer id) {
+        return placeBusiness.showSpecificInfo(id);
     }
 
-    public void setFilteredItems(List<Place> filteredItems) {
-        this.filteredItems = filteredItems;
-    }
-
+    //</editor-fold>
+    //--------------------contructor
     public PlaceViewManagedBean_1() {
         placeBusiness = new PlaceBusiness();
         draggableModel = new DefaultMapModel();
         viewMap = new DefaultMapModel();
         selected = new Place();
+        clientReviewPlace = new ClientReviewPlace();
+
+    }
+
+    public String placeDetails(int id) {
+        selected = placeBusiness.showSpecificInfo(id);
+        try {
+            selected = placeBusiness.getComments(selected);
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "PlaceDetails";
+    }
+
+    public List<ClientReviewPlace> reviewPlaces() {
+        List<ClientReviewPlace> clientReviewPlaceList=new ArrayList<>();
+        try {
+            clientReviewPlaceList = placeBusiness.getComments(selected).getClientReviewPlaceList();
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clientReviewPlaceList;
+    }
+
+    public void count() {
+        int size = draggableModel.getMarkers().size();
+        System.out.println("---->> " + size);
+    }
+
+    public String goToViewPlace(int id) {
+        selected = placeBusiness.showSpecificInfo(id);
+        return "ViewPlacePage";
+
+    }
+
+    public String goToCreatePlace() {
+        selected = new Place();
+        return "CreatePlacePage";
     }
 
     public void onPointSelect(PointSelectEvent event) {
@@ -146,63 +223,6 @@ public class PlaceViewManagedBean_1 implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public MapModel getViewMap() {
-        if (selected != null) {
-            LatLng coord1 = new LatLng(selected.getAttd(), selected.getLang());
-            viewMap.addOverlay(new Marker(coord1, ""));
-        } else {
-        }
-        return viewMap;
-    }
-
-    public void setViewMap(MapModel viewMap) {
-        this.viewMap = viewMap;
-    }
-
-    public MapModel getDraggableModel() {
-        return draggableModel;
-    }
-
-    public List<Integer> getTagsIds() {
-        return tagsIds;
-    }
-
-    public void setTagsIds(List<Integer> tagsIds) {
-        this.tagsIds = tagsIds;
-    }
-
-    public PlaceBusiness getPlaceBusiness() {
-        return placeBusiness;
-    }
-
-    public void setPlaceBusiness(PlaceBusiness placeBusiness) {
-        this.placeBusiness = placeBusiness;
-    }
-
-    public List<Place> getItems() {
-        if (items == null) {
-            try {
-                items = placeBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return items;
-    }
-
-    public void setItems(List<Place> items) {
-        this.items = items;
-    }
-
-    public Place getSelected() {
-
-        return selected;
-    }
-
-    public void setSelected(Place selected) {
-        this.selected = selected;
-    }
-
     public Place prepareCreate() {
         selected = new Place();
 
@@ -214,24 +234,24 @@ public class PlaceViewManagedBean_1 implements Serializable {
 
     protected void initializeEmbeddableKey() {
     }
-
-    public List<Tag> getTagsOfPlace() {
-        List<Tag> tags = new ArrayList<Tag>(0);
-        for (int i = 0; i < tagsIds.size(); i++) {
-
-            //System.out.println(tagsIds.get(i));
-            String s = tagsIds.get(i) + "";
-            int idValue = Integer.parseInt(s);
-            //System.out.println(tagsIds.get(i));
-            tags.add(new Tag((idValue)));
-        }
-        return tags;
-    }
+//
+//    public List<Tag> getTagsOfPlace() {
+//        List<Tag> tags = new ArrayList<Tag>(0);
+//        for (int i = 0; i < tagsIds.size(); i++) {
+//
+//            //System.out.println(tagsIds.get(i));
+//            String s = tagsIds.get(i) + "";
+//            int idValue = Integer.parseInt(s);
+//            //System.out.println(tagsIds.get(i));
+//            tags.add(new Tag((idValue)));
+//        }
+//        return tags;
+//    }
 
     public void create() {
         if (getSelected() != null) {
             try {
-                selected.setTagList(getTagsOfPlace());
+     //           selected.setTagList(getTagsOfPlace());
                 placeBusiness.add(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -258,10 +278,6 @@ public class PlaceViewManagedBean_1 implements Serializable {
                 Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-
-    public Place getPlace(java.lang.Integer id) {
-        return placeBusiness.showSpecificInfo(id);
     }
 
     public List<Place> getItemsAvailableSelectMany() {
@@ -331,6 +347,19 @@ public class PlaceViewManagedBean_1 implements Serializable {
         this.imagesList = imagesList;
     }
 
+    public void comment(Client client) {
+        System.out.println("comment method");
+        if (selected != null) {
+
+            clientReviewPlace.setPlaceId(selected);
+            clientReviewPlace.setClientId(client);
+            ReviewPlaceBusiness reviewPlaceBusiness = new ReviewPlaceBusiness();
+            reviewPlaceBusiness.review(clientReviewPlace);
+            clientReviewPlace =new ClientReviewPlace();
+        }
+    }
+
+    //---------------------converter
     @FacesConverter(forClass = Place.class)
     public static class PlaceControllerConverter implements Converter {
 
@@ -370,5 +399,16 @@ public class PlaceViewManagedBean_1 implements Serializable {
             }
         }
 
+    }
+    //______________________________
+    public String save() {
+        create();
+        items = getItems();
+        selected = new Place();
+        return "adminPlace_1";
+    }
+    public String cancel() { 
+        selected = new Place();
+        return "adminPlace_1";
     }
 }
