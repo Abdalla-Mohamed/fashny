@@ -11,7 +11,7 @@
         <ui:composition template="./../../templates/templateAdmin.xhtml">
 
             <ui:define name="contPageName">
-                New Company
+                Add New Company
             </ui:define>
 
             <ui:define name="contPageDescrp">
@@ -28,80 +28,105 @@
                 <br/><br/>
                 <h:form>
                     <div class="container-fluid" >
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-8">
-                            <h:panelGroup id="display">
-                                <p:panelGrid columns="4" >
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_name}" for="name" /></td>
+                                                    <td><p:inputText id="name" value="#{CompanyMB.selected.name}" title="#{bundle.CreateCompanyTitle_name}" required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_name}"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_address}" for="address" /></td>
+                                                    <td><p:inputText id="address" value="#{CompanyMB.selected.address}" title="#{bundle.CreateCompanyTitle_address}" required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_address}"/></td>
+                                                </tr>
+                                                <tr>
 
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_name}" for="name" />
-                                    <p:inputText id="name" value="#{CompanyMB.selected.name}" title="#{bundle.CreateCompanyTitle_name}" required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_name}"/>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_address}" for="address" />
-                                    <p:inputText id="address" value="#{CompanyMB.selected.address}" title="#{bundle.CreateCompanyTitle_address}" required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_address}"/>
-
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_password}" for="password" />
-                                    <p:password id="password" value="#{CompanyMB.selected.password}" title="#{bundle.CreateCompanyTitle_password}" required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"/>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_email}" for="email" />
-                                    <p:inputText id="email" value="#{CompanyMB.selected.email}" title="#{bundle.CreateCompanyTitle_email}" 
-                                                 required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_email}"
-                                                 validator="com.iti.fashny.validators.CustomeEmailValidator"/>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_contactEmail}" for="contactEmail" />
-                                    <p:inputText id="contactEmail" value="#{CompanyMB.selected.contactEmail}" title="#{bundle.CreateCompanyTitle_contactEmail}"
-                                                 validator="com.iti.fashny.validators.CustomeEmailValidator" validatorMessage="The Contact Email not valid"/>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_website}" for="website" />
-                                    <p:inputText id="website" value="#{CompanyMB.selected.website}" title="#{bundle.CreateCompanyTitle_website}" />
-
-
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_mobile1}" for="mobile1" />
-                                    <p:inputText id="mobile1" value="#{CompanyMB.selected.mobile1}" title="#{bundle.CreateCompanyTitle_mobile1}" 
-                                                 required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}">
-                                        <!--<f:validateLongRange minimum="11" maximum="11"/>-->
-                                    </p:inputText>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_mobile2}" for="mobile2" />
-                                    <p:inputText id="mobile2" value="#{CompanyMB.selected.mobile2}" title="#{bundle.CreateCompanyTitle_mobile2}" >
-                                        <f:validateLongRange minimum="11" maximum="11"/>
-                                    </p:inputText>    
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_phone}" for="phone" />
-                                    <p:inputText id="phone" value="#{CompanyMB.selected.phone}" title="#{bundle.CreateCompanyTitle_phone}" >
-                                        <f:validateLongRange minimum="9" maximum="10" />
-                                    </p:inputText>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_workHoures}" for="workHours" />
-                                    <p:inputText id="workHours" value="#{CompanyMB.selected.workHoures}" title="#{bundle.CreateCompanyTitle_workHoures}" required="true"  requiredMessage="#{bundle.CreateCompanyRequiredMessage_workHoures}"/>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_description}" for="description" />
-                                    <p:inputTextarea rows="4" cols="22" id="description" value="#{CompanyMB.selected.description}" title="#{bundle.CreateCompanyTitle_description}" />
-
-                                    <p:outputLabel value="Tags:" styleClass="col-xs-12" for="tag"/>
-                                    <p:selectManyMenu id="tag" value="#{CompanyMB.selected.tagList}" tabindex="indx"  converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
-                                        <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />
-                                    </p:selectManyMenu>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_validated}" for="validated" />
-                                    <p:selectBooleanCheckbox id="validated" value="#{CompanyMB.selected.validated}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/>
-
-                                    <p:outputLabel value="#{bundle.CreateCompanyLabel_active}" for="active" />
-                                    <p:selectBooleanCheckbox id="active" value="#{CompanyMB.selected.active}" />
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_password}" for="password" /></td>
+                                                    <td><p:password id="password" value="#{CompanyMB.selected.password}" title="#{bundle.CreateCompanyTitle_password}" required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_email}" for="email" /></td>
+                                                    <td><p:inputText id="email" value="#{CompanyMB.selected.email}" title="#{bundle.CreateCompanyTitle_email}" 
+                                                                     required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_email}"
+                                                                     validator="com.iti.fashny.validators.CustomeEmailValidator"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_contactEmail}" for="contactEmail" /></td>
+                                                    <td><p:inputText id="contactEmail" value="#{CompanyMB.selected.contactEmail}" title="#{bundle.CreateCompanyTitle_contactEmail}"
+                                                                     validator="com.iti.fashny.validators.CustomeEmailValidator" validatorMessage="The Contact Email not valid"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_website}" for="website" /></td>
+                                                    <td><p:inputText id="website" value="#{CompanyMB.selected.website}" title="#{bundle.CreateCompanyTitle_website}" /></td>
 
 
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile1}" for="mobile1" /></td>
+                                                    <td><p:inputText id="mobile1" value="#{CompanyMB.selected.mobile1}" title="#{bundle.CreateCompanyTitle_mobile1}" 
+                                                                     required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}">
+                                                            <f:convertNumber  type="number" />
+                                                            <f:validateLength minimum="11" maximum="11"/>
+                                                        </p:inputText></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile2}" for="mobile2" /></td>
+                                                    <td><p:inputText id="mobile2" value="#{CompanyMB.selected.mobile2}" title="#{bundle.CreateCompanyTitle_mobile2}" >
+                                                            <f:convertNumber  type="number" />
+                                                            <f:validateLength minimum="11" maximum="11"/>                                    
+                                                        </p:inputText></td>    
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_phone}" for="phone" /></td>
+                                                    <td><p:inputText id="phone" value="#{CompanyMB.selected.phone}" title="#{bundle.CreateCompanyTitle_phone}" >
+                                                            <f:convertNumber  type="number" />
+                                                            <f:validateLength minimum="9" maximum="10"/>
+                                                        </p:inputText></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table class="table table-striped">
+                                            <tbody>
 
-                                    <p:commandButton action="#{CompanyMB.save()}" value="#{bundle.Save}"  />
-                                    <p:commandButton value="#{bundle.Cancel}" action="#{CompanyMB.goToCompanies()}" immediate="true"/>
-                                </p:panelGrid>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_workHoures}" for="workHours" /></td>
+                                                    <td><p:inputText id="workHours" value="#{CompanyMB.selected.workHoures}" title="#{bundle.CreateCompanyTitle_workHoures}" required="true"  requiredMessage="#{bundle.CreateCompanyRequiredMessage_workHoures}"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_description}" for="description" /></td>
+                                                    <td><p:inputTextarea rows="4" cols="22" id="description" value="#{CompanyMB.selected.description}" title="#{bundle.CreateCompanyTitle_description}" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="Tags:" styleClass="col-xs-12" for="tag"/></td>
+                                                    <td><p:selectManyMenu id="tag" value="#{CompanyMB.selected.tagList}" tabindex="indx"  converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
+                                                            <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />
+                                                        </p:selectManyMenu></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_validated}" for="validated" /></td>
+                                                    <td><p:selectBooleanCheckbox id="validated" value="#{CompanyMB.selected.validated}" required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{bundle.CreateCompanyLabel_active}" for="active" /></td>
+                                                    <td><p:selectBooleanCheckbox id="active" value="#{CompanyMB.selected.active}" /></td>
 
-                            </h:panelGroup>
-                        </div> 
-
-                        <div class="col-sm-6">
-
-                        </div>
-                    </div>   
+                                                </tr>
+                                            </tbody>
+                                        </table> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center"><p:commandButton action="#{CompanyMB.save()}" value="#{bundle.Save}"  /></td>
+                                    <td align="center"><p:commandButton value="#{bundle.Cancel}" action="#{CompanyMB.goToCompanies()}" immediate="true"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                   </div>   
                 </h:form>
 
             </ui:define>
