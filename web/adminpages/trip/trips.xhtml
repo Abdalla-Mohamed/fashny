@@ -19,11 +19,11 @@
     <ui:define name="contPagePath">
         <a href="">Home</a> >
         <a href="./../../adminpages/trip/trips.xhtml">Show All Trips</a> 
-        
+
     </ui:define>
 
     <ui:define name="content"> 
-        <h:form id="TripssListForm">
+        <h:form id="TripssListForm" prependId="false">
             <p:growl id="msgs" showDetail="true"/>
             <p:panel header="Trips">
                 <p:dataTable id="tripDatalist" value="#{tripMB.items}" var="item"
@@ -37,35 +37,53 @@
 
                     <p:ajax event="rowSelect"   update="createButton"/>
                     <p:ajax event="rowUnselect" update="createButton"/>
-                    <p:ajax event="rowEdit" listener="#{tripMB.onRowEdit}" update="TripssListForm:msgs" />
-                    <p:ajax event="rowEditCancel" listener="#{tripMB.onRowCancel}" update="TripssListForm:msgs" />
+                    <p:ajax event="rowEdit" listener="#{tripMB.onRowEdit}" update="msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{tripMB.onRowCancel}" update="msgs" />
 
 
                     <p:column headerText="#{bundle.ListTripTitle_name}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.name}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_name" value="#{item.name}" style="width:100%"/></f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="modelInput_name" value="#{item.name}" style="width:100%"
+                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_name}"/>
+                            </f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{bundle.ListTripTitle_cost}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.cost} EGP" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_cost" value="#{item.cost}" style="width:100%"/></f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="modelInput_cost" value="#{item.cost}" style="width:100%"
+                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_cost}">
+                                    <f:convertNumber currencyCode="EGP" type="currency" />
+                                </p:inputText>
+                            </f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{bundle.ListTripTitle_countBooking}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.countBooking}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_countBooking" value="#{item.countBooking}" style="width:100%"/></f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="modelInput_countBooking" value="#{item.countBooking}" style="width:100%"
+                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_countBooking}">
+                                    <f:convertNumber  type="number" />
+                                </p:inputText>
+                            </f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{bundle.ListTripTitle_maxbooking}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.maxbooking}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_maxbookinge" value="#{item.maxbooking}" style="width:100%"/></f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="modelInput_maxbookinge" value="#{item.maxbooking}" style="width:100%"
+                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_maxbooking}">
+                                    <f:convertNumber  type="number" />
+                                </p:inputText>
+                            </f:facet>
                         </p:cellEditor>
                     </p:column>
 
@@ -73,7 +91,36 @@
                     <p:column headerText="#{bundle.ListTripTitle_validated}" >
                         <p:cellEditor>
                             <f:facet name="output"><p:selectBooleanCheckbox value="#{item.validated}" disabled="true"/></f:facet>
-                            <f:facet name="input"><p:selectBooleanCheckbox value="#{item.validated}" disabled="false"/></f:facet>
+                            <f:facet name="input"><p:selectBooleanCheckbox value="#{item.validated}" disabled="false"
+                                                                           required="true" requiredMessage="#{bundle.EditTripRequiredMessage_validated}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="#{bundle.ListTripTitle_program}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{item.program}" /></f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="modelInput_program" value="#{item.program}" style="width:100%"
+                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_program}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="#{bundle.ListTripTitle_date}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{item.date}" /></f:facet>
+                            <f:facet name="input">
+                                <p:calendar id="modelInput_date" value="#{item.date}" style="width:100%" pattern="yyyy-MM-dd" 
+                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_date}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="#{bundle.ListTripTitle_joinDeadline}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{item.joinDeadline}" /></f:facet>
+                            <f:facet name="input">
+                                <p:calendar id="modelInput_joinDeadline" value="#{tripMB.selected.joinDeadline}" style="width:100%" pattern="yyyy-MM-dd" 
+                                            required="true" requiredMessage="#{bundle.EditTripRequiredMessage_joinDeadline}"/>
+                            </f:facet>
                         </p:cellEditor>
                     </p:column>
 
@@ -87,6 +134,7 @@
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" action="#{tripMB.goToCreateTrip()}" />
                     </f:facet>
+
                 </p:dataTable>
 
             </p:panel>

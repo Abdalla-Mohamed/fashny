@@ -56,10 +56,10 @@ public class LoginBusiness implements  Serializable{
     public Company loginCompany(String email, String pass) throws Fasa7nyException {
 
         DaoFactory factory = new DaoFactory();
-        CompanyFacade cf = factory.getCompanyDoa();
+        CompanyFacade companyFacade = factory.getCompanyDoa();
         try {
             Company c;
-            c = cf.login(email, pass);
+            c = companyFacade.login(email, pass);
             return c;
 
         } catch (Fasa7nyException fasa7nyException) {

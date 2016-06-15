@@ -130,7 +130,28 @@ public class PlaceBusiness implements Commens<Place> {
                 System.out.println(crl.getClientId().getName()+":"+crl.getComment());
             }
             daoFactory.commitTransaction();
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return place;
+    }
+    
+    public Place getResources(Place place) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            PlaceFacade placeFacade = daoFactory.getPlaceDoa();
+            daoFactory.beginTransaction();
+            place = placeFacade.find(place.getId());
+            List<Resouce> resouceList = place.getResouceList();
+            System.out.println(resouceList.size());
+            for (Resouce resouceList1 : resouceList) {
+                System.out.println(resouceList1.getPath());
+            }
+            daoFactory.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
             daoFactory.rollbackTransaction();

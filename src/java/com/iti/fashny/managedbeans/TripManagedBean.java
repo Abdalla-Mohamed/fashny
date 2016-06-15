@@ -38,13 +38,13 @@ public class TripManagedBean implements Serializable {
     //_________________________ setter and getter  __________________________//
 
     public List<Trip> getItems() {
-        if (items == null) {
+   
             try {
                 items = tripBusiness.view();
             } catch (Exception ex) {
                 Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+       
         return items;
     }
 
@@ -87,6 +87,8 @@ public class TripManagedBean implements Serializable {
 
     
     public void update() {
+        System.err.println("......_____________________________________#####");
+
         if (selected != null) {
             try {
                 tripBusiness.update(selected);
@@ -103,8 +105,11 @@ public class TripManagedBean implements Serializable {
     // --------------------------- for page --------------------------------//
     
     public void onRowEdit(RowEditEvent event) {
-        selected = (Trip) event.getObject();
+       
+        selected= (Trip) event.getObject();
         update();
+        items = getItems();
+        System.err.println("......_____________________________________>"+((Trip) event.getObject()).getName());
         FacesMessage msg = new FacesMessage("Trip Edited", ((Trip) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -143,6 +148,7 @@ public class TripManagedBean implements Serializable {
     } 
     public String save(){
         create();
+        items = getItems();
         selected = new Trip();
         return "trips";
     }
