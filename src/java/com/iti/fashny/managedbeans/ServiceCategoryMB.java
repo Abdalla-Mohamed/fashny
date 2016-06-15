@@ -5,13 +5,12 @@
  */
 package com.iti.fashny.managedbeans;
 
-import com.iti.fashny.businessbeans.ServicesBusiness;
+import com.iti.fashny.businessbeans.ServiceCategoryBusiness;
 import com.iti.fashny.entities.Service;
 import com.iti.fashny.entities.ServiceCategorey;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -23,79 +22,71 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author Administrator
  */
-@ManagedBean(name = "serviceBean")
+@ManagedBean(name = "serviceCat")
 @SessionScoped
+public class ServiceCategoryMB {
 
-public class ServiceManagedBean {
+    ServiceCategoryBusiness catBusiness;
+    private ServiceCategorey serviceCat;
+    private List<ServiceCategorey> serviceCatList = null;
+    private List<ServiceCategorey> serviceFilteredList;
 
-    ServicesBusiness serviceBusiness;
-    private List<Service> serviceList = null;
-    private List<Service> filteredItems;
-    private Service service;
-    ServiceCategoryMB serviceCategory;
-    List<ServiceCategorey> catList;
+    public ServiceCategoryMB() {
+        catBusiness = new ServiceCategoryBusiness();
+    }
+//Setters
 
-    public ServiceManagedBean() {
-        serviceBusiness = new ServicesBusiness();
-        serviceCategory = new ServiceCategoryMB();
+    public void setCatBusiness(ServiceCategoryBusiness catBusiness) {
+        this.catBusiness = catBusiness;
     }
 
-    public void getCategories() {
-        catList = serviceCategory.getItems();
+    public void setServiceCat(ServiceCategorey serviceCat) {
+        this.serviceCat = serviceCat;
     }
 
-    //Setters
-    public void setServiceBusiness(ServicesBusiness serviceBusiness) {
-        this.serviceBusiness = serviceBusiness;
+    public void setServiceCatList(List<ServiceCategorey> serviceCatList) {
+        this.serviceCatList = serviceCatList;
     }
 
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
+    public void setServiceFilteredList(List<ServiceCategorey> serviceFilteredList) {
+        this.serviceFilteredList = serviceFilteredList;
     }
-
-    public void setFilteredItems(List<Service> filteredItems) {
-        this.filteredItems = filteredItems;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
     //Getters
-    public ServicesBusiness getServiceBusiness() {
-        return serviceBusiness;
+
+    public ServiceCategoryBusiness getCatBusiness() {
+        return catBusiness;
     }
 
-    public List<Service> getServiceList() {
-        return serviceList;
+    public ServiceCategorey getServiceCat() {
+        return serviceCat;
     }
 
-    public Service getService() {
-        return service;
+    public List<ServiceCategorey> getServiceCatList() {
+        return serviceCatList;
     }
 
-    public List<Service> getFilteredItems() {
-        return filteredItems;
+    public List<ServiceCategorey> getServiceFilteredList() {
+        return serviceFilteredList;
     }
 
-    public List<Service> getItems() {
-        if (serviceList == null) {
+    public List<ServiceCategorey> getItems() {
+        if (serviceCatList == null) {
             try {
-                serviceList = serviceBusiness.view();
+                serviceCatList = catBusiness.view();
             } catch (Exception ex) {
                 Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return serviceList;
+        return serviceCatList;
     }
 
-    public void setItems(List<Service> services) {
-        this.serviceList = services;
+    public void setItems(List<ServiceCategorey> services) {
+        this.serviceCatList = services;
     }
 
-    public Service prepareCreate() {
-        service = new Service();
-        return service;
+    public ServiceCategorey prepareCreate() {
+        serviceCat = new ServiceCategorey();
+        return serviceCat;
     }
 
     protected void setEmbeddableKeys() {
@@ -105,9 +96,9 @@ public class ServiceManagedBean {
     }
 
     public void create() {
-        if (getService() != null) {
+        if (getCatBusiness() != null) {
             try {
-                serviceBusiness.add(service);
+                catBusiness.add(serviceCat);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -115,17 +106,17 @@ public class ServiceManagedBean {
     }
 
     public void update() {
-        if (service != null) {
+        if (catBusiness != null) {
             try {
-                serviceBusiness.update(service);
+                catBusiness.update(serviceCat);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
     }
 
-    public Service getService(java.lang.Integer id) {
-        return serviceBusiness.showSpecificInfo(id);
+    public ServiceCategorey getServiceCategorey(java.lang.Integer id) {
+        return catBusiness.showSpecificInfo(id);
     }
 
 //    public List<Service> getItemsAvailableSelectMany() {
@@ -148,14 +139,14 @@ public class ServiceManagedBean {
 //        return serviceList;
 //    }
     public void onRowEdit(RowEditEvent event) {
-        service = (Service) event.getObject();
+        serviceCat = (ServiceCategorey) event.getObject();
         update();
-        FacesMessage msg = new FacesMessage("Tag Edited", ((Service) event.getObject()).getName());
+        FacesMessage msg = new FacesMessage("Category Edited", ((ServiceCategorey) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Service) event.getObject()).getName());
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((ServiceCategorey) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -209,8 +200,4 @@ public class ServiceManagedBean {
 //        }
 //
 //    }
-    
-    public static void main(String[] args) {
-        
-    }
 }

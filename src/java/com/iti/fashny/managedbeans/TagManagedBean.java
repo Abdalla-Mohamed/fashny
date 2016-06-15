@@ -32,8 +32,8 @@ public class TagManagedBean {
     private List<Tag> tags = null;
     private List<Tag> filteredItems;
     private Tag selectedTag;
-//Setters & Getters
 
+//****************Setters & Getters*****************
     public List<Tag> getFilteredItems() {
         return filteredItems;
     }

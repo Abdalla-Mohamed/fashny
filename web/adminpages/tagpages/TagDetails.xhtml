@@ -55,8 +55,7 @@
 
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tagAdminBean.prepareCreate()}"  update=":TagForm" oncomplete="PF('TagCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TagForm" oncomplete="PF('TagViewDialog').show()" disabled="#{empty tagAdminBean.selectedTag}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TagForm" oncomplete="PF('TagEditDialog').show()" disabled="#{empty tagAdminBean.selectedTag}"/>
+                               
                             </f:facet>
                         </p:dataTable>
                     </p:panel>

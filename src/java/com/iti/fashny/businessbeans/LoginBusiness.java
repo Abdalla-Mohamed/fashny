@@ -9,12 +9,13 @@ import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.exceptions.Fasa7nyException;
+import java.io.Serializable;
 
 /**
  *
  * @author Administrator
  */
-public class LoginBusiness {
+public class LoginBusiness implements Serializable{
 
     public LoginBusiness() {
     }

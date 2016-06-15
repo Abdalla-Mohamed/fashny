@@ -38,7 +38,6 @@ public class guestImpl implements Guest
         {
       daoFactory.beginTransaction();
       clientFacade.create(c);
-      //clientFacade.create(new Client(null, "omr", "2cli2@cc.com", "asasd2", "asdasd2", new Date(), (short) 1, (short) 2, new Timestamp(System.currentTimeMillis()), "2"));
       daoFactory.commitTransaction();
         }
          catch (Exception exception) 
@@ -46,8 +45,6 @@ public class guestImpl implements Guest
             exception.printStackTrace();
             daoFactory.rollbackTransaction();
         }
-      //daoFactory.close();
-    
     }
 
     @Override

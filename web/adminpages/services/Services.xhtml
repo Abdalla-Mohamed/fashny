@@ -11,17 +11,18 @@
                  xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form id="TagForm">
+        <h:form id="ServiceForm">
             <div  class="col-sm-12" align="center">
                 <div class="col-sm-2" align="center"></div>
                 <div class="col-sm-8" align="center"> 
-                    <p:panel header="#{bundle.ListServiceTitle}">
+                    <p:panel header="#{bundle.ListServiceTitle}" id="pnlList">
                         <p:dataTable id="datalist" value="#{serviceBean.items}" var="service"
                                      paginator="true"
                                      rowKey="#{service.id}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50"
-                                     widgetVar="tagTable"
+                                     filteredValue="#{serviceBean.filteredItems}"
+                                     widgetVar="serviceTable"
                                      editable="true"
                                      >
 
@@ -37,9 +38,25 @@
                             <p:column headerText="#{bundle.ListServiceTitle_name}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{service.name}" /></f:facet>
-                                    <f:facet name="input"><p:inputText id="modelInput_name" value="#{service.name}" style="width:100%"/></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{service.name}" style="width:100%"/></f:facet>
                                 </p:cellEditor>
                             </p:column>
+
+                            <p:column headerText="#{bundle.ListServiceTitle_description}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{service.description}" /></f:facet>
+                                    <f:facet name="input"><p:inputText  value="#{service.description}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+
+                            <p:column headerText="#{bundle.ListServiceTitle_cost}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{service.cost}" /></f:facet>
+                                    <f:facet name="input"><p:inputText  value="#{service.cost}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
 
                             <p:column headerText="#{bundle.ListServiceTitle_active}">
                                 <p:cellEditor>
@@ -53,14 +70,16 @@
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{serviceBean.prepareCreate()}"  update=":TagForm" oncomplete="PF('TagCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TagForm" oncomplete="PF('TagViewDialog').show()" disabled="#{empty serviceBean.service}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TagForm" oncomplete="PF('TagEditDialog').show()" disabled="#{empty serviceBean.service}"/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{serviceBean.prepareCreate()}"  update=":ServiceForm" oncomplete="PF('ServiceCreateDialog').show()"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
                 </div>
             </div>
+            <p:blockUI block="pnlList" trigger="datalist:createButton">
+                LOADING<br/>
+                <p:graphicImage name="/processing-bar.gif"/>
+            </p:blockUI>
         </h:form>
 
 

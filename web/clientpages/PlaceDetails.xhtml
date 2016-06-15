@@ -17,10 +17,9 @@
             <ui:define name="content">
 
                 <h:form prependId="false">
-
-                    <div  class="col-sm-12">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-8">
+                    <div  class="col-sm-12" align="center">
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="col-sm-8" align="center"> 
                             <h:outputText value="Place Name : "/>
                             <h:outputText value="#{placeView_1.selected.name}"/>
                             <br/><br/>
@@ -33,10 +32,13 @@
                             <h:outputText value="#{placeView_1.selected.workHours}"/>
                             <br/><br/>
 
-                            <h:graphicImage value="/clientpages/cairotower.jpg" width="800" height="400"/>
+                            <p:commandButton type="button" onclick="PF('switcher').previous();" icon="ui-icon-circle-triangle-w" id="prev"/>
+                            <p:commandButton type="button" onclick="PF('switcher').next();" icon="ui-icon-circle-triangle-e" id="next"/>
+
+                           
 
                             <p:dataGrid var="comment" value="#{placeView_1.reviewPlaces()}" columns="1" layout="grid"
-                                        rows="12" id="places"
+                                        rows="12" id="places" 
                                         rowsPerPageTemplate="6,12,16">
 
                                 <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
