@@ -36,8 +36,8 @@
                             <div class="clearfix"> </div>
                             <div class="more m1">
                                 <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
-                                <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details" styleClass="btn btn-info col-xs-12"/>
-                                                               
+                                <p:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details" styleClass="btn btn-info col-xs-6"/>
+                                <p:rating value="#{tripMB.getRate(trip)}" readonly="true" />                             
                             </div>
                         </div>
                     </p:dataGrid>
