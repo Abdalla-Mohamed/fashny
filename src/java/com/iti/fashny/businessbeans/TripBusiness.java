@@ -14,6 +14,7 @@ import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
  *
  * @author Amira Anis
  */
-public class TripBusiness implements Commens<Trip> {
+public class TripBusiness implements Commens<Trip> ,Serializable {
 
     @Override
     public Trip login(String email, String password) throws Exception {

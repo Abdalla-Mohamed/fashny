@@ -8,10 +8,10 @@
 
     <body>
 
-        <ui:composition template="./../../templates/templateAdmin.xhtml">
+        <ui:composition template="./../templates/templateCompany.xhtml">
 
             <ui:define name="contPageName">
-                <h:outputText value="#{CompanyMB.selected.name}"/>          
+                <h:outputText value="#{login.loginAccount.company.name}"/>          
             </ui:define>
 
             <ui:define name="contPageDescrp">
@@ -19,10 +19,7 @@
             </ui:define>
 
             <ui:define name="contPagePath">
-                <a href="">Home</a> 
-                <a href="./../../adminpages/company/compaies.xhtml">Show All Companies</a> 
-                <a href="./../../adminpages/company/viewCompany.xhtml">Company Details</a>
-
+                
             </ui:define>
 
             <ui:define name="content">
@@ -35,8 +32,8 @@
                                 <tbody>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_name}"/></td>
-                                        <td> <p:inplace id="name" label="#{CompanyMB.selected.name}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.name}" 
+                                        <td> <p:inplace id="name" label="#{login.loginAccount.company.name}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{login.loginAccount.company.name}" 
                                                              title="#{bundle.ViewCompanyTitle_name}" 
                                                              required="true" requiredMessage="#{bundle.EditCompanyRequiredMessage_name}"/>
                                             </p:inplace></td>
@@ -44,32 +41,32 @@
 
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_description}"/></td>
-                                        <td><p:inplace id="description" label="#{CompanyMB.selected.description}" effectSpeed="fast" event="dblclick">
-                                                <p:inputTextarea rows="4" cols="22" value="#{CompanyMB.selected.description}" 
+                                        <td><p:inplace id="description" label="#{login.loginAccount.company.description}" effectSpeed="fast" event="dblclick">
+                                                <p:inputTextarea rows="4" cols="22" value="#{login.loginAccount.company.description}" 
                                                                  title="#{bundle.EditCompanyTitle_description}" />
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_email}"/></td>
-                                        <td><h:outputText value="#{CompanyMB.selected.email}" title="#{bundle.ViewCompanyTitle_email}" /></td>
+                                        <td><h:outputText value="#{login.loginAccount.company.email}" title="#{bundle.ViewCompanyTitle_email}" /></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_contactEmail}"/></td>
-                                        <td><p:inplace id="contactEmail" label="#{CompanyMB.selected.contactEmail}" effectSpeed="fast" event="dblclick"> 
-                                                <p:inputText value="#{CompanyMB.selected.contactEmail}" title="#{bundle.EditCompanyTitle_contactEmail}"
+                                        <td><p:inplace id="contactEmail" label="#{login.loginAccount.company.contactEmail}" effectSpeed="fast" event="dblclick"> 
+                                                <p:inputText value="#{login.loginAccount.company.contactEmail}" title="#{bundle.EditCompanyTitle_contactEmail}"
                                                              validator="com.iti.fashny.validators.CustomeEmailValidator" validatorMessage="The Contact Email not valid"/>
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_website}"/></td>
-                                        <td><p:inplace id="website" label="#{CompanyMB.selected.website}" effectSpeed="fast" event="dblclick"> 
-                                                <p:inputText value="#{CompanyMB.selected.website}" title="#{bundle.EditCompanyTitle_website}" />
+                                        <td><p:inplace id="website" label="#{login.loginAccount.company.website}" effectSpeed="fast" event="dblclick"> 
+                                                <p:inputText value="#{login.loginAccount.company.website}" title="#{bundle.EditCompanyTitle_website}" />
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_phone}"/></td>
-                                        <td><p:inplace id="phone" label="#{CompanyMB.selected.phone}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.phone}" title="#{bundle.EditCompanyTitle_phone}" >
+                                        <td><p:inplace id="phone" label="#{login.loginAccount.company.phone}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{login.loginAccount.company.phone}" title="#{bundle.EditCompanyTitle_phone}" >
                                                     <f:convertNumber  type="number" />
                                                     <f:validateLength minimum="9" maximum="10"/>
                                                 </p:inputText>
@@ -77,8 +74,8 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile1}"/></td>
-                                        <td><p:inplace id="mobile1" label="#{CompanyMB.selected.mobile1}" effectSpeed="fast" event="dblclick"> 
-                                                <p:inputText value="#{CompanyMB.selected.mobile1}" title="#{bundle.EditCompanyTitle_mobile1}" 
+                                        <td><p:inplace id="mobile1" label="#{login.loginAccount.company.mobile1}" effectSpeed="fast" event="dblclick"> 
+                                                <p:inputText value="#{login.loginAccount.company.mobile1}" title="#{bundle.EditCompanyTitle_mobile1}" 
                                                              required="true" requiredMessage="#{bundle.EditCompanyRequiredMessage_mobile1}">
                                                     <f:convertNumber  type="number" />
                                                     <f:validateLength minimum="11" maximum="11"/>
@@ -87,8 +84,8 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile2}"/></td>
-                                        <td><p:inplace id="mobile2" label="#{CompanyMB.selected.mobile2}" effectSpeed="fast" event="dblclick"> 
-                                                <p:inputText value="#{CompanyMB.selected.mobile2}" title="#{bundle.EditCompanyTitle_mobile2}" >
+                                        <td><p:inplace id="mobile2" label="#{login.loginAccount.company.mobile2}" effectSpeed="fast" event="dblclick"> 
+                                                <p:inputText value="#{login.loginAccount.company.mobile2}" title="#{bundle.EditCompanyTitle_mobile2}" >
                                                     <f:convertNumber  type="number" />
                                                     <f:validateLength minimum="11" maximum="11"/>                                    
                                                 </p:inputText>
@@ -96,16 +93,16 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_address}"/></td>
-                                        <td><p:inplace id="address" label="#{CompanyMB.selected.address}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.address}" 
+                                        <td><p:inplace id="address" label="#{login.loginAccount.company.address}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{login.loginAccount.company.address}" 
                                                              title="#{bundle.EditCompanyTitle_address}" required="true" 
                                                              requiredMessage="#{bundle.EditCompanyRequiredMessage_address}"/>
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_workHoures}"/></td>
-                                        <td><p:inplace id="workHoures" label="#{CompanyMB.selected.workHoures}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText  value="#{CompanyMB.selected.workHoures}" 
+                                        <td><p:inplace id="workHoures" label="#{login.loginAccount.company.workHoures}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText  value="#{login.loginAccount.company.workHoures}" 
                                                               title="#{bundle.EditCompanyTitle_workHoures}" required="true"  
                                                               requiredMessage="#{bundle.EditCompanyRequiredMessage_workHoures}"/>
                                             </p:inplace></td>
@@ -114,9 +111,9 @@
                                         <td><p:outputLabel value="#{bundle.ViewCompanyLabel_tag}"/></td>
                                         <td><p:inplace id="tag" effect="none">
                                                 <f:facet name="output">
-                                                    <p:dataList value="#{CompanyMB.selected.tagList}" var="tag" >#{tag.name}</p:dataList>                                                </f:facet>
+                                                    <p:dataList value="#{login.loginAccount.company.tagList}" var="tag" >#{tag.name}</p:dataList>                                                </f:facet>
                                                 <f:facet name="input">
-                                                    <p:selectManyMenu value="#{CompanyMB.selected.tagList}" tabindex="indx"  converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
+                                                    <p:selectManyMenu value="#{login.loginAccount.company.tagList}" tabindex="indx"  converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
                                                         <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />
                                                     </p:selectManyMenu>
                                                 </f:facet>
@@ -126,10 +123,10 @@
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_validated}"/></td>
                                         <td><p:inplace id="validated" effect="none">
                                                 <f:facet name="output">
-                                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" disabled="true"/>
+                                                    <p:selectBooleanCheckbox value="#{login.loginAccount.company.validated}" disabled="true"/>
                                                 </f:facet>
                                                 <f:facet name="input">
-                                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" />
+                                                    <p:selectBooleanCheckbox value="#{login.loginAccount.company.validated}" />
                                                 </f:facet>
                                             </p:inplace> </td>
                                     </tr> 
@@ -137,10 +134,10 @@
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_active}"/></td>
                                         <td><p:inplace id="active" effect="none">
                                                 <f:facet name="output">
-                                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.active}" disabled="true"/>
+                                                    <p:selectBooleanCheckbox value="#{login.loginAccount.company.active}" disabled="true"/>
                                                 </f:facet>
                                                 <f:facet name="input">
-                                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.active}" />
+                                                    <p:selectBooleanCheckbox value="#{login.loginAccount.company.active}" />
                                                 </f:facet>
                                             </p:inplace> </td> 
                                     </tr>
@@ -157,8 +154,8 @@
 
                     <div class="col-sm-12" align="center">
                         <h:form id="form">
-                            <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
-                            <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
+                            <h2> Trip Organized by #{login.loginAccount.company.name}</h2>
+                            <p:dataGrid var="trip" value="#{login.loginAccount.company.tripList}" columns="3" layout="grid"
                                         rows="3" paginator="true" id="trip"
                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                         rowsPerPageTemplate="3,6,12">

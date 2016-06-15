@@ -54,6 +54,7 @@ public class CompanyManagedBean implements Serializable {
         try {
             items = companyController.view();
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
         }
 
