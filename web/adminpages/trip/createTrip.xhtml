@@ -145,6 +145,36 @@
                                         </table>
                                     </td>
                                 </tr>
+                                  <tr>
+                                        <td colspan="2">
+                                            <ui:remove>
+                                                <p:fileUpload binding="#{upload}" mode="simple"
+                                                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                              value="#{tripMB.uploadedPicture}"/>
+                                                <p:graphicImage value="#" height="150" binding="#{image}" />  
+
+                                            </ui:remove>
+
+                                            <ui:remove>                                    <p:outputLabel value="#{MyPropertyFile.Photo}"/>
+                                                <p:fileUpload fileUploadListener="#{tripMB.uploadImage.handleFileUpload(event)}" dragDropSupport="true" label="Choose" auto="true"
+                                                              sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                            </ui:remove>
+
+                                            <p:growl id="msg"></p:growl>
+                                            <p:fileUpload value="#{tripMB.uploadImage.file}"
+                                                          invalidSizeMessage="JournalDev: Invalid Size"
+                                                          invalidFileMessage="JournalDev: Invalid File Type"
+                                                          fileLimitMessage="JournalDev: Invalid File Limit" 
+                                                          mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
+                                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                          fileUploadListener="#{tripMB.uploadImage.handleFileUpload}" 
+                                                          update="msg"></p:fileUpload>
+                                            <ui:remove>
+                                                <h:graphicImage url="#{tripMB.selected.profilePic.path}" width="200" height="171" />
+                                            </ui:remove>
+
+                                        </td>
+                                    </tr>
                                 <tr>
                                     <td align="center"><p:commandButton action="#{tripMB.save()}" value="#{bundle.Save}" /></td>
                                     <td align="center"><p:commandButton value="#{bundle.Cancel}" action="#{tripMB.goToTrips}" immediate="true"/></td>

@@ -15,7 +15,7 @@
             </ui:define>
 
             <ui:define name="contPageDescrp">
-               
+
             </ui:define>
 
             <ui:define name="contPagePath">
@@ -96,6 +96,36 @@
                                                 <tr><td colspan="3" align="center"><div id="mapholder"></div></td></tr>
                                             </tbody>
                                         </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <ui:remove>
+                                            <p:fileUpload binding="#{upload}" mode="simple"
+                                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                          value="#{placeView_1.uploadedPicture}"/>
+                                            <p:graphicImage value="#" height="150" binding="#{image}" />  
+
+                                        </ui:remove>
+
+                                        <ui:remove>                                    <p:outputLabel value="#{MyPropertyFile.Photo}"/>
+                                            <p:fileUpload fileUploadListener="#{placeView_1.uploadImage.handleFileUpload(event)}" dragDropSupport="true" label="Choose" auto="true"
+                                                          sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                        </ui:remove>
+
+                                        <p:growl id="msg"></p:growl>
+                                        <p:fileUpload value="#{placeView_1.uploadImage.file}"
+                                                      invalidSizeMessage="JournalDev: Invalid Size"
+                                                      invalidFileMessage="JournalDev: Invalid File Type"
+                                                      fileLimitMessage="JournalDev: Invalid File Limit" 
+                                                      mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
+                                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                      fileUploadListener="#{placeView_1.uploadImage.handleFileUpload}" 
+                                                      update="msg"></p:fileUpload>
+                                        <ui:remove>
+                                            <h:graphicImage url="#{placeView_1.selected.profilePic.path}" width="200" height="171" />
+                                        </ui:remove>
+
                                     </td>
                                 </tr>
                                 <tr>

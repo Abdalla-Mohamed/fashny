@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.businessbeans.TripBusiness;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Trip;
@@ -19,7 +20,6 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
-
 @ManagedBean(name = "tripMB")
 @SessionScoped
 public class TripManagedBean implements Serializable {
@@ -27,22 +27,24 @@ public class TripManagedBean implements Serializable {
     TripBusiness tripBusiness;
     private List<Trip> items = null;
     private Trip selected;
+    UploadImage uploadImage;
 
     //_______________________________________________________________________//
     public TripManagedBean() {
         tripBusiness = new TripBusiness();
         selected = new Trip();
+        uploadImage = new UploadImage();
     }
     //_________________________ setter and getter  __________________________//
 
     public List<Trip> getItems() {
-   
-            try {
-                items = tripBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-       
+
+        try {
+            items = tripBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return items;
     }
 
@@ -52,6 +54,10 @@ public class TripManagedBean implements Serializable {
 
     public Trip getSelected() {
         return selected;
+    }
+
+    public UploadImage getUploadImage() {
+        return uploadImage;
     }
 
     public void setTripBusiness(TripBusiness tripBusiness) {
@@ -64,15 +70,18 @@ public class TripManagedBean implements Serializable {
 
     public void setSelected(Trip selected) {
         this.selected = selected;
-    }   
+    }
+
+    public void setUploadImage(UploadImage uploadImage) {
+        this.uploadImage = uploadImage;
+    }
 
     //_________________________ functionlity  _____________________________//
-
     public Trip prepareCreate() {
         selected = new Trip();
         return selected;
     }
-    
+
     public void create() {
         if (getSelected() != null) {
             try {
@@ -80,6 +89,8 @@ public class TripManagedBean implements Serializable {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            uploadImage.forTrip(selected.getId() + "");
+            uploadImage.copyFile();
         }
     }
 
@@ -94,19 +105,19 @@ public class TripManagedBean implements Serializable {
             }
         }
     }
-    
+
     public String tripDetails(int id) {
         selected = tripBusiness.showSpecificInfo(id);
         return "tripDetails";
     }
     // --------------------------- for page --------------------------------//
-    
+
     public void onRowEdit(RowEditEvent event) {
-       
-        selected= (Trip) event.getObject();
+
+        selected = (Trip) event.getObject();
         update();
         items = getItems();
-        System.err.println("......_____________________________________>"+((Trip) event.getObject()).getName());
+        System.err.println("......_____________________________________>" + ((Trip) event.getObject()).getName());
         FacesMessage msg = new FacesMessage("Trip Edited", ((Trip) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -125,10 +136,11 @@ public class TripManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+
     public String goToViewTrip(int id) {
         selected = tripBusiness.showSpecificInfo(id);
         try {
-           selected=tripBusiness.gitAllCompanyLists(selected);
+            selected = tripBusiness.gitAllCompanyLists(selected);
         } catch (Exception ex) {
             Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -139,21 +151,21 @@ public class TripManagedBean implements Serializable {
         selected = new Trip();
         return "createTrip";
     }
-    
-    public String goToTrips(){
+
+    public String goToTrips() {
         return "trips";
-    } 
-    public String save(){
+    }
+
+    public String save() {
         create();
         items = getItems();
         selected = new Trip();
         return "trips";
-    } 
-    public String cansel(){
+    }
+
+    public String cansel() {
         selected = new Trip();
         return "trips";
-    } 
-    
-    
+    }
 
 }
