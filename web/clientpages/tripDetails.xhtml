@@ -47,14 +47,19 @@
 
                     <h:graphicImage value="/clientpages/cairotower.jpg" width="800" height="400"/>
                     <br/>
-                    <p:commandButton value="Join Trip" type="button" onclick="PF('dlg2').show();" />
+                    <p:commandButton value="Join Trip" type="button" onclick="PF('dlg2').show();" rendered="#{login.logged and login.loginAccount.role=='Client'}"/>
 
                     <p:dialog header="Join Trip" widgetVar="dlg2" modal="true" height="100">
                         <h:outputText value="Count Booking : "/>
                         <h:outputText value="#{tripMB.selected.countBooking}"/>
-                        
+
                         <h:outputText value="Max Booking : "/>
                         <h:outputText value="#{tripMB.selected.maxbooking}"/>
+
+                        <h:outputText value="Count : "/>
+                        <h:inputText value="#{tripMB.clientJoinTrip.count}"/>
+
+                        <p:commandButton value="Join" id="join" action="#{tripMB.joinTrip(client)}" styleClass="ui-priority-primary" />
                     </p:dialog> 
 
 

@@ -7,7 +7,7 @@
 
     <body>
 
-        <ui:composition template="./../templates/templateAdmin.xhtml">
+        <ui:composition template="./../../templates/templateAdmin.xhtml">
 
             <ui:define name="contPageName">
                 contPageName
@@ -22,19 +22,6 @@
             </ui:define>
 
             <ui:define name="content">
-                <!--<p:remoteCommand name="updateDate"-->
-                <h:form prependId="false"  >
-                    <p:outputLabel for="event" value="Select Event:" />
-                    <p:calendar id="event" value="#{calendarView.date4}">
-                        <p:ajax event="dateSelect" process="@this" listener="#{calendarView.onDateSelect}" update="cal2" />
-                        <p:ajax event="change" update="cal2"></p:ajax>
-                    </p:calendar>
-                    <p:calendar maxdate="#{calendarView.date4}" id="cal2" >
-                        <p:ajax event="dateSelect" listener="#{calendarView.onDateSelect}"  />
-                    </p:calendar>
-                    <p:spinner max="10"/>                </h:form>
-
-
                 <h:form enctype="multipart/form-data" style="width:500px">
                     <p:growl id="msg"></p:growl>
                     <p:fileUpload value="#{fileUploadMB.file}"

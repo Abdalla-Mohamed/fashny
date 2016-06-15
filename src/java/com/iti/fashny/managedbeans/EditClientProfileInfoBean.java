@@ -48,7 +48,7 @@ public class EditClientProfileInfoBean
     public EditClientProfileInfoBean()
     {
         loginManagedBean = new LoginManagedBean();
-        c=loginManagedBean.c;
+        c=loginManagedBean.getLoginAccount().getClient();
     }
 
 //     @ManagedProperty(value = "#{navigationBean}")
@@ -113,7 +113,7 @@ public class EditClientProfileInfoBean
     
     public String editProfile()
     {
-     c.setId(loginManagedBean.c.getId());
+     c.setId(loginManagedBean.getLoginAccount().getClient().getId());
 //        System.out.println(c.getName()+c.getEmail()+c.getId());
      DaoFactory daoFactory = new DaoFactory();
      ClientFacade clientFacade = daoFactory.getClientDoa();

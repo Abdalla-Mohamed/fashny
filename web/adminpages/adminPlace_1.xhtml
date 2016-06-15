@@ -13,11 +13,12 @@
     </ui:define>
 
     <ui:define name="contPageDescrp">
-
+        Show information about all places
     </ui:define>
 
     <ui:define name="contPagePath">
-
+        <a href="">Home > </a> 
+        <a href="./../adminpages/adminPlace_1.xhtml">Show All Places </a> 
     </ui:define>
 
     <ui:define name="content"> 
@@ -84,8 +85,6 @@
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" action="#{placeView_1.goToCreatePlace()}" />
                     </f:facet>
-
-
                 </p:dataTable>
                 <p:blockUI block="bobo" trigger="@(.btnview) datalist:createButton">
                     LOADING<br />

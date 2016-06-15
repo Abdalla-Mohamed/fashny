@@ -27,10 +27,22 @@ public class HomeMB {
      */
     public HomeMB() {
    
+//        images= new ArrayList<>();
+//           for (int i = 1; i <= 4; i++) {
+//            images.add(new placeImage("sdfsdfsdf", "nature" + i + ".jpg"));
+//        }
         images= new ArrayList<>();
-           for (int i = 1; i <= 4; i++) {
-            images.add(new placeImage("sdfsdfsdf", "nature" + i + ".jpg"));
-        }
+            images.add(new placeImage("deal with professional companies", "C:/Users/Abdalla/Desktop/fashny bar/com.jpg"));
+            images.add(new placeImage("deal with professional companies", "C:/Users/Abdalla/Desktop/fashny bar/comp.jpg"));
+            images.add(new placeImage("deal with professional Hotels", "C:/Users/Abdalla/Desktop/fashny bar/hotel.jpg"));
+            images.add(new placeImage("BEST Restaurant, DELICIOUS food", "C:/Users/Abdalla/Desktop/fashny bar/rest.jpg"));
+            images.add(new placeImage("discover new places", "C:/Users/Abdalla/Desktop/fashny bar/place.jpg"));
+            images.add(new placeImage("discover new places", "C:/Users/Abdalla/Desktop/fashny bar/place2.jpg"));
+            images.add(new placeImage("catch special offers", "C:/Users/Abdalla/Desktop/fashny bar/offers.jpg"));
+            images.add(new placeImage("meet new people in amazing trips", "C:/Users/Abdalla/Desktop/fashny bar/trip.jpg"));
+            images.add(new placeImage("meet new people in amazing trips", "C:/Users/Abdalla/Desktop/fashny bar/trip2.jpg"));
+            images.add(new placeImage("meet new people in amazing trips", "C:/Users/Abdalla/Desktop/fashny bar/trips.jpg"));
+        
         barImages= new ArrayList<>();
             barImages.add(new placeImage("deal with professional companies", "com.jpg"));
             barImages.add(new placeImage("deal with professional companies", "comp.jpg"));
