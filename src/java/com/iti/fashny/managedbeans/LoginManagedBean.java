@@ -13,38 +13,44 @@ import com.iti.fashny.exceptions.Fasa7nyException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Administrator
  */
-@ManagedBean(name = "login",eager = true) 
+@ManagedBean(name = "login", eager = true)
 @SessionScoped
-public class LoginManagedBean implements Serializable{
+public class LoginManagedBean implements Serializable {
 
-    boolean isLogged = false;
+    Role roles;
+    private String selectedRole;
+    private boolean isLogged = false;
     private String mail;
     private String password;
-    LoginBusiness loginB = new LoginBusiness();
-    private LoginAccount loginAccount ;
-    Client c;
+    LoginBusiness LoginBusiness;
+    private LoginAccount loginAccount;
 
+    public LoginManagedBean() {
+            roles = Role.Guest;
+             LoginBusiness = new LoginBusiness();
+    }
+
+    
+    
+    
+    
     public LoginAccount getLoginAccount() {
         return loginAccount;
-    }
+}
 
     public void setLoginAccount(LoginAccount loginAccount) {
         this.loginAccount = loginAccount;
     }
 
-    public boolean isLogged() {
-        return isLogged;
-    }
-
-    
-    
     public void setMail(String mail) {
         this.mail = mail;
     }
@@ -57,19 +63,29 @@ public class LoginManagedBean implements Serializable{
         return mail;
     }
 
+    public Role getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Role roles) {
+        this.roles = roles;
+    }
+
     public String getPassword() {
+
         return password;
     }
 
     public String login() {
         String destination = null;
         try {
-            c = loginB.login(mail, password);
+            loginAccount = new LoginAccount(LoginBusiness.login(mail, password, Role.valueOf(selectedRole)));
             isLogged = true;
-            loginAccount = new  LoginAccount(c);
+            roles = loginAccount.getRole();
             destination = "PlaceClient";
         } catch (Fasa7nyException ex) {
-            ex.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"enter valid email and password","");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         return destination;
     }
@@ -78,5 +94,21 @@ public class LoginManagedBean implements Serializable{
         isLogged = false;
         loginAccount = null;
         return "login";
+    }
+
+    public String getSelectedRole() {
+        return selectedRole;
+    }
+
+    public void setSelectedRole(String selectedRole) {
+        this.selectedRole = selectedRole;
+    }
+
+    public boolean isLogged() {
+        return isLogged;
+    }
+
+    public void setLogged(boolean isLogged) {
+        this.isLogged = isLogged;
     }
 }

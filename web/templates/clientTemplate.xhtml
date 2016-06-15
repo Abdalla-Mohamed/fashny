@@ -38,13 +38,14 @@
                 text-indent:0px;
                 background-image:none;
             }
-            .emptyWhite{
-                background: none !important;
+/*            .emptyWhite{
+                background: none !important
+                    background: #536178 !important;
                 font-size:small !important;
             }
             .ui-widget-header .ui-state-default {
                 background: none !important;
-            }
+            }*/
 
         </style>
 
@@ -110,18 +111,21 @@
 
             <f:facet name="right">
                 <h:form style="margin: 0px">
-                    email
-                    <p:inputText type="email" value="#{login.mail}" id="username"/>
+                    <p:outputLabel id="usernameLabel" for="username" value="email" />
+                    <p:inputText type="email" label="usernameLabel" value="#{login.mail}" id="username"/>
                     password
                     <h:inputSecret value="#{login.password}"/>
 
                     login as: 
-                    <p:selectOneMenu  styleClass="emptyWhite" style="font-size: small;vertical-align: middle" >
-                        <f:selectItem  itemLabel="Client" itemValue="0" />
-                        <f:selectItem   itemLabel="Company" itemValue="1" />
-                        <f:selectItem  itemLabel="Partner" itemValue="2" />
-                        <p:ajax event="valueChange" process="@this"  />
-                    </p:selectOneMenu >
+                 
+                    
+                     <p:selectOneMenu  styleClass="emptyWhite" value="#{login.selectedRole}" style="vertical-align: middle" >
+                                        <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
+                                        <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
+                                        <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
+                                        <p:ajax event="valueChange" process="@this"  />
+                                    </p:selectOneMenu >
+                    
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
