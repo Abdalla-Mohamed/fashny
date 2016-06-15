@@ -47,7 +47,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
     private List<Place> items = null;
     private Place selected;
     private List<Place> filteredItems;
-    private List<StreamedContent> imagesList;
+    private List<String> imagesList;
     private StreamedContent img;
     private MapModel draggableModel;
     private MapModel viewMap;
@@ -106,13 +106,11 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public List<Place> getItems() {
-        if (items == null) {
-            try {
+             try {
                 items = placeBusiness.view();
             } catch (Exception ex) {
                 Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
         return items;
     }
 
@@ -140,35 +138,35 @@ public class PlaceViewManagedBean_1 implements Serializable {
         this.placeBusiness = placeBusiness;
     }
 
-    public StreamedContent getImg() {
-        InputStream input = null;
-        try {
-            File f = new File("C:\\images\\pic.jpg");
-            input = new FileInputStream(f);
-            img = new DefaultStreamedContent(input, "image/jpeg");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                input.close();
-            } catch (IOException ex) {
-                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return img;
-
-    }
-
-    public void setImg(StreamedContent im) {
-        this.img = im;
-    }
-
     public Place getPlace(java.lang.Integer id) {
         return placeBusiness.showSpecificInfo(id);
     }
 
+    public List<String> getImagesList() {
+        imagesList=new ArrayList<>();
+        List<Resouce> resouceList=new ArrayList<>();
+         if(selected!=null){
+            
+            try {
+                resouceList = placeBusiness.getResources(selected).getResouceList();
+                for (Resouce resouceList1 : resouceList) {
+                    imagesList.add(resouceList1.getPath());
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return imagesList;
+    }
+
+    public void setImagesList(List<String> imagesList) {
+        this.imagesList = imagesList;
+    }
+    
     //</editor-fold>
-    //--------------------contructor
+    
+
+//--------------------contructor
     public PlaceViewManagedBean_1() {
         placeBusiness = new PlaceBusiness();
         draggableModel = new DefaultMapModel();
@@ -236,10 +234,24 @@ public class PlaceViewManagedBean_1 implements Serializable {
 
     protected void initializeEmbeddableKey() {
     }
+//
+//    public List<Tag> getTagsOfPlace() {
+//        List<Tag> tags = new ArrayList<Tag>(0);
+//        for (int i = 0; i < tagsIds.size(); i++) {
+//
+//            //System.out.println(tagsIds.get(i));
+//            String s = tagsIds.get(i) + "";
+//            int idValue = Integer.parseInt(s);
+//            //System.out.println(tagsIds.get(i));
+//            tags.add(new Tag((idValue)));
+//        }
+//        return tags;
+//    }
 
     public void create() {
         if (getSelected() != null) {
             try {
+     //           selected.setTagList(getTagsOfPlace());
                 placeBusiness.add(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -310,31 +322,6 @@ public class PlaceViewManagedBean_1 implements Serializable {
         }
     }
 
-    public List<StreamedContent> getImagesList() {
-        imagesList = new ArrayList();
-        StreamedContent imageRes;
-        try {
-            System.out.println(selected.getName());
-
-            for (Resouce resouce : selected.getResouceList()) {
-                File f = new File(resouce.getPath());
-                InputStream input = new FileInputStream(f);
-                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                imageRes = new DefaultStreamedContent(input, externalContext.getMimeType(f.getName()), f.getName());
-
-                imageRes = new DefaultStreamedContent(input, "image/jpeg");
-                imagesList.add(imageRes);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return imagesList;
-    }
-
-    public void setImagesList(List<StreamedContent> imagesList) {
-        this.imagesList = imagesList;
-    }
-
     public void comment(Client client) {
         System.out.println("comment method");
         if (selected != null) {
@@ -387,5 +374,16 @@ public class PlaceViewManagedBean_1 implements Serializable {
             }
         }
 
+    }
+    //______________________________
+    public String save() {
+        create();
+        items = getItems();
+        selected = new Place();
+        return "adminPlace_1";
+    }
+    public String cancel() { 
+        selected = new Place();
+        return "adminPlace_1";
     }
 }

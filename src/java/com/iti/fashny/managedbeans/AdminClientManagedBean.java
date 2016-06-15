@@ -105,11 +105,23 @@ public class AdminClientManagedBean implements Serializable {
     }
 
 //</editor-fold>
-
     //-----------constructor
     public AdminClientManagedBean() {
         clientBusiness = new ClientBusiness();
         selected = new Client();
+    }
+
+    public List<Client> viewItems() {
+        List<Client> clients = null;
+        if (clients == null) {
+            try {
+                items = clientBusiness.view();
+                clients=clientBusiness.view();
+            } catch (Exception ex) {
+                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return clients;
     }
 
     public Client prepareCreate() {
@@ -131,14 +143,17 @@ public class AdminClientManagedBean implements Serializable {
         return next;
     }
 
-    public void update() {
+    public String update() {
+        String next = null;
         if (selected != null) {
             try {
                 clientBusiness.update(selected);
+                next = "adminClient";
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        return next;
     }
 
     public List<Client> getItemsAvailableSelectMany() {
@@ -183,8 +198,7 @@ public class AdminClientManagedBean implements Serializable {
 
     }
 
-     
-    //<editor-fold desc="update in table">
+    //<editor-fold defaultstate="collapsed" desc="update in table">
     public void onRowEdit(RowEditEvent event) {
         selected = (Client) event.getObject();
         update();
@@ -208,8 +222,7 @@ public class AdminClientManagedBean implements Serializable {
     }
 
     //</editor-fold>
-    
-    //<editor-fold desc="converter">
+    //<editor-fold defaultstate="collapsed" desc="converter">
     @FacesConverter(forClass = Client.class)
     public static class ClientControllerConverter implements Converter {
 

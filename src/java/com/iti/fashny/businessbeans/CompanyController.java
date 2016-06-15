@@ -58,14 +58,27 @@ public class CompanyController implements Commens<Company>, Serializable {
     public List<Company> view() throws Exception {
 
         DaoFactory daoFactory = new DaoFactory();
-        List<Company> tags = new ArrayList<>();
+        List<Company> companies = new ArrayList<>();
         try {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
-            tags = companyFacade.findAll();
+            companies = companyFacade.findAll();
         } finally {
             daoFactory.close();
         }
-        return tags;
+        return companies;
+
+    }
+    public List<Company> getValidateCompanyForClient() throws Exception {
+
+        DaoFactory daoFactory = new DaoFactory();
+        List<Company> companies = new ArrayList<>();
+        try {
+            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+            companies = companyFacade.getConfirmCompanies();
+        } finally {
+            daoFactory.close();
+        }
+        return companies;
 
     }
 
@@ -124,19 +137,8 @@ public class CompanyController implements Commens<Company>, Serializable {
             company = companyFacade.refreshObj(companyObj);
             companyObj.setTagList(company.getTagList());
             companyObj.setTripList(company.getTripList());
-            
-//            System.out.println(company.getName());
-//            List<Trip> tripsOfCompanyList = company.getTripList();
-//            List<Tag> tagsOfCompanyList = company.getTagList();
-//         
-//                    
-//            System.out.println("trips : -->"+tripsOfCompanyList.size());
-//            System.out.println("tags : -->"+tagsOfCompanyList.size());
-//            for (Trip trip : tripsOfCompanyList) {
-//                System.out.println(trip.getName());
-//            }
+            companyObj.getTagList().size();
             daoFactory.commitTransaction();
-
         } catch (Exception e) {
             e.printStackTrace();
             daoFactory.rollbackTransaction();
@@ -146,27 +148,7 @@ public class CompanyController implements Commens<Company>, Serializable {
         }
         return companyObj;
     }
-//    public List<Company> gitTripsOfCompany(List<Company> companiesList) throws Exception {
-//
-//        DaoFactory daoFactory = new DaoFactory();
-////        List<Company> companyResults = new ArrayList<>();
-//        try {
-//            CompanyFacade companyFacade = daoFactory.getCompanyDoa();
-//            for (Company company: companiesList) {
-//                System.out.println(company.getName());
-//                List<Trip> tripsOfCompanyList = company.getTripList();
-//                for (Trip trip : tripsOfCompanyList) {
-//                    System.out.println(trip.getName());
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            // close connection
-//            daoFactory.close();
-//        }
-//        return companiesList;
-//}
+
     @Override
     public List<Company> searchByExample(Company company) throws Exception {
         return null;

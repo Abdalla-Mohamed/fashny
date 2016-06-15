@@ -15,6 +15,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
         <!-- Bootstrap 3.3.5 -->
 
+
         <h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
         <!-- Font Awesome -->
         <h:outputStylesheet name="font-awesome-4.6.2/css/font-awesome.min.css" />
@@ -37,7 +38,7 @@
         <ui:insert name="heads"/>
     </h:head>
 
-    <h:body class="hold-transition skin-green sidebar-mini">
+    <h:body class="hold-transition skin-green sidebar-mini" id="bobo" >
         <div class="wrapper">
             <header class="main-header ">
 
@@ -128,8 +129,11 @@
                         <div class="col-lg-12" >
                             <!--<p:growl autoUpdate="true" redisplay="true"  life="3000" />-->
                             <ui:insert class="col-lg-5" name="content">
+                                
                                 <div class="col-lg-7">Page content</div>
                                 <div class="col-lg-2"><p:commandButton styleClass=" btn btn-block btn-success btn-xs " /></div>
+                                
+         
                             </ui:insert>
                         </div>
                     </section>  
@@ -140,17 +144,7 @@
             <!-- /.content-wrapper -->
 
 
-            <!--................................... footer ..............................-->
-
-
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> 2.3.0
-                </div>
-                <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-            </footer>
-
-
+           
 
             <!--....................................right bar ...............................-->
 
@@ -200,8 +194,7 @@
 
         <!-- AdminLTE App -->
         <h:outputScript  name="dist/js/app.min.js" />
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <h:outputScript  name="dist/js/pages/dashboard.js" />
+     
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:body>
 

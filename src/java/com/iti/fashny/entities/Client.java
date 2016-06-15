@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -100,7 +101,7 @@ public class Client implements Serializable,UserAccount {
     @JoinTable(name = "wish", joinColumns = {
         @JoinColumn(name = "clients_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "places_id", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Place> placeList;
     @JoinTable(name = "interset", joinColumns = {
         @JoinColumn(name = "client_id", referencedColumnName = "id")}, inverseJoinColumns = {

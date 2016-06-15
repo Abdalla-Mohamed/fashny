@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../templates/clientTemplate.xhtml"
+                        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                Trips
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:dataGrid var="trip" value="#{tripMB.items}" columns="3" layout="grid"
+                                rows="12" paginator="true" id="trips"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="6,12,16">
+
+
+                        <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" id="dee">
+                            <div class="col-xs-4 blog-grid-left">
+                                <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                            </div> 
+                            <div class="col-xs-8 blog-grid-right">
+                                <a href=".html">#{trip.name}</a>
+                                <h4>#{trip.companyId.name} Company</h4>
+                                <p>#{trip.cost}L.E</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                            <div class="more m1">
+                                <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details" styleClass="btn btn-info col-xs-12"/>
+                                                               
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

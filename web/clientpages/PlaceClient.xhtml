@@ -21,11 +21,10 @@
                     <p:dataGrid var="place" value="#{placeView_1.items}" columns="3" layout="grid"
                                 rows="12" paginator="true" id="places"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="6,12,16"
-                                styleClass="no-border">
+                                rowsPerPageTemplate="6,12,16">
 
 
-                        <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                        <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" id="dee">
                             <div class="col-xs-4 blog-grid-left">
                                 <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
                             </div> 
@@ -37,7 +36,9 @@
                             <div class="clearfix"> </div>
                             <div class="more m1">
                                 <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
-                                <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details" styleClass="btn btn-info col-xs-12"/>
+                                <p:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details" styleClass="btn btn-info col-xs-6"/>
+
+                                <p:commandButton actionListener="#{wishes.addWish(login.loginAccount.client, place)}" id="add-wish"  icon="#{!login.loginAccount.client.placeList.contains(place)?'fa fa-heart-o':'fa fa-heart'}"  update="@this" title="add wish" rendered="#{login.logged}" styleClass="btn btn-info col-xs-2"/>
                             </div>
                         </div>
                     </p:dataGrid>

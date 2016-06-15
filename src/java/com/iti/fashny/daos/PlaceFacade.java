@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.daos;
 
+import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
@@ -65,7 +66,7 @@ public class PlaceFacade extends AbstractFacade<Place> {
         
         List<Wishes> wishes = new ArrayList<>();
         
-      String GET_WISHES = "select p.name , size(p.clientList) as l from Place p group by p.name order by l desc";// order by p.clientList.size() 
+      String GET_WISHES = "select p.name , size(p.clientList) as l from Place p group by p.name order by l desc"; 
        
       try{
       Query q = getEntityManager().createQuery(GET_WISHES);
@@ -85,4 +86,20 @@ public class PlaceFacade extends AbstractFacade<Place> {
         return wishes;
     }
     
+    public List<Place> getNotWishedPlaces(Client client){
+        
+        List<Place>places =new ArrayList<>();
+        
+        String GET_OTHER_PLACES = "from Place p where ? not member of p.clientList";
+        
+        Query q = getEntityManager().createQuery(GET_OTHER_PLACES).setParameter(1, client);
+       
+        try{
+            places = q.getResultList();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return places;
+    }
 }

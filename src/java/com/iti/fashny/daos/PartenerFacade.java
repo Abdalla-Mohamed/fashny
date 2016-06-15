@@ -5,12 +5,14 @@
  */
 package com.iti.fashny.daos;
 
+import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Partener;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.iti.fashny.entities.Service;
+import com.iti.fashny.exceptions.Fasa7nyException;
 
 /**
  *
@@ -20,6 +22,7 @@ import com.iti.fashny.entities.Service;
 public class PartenerFacade extends AbstractFacade<Partener> {
 
     private static final String GET_PARTENER_SERVICES= "select s.serviceList  from ServiceCategorey s where s.partenersId = :partenerId";
+    private static final String HQL_LOGIN = "FROM Partener p WHERE p.email =:email AND p.password =:password ";
 
   
      PartenerFacade(EntityManager em) {
@@ -48,6 +51,16 @@ public class PartenerFacade extends AbstractFacade<Partener> {
              
         return services;
      }
+
+    public Partener login(String email, String pass) throws Fasa7nyException{
+        List result = getEntityManager().createQuery(HQL_LOGIN)
+                .setParameter("email", email).setParameter("password", pass).getResultList();
+        if (result == null||result.isEmpty()) {
+            throw new Fasa7nyException();
+        }
+        return (Partener) result.get(0);
+
+    }
      
     
 }

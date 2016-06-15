@@ -11,6 +11,7 @@ import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.UserAccount;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  *
  * @author Abdalla
  */
-public class LoginAccount {
+public class LoginAccount implements Serializable{
 
     private Role role;
     private UserAccount account;
