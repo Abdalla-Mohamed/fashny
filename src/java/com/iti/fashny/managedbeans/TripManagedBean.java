@@ -86,6 +86,7 @@ public class TripManagedBean implements Serializable {
         if (getSelected() != null) {
             try {
                 tripBusiness.add(selected);
+                System.out.println("-->"+selected.getName());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
