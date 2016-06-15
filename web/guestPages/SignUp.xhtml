@@ -43,6 +43,7 @@
                                     <p:outputLabel value="#{MyPropertyFile.Mail}"/>
                                     <p:inputText value="#{SignUpBean.c.email}" id="mail" required="true" requiredMessage="#{MyPropertyFile.ThisFieldIsRequired}">
                                         <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
+<!--                                    <f:ajax event="blur" render="mail"/> -->
                                     </p:inputText>
                                     <h:message for="mail" style="color:red" />
 

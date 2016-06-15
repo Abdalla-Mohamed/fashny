@@ -38,7 +38,14 @@ public class SignUpBean
     
     
     Client c = new Client();
-
+    
+    guestImpl guestImpl;
+    
+    public SignUpBean()
+    {
+        guestImpl=new guestImpl();
+    }
+    
 //    public NavigationBean getNavigationBean() {
 //        return navigationBean;
 //    }
@@ -88,10 +95,11 @@ public class SignUpBean
 //      daoFactory.commitTransaction();
 //      daoFactory.close();
         
-        new guestImpl().signUp(c);
+      //  new guestImpl().signUp(c);
       
+        guestImpl.signUp(c);
 //      return navigationBean.toWelcome();
-        return "/info";
+        return "/index";
     }
     
       public void uploadedPicture()
