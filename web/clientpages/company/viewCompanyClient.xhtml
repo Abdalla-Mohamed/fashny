@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./../../templates/clientTemplate.xhtml"  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                 #{CompanyMBClient.selected.name} Company 
+            </ui:define>
+
+            <ui:define name="content">
+                <!-- Keep the first param for next redirection -->
+                <f:facet name="header">
+                    #{CompanyMBClient.selected.name}
+                </f:facet>
+                <div  class="col-sm-12" align="center">
+                    <h:form id="PlaceViewForm">
+                        <div class="col-sm-3" align="center"></div>
+                        <div class="table-responsive col-sm-6">      
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_name}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.selected.name}" title="#{bundle.ViewCompanyTitle_name}"/></td>   
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_description}"/> </td>
+                                        <td><h:outputText value="#{CompanyMBClient.selected.description}" title="#{bundle.ViewCompanyTitle_description}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <h:outputText value="#{bundle.ViewCompanyLabel_email}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.selected.email}" title="#{bundle.ViewCompanyTitle_email}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <h:outputText value="#{bundle.ViewCompanyLabel_contactEmail}"/></td>
+                                        <td>  <h:outputText value="#{CompanyMBClient.selected.contactEmail}" title="#{bundle.ViewCompanyTitle_contactEmail}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_website}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.selected.website}" title="#{bundle.ViewCompanyTitle_website}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_phone}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.selected.phone}" title="#{bundle.ViewCompanyTitle_phone}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile1}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.selected.mobile1}" title="#{bundle.ViewCompanyTitle_mobile1}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile2}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.selected.mobile2}" title="#{bundle.ViewCompanyTitle_mobile2}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_address}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.selected.address}" title="#{bundle.ViewCompanyTitle_address}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_tag}"/></td>
+                                        <td><p:dataList value="#{CompanyMBClient.selected.tagList}" var="tag" >#{tag.name}</p:dataList></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-sm-12" align="center">
+                    <div class="col-sm-2" align="center"></div>
+                    <div class="table-responsive col-sm-8"> 
+                        <h:form id="form">
+                            <h2> Trip Organized by #{CompanyMBClient.selected.name}</h2><br/>
+                            <p:dataGrid var="trip" value="#{CompanyMBClient.selected.tripList}" columns="3" layout="grid"
+                                        rows="3" paginator="true" id="trip"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="3,6,12,16">
+
+
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right">
+                                        <a href="single.html"><h4>#{trip.name}</h4></a>
+                                        <p>Trip Date : #{trip.date}</p>
+                                        <p>#{trip.countBooking} joined</p>
+                                        <h5>#{trip.cost} EGP</h5>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </h:form>
+                    </div>
+                </div>
+                <br/><br/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

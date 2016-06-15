@@ -16,14 +16,14 @@
     </ui:define>
 
     <ui:define name="contPagePath">
-        
+
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="ClientListForm">
+        <h:form id="ClientListForm" prependId="false">
             <p:growl id="msgs" showDetail="true"/>
-            <p:panel header="#{bundle.ListClientTitle}">
-                <p:dataTable id="datalist" value="#{adminClient.items}" var="item"
+            <p:panel header="#{bundle.ListClientTitle}" id="pnlList">
+                <p:dataTable id="datalist" value="#{adminClient.viewItems()}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
                              rows="10"
@@ -35,8 +35,8 @@
 
                     <p:ajax event="rowSelect"   update="createButton viewButton"/>
                     <p:ajax event="rowUnselect" update="createButton viewButton"/>
-                    <p:ajax event="rowEdit" listener="#{adminClient.onRowEdit}" update="ClientListForm:msgs" />
-                    <p:ajax event="rowEditCancel" listener="#{adminClient.onRowCancel}" update="ClientListForm:msgs" />
+                    <p:ajax event="rowEdit" listener="#{adminClient.onRowEdit}" update="msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{adminClient.onRowCancel}" update="msgs" />
 
                     <p:column headerText="#{bundle.ListClientTitle_name}">
                         <p:cellEditor>
@@ -122,23 +122,32 @@
                             <f:facet name="input"><p:selectBooleanCheckbox value="#{item.active}" disabled="false"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-                    
+
                     <p:column style="width:32px">
-                        <p:commandLink id="viewButton" value="#{bundle.View}" styleClass="ui-icon ui-icon-search" action="#{adminClient.goToViewClient(item.id)}"/>
+                        <p:commandLink id="viewButton" value="#{bundle.View}" styleClass="ui-icon ui-icon-search btnview" action="#{adminClient.goToViewClient(item.id)}"/>
+                        <p:tooltip id="toolTipView" for="viewButton" value="View Client Data" trackMouse="true" />
                     </p:column>
 
                     <p:column style="width:32px">
-                        <p:rowEditor />
+                        <p:rowEditor id="Edit"/>
+                        <p:tooltip id="toolTipEdit" for="Edit" value="Edit Active Property" trackMouse="true" />
                     </p:column>
 
                     <f:facet name="footer">
                         <p:commandButton id="createButton" value="Create"  icon="ui-icon-plus" action="#{adminClient.goToCreateClient()}"/>
                     </f:facet>
                 </p:dataTable>
+                
+                <p:blockUI block="bobo" trigger="@(.btnview) datalist:createButton">
+                    LOADING<br />
+                    <p:graphicImage name="/processing-bar.gif"/>
+                </p:blockUI>
             </p:panel>
+
+
+
         </h:form>
 
-        <ui:include src="Edit.xhtml"/>
     </ui:define>
 
     <ui:define name="rightHeader">

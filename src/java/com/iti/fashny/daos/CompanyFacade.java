@@ -5,9 +5,11 @@
  */
 package com.iti.fashny.daos;
 
+import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.exceptions.Fasa7nyException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import org.hibernate.Criteria;
  * @author Hosam
  */
 public class CompanyFacade extends AbstractFacade<Company> {
+    private static final String HQL_LOGIN = "FROM Company c WHERE c.email =:email AND c.password =:password ";
 
     CompanyFacade(EntityManager em) {
         super(Company.class, em);
@@ -49,18 +52,37 @@ public class CompanyFacade extends AbstractFacade<Company> {
 
     }
 
-    public List<Company> getUnconcirmCompanies() {
+    public List<Company> getUnconfirmCompanies() {
         List<Company> unconfirmCompanies = new ArrayList<>();
         try {
 
             unconfirmCompanies = getEntityManager().createNamedQuery("Company.findByValidated").setParameter("validated", false).getResultList();
-//            for (Place placerslt : unconfirmPlaces) {
-//                System.out.println(placerslt.getName());
-//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return unconfirmCompanies;
     }
+    public List<Company> getConfirmCompanies() {
+        List<Company> unconfirmCompanies = new ArrayList<>();
+        try {
 
+            unconfirmCompanies = getEntityManager().createNamedQuery("Company.findByValidated").setParameter("validated", true).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return unconfirmCompanies;
+    }
+    
+     public Company login(String email, String pass) throws Fasa7nyException {
+        System.out.println("=========================");
+        System.out.println(email + "," + pass);
+        System.out.println("=========================");
+        List result = (List) getEntityManager().createQuery(HQL_LOGIN)
+                .setParameter("email", email).setParameter("password", pass).getResultList();
+        if (result == null || result.isEmpty()) {
+            throw new Fasa7nyException();
+        }
+        return (Company) result.get(0);
+
+    }
 }

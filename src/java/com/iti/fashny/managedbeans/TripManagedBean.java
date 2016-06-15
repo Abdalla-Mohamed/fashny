@@ -5,7 +5,12 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.ClientJoinTripBusiness;
 import com.iti.fashny.businessbeans.TripBusiness;
+import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.JoinTrip;
+import com.iti.fashny.entities.JoinTripPK;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Trip;
 import java.util.*;
@@ -14,11 +19,11 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import java.io.*;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
-
 
 @ManagedBean(name = "tripMB")
 @SessionScoped
@@ -27,22 +32,27 @@ public class TripManagedBean implements Serializable {
     TripBusiness tripBusiness;
     private List<Trip> items = null;
     private Trip selected;
+    private JoinTrip clientJoinTrip;
+    private JoinTripPK joinTripPK;
 
     //_______________________________________________________________________//
+
     public TripManagedBean() {
         tripBusiness = new TripBusiness();
         selected = new Trip();
+        clientJoinTrip = new JoinTrip();
+        joinTripPK=new JoinTripPK();
     }
     //_________________________ setter and getter  __________________________//
 
     public List<Trip> getItems() {
-        if (items == null) {
-            try {
-                items = tripBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            items = tripBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return items;
     }
 
@@ -64,15 +74,22 @@ public class TripManagedBean implements Serializable {
 
     public void setSelected(Trip selected) {
         this.selected = selected;
-    }   
+    }
+
+    public JoinTrip getClientJoinTrip() {
+        return clientJoinTrip;
+    }
+
+    public void setClientJoinTrip(JoinTrip clientJoinTrip) {
+        this.clientJoinTrip = clientJoinTrip;
+    }
 
     //_________________________ functionlity  _____________________________//
-
     public Trip prepareCreate() {
         selected = new Trip();
         return selected;
     }
-    
+
     public void create() {
         if (getSelected() != null) {
             try {
@@ -84,6 +101,8 @@ public class TripManagedBean implements Serializable {
     }
 
     public void update() {
+        System.err.println("......_____________________________________#####");
+
         if (selected != null) {
             try {
                 tripBusiness.update(selected);
@@ -92,16 +111,37 @@ public class TripManagedBean implements Serializable {
             }
         }
     }
-    
+
     public String tripDetails(int id) {
         selected = tripBusiness.showSpecificInfo(id);
         return "tripDetails";
     }
+
+    public void joinTrip(Client client) {
+        System.out.println("jointrip method");
+        if (selected != null) {
+            
+            joinTripPK.setClientId(client.getId());
+            joinTripPK.setTripid(selected.getId());
+
+            clientJoinTrip.setJoinTripPK(joinTripPK);
+
+            ClientJoinTripBusiness clientJoinTripBusiness = new ClientJoinTripBusiness();
+            clientJoinTripBusiness.joinTrip(clientJoinTrip,selected);
+
+            clientJoinTrip = new JoinTrip();
+            joinTripPK=new JoinTripPK();
+           
+        }
+    }
     // --------------------------- for page --------------------------------//
-    
+
     public void onRowEdit(RowEditEvent event) {
+
         selected = (Trip) event.getObject();
         update();
+        items = getItems();
+        System.err.println("......_____________________________________>" + ((Trip) event.getObject()).getName());
         FacesMessage msg = new FacesMessage("Trip Edited", ((Trip) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -120,10 +160,11 @@ public class TripManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+
     public String goToViewTrip(int id) {
         selected = tripBusiness.showSpecificInfo(id);
         try {
-           selected=tripBusiness.gitAllCompanyLists(selected);
+            selected = tripBusiness.gitAllCompanyLists(selected);
         } catch (Exception ex) {
             Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,20 +175,26 @@ public class TripManagedBean implements Serializable {
         selected = new Trip();
         return "createTrip";
     }
-    
-    public String goToTrips(){
+
+    public String goToTrips() {
         return "trips";
-    } 
-    public String save(){
+    }
+
+    public String save() {
         create();
+        items = getItems();
         selected = new Trip();
         return "trips";
-    } 
-    public String cansel(){
+    }
+
+    public void creatByCompany(Company company) {
+        selected.setCompanyId(company);
+        save();
+    }
+
+    public String cansel() {
         selected = new Trip();
         return "trips";
-    } 
-    
-    
+    }
 
 }

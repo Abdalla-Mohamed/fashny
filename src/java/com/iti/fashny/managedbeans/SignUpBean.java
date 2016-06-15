@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.businessbeans.AdditionalFns;
 import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.DaoFactory;
@@ -24,33 +25,31 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.FileUploadEvent;
 
-
-
 /**
  *
  * @author MANAR ADEL
  */
-
-@ManagedBean(name="SignUpBean")
+@ManagedBean(name = "SignUpBean")
 @SessionScoped
-public class SignUpBean 
-{
-    
+public class SignUpBean {
+
+    UploadImage uploadImage;
     
     Client c = new Client();
 
-//    public NavigationBean getNavigationBean() {
-//        return navigationBean;
-//    }
-//
-//    public void setNavigationBean(NavigationBean navigationBean) {
-//        this.navigationBean = navigationBean;
-//    }
-//
-//     @ManagedProperty(value = "#{navigationBean}")
-//    private NavigationBean navigationBean;
+    public SignUpBean() {
+        uploadImage =new UploadImage();
+    }
+
     
-    
+    public UploadImage getUploadImage() {
+        return uploadImage;
+    }
+
+    public void setUploadImage(UploadImage uploadImage) {
+        this.uploadImage = uploadImage;
+    }
+
     public Client getC() {
         return c;
     }
@@ -58,9 +57,8 @@ public class SignUpBean
     public void setC(Client c) {
         this.c = c;
     }
-    
-    public void getAllInfo()
-    {
+
+    public void getAllInfo() {
         System.out.println(c.getName());
         System.out.println(c.getPassword());
         System.out.println(c.getEmail());
@@ -74,50 +72,22 @@ public class SignUpBean
         System.out.println(c.getActive());
         System.out.println(c.getGender());
         System.out.println(c.getId());
-               
+
     }
-    
-    public String registerNewClient()
-    {
-//        DaoFactory daoFactory = new DaoFactory();
-//        ClientFacade clientFacade = daoFactory.getClientDoa();
-//        
-//      daoFactory.beginTransaction();
-//      clientFacade.create(c);
-//      //clientFacade.create(new Client(null, "omr", "2cli2@cc.com", "asasd2", "asdasd2", new Date(), (short) 1, (short) 2, new Timestamp(System.currentTimeMillis()), "2"));
-//      daoFactory.commitTransaction();
-//      daoFactory.close();
-        
+
+    public String registerNewClient() {
         new guestImpl().signUp(c);
-      
-//      return navigationBean.toWelcome();
+        uploadImage.forClient(c.getId()+"");
+        uploadImage.copyFile();
         return "/info";
     }
-    
-      public void uploadedPicture()
-    {
-        
-    }
-      
-//    daoFactory.beginTransaction();
-//    clientFacade.create(new Client(c));
-//    daoFactory.commitTransaction();
-//     daoFactory.close();
- 
-    public void checkIfMailExitsAnywhere()
-    {
-        
-    }
-    
-     public void validateMail(String mail)
-    {
-        
-    }
-    String fileName;
+
+/*    String fileName;
     String logo;
     String path = "C:\\Users\\";
+
     public String handleFileUpload(FileUploadEvent event) {
-       
+
         fileName = event.getFile().getFileName();
         logo = event.getFile().getFileName();
         System.out.println("Logo=" + logo);
@@ -131,7 +101,7 @@ public class SignUpBean
     }
 
     private void copyFile(String fileName, InputStream inputstream) {
-        
+
         try {
 
             // write the inputStream to a FileOutputStream
@@ -168,18 +138,6 @@ public class SignUpBean
         }
 
     }
-
-    /*
-     //Common
-     DaoFactory daoFactory = new DaoFactory();
-     ClientFacade clientFacade = daoFactory.getClientDoa();
-        
-     daoFactory.beginTransaction();
-     clientFacade.create(c);
-     //clientFacade.create(new Client(null, "omr", "2cli2@cc.com", "asasd2", "asdasd2", new Date(), (short) 1, (short) 2, new Timestamp(System.currentTimeMillis()), "2"));
-     daoFactory.commitTransaction();
-     daoFactory.close();
-     */
-    
+*/
     
 }

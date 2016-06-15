@@ -79,12 +79,11 @@
 
 
         <p:contentFlow value="#{homeMB.images}" var="image">
-            <p:graphicImage name="nature/#{image.imgPath}" styleClass="content" />
+            <p:graphicImage value="/Image?imageName=#{image.imgPath}" styleClass="content" />
             <div class="caption">#{image.placeName}</div>
         </p:contentFlow>
 
-        
-        
+     
         	<h:form enctype="multipart/form-data" style="width:500px">
 				<p:growl id="msg"></p:growl>
                                 <p:fileUpload value="#{fileUploadMB.file}"

@@ -34,12 +34,17 @@
                                 <p:outputLabel value="#{MyPropertyFile.PartnerDescription}"/>
                                 <p:inputText value="#{PartnerCRUDSBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
-
+                                <ui:remove>
                                 <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
                                 <p:inputText value="#{PartnerCRUDSBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
                                     <f:converter converterId="PartenerCreatePartenerConverterForPartenerType" />
                                 </p:inputText>
-
+                                </ui:remove>
+                                
+                                <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
+                                <h:selectOneMenu value="#{PartnerCRUDSBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType">
+                                    <f:selectItems value="#{PartnerCRUDSBean.findAll}" var="findall" itemValue="#{findall}" itemLabel="#{findall.name}" />
+                                </h:selectOneMenu>
 
                                 <p:outputLabel value="#{MyPropertyFile.PartnerWorkHours}"/>
                                 <p:inputText value="#{PartnerCRUDSBean.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
