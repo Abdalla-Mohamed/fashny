@@ -35,7 +35,6 @@
                             </div>
                             <div class="clearfix"> </div>
                             <div class="more m1">
-                                <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
                                 <p:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details" styleClass="btn btn-info col-xs-6"/>
 
                                 <p:commandButton actionListener="#{wishes.addWish(login.loginAccount.client, place)}" id="add-wish"  icon="#{!login.loginAccount.client.placeList.contains(place)?'fa fa-heart-o':'fa fa-heart'}"  update="@this" title="add wish" rendered="#{login.logged}" styleClass="btn btn-info col-xs-2"/>
