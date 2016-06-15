@@ -7,7 +7,6 @@ package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.businessbeans.TripBusiness;
-import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Trip;
 import java.util.*;
@@ -16,7 +15,6 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import java.io.*;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
@@ -96,7 +94,6 @@ public class TripManagedBean implements Serializable {
         }
     }
 
-    
     public void update() {
         System.err.println("......_____________________________________#####");
 
@@ -165,11 +162,8 @@ public class TripManagedBean implements Serializable {
         selected = new Trip();
         return "trips";
     }
-    public void creatByCompany(Company company){
-        selected.setCompanyId(company);
-        save();
-    }
-    public String cansel(){
+
+    public String cansel() {
         selected = new Trip();
         return "trips";
     }

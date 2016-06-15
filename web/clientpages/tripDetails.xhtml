@@ -24,7 +24,7 @@
                     <h:outputText value="Company  : "/>
                     <h:outputText value="#{tripMB.selected.companyId.name}"/>
                     <br/><br/>
-                    
+
                     <h:outputText value="Trip Cost : "/>
                     <h:outputText value="#{tripMB.selected.cost}"/>
                     <br/><br/>
@@ -32,24 +32,42 @@
                     <h:outputText value="Trip program : "/>
                     <h:outputText value="#{tripMB.selected.program}"/>
                     <br/><br/>
-                    
+
                     <h:outputText value="Tools needed : "/>
                     <h:outputText value="#{tripMB.selected.needTools}"/>
                     <br/><br/>
-                    
+
                     <h:outputText value="Trip date  : "/>
                     <h:outputText value="#{tripMB.selected.date}"/>
                     <br/><br/>
-                    
+
                     <h:outputText value="Trip Join deadline  : "/>
                     <h:outputText value="#{tripMB.selected.joinDeadline}"/>
                     <br/><br/>
 
                     <h:graphicImage value="/clientpages/cairotower.jpg" width="800" height="400"/>
+                    <br/>
+                    <p:commandButton value="Join Trip" type="button" onclick="PF('dlg2').show();" rendered="#{login.logged and login.loginAccount.role=='Client'}"/>
 
-                                     
+                    <p:dialog header="Join Trip" widgetVar="dlg2" modal="true" height="200">
+                        <h:panelGrid columns="2" styleClass="ui-grid" cellspacing="5">
+                            <p:outputLabel value="Count Booking : "/>
+                            <p:outputLabel value="#{tripMB.selected.countBooking}"/>
 
-                   
+                            <p:outputLabel value="Max Booking : "/>
+                            <p:outputLabel value="#{tripMB.selected.maxbooking}"/>
+
+                            <p:outputLabel value="Count : "/>
+                            <p:spinner value="#{tripMB.clientJoinTrip.count}"/>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Join" id="join" action="#{tripMB.joinTrip(login.loginAccount.client)}" styleClass="ui-priority-primary" oncomplete="handleSubmit(args,'dlg2');" />
+                                <p:commandButton value="Cancel" onclick="dlg2.hide()"/>
+                            </f:facet>
+
+                        </h:panelGrid>
+                    </p:dialog> 
+
                 </h:form>
 
                 <!-- Keep the first param for next redirection -->
