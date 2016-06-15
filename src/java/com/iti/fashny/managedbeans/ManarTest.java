@@ -21,16 +21,16 @@ import javax.persistence.NamedQuery;
 public class ManarTest 
 {
     public static void main(String[] args) {
-        Partener p = new Partener();
-        
-        p.setName("fs4wf");
-        p.setPassword("4fsfdsaf");
-        p.setEmail("faddff");
-        p.setContactEmail("dfdfadfa");
-        p.setPhone("32423");
-        p.setMobile1("234234");
-        p.setMobile2("4234");
-        p.setType(new PartnType(1));
+//        Partener p = new Partener();
+//        
+//        p.setName("fs4wf");
+//        p.setPassword("4fsfdsaf");
+//        p.setEmail("faddff");
+//        p.setContactEmail("dfdfadfa");
+//        p.setPhone("32423");
+//        p.setMobile1("234234");
+//        p.setMobile2("4234");
+//        p.setType(new PartnType(1));
         
         
 //        new guestImpl().signUp(p);
@@ -38,22 +38,48 @@ public class ManarTest
 //        new SignUpCreatePartenerBean().registerNewPartener();
         
         
+//        
+//        DaoFactory daoFactory1 = new DaoFactory();
+//        PartnTypeFacade partnTypeFacade = daoFactory1.getPartnTypeDoa();
+//        daoFactory1.beginTransaction();
+//        List<PartnType> findAll = partnTypeFacade.findAll();
+//        
+//        for(PartnType pt : findAll)
+//        {
+//            System.out.println(pt.getId());
+//            System.out.println(pt.getName());
+//            System.out.println("---------------");
+//        }
+//        
+//        
+//        daoFactory1.commitTransaction();
+//        daoFactory1.close();
         
-        DaoFactory daoFactory1 = new DaoFactory();
-        PartnTypeFacade partnTypeFacade = daoFactory1.getPartnTypeDoa();
-        daoFactory1.beginTransaction();
-        List<PartnType> findAll = partnTypeFacade.findAll();
-        
-        for(PartnType pt : findAll)
-        {
-            System.out.println(pt.getId());
-            System.out.println(pt.getName());
-            System.out.println("---------------");
-        }
         
         
-        daoFactory1.commitTransaction();
-        daoFactory1.close();
+          
+    DaoFactory daoFactory2 = new DaoFactory();
+    PartnTypeFacade partnTypeFacade2 = daoFactory2.getPartnTypeDoa();
+    daoFactory2.beginTransaction();
+    
+        List<Partener> allofpartenerOfOneCat = partnTypeFacade2.getAllpartenerOfOneCat(1);
+    
+    for(Partener prtn : allofpartenerOfOneCat)
+    {
+        System.out.println(prtn.getName());
+    }
+    
+    daoFactory2.commitTransaction();
+    daoFactory2.close();
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     }
     
@@ -74,5 +100,12 @@ public class ManarTest
 //        
 //        return valid;
 //    }
+    
+    
+    
+ 
+    
+    
+    
     
 }
