@@ -34,14 +34,15 @@ public class TripManagedBean implements Serializable {
     private Trip selected;
     private JoinTrip clientJoinTrip;
     private JoinTripPK joinTripPK;
-
+    private Date date;
     //_______________________________________________________________________//
 
     public TripManagedBean() {
         tripBusiness = new TripBusiness();
         selected = new Trip();
         clientJoinTrip = new JoinTrip();
-        joinTripPK=new JoinTripPK();
+        joinTripPK = new JoinTripPK();
+        date=new Date();
     }
     //_________________________ setter and getter  __________________________//
 
@@ -84,6 +85,15 @@ public class TripManagedBean implements Serializable {
         this.clientJoinTrip = clientJoinTrip;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    
     //_________________________ functionlity  _____________________________//
     public Trip prepareCreate() {
         selected = new Trip();
@@ -120,18 +130,18 @@ public class TripManagedBean implements Serializable {
     public void joinTrip(Client client) {
         System.out.println("jointrip method");
         if (selected != null) {
-            
+
             joinTripPK.setClientId(client.getId());
             joinTripPK.setTripid(selected.getId());
 
             clientJoinTrip.setJoinTripPK(joinTripPK);
 
             ClientJoinTripBusiness clientJoinTripBusiness = new ClientJoinTripBusiness();
-            clientJoinTripBusiness.joinTrip(clientJoinTrip,selected);
+            clientJoinTripBusiness.joinTrip(clientJoinTrip, selected);
 
             clientJoinTrip = new JoinTrip();
-            joinTripPK=new JoinTripPK();
-           
+            joinTripPK = new JoinTripPK();
+
         }
     }
     // --------------------------- for page --------------------------------//
