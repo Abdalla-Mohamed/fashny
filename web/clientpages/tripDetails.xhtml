@@ -49,20 +49,24 @@
                     <br/>
                     <p:commandButton value="Join Trip" type="button" onclick="PF('dlg2').show();" rendered="#{login.logged and login.loginAccount.role=='Client'}"/>
 
-                    <p:dialog header="Join Trip" widgetVar="dlg2" modal="true" height="100">
-                        <h:outputText value="Count Booking : "/>
-                        <h:outputText value="#{tripMB.selected.countBooking}"/>
+                    <p:dialog header="Join Trip" widgetVar="dlg2" modal="true" height="200">
+                        <h:panelGrid columns="2" styleClass="ui-grid" cellspacing="5">
+                            <p:outputLabel value="Count Booking : "/>
+                            <p:outputLabel value="#{tripMB.selected.countBooking}"/>
 
-                        <h:outputText value="Max Booking : "/>
-                        <h:outputText value="#{tripMB.selected.maxbooking}"/>
+                            <p:outputLabel value="Max Booking : "/>
+                            <p:outputLabel value="#{tripMB.selected.maxbooking}"/>
 
-                        <h:outputText value="Count : "/>
-                        <h:inputText value="#{tripMB.clientJoinTrip.count}"/>
+                            <p:outputLabel value="Count : "/>
+                            <p:spinner value="#{tripMB.clientJoinTrip.count}"/>
 
-                        <p:commandButton value="Join" id="join" action="#{tripMB.joinTrip(client)}" styleClass="ui-priority-primary" />
+                            <f:facet name="footer">
+                                <p:commandButton value="Join" id="join" action="#{tripMB.joinTrip(login.loginAccount.client)}" styleClass="ui-priority-primary" oncomplete="handleSubmit(args,'dlg2');" />
+                                <p:commandButton value="Cancel" onclick="dlg2.hide()"/>
+                            </f:facet>
+
+                        </h:panelGrid>
                     </p:dialog> 
-
-
 
                 </h:form>
 
