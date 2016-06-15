@@ -24,25 +24,27 @@
                                  padding-bottom: 0px;
                                  margin-bottom: 0px;
                                  " >
-                                <h:panelGrid columns="1" styleClass=" resp-tabs-list"  >
+                                <h:panelGrid  id="loginGrid" columns="1" styleClass=" resp-tabs-list"  >
+                                    <p:messages  autoUpdate="true" id="msgs" />
+
                                     <h:outputText value="Email : "/>
-                                    <p:inputText type="email" value="#{login.mail}" id="username"/>
+                                    <p:inputText id="email" type="email" value="#{login.mail}"  required="true" requiredMessage="email is reqiured" />
                                     <p:spacer />
 
-                                    <h:outputText value="Password : "/>
-                                    <p:password value="#{login.password}"/>
+                                    <h:outputText value="Password : " />
+                                    <p:password id="password" value="#{login.password}"  required="true" requiredMessage="password is reqiured"/>
 
                                     <p:spacer />
 
                                     <h:outputText value="login as: "/>
-                                    <p:selectOneMenu  styleClass="emptyWhite"  >
-                                        <f:selectItem  itemLabel="Client" itemValue="0" />
-                                        <f:selectItem   itemLabel="Company" itemValue="1" />
-                                        <f:selectItem  itemLabel="Partner" itemValue="2" />
+                                    <p:selectOneMenu  styleClass="emptyWhite" value="#{login.selectedRole}" >
+                                        <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
+                                        <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
+                                        <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
                                         <p:ajax event="valueChange" process="@this"  />
                                     </p:selectOneMenu >
                                     <p:spacer height="1" />
-                                    <p:commandButton id="button" value="Login" action="#{login.login()}"/><br/>
+                                    <p:commandButton update="loginGrid" id="button" value="Login" action="#{login.login()}" /><br/>
                                     <p:commandLink action="#{login.logOut()}" value="Info page"/>
                                 </h:panelGrid>
 
@@ -55,7 +57,7 @@
 
                     </div>
                 </div>
-                        <p:spacer height="2"/>
+                <p:spacer height="2"/>
             </ui:define>
 
         </ui:composition>
