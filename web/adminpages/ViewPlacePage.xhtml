@@ -6,20 +6,25 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+    <ui:define name="heads">
+
+    </ui:define>
     <body>
 
         <ui:composition template="./../templates/templateAdmin.xhtml">
 
             <ui:define name="contPageName">
-                contPageName
+               <h:outputText value="#{placeView_1.selected.name}"/>
             </ui:define>
 
             <ui:define name="contPageDescrp">
-                contPageDescrp
+                more details about this place 
             </ui:define>
 
             <ui:define name="contPagePath">
-                contPagePath
+                <a href="">Home > </a> 
+                <a href="./../adminpages/adminPlace_1.xhtml">Show All Places > </a> 
+                <a href="./../adminpages/ViewPlacePage.xhtml">Place Details</a>
             </ui:define>
 
             <ui:define name="content">
@@ -27,45 +32,80 @@
                 <h:form id="PlaceViewForm">
                     <div  class="col-sm-12" align="center">
                         <div class="col-sm-6" align="center">    
-                            <font size="10">
-                            <p:panelGrid  columns="2" rendered="#{placeView_1.selected != null}" styleClass="col-sm-12" style="font: bold;">
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_id}" style="font-size: 24px"/>
-                                    <h:outputText value="#{placeView_1.selected.id}" title="#{bundle.ViewPlaceTitle_id}"/>
-                                    
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_name}"/>
-                                    <h:outputText value="#{placeView_1.selected.name}" title="#{bundle.ViewPlaceTitle_name}"/>
-                                    
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_address}"/>
-                                    <h:outputText value="#{placeView_1.selected.address}" title="#{bundle.ViewPlaceTitle_address}"/>
-                                    
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_description}"/>
-                                    <h:outputText value="#{placeView_1.selected.description}" title="#{bundle.ViewPlaceTitle_description}"/>
-                                    
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_workHours}"/>
-                                    <h:outputText value="#{placeView_1.selected.workHours}" title="#{bundle.ViewPlaceTitle_workHours}"/>
-                                    
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_lang}"/>
-                                    <h:outputText value="#{placeView_1.selected.lang}" title="#{bundle.ViewPlaceTitle_lang}"/>
-
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_attd}"/>
-                                    <h:outputText value="#{placeView_1.selected.attd}" title="#{bundle.ViewPlaceTitle_attd}"/>
-
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_validated}"/>
-                                    <p:selectBooleanCheckbox value="#{placeView_1.selected.validated}" disabled="true"/>
-                                    <h:outputText value="#{bundle.ViewPlaceLabel_active}"/>
-                                    <p:selectBooleanCheckbox value="#{placeView_1.selected.active}" disabled="true"/>
-                                </p:panelGrid>
-                                </font>   
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_id}" style="font-size: 24px"/></td>
+                                        <td><h:outputText value="#{placeView_1.selected.id}" title="#{bundle.ViewPlaceTitle_id}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_name}"/></td>
+                                        <td><h:outputText value="#{placeView_1.selected.name}" title="#{bundle.ViewPlaceTitle_name}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_address}"/></td>
+                                        <td><h:outputText value="#{placeView_1.selected.address}" title="#{bundle.ViewPlaceTitle_address}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_description}"/></td>
+                                        <td><h:outputText value="#{placeView_1.selected.description}" title="#{bundle.ViewPlaceTitle_description}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_workHours}"/></td>
+                                        <td><h:outputText value="#{placeView_1.selected.workHours}" title="#{bundle.ViewPlaceTitle_workHours}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_lang}"/></td>
+                                        <td><h:outputText id="lon" value="#{placeView_1.selected.lang}" title="#{bundle.ViewPlaceTitle_lang}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_attd}"/></td>
+                                        <td><h:outputText id="lat" value="#{placeView_1.selected.attd}" title="#{bundle.ViewPlaceTitle_attd}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_validated}"/></td>
+                                        <td><p:selectBooleanCheckbox value="#{placeView_1.selected.validated}" disabled="true"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_active}"/></td>
+                                        <td><p:selectBooleanCheckbox value="#{placeView_1.selected.active}" disabled="true"/></td>
+                                    </tr> 
+                                </tbody>
+                            </table>  
                         </div> 
-                        <div class="col-sm-6" align="center">
-                            <p:growl id="messages" showDetail="true" />
-                            <p:gmap id="gmap" center="36.890257,30.707417" zoom="13" type="HYBRID" style="width:90%;height:400px"
-                                    model="#{placeView_1.viewMap}" widgetVar="map" >
-                            </p:gmap>
-                        </div>
-
+                        <div class="col-sm-1" align="center"></div>
+                        <div id="googleMap" style="width:380px;height:350px;" class="col-sm-5" align="center"></div>
                     </div> 
+                    <script
+                        src="http://maps.googleapis.com/maps/api/js">
+                    </script>
+
+                    <script>
+                        var myCenter = new google.maps.LatLng(#{placeView_1.selected.attd}, #{placeView_1.selected.lang});
+                        initialize();
+                        function initialize()
+                        {
+                            var mapProp = {
+                                center: myCenter,
+                                zoom: 5,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            };
+
+                            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+                            var marker = new google.maps.Marker({
+                                position: myCenter,
+                            });
+
+                            marker.setMap(map);
+                        }
+
+                        google.maps.event.addDomListener(window, 'load', initialize);
+                    </script>
+
+
                 </h:form>
+
             </ui:define>
 
             <ui:define name="rightHeader"> 

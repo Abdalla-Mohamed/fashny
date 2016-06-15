@@ -25,7 +25,6 @@ public class UploadImage {
     UploadedFile file;
     String folderName = "C:" + File.separator + "uploaded"+File.separator;
 
-    ;
 
     public UploadedFile getFile() {
         return file;

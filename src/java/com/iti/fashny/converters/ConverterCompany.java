@@ -7,13 +7,10 @@ package com.iti.fashny.converters;
 
 import com.iti.fashny.businessbeans.CompanyController;
 import com.iti.fashny.entities.Company;
-import com.iti.fashny.entities.Tag;
-import com.iti.fashny.managedbeans.SearchMB;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

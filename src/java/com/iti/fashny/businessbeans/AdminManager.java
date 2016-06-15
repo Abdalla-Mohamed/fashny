@@ -186,7 +186,7 @@ public class AdminManager implements AdminInterface {
         List<Company> unconfirmCompanies = new ArrayList<>();
         try {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
-            unconfirmCompanies = companyFacade.getUnconcirmCompanies();
+            unconfirmCompanies = companyFacade.getUnconfirmCompanies();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

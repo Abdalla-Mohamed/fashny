@@ -8,10 +8,11 @@ package com.iti.fashny.managedbeans;
 import com.iti.fashny.businessbeans.ServicesBusiness;
 import com.iti.fashny.entities.Service;
 import com.iti.fashny.entities.ServiceCategorey;
+import static com.iti.fashny.entities.Service_.categoreyServiceid;
+import com.iti.fashny.entities.Trip;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -38,10 +39,20 @@ public class ServiceManagedBean {
     public ServiceManagedBean() {
         serviceBusiness = new ServicesBusiness();
         serviceCategory = new ServiceCategoryMB();
+        prepareCreate();
     }
 
-    public void getCategories() {
+    public List<ServiceCategorey> getCategories() {
         catList = serviceCategory.getItems();
+        return catList;
+    }
+
+    public void setCatList(List<ServiceCategorey> catList) {
+        this.catList = catList;
+    }
+
+    public void setCategories(List<ServiceCategorey> catList) {
+        this.catList = catList;
     }
 
     //Setters
@@ -57,6 +68,10 @@ public class ServiceManagedBean {
         this.filteredItems = filteredItems;
     }
 
+    public Service getService() {
+        return service;
+    }
+
     public void setService(Service service) {
         this.service = service;
     }
@@ -70,22 +85,18 @@ public class ServiceManagedBean {
         return serviceList;
     }
 
-    public Service getService() {
-        return service;
-    }
-
     public List<Service> getFilteredItems() {
         return filteredItems;
     }
 
     public List<Service> getItems() {
-        if (serviceList == null) {
-            try {
-                serviceList = serviceBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            serviceList = serviceBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(ServiceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return serviceList;
     }
 
@@ -93,9 +104,9 @@ public class ServiceManagedBean {
         this.serviceList = services;
     }
 
-    public Service prepareCreate() {
+    private void prepareCreate() {
         service = new Service();
-        return service;
+        service.setCategoreyServiceid(new ServiceCategorey());
     }
 
     protected void setEmbeddableKeys() {
@@ -108,10 +119,19 @@ public class ServiceManagedBean {
         if (getService() != null) {
             try {
                 serviceBusiness.add(service);
+                prepareCreate();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public String save() {
+        System.out.println("===================");
+        create();
+        serviceList = getItems();
+        service = new Service();
+        return "Services";
     }
 
     public void update() {
@@ -123,10 +143,10 @@ public class ServiceManagedBean {
             }
         }
     }
-
-    public Service getService(java.lang.Integer id) {
-        return serviceBusiness.showSpecificInfo(id);
-    }
+//
+//    public Service getService(java.lang.Integer id) {
+//        return serviceBusiness.showSpecificInfo(id);
+//    }
 
 //    public List<Service> getItemsAvailableSelectMany() {
 //        List<Service> services = null;
@@ -209,8 +229,4 @@ public class ServiceManagedBean {
 //        }
 //
 //    }
-    
-    public static void main(String[] args) {
-        
-    }
 }

@@ -22,7 +22,7 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author Administrator
  */
-@ManagedBean(name = "serviceCat")
+@ManagedBean(name = "serviceCatBean")
 @SessionScoped
 public class ServiceCategoryMB {
 
@@ -36,12 +36,16 @@ public class ServiceCategoryMB {
     }
 //Setters
 
-    public void setCatBusiness(ServiceCategoryBusiness catBusiness) {
-        this.catBusiness = catBusiness;
-    }
-
     public void setServiceCat(ServiceCategorey serviceCat) {
         this.serviceCat = serviceCat;
+    }
+
+    public ServiceCategorey getServiceCat() {
+        return serviceCat;
+    }
+
+    public void setCatBusiness(ServiceCategoryBusiness catBusiness) {
+        this.catBusiness = catBusiness;
     }
 
     public void setServiceCatList(List<ServiceCategorey> serviceCatList) {
@@ -55,10 +59,6 @@ public class ServiceCategoryMB {
 
     public ServiceCategoryBusiness getCatBusiness() {
         return catBusiness;
-    }
-
-    public ServiceCategorey getServiceCat() {
-        return serviceCat;
     }
 
     public List<ServiceCategorey> getServiceCatList() {

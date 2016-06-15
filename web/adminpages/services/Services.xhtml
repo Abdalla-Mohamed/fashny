@@ -11,7 +11,7 @@
                  xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form id="ServiceForm">
+        <h:form id="ServiceForm" prependId="false">
             <div  class="col-sm-12" align="center">
                 <div class="col-sm-2" align="center"></div>
                 <div class="col-sm-8" align="center"> 
@@ -70,7 +70,7 @@
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{serviceBean.prepareCreate()}"  update=":ServiceForm" oncomplete="PF('ServiceCreateDialog').show()"/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}"   update=":ServiceForm" oncomplete="PF('ServiceCreateDialog').show()"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>

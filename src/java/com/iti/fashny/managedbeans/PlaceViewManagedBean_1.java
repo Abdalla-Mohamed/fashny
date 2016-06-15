@@ -23,10 +23,8 @@ import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.StreamedContent;
 import javax.faces.bean.ManagedBean;
-import org.primefaces.model.DefaultStreamedContent;
 import java.io.*;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -106,13 +104,11 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public List<Place> getItems() {
-        if (items == null) {
-            try {
+             try {
                 items = placeBusiness.view();
             } catch (Exception ex) {
                 Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
         return items;
     }
 
@@ -236,10 +232,24 @@ public class PlaceViewManagedBean_1 implements Serializable {
 
     protected void initializeEmbeddableKey() {
     }
+//
+//    public List<Tag> getTagsOfPlace() {
+//        List<Tag> tags = new ArrayList<Tag>(0);
+//        for (int i = 0; i < tagsIds.size(); i++) {
+//
+//            //System.out.println(tagsIds.get(i));
+//            String s = tagsIds.get(i) + "";
+//            int idValue = Integer.parseInt(s);
+//            //System.out.println(tagsIds.get(i));
+//            tags.add(new Tag((idValue)));
+//        }
+//        return tags;
+//    }
 
     public void create() {
         if (getSelected() != null) {
             try {
+     //           selected.setTagList(getTagsOfPlace());
                 placeBusiness.add(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -362,5 +372,16 @@ public class PlaceViewManagedBean_1 implements Serializable {
             }
         }
 
+    }
+    //______________________________
+    public String save() {
+        create();
+        items = getItems();
+        selected = new Place();
+        return "adminPlace_1";
+    }
+    public String cancel() { 
+        selected = new Place();
+        return "adminPlace_1";
     }
 }

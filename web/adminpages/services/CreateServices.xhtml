@@ -21,19 +21,22 @@
                             <p:inputText id="description" value="#{serviceBean.service.description}" title="#{bundle.CreateServiceTitle_description}"/>
 
                             <p:outputLabel value="#{bundle.CreateServiceLabel_cost}" for="cost"/>
-                            <p:inputText id="cost" value="#{serviceBean.service.cost}" title="#{bundle.CreateServiceTitle_description}"/>
+                            <p:inputText id="cost" value="#{serviceBean.service.cost}" type="number"  title="#{bundle.CreateServiceTitle_description}">
+                                <f:validateLongRange minimum="1"/>
+                            </p:inputText>
 
 
                             <p:outputLabel value="#{bundle.CreateServiceLabel_active}" for="active"/>
                             <p:selectBooleanCheckbox id="active" value="#{serviceBean.service.active}" required="true" requiredMessage="#{bundle.EditServiceRequiredMessage_description}"/>
 
-                            <p:outputLabel for="category" value="Categories :  " />
-                            <p:selectOneMenu id="category" value="" style="width:150px">
+                            <p:outputLabel for="category" value="#{bundle.CreateServiceLabel_categoreyServiceid}" />
+                            <p:selectOneMenu id="category" value="#{serviceBean.service.categoreyServiceid.id}" style="width:150px"
+                                             requiredMessage="#{bundle.CreateServiceRequiredMessage_categoreyServiceid}">
                                 <f:selectItem itemLabel="Select Category" itemValue="" noSelectionOption="true" />
-                                <f:selectItems itemValue="#{serviceBean.categories}"/>
+                                <f:selectItems  value="#{serviceBean.categories}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat.id}"/>
                             </p:selectOneMenu>
 
-                            <p:commandButton actionListener="#{serviceBean.create()}" value="#{bundle.Save}" oncomplete="PF('ServiceCreateDialog').hide()"/>
+                            <p:commandButton action="#{serviceBean.save()}" value="#{bundle.Save}" update="datalist" oncomplete="PF('ServiceCreateDialog').hide()"/>
                             <p:commandButton oncomplete="PF('ServiceCreateDialog').hide()" value="#{bundle.Cancel}"/>
                         </p:panelGrid>
                     </h:panelGroup>
