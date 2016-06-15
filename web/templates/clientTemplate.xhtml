@@ -38,14 +38,14 @@
                 text-indent:0px;
                 background-image:none;
             }
-/*            .emptyWhite{
-                background: none !important
-                    background: #536178 !important;
-                font-size:small !important;
-            }
-            .ui-widget-header .ui-state-default {
-                background: none !important;
-            }*/
+            /*            .emptyWhite{
+                            background: none !important
+                                background: #536178 !important;
+                            font-size:small !important;
+                        }
+                        .ui-widget-header .ui-state-default {
+                            background: none !important;
+                        }*/
 
         </style>
 
@@ -117,15 +117,15 @@
                     <h:inputSecret value="#{login.password}"/>
 
                     login as: 
-                 
-                    
-                     <p:selectOneMenu  styleClass="emptyWhite" value="#{login.selectedRole}" style="vertical-align: middle" >
-                                        <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
-                                        <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
-                                        <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
-                                        <p:ajax event="valueChange" process="@this"  />
-                                    </p:selectOneMenu >
-                    
+
+
+                    <p:selectOneMenu  styleClass="emptyWhite" value="#{login.selectedRole}" style="vertical-align: middle" >
+                        <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
+                        <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
+                        <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
+                        <p:ajax event="valueChange" process="@this"  />
+                    </p:selectOneMenu >
+
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
@@ -261,7 +261,7 @@
         <!-- //for bootstrap working -->
 
 
-
+        <h:outputScript library="js" name="jsfcrud.js"/>
     </h:body>
 
 </html>
