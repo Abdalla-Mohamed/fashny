@@ -11,18 +11,18 @@
         <ui:composition template="./../../templates/templateAdmin.xhtml">
 
             <ui:define name="contPageName">
-                <h:outputText value="#{CompanyMB.selected.name}"/>          
+                 <h:outputText value="#{CompanyMB.selected.name}"/>          
             </ui:define>
 
             <ui:define name="contPageDescrp">
-                More details about this company
+               More details about this company
             </ui:define>
 
             <ui:define name="contPagePath">
                 <a href="">Home</a> 
                 <a href="./../../adminpages/company/compaies.xhtml">Show All Companies</a> 
                 <a href="./../../adminpages/company/viewCompany.xhtml">Company Details</a>
-
+            
             </ui:define>
 
             <ui:define name="content">
@@ -31,157 +31,78 @@
                     <div  class="col-sm-12" align="center">
                         <div class="col-sm-2" align="center"></div>
                         <div class="col-sm-8" align="center">    
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_name}"/></td>
-                                        <td> <p:inplace id="name" label="#{CompanyMB.selected.name}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.name}" 
-                                                             title="#{bundle.ViewCompanyTitle_name}" 
-                                                             required="true" requiredMessage="#{bundle.EditCompanyRequiredMessage_name}"/>
-                                            </p:inplace></td>
-                                    </tr>
+                            <font size="10">
+                                <p:panelGrid  columns="2" rendered="#{CompanyMB.selected != null}" styleClass="col-sm-12" style="font: bold;">
 
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_description}"/></td>
-                                        <td><p:inplace id="description" label="#{CompanyMB.selected.description}" effectSpeed="fast" event="dblclick">
-                                                <p:inputTextarea rows="4" cols="22" value="#{CompanyMB.selected.description}" 
-                                                                 title="#{bundle.EditCompanyTitle_description}" />
-                                            </p:inplace></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_email}"/></td>
-                                        <td><h:outputText value="#{CompanyMB.selected.email}" title="#{bundle.ViewCompanyTitle_email}" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_contactEmail}"/></td>
-                                        <td><p:inplace id="contactEmail" label="#{CompanyMB.selected.contactEmail}" effectSpeed="fast" event="dblclick"> 
-                                                <p:inputText value="#{CompanyMB.selected.contactEmail}" title="#{bundle.EditCompanyTitle_contactEmail}"
-                                                             validator="com.iti.fashny.validators.CustomeEmailValidator" validatorMessage="The Contact Email not valid"/>
-                                            </p:inplace></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_website}"/></td>
-                                        <td><p:inplace id="website" label="#{CompanyMB.selected.website}" effectSpeed="fast" event="dblclick"> 
-                                                <p:inputText value="#{CompanyMB.selected.website}" title="#{bundle.EditCompanyTitle_website}" />
-                                            </p:inplace></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_phone}"/></td>
-                                        <td><p:inplace id="phone" label="#{CompanyMB.selected.phone}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.phone}" title="#{bundle.EditCompanyTitle_phone}" >
-                                                    <f:convertNumber  type="number" />
-                                                    <f:validateLength minimum="9" maximum="10"/>
-                                                </p:inputText>
-                                            </p:inplace></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile1}"/></td>
-                                        <td><p:inplace id="mobile1" label="#{CompanyMB.selected.mobile1}" effectSpeed="fast" event="dblclick"> 
-                                                <p:inputText value="#{CompanyMB.selected.mobile1}" title="#{bundle.EditCompanyTitle_mobile1}" 
-                                                             required="true" requiredMessage="#{bundle.EditCompanyRequiredMessage_mobile1}">
-                                                    <f:convertNumber  type="number" />
-                                                    <f:validateLength minimum="11" maximum="11"/>
-                                                </p:inputText>
-                                            </p:inplace></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile2}"/></td>
-                                        <td><p:inplace id="mobile2" label="#{CompanyMB.selected.mobile2}" effectSpeed="fast" event="dblclick"> 
-                                                <p:inputText value="#{CompanyMB.selected.mobile2}" title="#{bundle.EditCompanyTitle_mobile2}" >
-                                                    <f:convertNumber  type="number" />
-                                                    <f:validateLength minimum="11" maximum="11"/>                                    
-                                                </p:inputText>
-                                            </p:inplace></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_address}"/></td>
-                                        <td><p:inplace id="address" label="#{CompanyMB.selected.address}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.address}" 
-                                                             title="#{bundle.EditCompanyTitle_address}" required="true" 
-                                                             requiredMessage="#{bundle.EditCompanyRequiredMessage_address}"/>
-                                            </p:inplace></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_workHoures}"/></td>
-                                        <td><p:inplace id="workHoures" label="#{CompanyMB.selected.workHoures}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText  value="#{CompanyMB.selected.workHoures}" 
-                                                              title="#{bundle.EditCompanyTitle_workHoures}" required="true"  
-                                                              requiredMessage="#{bundle.EditCompanyRequiredMessage_workHoures}"/>
-                                            </p:inplace></td>
-                                    </tr>
-                                    <tr>
-                                        <td><p:outputLabel value="#{bundle.ViewCompanyLabel_tag}"/></td>
-                                        <td><p:inplace id="tag" effect="none">
-                                                <f:facet name="output">
-                                                    <p:dataList value="#{CompanyMB.selected.tagList}" var="tag" >#{tag.name}</p:dataList>                                                </f:facet>
-                                                <f:facet name="input">
-                                                    <p:selectManyMenu value="#{CompanyMB.selected.tagList}" tabindex="indx"  converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
-                                                        <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />
-                                                    </p:selectManyMenu>
-                                                </f:facet>
-                                            </p:inplace> </td>
-                                    </tr>
-                                    <tr> 
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_validated}"/></td>
-                                        <td><p:inplace id="validated" effect="none">
-                                                <f:facet name="output">
-                                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" disabled="true"/>
-                                                </f:facet>
-                                                <f:facet name="input">
-                                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" />
-                                                </f:facet>
-                                            </p:inplace> </td>
-                                    </tr> 
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_active}"/></td>
-                                        <td><p:inplace id="active" effect="none">
-                                                <f:facet name="output">
-                                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.active}" disabled="true"/>
-                                                </f:facet>
-                                                <f:facet name="input">
-                                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.active}" />
-                                                </f:facet>
-                                            </p:inplace> </td> 
-                                    </tr>
-                                    <tr>
-                                        <td><p:commandButton id="update" action="#{CompanyMB.editCompany()}" value="#{bundle.Edit}"/></td>
-                                        <td><p:commandButton id="cancelbtn" value="#{bundle.Close}" action="compaies" immediate="true"/></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_name}"/>
+                                    <h:outputText value="#{CompanyMB.selected.name}" title="#{bundle.ViewCompanyTitle_name}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_description}"/>
+                                    <h:outputText value="#{CompanyMB.selected.description}" title="#{bundle.ViewCompanyTitle_description}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_email}"/>
+                                    <h:outputText value="#{CompanyMB.selected.email}" title="#{bundle.ViewCompanyTitle_email}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_contactEmail}"/>
+                                    <h:outputText value="#{CompanyMB.selected.contactEmail}" title="#{bundle.ViewCompanyTitle_contactEmail}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_website}"/>
+                                    <h:outputText value="#{CompanyMB.selected.website}" title="#{bundle.ViewCompanyTitle_website}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_phone}"/>
+                                    <h:outputText value="#{CompanyMB.selected.phone}" title="#{bundle.ViewCompanyTitle_phone}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_mobile1}"/>
+                                    <h:outputText value="#{CompanyMB.selected.mobile1}" title="#{bundle.ViewCompanyTitle_mobile1}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_mobile2}"/>
+                                    <h:outputText value="#{CompanyMB.selected.mobile2}" title="#{bundle.ViewCompanyTitle_mobile2}"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_address}"/>
+                                    <h:outputText value="#{CompanyMB.selected.address}" title="#{bundle.ViewCompanyTitle_address}"/>
+
+                                    <p:outputLabel value="#{bundle.ViewCompanyLabel_tag}"/>
+                                    <p:dataList value="#{CompanyMB.selected.tagList}" var="tag" >#{tag.name}</p:dataList>
+                                    
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_validated}"/>
+                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" disabled="true"/>
+
+                                    <h:outputText value="#{bundle.ViewCompanyLabel_active}"/>
+                                    <p:selectBooleanCheckbox value="#{CompanyMB.selected.active}" disabled="true"/>
+                                </p:panelGrid>
+                            </font>   
                         </div> 
                     </div>
-
+                    
                     <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
-
+                    
                     <div class="col-sm-12" align="center">
-                        <h:form id="form">
-                            <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
-                            <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
-                                        rows="3" paginator="true" id="trip"
-                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                        rowsPerPageTemplate="3,6,12">
+                         <h:form id="form">
+                             <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
+                             <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
+                                            rows="12" paginator="true" id="trip"
+                                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                            rowsPerPageTemplate="6,12,16">
 
 
-                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
-                                    <div class="col-xs-4 blog-grid-left">
-                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
-                                    </div> 
-                                    <div class="col-xs-8 blog-grid-right">
-                                        <a href="single.html"><h4>#{trip.name}</h4></a>
-                                        <p>Trip Date : #{trip.date}</p>
-                                        <p>#{trip.countBooking} joined</p>
-                                        <h5>#{trip.cost} EGP</h5>
+                                    <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                        <div class="col-xs-4 blog-grid-left">
+                                            <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                        </div> 
+                                        <div class="col-xs-8 blog-grid-right">
+                                            <a href="single.html"><h4>#{trip.name}</h4></a>
+                                            <p>Trip Date : #{trip.date}</p>
+                                            <p>#{trip.countBooking} joined</p>
+                                            <h5>#{trip.cost} EGP</h5>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                        <div class="more m1">
+                                            <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                        </div>
                                     </div>
-                                    <div class="clearfix"> </div>
-                                    <div class="more m1">
-                                        <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
-                                    </div>
-                                </div>
-                            </p:dataGrid>
-                        </h:form>
-                    </div>    
+                                </p:dataGrid>
+                            </h:form>
+                        </div>    
                 </h:form>
             </ui:define>
 

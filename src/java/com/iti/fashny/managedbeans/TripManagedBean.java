@@ -5,8 +5,12 @@
  */
 package com.iti.fashny.managedbeans;
 
-import com.iti.fashny.assets.UploadImage;
+import com.iti.fashny.businessbeans.ClientJoinTripBusiness;
 import com.iti.fashny.businessbeans.TripBusiness;
+import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.JoinTrip;
+import com.iti.fashny.entities.JoinTripPK;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Trip;
 import java.util.*;
@@ -15,6 +19,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import java.io.*;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
@@ -27,13 +32,16 @@ public class TripManagedBean implements Serializable {
     TripBusiness tripBusiness;
     private List<Trip> items = null;
     private Trip selected;
-    UploadImage uploadImage;
+    private JoinTrip clientJoinTrip;
+    private JoinTripPK joinTripPK;
 
     //_______________________________________________________________________//
+
     public TripManagedBean() {
         tripBusiness = new TripBusiness();
         selected = new Trip();
-        uploadImage = new UploadImage();
+        clientJoinTrip = new JoinTrip();
+        joinTripPK=new JoinTripPK();
     }
     //_________________________ setter and getter  __________________________//
 
@@ -56,9 +64,9 @@ public class TripManagedBean implements Serializable {
         return selected;
     }
 
-    public UploadImage getUploadImage() {
-        return uploadImage;
-    }
+//    public UploadImage getUploadImage() {
+//        return uploadImage;
+//    }
 
     public void setTripBusiness(TripBusiness tripBusiness) {
         this.tripBusiness = tripBusiness;
@@ -72,8 +80,12 @@ public class TripManagedBean implements Serializable {
         this.selected = selected;
     }
 
-    public void setUploadImage(UploadImage uploadImage) {
-        this.uploadImage = uploadImage;
+    public JoinTrip getClientJoinTrip() {
+        return clientJoinTrip;
+    }
+
+    public void setClientJoinTrip(JoinTrip clientJoinTrip) {
+        this.clientJoinTrip = clientJoinTrip;
     }
 
     //_________________________ functionlity  _____________________________//
@@ -90,8 +102,8 @@ public class TripManagedBean implements Serializable {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            uploadImage.forTrip(selected.getId() + "");
-            uploadImage.copyFile();
+//            uploadImage.forTrip(selected.getId() + "");
+//            uploadImage.copyFile();
         }
     }
 
@@ -110,6 +122,24 @@ public class TripManagedBean implements Serializable {
     public String tripDetails(int id) {
         selected = tripBusiness.showSpecificInfo(id);
         return "tripDetails";
+    }
+
+    public void joinTrip(Client client) {
+        System.out.println("jointrip method");
+        if (selected != null) {
+            
+            joinTripPK.setClientId(client.getId());
+            joinTripPK.setTripid(selected.getId());
+
+            clientJoinTrip.setJoinTripPK(joinTripPK);
+
+            ClientJoinTripBusiness clientJoinTripBusiness = new ClientJoinTripBusiness();
+            clientJoinTripBusiness.joinTrip(clientJoinTrip,selected);
+
+            clientJoinTrip = new JoinTrip();
+            joinTripPK=new JoinTripPK();
+           
+        }
     }
     // --------------------------- for page --------------------------------//
 
@@ -162,6 +192,11 @@ public class TripManagedBean implements Serializable {
         items = getItems();
         selected = new Trip();
         return "trips";
+    }
+
+    public void creatByCompany(Company company) {
+        selected.setCompanyId(company);
+        save();
     }
 
     public String cansel() {

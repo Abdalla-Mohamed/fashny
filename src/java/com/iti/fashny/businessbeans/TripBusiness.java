@@ -108,6 +108,7 @@ public class TripBusiness implements Commens<Trip> ,Serializable {
             trip = tripFacade.refreshObj(tripObj);
             tripObj.setPlaceList(trip.getPlaceList());
             tripObj.setTagList(trip.getTagList());
+            tripObj.setJoinTripList(trip.getJoinTripList());
 //            System.out.println(trip.getName());
 //            List<Place> placesOfTripList = trip.getPlaceList();
 //            List<Tag> tagsOfPlaceList = trip.getTagList();
