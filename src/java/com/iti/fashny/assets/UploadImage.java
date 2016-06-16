@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
@@ -20,11 +21,11 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Bakar M.M.R
  */
-public class UploadImage {
+public class UploadImage implements Serializable {
 
     UploadedFile file;
-    String folderName = "C:" + File.separator + "uploaded"+File.separator;
 
+    String folderName = "C:" + File.separator + "uploaded" + File.separator;
 
     public UploadedFile getFile() {
         return file;
@@ -61,12 +62,16 @@ public class UploadImage {
     public void forTrip(String id) {
         folderName += "Trips" + File.separator + id;
     }
+    FileUploadEvent event;
 
     public void handleFileUpload(FileUploadEvent event) {
-        file = event.getFile();
+        this.event = event;
+//        file = event.getFile();
+//        System.out.println(file.getFileName() + "," + file.getSize());
     }
 
     public void copyFile() {
+        file = event.getFile();
 
         String newFileName = this.folderName + File.separator + file.getFileName();
         try {
@@ -86,8 +91,8 @@ public class UploadImage {
             }
             fos.close();
             is.close();
-            FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
             e.printStackTrace();
         }

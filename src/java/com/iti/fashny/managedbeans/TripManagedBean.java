@@ -66,6 +66,10 @@ public class TripManagedBean implements Serializable {
         return selected;
     }
 
+//    public UploadImage getUploadImage() {
+//        return uploadImage;
+//    }
+
     public void setTripBusiness(TripBusiness tripBusiness) {
         this.tripBusiness = tripBusiness;
     }
@@ -96,9 +100,12 @@ public class TripManagedBean implements Serializable {
         if (getSelected() != null) {
             try {
                 tripBusiness.add(selected);
+                System.out.println("-->"+selected.getName());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+//            uploadImage.forTrip(selected.getId() + "");
+//            uploadImage.copyFile();
         }
     }
 

@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.businessbeans.ReviewPlaceBusiness;
 import com.iti.fashny.entities.Client;
@@ -56,6 +57,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
     private Marker marker;
     private double lat;
     private double lng;
+    UploadImage uploadImage;
 
     //</editor-fold>
     //--------------------getter setter
@@ -106,11 +108,11 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public List<Place> getItems() {
-             try {
-                items = placeBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            items = placeBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return items;
     }
 
@@ -143,10 +145,10 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public List<String> getImagesList() {
-        imagesList=new ArrayList<>();
-        List<Resouce> resouceList=new ArrayList<>();
-         if(selected!=null){
-            
+        imagesList = new ArrayList<>();
+        List<Resouce> resouceList = new ArrayList<>();
+        if (selected != null) {
+
             try {
                 resouceList = placeBusiness.getResources(selected).getResouceList();
                 for (Resouce resouceList1 : resouceList) {
@@ -162,9 +164,15 @@ public class PlaceViewManagedBean_1 implements Serializable {
     public void setImagesList(List<String> imagesList) {
         this.imagesList = imagesList;
     }
-    
+
+    public UploadImage getUploadImage() {
+        return uploadImage;
+    }
+
+    public void setUploadImage(UploadImage uploadImage) {
+        this.uploadImage = uploadImage;
+    }
     //</editor-fold>
-    
 
 //--------------------contructor
     public PlaceViewManagedBean_1() {
@@ -173,7 +181,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
         viewMap = new DefaultMapModel();
         selected = new Place();
         clientReviewPlace = new ClientReviewPlace();
-
+        uploadImage = new UploadImage();
     }
 
     public String placeDetails(int id) {
@@ -187,7 +195,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public List<ClientReviewPlace> reviewPlaces() {
-        List<ClientReviewPlace> clientReviewPlaceList=new ArrayList<>();
+        List<ClientReviewPlace> clientReviewPlaceList = new ArrayList<>();
         try {
             clientReviewPlaceList = placeBusiness.getComments(selected).getClientReviewPlaceList();
         } catch (Exception ex) {
@@ -251,11 +259,13 @@ public class PlaceViewManagedBean_1 implements Serializable {
     public void create() {
         if (getSelected() != null) {
             try {
-     //           selected.setTagList(getTagsOfPlace());
+                //           selected.setTagList(getTagsOfPlace());
                 placeBusiness.add(selected);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            uploadImage.forPlace(selected.getId() + "");
+            uploadImage.copyFile();
         }
     }
 
@@ -330,7 +340,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
             clientReviewPlace.setClientId(client);
             ReviewPlaceBusiness reviewPlaceBusiness = new ReviewPlaceBusiness();
             reviewPlaceBusiness.review(clientReviewPlace);
-            clientReviewPlace =new ClientReviewPlace();
+            clientReviewPlace = new ClientReviewPlace();
         }
     }
 
@@ -375,6 +385,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
         }
 
     }
+
     //______________________________
     public String save() {
         create();
@@ -382,7 +393,8 @@ public class PlaceViewManagedBean_1 implements Serializable {
         selected = new Place();
         return "adminPlace_1";
     }
-    public String cancel() { 
+
+    public String cancel() {
         selected = new Place();
         return "adminPlace_1";
     }

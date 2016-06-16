@@ -74,7 +74,7 @@ public class FileUploadMB implements Serializable {
     public void handleFileUpload(FileUploadEvent event) {
         file = event.getFile();
         String folderName = "C:" + File.separator + "uploaded";
-        String newFileName = folderName + File.separator + fileName + File.separator + file.getFileName();
+        String newFileName = folderName + File.separator  + file.getFileName();
 
         try {
             boolean mkdirs = new File(folderName).mkdirs();
