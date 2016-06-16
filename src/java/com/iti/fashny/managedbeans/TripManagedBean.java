@@ -6,6 +6,7 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.ClientJoinTripBusiness;
+import com.iti.fashny.businessbeans.JoinTripBuisinesss;
 import com.iti.fashny.businessbeans.TripBusiness;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Company;
@@ -34,7 +35,7 @@ public class TripManagedBean implements Serializable {
     private Trip selected;
     private JoinTrip clientJoinTrip;
     private JoinTripPK joinTripPK;
-
+    private JoinTripBuisinesss joinTripBuisinesss;
     //_______________________________________________________________________//
 
     public TripManagedBean() {
@@ -42,6 +43,7 @@ public class TripManagedBean implements Serializable {
         selected = new Trip();
         clientJoinTrip = new JoinTrip();
         joinTripPK=new JoinTripPK();
+        joinTripBuisinesss = new JoinTripBuisinesss();
     }
     //_________________________ setter and getter  __________________________//
 
@@ -203,5 +205,12 @@ public class TripManagedBean implements Serializable {
         selected = new Trip();
         return "trips";
     }
-
+    
+    
+    //_______________view trip rate__________________//
+    
+    public int getRate(Trip trip){
+       
+        return joinTripBuisinesss.tripRate(trip);
+    }
 }
