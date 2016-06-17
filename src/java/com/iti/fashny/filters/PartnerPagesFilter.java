@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Abdalla
  */
-@WebFilter(filterName = "PartnerPagesFilter", urlPatterns = {"/faces/companypages/*"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.INCLUDE})
+@WebFilter(filterName = "PartnerPagesFilter", urlPatterns = {"/faces/partnerpages/*"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.INCLUDE})
 public class PartnerPagesFilter implements Filter {
 
     private FilterConfig filterConfig = null;

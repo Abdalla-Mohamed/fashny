@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="heads">
+
+    </ui:define>
+    <body>
+
+        <ui:composition template="./../templates/templateCompany.xhtml">
+
+            <ui:define name="contPageName">
+                <h:outputText value="#{clientOfCompanyTrips.place.name}"/>
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+                more details about this place 
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                <a href="">Home > </a> 
+                <a href="./../adminpages/adminPlace_1.xhtml">Show All Places > </a> 
+                <a href="./../adminpages/ViewPlacePage.xhtml">Place Details</a>
+            </ui:define>
+
+            <ui:define name="content">
+                <br/> <br/> <br/>
+                <h:form id="PlaceViewForm">
+                    <div  class="col-sm-12" align="center">
+                        <div class="col-sm-6" align="center">    
+                            <table class="table table-striped">
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_name}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.place.name}" title="#{bundle.ViewPlaceTitle_name}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_address}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.place.address}" title="#{bundle.ViewPlaceTitle_address}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_description}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.place.description}" title="#{bundle.ViewPlaceTitle_description}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_workHours}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.place.workHours}" title="#{bundle.ViewPlaceTitle_workHours}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_lang}"/></td>
+                                        <td><h:outputText id="lon" value="#{clientOfCompanyTrips.place.lang}" title="#{bundle.ViewPlaceTitle_lang}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_attd}"/></td>
+                                        <td><h:outputText id="lat" value="#{clientOfCompanyTrips.place.attd}" title="#{bundle.ViewPlaceTitle_attd}"/></td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>  
+                        </div> 
+                        <div class="col-sm-1" align="center"></div>
+                        <div id="googleMap" style="width:380px;height:350px;" class="col-sm-5" align="center"></div>
+                    </div> 
+                    <script
+                        src="http://maps.googleapis.com/maps/api/js">
+                    </script>
+
+                    <script>
+                        var myCenter = new google.maps.LatLng(#{clientOfCompanyTrips.place.attd}, #{clientOfCompanyTrips.place.lang});
+                        initialize();
+                        function initialize()
+                        {
+                            var mapProp = {
+                                center: myCenter,
+                                zoom: 5,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            };
+
+                            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+                            var marker = new google.maps.Marker({
+                                position: myCenter,
+                            });
+
+                            marker.setMap(map);
+                        }
+
+                        google.maps.event.addDomListener(window, 'load', initialize);
+                    </script>
+
+
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="rightHeader"> 
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

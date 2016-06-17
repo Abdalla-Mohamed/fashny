@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../templates/templateCompany.xhtml">
+
+            <ui:define name="contPageName">
+                <h:outputText value="#{clientOfCompanyTrips.selected.name}"/>          
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+                More details about this company
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                <a href="">Home</a> 
+                <a href="./../../adminpages/company/compaies.xhtml">Show All Companies</a> 
+                <a href="./../../adminpages/company/viewCompany.xhtml">Company Details</a>
+
+            </ui:define>
+
+            <ui:define name="content">
+                <br/> <br/> <br/>
+                <h:form id="PlaceViewForm">
+                    <div  class="col-sm-12" align="center">
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="col-sm-8" align="center">    
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_name}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.name}" title="#{bundle.ViewCompanyTitle_name}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_description}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.description}" title="#{bundle.ViewCompanyTitle_description}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_email}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.email}" title="#{bundle.ViewCompanyTitle_email}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_contactEmail}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.contactEmail}" title="#{bundle.ViewCompanyTitle_contactEmail}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_website}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.website}" title="#{bundle.ViewCompanyTitle_website}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_phone}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.phone}" title="#{bundle.ViewCompanyTitle_phone}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile1}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.mobile1}" title="#{bundle.ViewCompanyTitle_mobile1}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile2}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.mobile2}" title="#{bundle.ViewCompanyTitle_mobile2}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_address}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.selected.address}" title="#{bundle.ViewCompanyTitle_address}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.ViewCompanyLabel_tag}"/></td>
+                                        <td><p:dataList value="#{clientOfCompanyTrips.selected.tagList}" var="tag" >#{tag.name}</p:dataList></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_validated}"/></td>
+                                        <td><p:selectBooleanCheckbox value="#{clientOfCompanyTrips.selected.validated}" disabled="true"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_active}"/></td>
+                                        <td><p:selectBooleanCheckbox value="#{clientOfCompanyTrips.selected.active}" disabled="true"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div>
+
+                    <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
+
+                    <div class="col-sm-12" align="center">
+                        <h:form id="form">
+                            <h2> Trip Organized by #{clientOfCompanyTrips.selected.name}</h2>
+                            <p:dataGrid var="trip" value="#{clientOfCompanyTrips.selected.tripList}" columns="3" layout="grid"
+                                        rows="3" paginator="true" id="trip"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="3,6,12">
+
+
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right">
+                                        <a href="single.html"><h4>#{trip.name}</h4></a>
+                                        <p>Trip Date : #{trip.date}</p>
+                                        <p>#{trip.countBooking} joined</p>
+                                        <h5>#{trip.cost} EGP</h5>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <h:commandButton   action="#{clientOfCompanyTrips.goToViewTrip(trip.id)}" value="More Details"/>
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </h:form>
+                    </div>    
+                </h:form>
+            </ui:define>
+
+            <ui:define name="rightHeader"> 
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

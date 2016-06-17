@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../templates/templateCompany.xhtml">
+
+            <ui:define name="contPageName">
+                Trip Details
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                <a href="">Home</a> >
+                <a href="./../../adminpages/trip/trips.xhtml">Show All Trips</a> >
+                <a href="./../../adminpages/trip/viewTrip.xhtml">Trip Details</a>
+            </ui:define>
+
+            <ui:define name="content">
+                <br/> <br/> <br/>
+                <h:form id="PlaceViewForm">
+                    <div  class="col-sm-12" align="center">
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="col-sm-8" align="center">    
+                            <font size="10">
+                                <p:panelGrid  columns="2" rendered="#{clientOfCompanyTrips.trip != null}" styleClass="col-sm-12" >
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_name}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.name}" title="#{bundle.ViewTripTitle_name}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_cost}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.cost}" title="#{bundle.ViewTripTitle_cost}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_countBooking}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.countBooking}" title="#{bundle.ViewTripTitle_countBooking}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_date}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.date}" title="#{bundle.ViewTripTitle_date}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_hint}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.hint}" title="#{bundle.ViewTripTitle_hint}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_joinDeadline}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.joinDeadline}" title="#{bundle.ViewTripTitle_joinDeadline}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_maxbooking}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.maxbooking}" title="#{bundle.ViewTripTitle_maxbooking}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_needTools}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.needTools}" title="#{bundle.ViewTripTitle_needTools}"/>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_program}"/>
+                                    <h:outputText value="#{clientOfCompanyTrips.trip.program}" title="#{bundle.ViewTripTitle_program}"/>
+
+                                    <p:outputLabel value="#{bundle.ViewTripLabel_tag}"/>
+                                    <p:dataList value="#{clientOfCompanyTrips.trip.tagList}" var="tag" >#{tag.name}</p:dataList>
+
+                                    <h:outputText value="#{bundle.ViewTripLabel_offer}"/>
+                                    <p:selectBooleanCheckbox value="#{clientOfCompanyTrips.trip.offer}" disabled="true"/>
+                                </p:panelGrid>
+                            </font>   
+                        </div> 
+                    </div>
+                </h:form>
+                <div class="col-sm-12" align="justify"><br/> <br/> <br/></div>
+
+                <h4 align="center"> #{clientOfCompanyTrips.trip.name} involves visiting to these places </h4>
+                <h:form id="form">
+                    <p:dataGrid var="place" value="#{clientOfCompanyTrips.trip.placeList}" columns="3" layout="grid"
+                                rows="1" paginator="true" id="places"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="2,3,6,12">
+
+
+                        <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                            <div class="col-xs-4 blog-grid-left">
+                                <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                            </div> 
+                            <div class="col-xs-8 blog-grid-right">
+                                <h3><a href="single.html">#{place.name}</a></h3>
+                                <p>#{place.address}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                            <div class="more m1">
+                                <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                <h:commandButton   action="#{clientOfCompanyTrips.placeDetails(place.id)}" value="More Details"/>
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                </h:form>
+
+                <div class="col-sm-12" align="justify"><br/> <br/> <br/></div>
+
+                <h4 align="center"> Members who joined #{clientOfCompanyTrips.trip.name}</h4>
+                <h:form id="clientform">
+                    <p:dataGrid var="joinTrip" value="#{clientOfCompanyTrips.trip.joinTripList}" columns="3" layout="grid"
+                                rows="1" paginator="true" id="places"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="2,3,6,12">
+
+
+                        <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                            <div class="col-xs-4 blog-grid-left">
+                                <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                            </div> 
+                            <div class="col-xs-8 blog-grid-right">
+                                <h3><a href="single.html">#{joinTrip.client.name}</a></h3>
+                                <p>#{joinTrip.client.email}</p>
+                                <p>#{joinTrip.client.mobile1}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                            <div class="more m1">
+                                <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                <p:commandButton   action="#{clientOfCompanyTrips.clientDetails(joinTrip.client.id)}" value="More Details" />
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                </h:form>   
+
+            </ui:define>
+
+            <ui:define name="rightHeader"> 
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
