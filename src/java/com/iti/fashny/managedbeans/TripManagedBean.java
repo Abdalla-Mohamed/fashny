@@ -5,6 +5,8 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.assets.LoginAccount;
+import com.iti.fashny.assets.Role;
 import com.iti.fashny.businessbeans.ClientJoinTripBusiness;
 import com.iti.fashny.businessbeans.JoinTripBuisinesss;
 import com.iti.fashny.businessbeans.TripBusiness;
@@ -35,7 +37,12 @@ public class TripManagedBean implements Serializable {
     private Trip selected;
     private JoinTrip clientJoinTrip;
     private JoinTripPK joinTripPK;
+    private JoinTripBuisinesss joinTripBuisinesss;
     private Date date;
+    ClientJoinTripBusiness clientJoinTripBusiness;
+
+    @ManagedProperty(value = "#{login}")
+    private LoginManagedBean loginManagedBean;
     //_______________________________________________________________________//
 
     public TripManagedBean() {
@@ -43,7 +50,9 @@ public class TripManagedBean implements Serializable {
         selected = new Trip();
         clientJoinTrip = new JoinTrip();
         joinTripPK = new JoinTripPK();
-        date=new Date();
+        date = new Date();
+        joinTripBuisinesss = new JoinTripBuisinesss();
+        clientJoinTripBusiness = new ClientJoinTripBusiness();
     }
     //_________________________ setter and getter  __________________________//
 
@@ -94,7 +103,14 @@ public class TripManagedBean implements Serializable {
         this.date = date;
     }
 
-    
+    public LoginManagedBean getLoginManagedBean() {
+        return loginManagedBean;
+    }
+
+    public void setLoginManagedBean(LoginManagedBean loginManagedBean) {
+        this.loginManagedBean = loginManagedBean;
+    }
+
     //_________________________ functionlity  _____________________________//
     public Trip prepareCreate() {
         selected = new Trip();
@@ -128,25 +144,66 @@ public class TripManagedBean implements Serializable {
         return "tripDetails";
     }
 
-    public void joinTrip(Client client) {
-        System.out.println("jointrip method");
+    public String joinTrip(Client client) {
+        String next = null;
         if (selected != null) {
 
-            joinTripPK.setClientId(client.getId());
-            joinTripPK.setTripid(selected.getId());
+            try {
+                joinTripPK.setClientId(client.getId());
+                joinTripPK.setTripid(selected.getId());
 
-            clientJoinTrip.setJoinTripPK(joinTripPK);
+                clientJoinTrip.setJoinTripPK(joinTripPK);
 
-            ClientJoinTripBusiness clientJoinTripBusiness = new ClientJoinTripBusiness();
-            clientJoinTripBusiness.joinTrip(clientJoinTrip, selected);
+//            ClientJoinTripBusiness clientJoinTripBusiness = new ClientJoinTripBusiness();
+                clientJoinTripBusiness.joinTrip(clientJoinTrip, selected);
 
-            clientJoinTrip = new JoinTrip();
-            joinTripPK = new JoinTripPK();
+                clientJoinTrip = new JoinTrip();
+                joinTripPK = new JoinTripPK();
+                clientJoinTripBusiness = new ClientJoinTripBusiness();
+                next = "trips";
+            } catch (Exception ex) {
+                Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
+        return next;
     }
-    // --------------------------- for page --------------------------------//
 
+    public boolean getRender() {
+        boolean check = false;
+        if (loginManagedBean.isLogged() && (loginManagedBean.roles.Client == Role.Client)) {
+            if (getCheckTripDate()) {
+                if (getCheckTripComplete()) {
+                    if (!getCheckTrip()) {
+                        check = true;
+                    }
+                }
+            }
+        }
+        return check;
+    }
+
+    public boolean getCheckTripDate() {
+        return selected.getJoinDeadline().after(getDate());
+    }
+
+    public boolean getCheckTripComplete() {
+        return selected.getMaxbooking() > selected.getCountBooking();
+    }
+
+    public boolean getCheckTrip() {
+        boolean equals = false;
+        List<JoinTrip> joinTripList = clientJoinTripBusiness.getJoidTrips(loginManagedBean.getLoginAccount().getClient()).getJoinTripList();
+        for (JoinTrip joinTripList1 : joinTripList) {
+            equals = joinTripList1.getTrip().equals(selected);
+            if (equals) {
+                return true;
+            }
+        }
+        return equals;
+    }
+
+    // --------------------------- for page --------------------------------//
     public void onRowEdit(RowEditEvent event) {
 
         selected = (Trip) event.getObject();
@@ -207,12 +264,10 @@ public class TripManagedBean implements Serializable {
         selected = new Trip();
         return "trips";
     }
-    
-    
+
     //_______________view trip rate__________________//
-    
-    public int getRate(Trip trip){
-       
+    public int getRate(Trip trip) {
+
         return joinTripBuisinesss.tripRate(trip);
     }
 }

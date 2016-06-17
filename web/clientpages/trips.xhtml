@@ -17,16 +17,19 @@
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="form">
-                    <p:dataGrid var="trip" value="#{tripMB.items}" columns="3" layout="grid"
-                                rows="12" paginator="true" id="trips"
+                <h:form id="form" prependId="false">
+                    <p:dataGrid id="trips" var="trip" value="#{tripMB.items}" columns="3" layout="grid"
+                                rows="12" paginator="true"  paginatorPosition="bottom"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 rowsPerPageTemplate="6,12,16">
 
 
                         <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" id="dee">
                             <div class="col-xs-4 blog-grid-left">
-                                <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+
+                                <p:commandLink action="#{tripMB.tripDetails(trip.id)}">
+                                    <p:graphicImage  styleClass="img-responsive" name="19.jpg" width="100%" />
+                                </p:commandLink>
                             </div> 
                             <div class="col-xs-8 blog-grid-right">
                                 <a href=".html">#{trip.name}</a>
@@ -36,11 +39,16 @@
                             <div class="clearfix"> </div>
                             <div class="more m1">
                                 <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
-                                <p:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details" styleClass="btn btn-info col-xs-6"/>
+                                <p:commandButton id="moreDetails"   action="#{tripMB.tripDetails(trip.id)}" value="More Details" styleClass="btn btn-info col-xs-6"/>
                                 <p:rating value="#{tripMB.getRate(trip)}" readonly="true" />                             
                             </div>
                         </div>
                     </p:dataGrid>
+                    
+                    <p:blockUI block="bobo" trigger="trips:moreDetails">
+                        LOADING<br />
+                        <p:graphicImage name="/processing-bar.gif"/>
+                    </p:blockUI>
                 </h:form>
 
             </ui:define>
