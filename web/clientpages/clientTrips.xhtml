@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../templates/clientTemplate.xhtml"
+                        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                Trips
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="form">
+
+                    <p:tabView>
+                        <p:tab title="old trips">
+                            <p:dataGrid var="join" value="#{joinMB.getOldTrips(login.loginAccount.client)}" columns="3" layout="grid"
+                                        rows="12" paginator="true" id="old"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="6,12,16">
+
+
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" id="dee">
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right">
+                                        <h2>#{join.trip.name}</h2>
+                                        <h4>#{join.trip.companyId.name} Company</h4>
+                                        <p>#{join.trip.date}</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                                                               
+                                        <p:commandButton   action="#{tripMB.tripDetails(join.trip.id)}" value="More Details" styleClass="btn btn-info col-xs-4"/>
+                                        
+                                        <p:rating value="#{join.rate}" id="rate">
+                                            <p:ajax event="rate" listener="#{joinMB.onrate(join)}" update="rate" />
+                                            <p:ajax event="cancel" listener="#{joinMB.oncancle(join)}" update="rate" />
+                                        </p:rating>
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </p:tab>
+                        <p:tab title="upcoming trips">
+                            <p:dataGrid var="join" value="#{joinMB.getComingTrips(login.loginAccount.client)}" columns="3" layout="grid"
+                                        rows="12" paginator="true" id="coming"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="6,12,16">
+
+
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" id="dee">
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right">
+                                        <a href=".html">#{join.trip.name}</a>
+                                        <h4>#{join.trip.companyId.name} Company</h4>
+                                        <p>#{join.trip.date}</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                      
+                                        <h:commandButton   action="#{tripMB.tripDetails(join.trip.id)}" value="More Details" styleClass="btn btn-info col-xs-12"/>
+
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </p:tab>
+                    </p:tabView>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

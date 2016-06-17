@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -144,6 +145,35 @@ public class FileUploadMB implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public void handleFileUpload2(FileUploadEvent event) {
+        forClient("5");
+        file= event.getFile();
+        String folderName = "C:" + File.separator + "uploaded" + File.separator + folderId;
+        String newFileName = folderName + File.separator + file.getFileName();
+
+        try {
+            boolean mkdirs = new File(folderName).mkdirs();
+            FileOutputStream fos = new FileOutputStream(new File(newFileName));
+            InputStream is = file.getInputstream();
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int a;
+            while (true) {
+                a = is.read(buffer);
+                if (a < 0) {
+                    break;
+                }
+                fos.write(buffer, 0, a);
+                fos.flush();
+            }
+            fos.close();
+            is.close();
+            FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (IOException e) {
+        e.printStackTrace();
         }
     }
 

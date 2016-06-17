@@ -48,7 +48,7 @@ public class CompanyPagesFilter implements Filter {
 
         Throwable problem = null;
         try {
-            System.out.println("check company logging");
+            System.out.println("check compay logging");
             HttpSession session = ((HttpServletRequest) request).getSession(false);
             LoginManagedBean loginManagedBean = (session != null) ? (LoginManagedBean) session.getAttribute("login") : null;
 

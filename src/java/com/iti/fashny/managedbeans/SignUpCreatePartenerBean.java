@@ -5,8 +5,11 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.AdditionalFns;
 import com.iti.fashny.businessbeans.guestImpl;
 import com.iti.fashny.entities.Partener;
+import com.iti.fashny.entities.PartnType;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -20,10 +23,16 @@ public class SignUpCreatePartenerBean
 {
     guestImpl gImpl ;
     Partener selected = new Partener();
+     List<PartnType> findAll ;
+    private int partnTybeID;
+    AdditionalFns additionalFns;
     
     public SignUpCreatePartenerBean()
     {
         gImpl = new guestImpl();
+        
+        additionalFns = new AdditionalFns();
+        findAll = additionalFns.getAllPartnType();
     }
 
     public guestImpl getgImpl() {
@@ -32,6 +41,30 @@ public class SignUpCreatePartenerBean
 
     public void setgImpl(guestImpl gImpl) {
         this.gImpl = gImpl;
+    }
+
+    public List<PartnType> getFindAll() {
+        return findAll;
+    }
+
+    public void setFindAll(List<PartnType> findAll) {
+        this.findAll = findAll;
+    }
+
+    public int getPartnTybeID() {
+        return partnTybeID;
+    }
+
+    public void setPartnTybeID(int partnTybeID) {
+        this.partnTybeID = partnTybeID;
+    }
+
+    public AdditionalFns getAdditionalFns() {
+        return additionalFns;
+    }
+
+    public void setAdditionalFns(AdditionalFns additionalFns) {
+        this.additionalFns = additionalFns;
     }
 
     public Partener getSelected() {

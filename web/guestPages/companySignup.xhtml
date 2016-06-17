@@ -20,7 +20,7 @@
                     <h:form id="PlaceViewForm">
                         <div class="col-sm-3" align="center"></div>
                         <div class="table-responsive col-sm-6">
-                          
+
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
@@ -109,9 +109,44 @@
                                             </p:selectManyMenu></td>
                                     </tr>
                                     <tr>
+                                        <td colspan="2">
+                                            <ui:remove>
+                                                <p:fileUpload binding="#{upload}" mode="simple"
+                                                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                              value="#{CompanyMB.uploadedPicture}"/>
+                                                <p:graphicImage value="#" height="150" binding="#{image}" />  
+
+                                            </ui:remove>
+
+
+
+                                            <ui:remove>                                    <p:outputLabel value="#{MyPropertyFile.Photo}"/>
+                                                <p:fileUpload fileUploadListener="#{CompanyMB.uploadImage.handleFileUpload(event)}" dragDropSupport="true" label="Choose" auto="true"
+                                                              sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                            </ui:remove>
+
+                                            <p:growl id="msg"></p:growl>
+                                            <p:fileUpload value="#{CompanyMB.uploadImage.file}"
+                                                          invalidSizeMessage="JournalDev: Invalid Size"
+                                                          invalidFileMessage="JournalDev: Invalid File Type"
+                                                          fileLimitMessage="JournalDev: Invalid File Limit" 
+                                                          mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
+                                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                          fileUploadListener="#{CompanyMB.uploadImage.handleFileUpload}" 
+                                                          update="msg"></p:fileUpload>
+                                            <ui:remove>
+
+                                                <h:graphicImage url="#{CompanyMB.selected.profilePic.path}" width="200" height="171" />
+
+                                            </ui:remove>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td><p:commandButton action="#{CompanyMB.saveForClient()}" value="#{bundle.Save}"  /></td>
                                         <td align="right"><p:commandButton value="#{bundle.Cancel}" action="#{CompanyMB.cancelForClient()}"
-                                                             immediate="true"/></td>
+                                                                           immediate="true"/></td>
                                     </tr>
                                 </tbody>
                             </table>

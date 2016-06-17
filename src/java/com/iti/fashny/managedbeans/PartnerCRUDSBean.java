@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.AdditionalFns;
 import com.iti.fashny.businessbeans.PartnerBusiness;
 import com.iti.fashny.businessbeans.PartnerTypeBusiness;
 import com.iti.fashny.daos.DaoFactory;
@@ -45,11 +46,68 @@ public class PartnerCRUDSBean implements Serializable
     private Partener selected ;
     //private Partener selected = new Partener();
     private List<Partener> filteredItems;
+    
+    
+     List<PartnType> findAll ;
+    private int partnTybeID;
+    AdditionalFns additionalFns;
 
     
     public PartnerCRUDSBean()
     {
         partnerBusiness = new PartnerBusiness();
+        
+        
+        additionalFns = new AdditionalFns();
+        findAll = additionalFns.getAllPartnType();
+    }
+
+    public List<PartnType> getFindAll() {
+        return findAll;
+    }
+
+    public void setFindAll(List<PartnType> findAll) {
+        this.findAll = findAll;
+    }
+
+    public int getPartnTybeID() {
+        return partnTybeID;
+    }
+
+    public void setPartnTybeID(int partnTybeID) {
+        this.partnTybeID = partnTybeID;
+    }
+
+    public AdditionalFns getAdditionalFns() {
+        return additionalFns;
+    }
+
+    public void setAdditionalFns(AdditionalFns additionalFns) {
+        this.additionalFns = additionalFns;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
     
     

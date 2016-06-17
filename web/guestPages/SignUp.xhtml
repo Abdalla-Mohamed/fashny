@@ -21,7 +21,7 @@
                     </center>
 
 
-                    <h:form id="mySignUpForm" prependId="false">
+                    <h:form id="mySignUpForm" prependId="false" enctype="multipart/form-data" >
                         <center>
                             Please Enter Your Personal Info
 
@@ -43,6 +43,7 @@
                                     <p:outputLabel value="#{MyPropertyFile.Mail}"/>
                                     <p:inputText value="#{SignUpBean.c.email}" id="mail" required="true" requiredMessage="#{MyPropertyFile.ThisFieldIsRequired}">
                                         <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
+<!--                                    <f:ajax event="blur" render="mail"/> -->
                                     </p:inputText>
                                     <h:message for="mail" style="color:red" />
 
@@ -137,15 +138,9 @@
 
 
                                     <p:growl id="msg"></p:growl>
-                                    <p:fileUpload value="#{SignUpBean.c.pic}"
-                                                  invalidSizeMessage="JournalDev: Invalid Size"
-                                                  invalidFileMessage="JournalDev: Invalid File Type"
-                                                  fileLimitMessage="JournalDev: Invalid File Limit" 
-                                                  mode="simple" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
-                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                   <p:fileUpload value="#{SignUpBean.c.pic}" mode="simple" skinSimple="true" required="true"/>
 
-                                                  update="msg"></p:fileUpload>
-
+                                   
 
                                     <ui:remove>
 
@@ -158,7 +153,6 @@
 
                                 <center>
                                     <p> <p:commandButton value="#{MyPropertyFile.SignUp}" ajax="false" action="#{SignUpBean.registerNewClient()}" />
-                                        <p:commandButton value="#{MyPropertyFile.SignUp} test" ajax="false" action="#{SignUpBean.registerNewClientTest()}" />
                                             <h:commandButton value="#{MyPropertyFile.ShowInfo}" action="#{SignUpBean.getAllInfo()}"/>
                                             <h:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="index"/> </p>
                                         <br/>
@@ -171,13 +165,6 @@
                         </center>
                     </h:form>
 
-                    <h:form enctype="multipart/form-data">
-                        <p:growl id="messages" showDetail="true" />
-                        <p:inputText value="#{SignUpBean.c.name}" required="true" />
-                        <p:fileUpload value="#{SignUpBean.c.pic}" mode="simple" skinSimple="true" required="true"/>
-
-                        <p:commandButton value="Submit" ajax="false" action="#{SignUpBean.registerNewClientTest()}" />
-                    </h:form>
 
                 </ui:define>
 

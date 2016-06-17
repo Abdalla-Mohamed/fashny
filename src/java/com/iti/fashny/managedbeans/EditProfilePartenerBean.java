@@ -5,6 +5,7 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.AdditionalFns;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PartenerFacade;
 import com.iti.fashny.daos.PartnTypeFacade;
@@ -30,35 +31,43 @@ public class EditProfilePartenerBean
     Partener selected = new Partener();
     List<PartnType> findAll ;
     private int partnTybeID;
+    AdditionalFns additionalFns;
     
     
     
     
     public EditProfilePartenerBean()
     {
-     DaoFactory daoFactory = new DaoFactory();
-     PartenerFacade partenerFacade = daoFactory.getPartenerDoa();
-     daoFactory.beginTransaction();
-     selected = partenerFacade.find(4);
-     daoFactory.commitTransaction();
-     daoFactory.close();  
+        additionalFns = new AdditionalFns();
+        
+//     DaoFactory daoFactory = new DaoFactory();
+//     PartenerFacade partenerFacade = daoFactory.getPartenerDoa();
+//     daoFactory.beginTransaction();
+//     selected = partenerFacade.find(4);
+//     daoFactory.commitTransaction();
+//     daoFactory.close();  
      
+        selected=additionalFns.getPartenerObject();
+        
      /////////////////////
-        DaoFactory daoFactory1 = new DaoFactory();
-        PartnTypeFacade partnTypeFacade = daoFactory1.getPartnTypeDoa();
-        daoFactory1.beginTransaction();
-        findAll = partnTypeFacade.findAll();
-        
-         for(PartnType pt : findAll)
-        {
-            System.out.println(pt.getId());
-            System.out.println(pt.getName());
-            System.out.println("---------------");
-        }
-        
-        daoFactory1.commitTransaction();
-        daoFactory1.close();
      
+     findAll = additionalFns.getAllPartnType();
+     
+//        DaoFactory daoFactory1 = new DaoFactory();
+//        PartnTypeFacade partnTypeFacade = daoFactory1.getPartnTypeDoa();
+//        daoFactory1.beginTransaction();
+//        findAll = partnTypeFacade.findAll();
+//        
+//         for(PartnType pt : findAll)
+//        {
+//            System.out.println(pt.getId());
+//            System.out.println(pt.getName());
+//            System.out.println("---------------");
+//        }
+//        
+//        daoFactory1.commitTransaction();
+//        daoFactory1.close();
+//     
         
     }
 
@@ -85,6 +94,14 @@ public class EditProfilePartenerBean
 
     public void setPartnTybeID(int partnTybeID) {
         this.partnTybeID = partnTybeID;
+    }
+
+    public AdditionalFns getAdditionalFns() {
+        return additionalFns;
+    }
+
+    public void setAdditionalFns(AdditionalFns additionalFns) {
+        this.additionalFns = additionalFns;
     }
     
     

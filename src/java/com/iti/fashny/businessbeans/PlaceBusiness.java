@@ -5,19 +5,24 @@
  */
 package com.iti.fashny.businessbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.daos.AdminFacade;
 import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PlaceFacade;
+import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -128,8 +133,8 @@ public class PlaceBusiness implements Commens<Place> {
             place = placeFacade.find(place.getId());
             List<ClientReviewPlace> clientReviewPlaceList = place.getClientReviewPlaceList();
             System.out.println(clientReviewPlaceList.size());
-            for (ClientReviewPlace crl: clientReviewPlaceList) {
-                System.out.println(crl.getClientId().getName()+":"+crl.getComment());
+            for (ClientReviewPlace crl : clientReviewPlaceList) {
+                System.out.println(crl.getClientId().getName() + ":" + crl.getComment());
             }
             daoFactory.commitTransaction();
         } catch (Exception e) {
@@ -141,7 +146,7 @@ public class PlaceBusiness implements Commens<Place> {
         }
         return place;
     }
-    
+
     public Place getResources(Place place) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         try {
@@ -162,6 +167,62 @@ public class PlaceBusiness implements Commens<Place> {
             daoFactory.close();
         }
         return place;
+    }
+
+    public void addImageToPlace(UploadedFile image, Place place) {
+        DaoFactory daoFactory = new DaoFactory();
+        PlaceFacade placeDoa = daoFactory.getPlaceDoa();
+        ResouceFacade resouceDoa = daoFactory.getResouceDoa();
+        System.out.println("~~~~~~~~~~~~~~~~~~~  " + image.getFileName() + " ~~~~~~~~~~~~~~~");
+        try {
+            daoFactory.beginTransaction();
+
+            Integer placeId = place.getId();
+
+            UploadImage uploadImage = new UploadImage();
+            uploadImage.setFile(image);
+            uploadImage.forPlace("" + placeId);
+            String filePath = uploadImage.handleFileUpload();
+
+            Resouce resouce = new Resouce(null, filePath);
+            resouce.setPlaceList(new ArrayList<>());
+            resouce.getPlaceList().add(place);
+            resouceDoa.create(resouce);
+
+//            Place find = placeDoa.find(placeId);
+//            System.out.println("image count::"+find.getResouceList().size());
+
+            place.getResouceList().add(resouce);
+            
+            daoFactory.commitTransaction();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
+
+    }
+
+    public boolean deleteImageFromPlace(Resouce selectedPic) {
+        boolean deleted = false;
+        DaoFactory daoFactory = new DaoFactory();
+        ResouceFacade resouceDoa = daoFactory.getResouceDoa();
+        try{
+            daoFactory.beginTransaction();
+            
+            Resouce find = resouceDoa.find(selectedPic.getId());
+            find.getPlaceList().clear();
+            resouceDoa.remove(find);
+            
+            Files.delete(new File(selectedPic.getPath()).toPath());
+            deleted =true;
+            
+            daoFactory.commitTransaction();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            deleted =false;
+            daoFactory.rollbackTransaction();
+        }
+        return deleted;
     }
 
 }

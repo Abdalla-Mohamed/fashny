@@ -25,6 +25,7 @@
         
         <center>
          <h:form id="SignUpCreatePartenerForm">
+                <h:panelGroup  id="SignUpCreatePartenerdisplay">
                     <p:panelGrid columns="2">
                         <p:outputLabel value="#{MyPropertyFile.PartnerName}"/>
                         <p:inputText value="#{SignUpCreatePartenerBean.selected.name}" title="#{MyPropertyFile.PartnerName}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
@@ -46,11 +47,17 @@
                         <p:inputText value="#{SignUpCreatePartenerBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
+                        <ui:remove>
                         <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
                         <p:inputText value="#{SignUpCreatePartenerBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
                             <f:converter converterId="PartenerCreatePartenerConverterForPartenerType" />
                         </p:inputText>
-
+                        </ui:remove>
+                        
+                        <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
+                        <h:selectOneMenu value="#{SignUpCreatePartenerBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType">
+                            <f:selectItems value="#{SignUpCreatePartenerBean.findAll}" var="findall" itemValue="#{findall}" itemLabel="#{findall.name}" />
+                        </h:selectOneMenu>
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerWorkHours}"/>
                         <p:inputText value="#{SignUpCreatePartenerBean.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
@@ -68,7 +75,7 @@
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerContactEmail}"/>
                         <p:inputText value="#{SignUpCreatePartenerBean.selected.contactEmail}" title="#{MyPropertyFile.PartnerContactEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
-                           <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
+                           <!--<f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>-->
                         </p:inputText>
 
 
@@ -101,6 +108,7 @@
                     <p:commandButton actionListener="#{SignUpCreatePartenerBean.registerNewPartener()}" value="#{MyPropertyFile.Save}"/>
                     <p:commandButton value="#{MyPropertyFile.Cancel}" immediate="true"/>
                     
+                </h:panelGroup>
          </h:form>
         </center>
     </ui:define>

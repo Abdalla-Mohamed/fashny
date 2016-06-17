@@ -29,21 +29,40 @@
 
             <ui:define name="content">
                 <br/> <br/> <br/>
-                <h:form id="PlaceViewForm" styleClass="col-lg-12">
-                    <p:dataTable value="#{placeView_1.selected.resouceList}" var="image">
+                <h:form id="PlaceViewForm" prependId="false" styleClass="col-lg-12">
+                    <p:dataTable id="imagTable" value="#{placeView_1.selected.resouceList}" var="image">
 
-                        <p:column headerText="description" >
-                            #{image.description}
+
+                        <p:column headerText="image" width="80%" >
+                            <p:graphicImage height="100px" style="  width:50%;   margin-right: auto; margin-left: auto;    display: block;  " value="/Image?imageName=#{image.path}"  />
+                        </p:column>
+                        <p:column headerText="image" style=" text-align:center !important;" >
+                            <p:commandButton  icon="fa fa-times" title="View" action="#{placeView_1.deleteRecource()}" >
+                                <f:setPropertyActionListener value="#{image}" target="#{placeView_1.selectedPic}" />
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                            </p:commandButton>
                         </p:column>
 
-                    
-                        <p:column headerText="image" width="70%" >
-                            <p:graphicImage height="150px" value="/Image?imageName=#{image.path}" styleClass="content  img-responsive" />
-                        </p:column>
-                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Add image" type="button" onclick="PF('uploadImage').show();" />
+                        </f:facet>                        
                     </p:dataTable>
 
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
                 </h:form>
+
+                <p:dialog header="Add image to place" widgetVar="uploadImage" modal="true" showEffect="explode" hideEffect="bounce" resizable="true" >
+                    <h:form>
+                        <p:fileUpload fileUploadListener="#{placeView_1.handleFileUpload}" mode="advanced" dragDropSupport="false" 
+                                      multiple="true" update="imgMessages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+                        <p:growl id="imgMessages" showDetail="true"  />
+                    </h:form>
+                </p:dialog>
+
 
             </ui:define>
 
