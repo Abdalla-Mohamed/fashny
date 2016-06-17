@@ -9,7 +9,10 @@ import com.iti.fashny.assets.LoginAccount;
 import com.iti.fashny.assets.Role;
 import com.iti.fashny.businessbeans.LoginBusiness;
 import com.iti.fashny.entities.Client;
+import com.iti.fashny.exceptions.DeletedAccountException;
 import com.iti.fashny.exceptions.Fasa7nyException;
+import com.iti.fashny.exceptions.InvalidLoginDataException;
+import com.iti.fashny.exceptions.NotConfirmAccountException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +29,10 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class LoginManagedBean implements Serializable {
 
+    final static String clientHomePageOutcome = "loginClient";
+    final static String companyHomePageOutcome = "loginCompaney";
+    final static String partnerHomePageOutcome = "loginPartner";
+
     Role roles;
     private String selectedRole;
     private boolean isLogged = false;
@@ -35,17 +42,13 @@ public class LoginManagedBean implements Serializable {
     private LoginAccount loginAccount;
 
     public LoginManagedBean() {
-            roles = Role.Guest;
-             LoginBusiness = new LoginBusiness();
+        roles = Role.Guest;
+        LoginBusiness = new LoginBusiness();
     }
 
-    
-    
-    
-    
     public LoginAccount getLoginAccount() {
         return loginAccount;
-}
+    }
 
     public void setLoginAccount(LoginAccount loginAccount) {
         this.loginAccount = loginAccount;
@@ -82,12 +85,29 @@ public class LoginManagedBean implements Serializable {
             loginAccount = new LoginAccount(LoginBusiness.login(mail, password, Role.valueOf(selectedRole)));
             isLogged = true;
             roles = loginAccount.getRole();
-            destination = "PlaceClient";
+            switch (roles) {
+                case Client:
+                    destination = clientHomePageOutcome;
+                    break;
+                case Company:
+                    destination = companyHomePageOutcome;
+                    break;
+                case Partner:
+                    destination = partnerHomePageOutcome;
+                    break;
+            }
+
         } catch (Fasa7nyException ex) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"enter valid email and password","");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            showMessages("not login role");
+        } catch (NotConfirmAccountException | DeletedAccountException | InvalidLoginDataException loginException) {
+            showMessages(loginException.getMessage());
         }
         return destination;
+    }
+
+    private void showMessages(String msg) {
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, "");
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
     }
 
     public String logOut() {

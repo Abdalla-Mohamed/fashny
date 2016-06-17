@@ -134,30 +134,19 @@
                                     </p:inputText>
                                     <h:message for="lastSeen" style="color:red" />
 
-                                    <ui:remove>
-                                        <p:fileUpload binding="#{upload}" mode="simple"
-                                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                                                      value="#{SignUpBean.uploadedPicture}"/>
-                                        <p:graphicImage value="#" height="150" binding="#{image}" />  
-
-                                    </ui:remove>
 
 
-
-                                    <ui:remove>                                    <p:outputLabel value="#{MyPropertyFile.Photo}"/>
-                                        <p:fileUpload fileUploadListener="#{SignUpBean.uploadImage.handleFileUpload(event)}" dragDropSupport="true" label="Choose" auto="true"
-                                                      sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-                                    </ui:remove>
-                                    
                                     <p:growl id="msg"></p:growl>
-                                    <p:fileUpload value="#{SignUpBean.uploadImage.file}"
+                                    <p:fileUpload value="#{SignUpBean.c.pic}"
                                                   invalidSizeMessage="JournalDev: Invalid Size"
                                                   invalidFileMessage="JournalDev: Invalid File Type"
                                                   fileLimitMessage="JournalDev: Invalid File Limit" 
-                                                  mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
+                                                  mode="simple" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
                                                   allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                                                  fileUploadListener="#{SignUpBean.uploadImage.handleFileUpload}" 
+
                                                   update="msg"></p:fileUpload>
+
+
                                     <ui:remove>
 
                                         <h:graphicImage url="#{SignUpBean.c.profilePic.path}" width="200" height="171" />
@@ -168,17 +157,26 @@
                                 </p:panelGrid>
 
                                 <center>
-                                    <p> <h:commandButton value="#{MyPropertyFile.SignUp}" action="#{SignUpBean.registerNewClient()}"/>
-                                        <h:commandButton value="#{MyPropertyFile.ShowInfo}" action="#{SignUpBean.getAllInfo()}"/>
-                                        <h:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="index"/> </p>
-                                    <br/>
-                                    <br/>
+                                    <p> <p:commandButton value="#{MyPropertyFile.SignUp}" ajax="false" action="#{SignUpBean.registerNewClient()}" />
+                                        <p:commandButton value="#{MyPropertyFile.SignUp} test" ajax="false" action="#{SignUpBean.registerNewClientTest()}" />
+                                            <h:commandButton value="#{MyPropertyFile.ShowInfo}" action="#{SignUpBean.getAllInfo()}"/>
+                                            <h:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="index"/> </p>
+                                        <br/>
+                                        <br/>
                                 </center>
 
 
                             </h:panelGroup>
 
                         </center>
+                    </h:form>
+
+                    <h:form enctype="multipart/form-data">
+                        <p:growl id="messages" showDetail="true" />
+                        <p:inputText value="#{SignUpBean.c.name}" required="true" />
+                        <p:fileUpload value="#{SignUpBean.c.pic}" mode="simple" skinSimple="true" required="true"/>
+
+                        <p:commandButton value="Submit" ajax="false" action="#{SignUpBean.registerNewClientTest()}" />
                     </h:form>
 
                 </ui:define>

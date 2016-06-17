@@ -115,6 +115,8 @@ public class PlaceBusiness implements Commens<Place> {
         DaoFactory dao = new DaoFactory();
         PlaceFacade p = dao.getPlaceDoa();
         place = p.find(id);
+        place.getResouceList().size();
+        dao.close();
         return place;
     }
 

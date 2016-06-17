@@ -117,7 +117,6 @@
                         <ui:insert name="contPageName">Page name</ui:insert>
                         <small><ui:insert name="contPageDescrp">Page description </ui:insert></small>
                     </h1>
-                    <p:messages class="col-lg-12" autoUpdate="true" id="growl" />
 
                     <ol class="breadcrumb">
                         <ui:insert name="contPagePath">
@@ -125,7 +124,12 @@
                             <li class="active">.....</li>
                         </ui:insert>
                     </ol>
-                    <section class="content">
+                  
+                </section>
+                  <section class="content">
+                      <p:growl sticky="true" class="col-lg-12" autoUpdate="true" id="growl" />
+  
+                      <div class="row" >
                         <div class="col-lg-12" >
                             <!--<p:growl autoUpdate="true" redisplay="true"  life="3000" />-->
                             <ui:insert class="col-lg-5" name="content">
@@ -136,8 +140,8 @@
          
                             </ui:insert>
                         </div>
+                        </div>
                     </section>  
-                </section>
 
 
             </div>

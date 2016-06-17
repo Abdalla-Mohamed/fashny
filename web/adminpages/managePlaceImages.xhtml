@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="heads">
+
+    </ui:define>
+    <body>
+
+        <ui:composition template="./../templates/templateAdmin.xhtml">
+
+            <ui:define name="contPageName">
+                <h:outputText value="#{placeView_1.selected.name}"/>
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+                manage images of #{placeView_1.selected.name}
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                <a href="">Home > </a> 
+                <a href="./../adminpages/adminPlace_1.xhtml">Show All Places > </a> 
+                <a href="./../adminpages/ViewPlacePage.xhtml">Place Details</a>
+            </ui:define>
+
+            <ui:define name="content">
+                <br/> <br/> <br/>
+                <h:form id="PlaceViewForm" styleClass="col-lg-12">
+                    <p:dataTable value="#{placeView_1.selected.resouceList}" var="image">
+
+                        <p:column headerText="description" >
+                            #{image.description}
+                        </p:column>
+
+                    
+                        <p:column headerText="image" width="70%" >
+                            <p:graphicImage height="150px" value="/Image?imageName=#{image.path}" styleClass="content  img-responsive" />
+                        </p:column>
+                        
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="rightHeader"> 
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

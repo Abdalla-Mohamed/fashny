@@ -13,80 +13,77 @@ import com.iti.fashny.daos.PartenerFacade;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Partener;
+import com.iti.fashny.exceptions.DeletedAccountException;
 import com.iti.fashny.exceptions.Fasa7nyException;
+import com.iti.fashny.exceptions.InvalidLoginDataException;
+import com.iti.fashny.exceptions.NotConfirmAccountException;
 import com.iti.fashny.interfaces.UserAccount;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Administrator
  */
-public class LoginBusiness implements  Serializable{
+public class LoginBusiness implements Serializable {
 
     public LoginBusiness() {
     }
 
-    public UserAccount login(String email, String pass, Role role) throws Fasa7nyException {
+    public UserAccount login(String email, String pass, Role role) throws InvalidLoginDataException, NotConfirmAccountException, DeletedAccountException, Fasa7nyException {
         switch (role) {
-            case Client: return loginClient(email, pass);
-            case Company: return loginCompany(email, pass);
-            case Partner: return loginPartener(email, pass);
-            default:throw new Fasa7nyException();
+            case Client:
+                return loginClient(email, pass);
+            case Company:
+                return loginCompany(email, pass);
+            case Partner:
+                return loginPartener(email, pass);
+            default:
+                throw new Fasa7nyException();
         }
     }
 
-    public Client loginClient(String email, String pass) throws Fasa7nyException {
+    public Client loginClient(String email, String pass) throws InvalidLoginDataException, NotConfirmAccountException, DeletedAccountException {
 
         DaoFactory factory = new DaoFactory();
         ClientFacade cf = factory.getClientDoa();
+        Client c;
         try {
-            Client c;
             c = cf.login(email, pass);
-            return c;
 
-        } catch (Fasa7nyException fasa7nyException) {
-            throw fasa7nyException;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            throw exception;
         } finally {
             factory.close();
         }
+        return c;
     }
-    public Company loginCompany(String email, String pass) throws Fasa7nyException {
+
+    public Company loginCompany(String email, String pass) throws InvalidLoginDataException, NotConfirmAccountException, DeletedAccountException {
 
         DaoFactory factory = new DaoFactory();
         CompanyFacade companyFacade = factory.getCompanyDoa();
+        Company c;
         try {
-            Company c;
             c = companyFacade.login(email, pass);
-            return c;
 
-        } catch (Fasa7nyException fasa7nyException) {
-            throw fasa7nyException;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            throw exception;
         } finally {
             factory.close();
         }
+        return c;
     }
-    public Partener loginPartener(String email, String pass) throws Fasa7nyException {
+
+    public Partener loginPartener(String email, String pass) throws InvalidLoginDataException, NotConfirmAccountException, DeletedAccountException {
 
         DaoFactory factory = new DaoFactory();
         PartenerFacade partenerFacade = factory.getPartenerDoa();
+        Partener partener;
         try {
-            Partener partener;
             partener = partenerFacade.login(email, pass);
-            return partener;
 
-        } catch (Fasa7nyException fasa7nyException) {
-            throw fasa7nyException;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            throw exception;
         } finally {
             factory.close();
         }
+
+        return partener;
     }
 }

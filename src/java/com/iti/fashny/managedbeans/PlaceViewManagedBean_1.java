@@ -386,4 +386,13 @@ public class PlaceViewManagedBean_1 implements Serializable {
         selected = new Place();
         return "adminPlace_1";
     }
+    
+    
+    
+    public String goToImages(int id) {
+        System.out.println(id);
+        selected = placeBusiness.showSpecificInfo(id);
+        return "managePlaceImages";
+
+    }
 }
