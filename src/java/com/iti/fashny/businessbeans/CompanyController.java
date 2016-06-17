@@ -37,7 +37,8 @@ public class CompanyController implements Commens<Company>, Serializable {
             companyFacade.create(company);
             daoFactory.commitTransaction();
         } catch (Exception e) {
-            daoFactory.commitTransaction();
+            daoFactory.rollbackTransaction();
+            throw e;
         }
     }
 
@@ -50,7 +51,8 @@ public class CompanyController implements Commens<Company>, Serializable {
             companyFacade.edit(company);
             daoFactory.commitTransaction();
         } catch (Exception e) {
-            daoFactory.commitTransaction();
+            daoFactory.rollbackTransaction();
+            throw e;
         }
     }
 
@@ -68,6 +70,7 @@ public class CompanyController implements Commens<Company>, Serializable {
         return companies;
 
     }
+
     public List<Company> getValidateCompanyForClient() throws Exception {
 
         DaoFactory daoFactory = new DaoFactory();
@@ -105,6 +108,7 @@ public class CompanyController implements Commens<Company>, Serializable {
         }
         return company;
     }
+
     public Company gitTagsOfCompany(Company company) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         try {
@@ -128,6 +132,7 @@ public class CompanyController implements Commens<Company>, Serializable {
         }
         return company;
     }
+
     public Company gitAllCompanyLists(Company companyObj) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         try {

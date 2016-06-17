@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../templates/templateCompany.xhtml">
+
+            <ui:define name="heads">
+                heads
+            </ui:define>
+
+            <ui:define name="contPageName">
+                contPageName
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+                contPageDescrp
+            </ui:define>
+
+            <ui:define name="contPagePath">
+                contPagePath
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="ClientViewForm">
+                    <div class="col-sm-12" align="center">
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="col-sm-8" align="center">    
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><h:outputLabel for="name" value="#{bundle.ViewClientLabel_name}"/></td>
+                                        <td><h:outputText id="name" value="#{clientOfCompanyTrips.client.name}" title="#{bundle.ViewClientTitle_name}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputLabel for="facet" value="#{bundle.ViewClientLabel_email}" /></td>
+                                        <td><h:outputText id="facet" value="#{clientOfCompanyTrips.client.email}" title="#{bundle.ViewClientTitle_email}"/></td>
+                                    </tr>
+                                    <tr>  
+                                        <td><h:outputLabel for="contactEmail" value="#{bundle.ViewClientLabel_contactEmail}"/></td>
+                                        <td><h:outputText id="contactEmail" value="#{clientOfCompanyTrips.client.contactEmail}" title="#{bundle.ViewClientTitle_contactEmail}"/></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td><h:outputLabel for="address" value="#{bundle.ViewClientLabel_address}"/></td>
+                                        <td><h:outputText id="address"  value="#{clientOfCompanyTrips.client.address}" title="#{bundle.ViewClientTitle_address}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputLabel for="birthDate" value="#{bundle.ViewClientLabel_birthDate}" /></td>
+                                        <td><h:outputText id="birthDate"  value="#{clientOfCompanyTrips.client.birthDate}" title="#{bundle.ViewClientTitle_birthDate}"/></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td><h:outputLabel for="gender" value="#{bundle.ViewClientLabel_gender}"/></td>
+                                        <td><h:outputText id="gender" value="#{clientOfCompanyTrips.client.gender}" title="#{bundle.ViewClientTitle_gender}"/></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td><h:outputLabel for="maritalStatus" value="#{bundle.ViewClientLabel_maritalStatus}"/></td>
+                                        <td><h:outputText id="maritalStatus"  value="#{clientOfCompanyTrips.client.maritalStatus}" title="#{bundle.ViewClientTitle_maritalStatus}"/></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td><h:outputLabel for="mobile1" value="#{bundle.ViewClientLabel_mobile1}"/></td>
+                                        <td><h:outputText id="mobile1" value="#{clientOfCompanyTrips.client.mobile1}" title="#{bundle.ViewClientTitle_mobile1}"/></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td><h:outputLabel for="mobile2" value="#{bundle.ViewClientLabel_mobile2}"/></td>
+                                        <td><h:outputText id="mobile2" value="#{clientOfCompanyTrips.client.mobile2}" title="#{bundle.ViewClientTitle_mobile2}"/></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td><h:outputLabel for="phone" value="#{bundle.ViewClientLabel_phone}"/></td>
+                                        <td><h:outputText id="phone"  value="#{clientOfCompanyTrips.client.phone}" title="#{bundle.ViewClientTitle_phone}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewClientLabel_profilePic}"/></td>
+                                        <td><p:graphicImage value="/Image?imageName=#{clientOfCompanyTrips.client.profilePic}" id="image" width="400" height="200"/></td>
+                                    </tr> 
+                                </tbody>
+                            </table> 
+<!--
+-->                          
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="rightHeader">
+                rightHeader
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
