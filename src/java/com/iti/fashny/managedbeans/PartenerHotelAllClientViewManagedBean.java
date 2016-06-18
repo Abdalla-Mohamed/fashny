@@ -22,16 +22,54 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class PartenerHotelAllClientViewManagedBean 
 {
-    List<Partener> partenerList;
+    List<Partener> partenerList; // for hotels type.id = 1;
     AdditionalFns additionalFns;
-   private Partener photel;
+    private Partener photel;
+   
+   List<Partener> transList; // for Transportations type.id = 2
+   
+   List<Partener> resturList; // for Restaurant type.id = 3
+   List<Partener> photogrList; // for PhotoGrapher type.id = 4
+   
+   
+   //List<Partener> partenerList;
+   
 
     public PartenerHotelAllClientViewManagedBean() 
     {
         additionalFns = new AdditionalFns();
-        partenerList=additionalFns.getAllPartenerFromSameType(3);
         
+        partenerList=additionalFns.getAllPartenerFromSameType(1);
+        transList=additionalFns.getAllPartenerFromSameType(2);
+        resturList=additionalFns.getAllPartenerFromSameType(3);
+        photogrList=additionalFns.getAllPartenerFromSameType(4);
     }
+
+    public List<Partener> getTransList() {
+        return transList;
+    }
+
+    public void setTransList(List<Partener> transList) {
+        this.transList = transList;
+    }
+
+    public List<Partener> getResturList() {
+        return resturList;
+    }
+
+    public void setResturList(List<Partener> resturList) {
+        this.resturList = resturList;
+    }
+
+    public List<Partener> getPhotogrList() {
+        return photogrList;
+    }
+
+    public void setPhotogrList(List<Partener> photogrList) {
+        this.photogrList = photogrList;
+    }
+    
+    
 
     public List<Partener> getPartenerList() {
         return partenerList;
@@ -68,5 +106,11 @@ public class PartenerHotelAllClientViewManagedBean
         return "PartenerHotelShowDetailsClientView";
     }
     
+        public String RestDetails(int id) 
+    {
+        photel = additionalFns.getPartenrSpecificInfo(id);
+      
+        return "PartenerResturanteShowDetailsClientView";
+    }
     
 }
