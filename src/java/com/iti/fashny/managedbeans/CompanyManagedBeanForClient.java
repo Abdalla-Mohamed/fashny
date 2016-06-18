@@ -6,8 +6,11 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.CompanyController;
+import com.iti.fashny.businessbeans.PlaceBusiness;
+import com.iti.fashny.businessbeans.TripBusiness;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Trip;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -32,12 +35,20 @@ public class CompanyManagedBeanForClient implements Serializable{
     CompanyController companyController;
     private List<Company> items = null;
     private Company selected;
+    private Trip trip = null;
+    TripBusiness tripBusiness;
+    PlaceBusiness placeBusiness;
+    private Place place = null;
     /**
      * Creates a new instance of CompanyManagedBean
      */
     public CompanyManagedBeanForClient() {
         companyController = new CompanyController();
         selected = new Company();
+        tripBusiness = new TripBusiness();
+        trip = new Trip();
+        placeBusiness = new PlaceBusiness();
+        place= new Place();
     }
     
 //_________________________  setter and getter _______________________________//
@@ -61,6 +72,38 @@ public class CompanyManagedBeanForClient implements Serializable{
         return selected;
     }
 
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public TripBusiness getTripBusiness() {
+        return tripBusiness;
+    }
+
+    public PlaceBusiness getPlaceBusiness() {
+        return placeBusiness;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
+
+    public void setTripBusiness(TripBusiness tripBusiness) {
+        this.tripBusiness = tripBusiness;
+    }
+
+    public void setPlaceBusiness(PlaceBusiness placeBusiness) {
+        this.placeBusiness = placeBusiness;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+    
     public void setCompanyController(CompanyController companyController) {
         this.companyController = companyController;
     }
@@ -107,7 +150,24 @@ public class CompanyManagedBeanForClient implements Serializable{
         } 
     }
     //_________________  for button in admin pages   ________________________//
-
+    public String goToViewTrip(int id) {
+        trip = tripBusiness.showSpecificInfo(id);
+        try {
+            trip = tripBusiness.gitAllCompanyLists(trip);
+        } catch (Exception ex) {
+            Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "viewTripClient";
+    }
+    public String placeDetails(int id) {
+        place = placeBusiness.showSpecificInfo(id);
+        try {
+            place = placeBusiness.getComments(place);
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "viewPlaceClient";
+    }
     public String goToCompanies(){
         return "compaies";
     }
