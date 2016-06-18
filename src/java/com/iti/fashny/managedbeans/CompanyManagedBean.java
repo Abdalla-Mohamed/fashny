@@ -98,7 +98,7 @@ public class CompanyManagedBean implements Serializable {
             }
             //new guestImpl().signUp(c);
             uploadImage.forCompany(selected.getId()+"");
-            uploadImage.copyFile();
+            uploadImage.handleFileUpload();
         }
     }
 

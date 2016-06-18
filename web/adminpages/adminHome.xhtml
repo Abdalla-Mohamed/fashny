@@ -7,7 +7,7 @@
 
     <body>
 
-        <ui:composition template="./../../templates/templateAdmin.xhtml">
+        <ui:composition template="./../templates/templateAdmin.xhtml">
 
             <ui:define name="contPageName">
                 contPageName
@@ -30,7 +30,7 @@
                                   fileLimitMessage="JournalDev: Invalid File Limit" 
                                   mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
                                   allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                                  fileUploadListener="#{fileUploadMB.handleFileUpload}" 
+                                  fileUploadListener="#{fileUploadMB.handleFileUpload2}" 
                                   update="msg"></p:fileUpload>
                 </h:form>
             </ui:define>
