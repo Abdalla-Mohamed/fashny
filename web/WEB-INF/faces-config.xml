@@ -39,18 +39,34 @@
         <navigation-case>
             <from-outcome>advSearch</from-outcome>
             <to-view-id>/guestPages/advancedSearch.xhtml</to-view-id>
+            <redirect />            
         </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>loginCompaney</from-outcome>
+            <to-view-id>/companypages/companyProfile.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>loginPartner</from-outcome>
+            <to-view-id>/partnerpages/partnerProfile.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>loginClient</from-outcome>
+            <to-view-id>/guestPages/home.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/guestPages/login.xhtml</to-view-id>
+            <redirect />            
         </navigation-case>
     </navigation-rule>
+
     
     <navigation-rule>
         <from-view-id>/adminpages/*</from-view-id>
+      
         <navigation-case>
             <from-outcome>adminCompnies</from-outcome>
             <to-view-id>/adminpages/company/compaies.xhtml</to-view-id>
