@@ -29,13 +29,10 @@
                     <h:outputText value="#{placeView_1.selected.workHours}"/>
                     <br/><br/>
 
-                    <p:commandButton type="button" onclick="PF('switcher').previous();" icon="ui-icon-circle-triangle-w" id="prev"/>
-                    <p:commandButton type="button" onclick="PF('switcher').next();" icon="ui-icon-circle-triangle-e" id="next"/>
-
-                    <p:imageSwitch effect="wipe" widgetVar="switcher" id="manuelSwitcher"
-                                   slideshowAuto="false">
+                  
+                    <p:imageSwitch  effect="fade" widgetVar="switcher" id="manuelSwitcher" >
                         <ui:repeat value="#{placeView_1.imagesList}" var="image" id="manuelSwitcherImages">
-                            <p:graphicImage value="/Image?imageName=#{image}" id="image" width="800" height="400"/>
+                            <p:graphicImage  styleClass="img-responsive "  value="/Image?imageName=#{image}" id="image" width="800" height="400"/>
                         </ui:repeat>
                     </p:imageSwitch>
 

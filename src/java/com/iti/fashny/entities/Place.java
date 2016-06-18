@@ -82,7 +82,7 @@ public class Place implements Serializable {
     private List<Tag> tagList;
     @ManyToMany(mappedBy = "placeList")
     private List<Client> clientList;
-    @ManyToMany(mappedBy = "placeList")
+    @ManyToMany(mappedBy = "placeList" , cascade = CascadeType.MERGE)
     private List<Resouce> resouceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "placeId")
     private List<ClientReviewPlace> clientReviewPlaceList;

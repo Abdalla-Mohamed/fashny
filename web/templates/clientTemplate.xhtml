@@ -51,7 +51,7 @@
 
     </h:head>
 
-    <h:body>
+    <h:body id="bobo">
         <f:facet name="last">
             <h:outputStylesheet library="clientTempl" name="css/bootstrap.css" />
             <h:outputStylesheet library="clientTempl" name="css/style.css" />
@@ -61,6 +61,7 @@
         </f:facet>
         <!--<div id="MyMenu1"></div>-->
 
+        <p:growl autoUpdate="true" life="1000" />
         <p:toolbar rendered="#{login.logged}"  styleClass="emptyWhite" >
 
             <f:facet name="right">
@@ -107,30 +108,49 @@
 
         </p:toolbar>
 
-        <p:toolbar  rendered="#{!login.logged}"  styleClass="emptyWhite" >
+        <p:toolbar  rendered="#{!login.logged}"  styleClass="co" >
 
             <f:facet name="right">
-                <h:form style="margin: 0px">
-                    <p:outputLabel id="usernameLabel" for="username" value="email" />
-                    <p:inputText type="email" label="usernameLabel" value="#{login.mail}" id="username"/>
-                    password
-                    <h:inputSecret value="#{login.password}"/>
+                <h:form style="margin: 0px;padding: 0px " styleClass="col-sm-12 col-xs-12" >
+                    <div class="col-sm-2 col-xs-12" style="padding: 0px;">
+                        <p:outputLabel value="Fas7ny logo"/>
+                    </div>
+                    <div class="col-sm-10 col-xs-12" style="padding: 0px;" >
+                        <div class="col-sm-3 col-xs-12" style="padding: 0px;" >
+                            <p:outputLabel id="usernameLabel" for="username" value="email" styleClass="col-sm-5 col-xs-4" />
+                            <p:inputText type="mail" label="usernameLabel" styleClass="col-sm-7 col-xs-8" value="#{login.mail}" id="username" converterMessage="enter valid email format"  required="true" requiredMessage="email is reqiured"/>
+                        </div>
+                        <div class="col-sm-4 col-xs-12" style="padding: 0px;" >
+                            <p:outputLabel id="passwordLabel" for="username" value="password" styleClass="col-sm-5 col-xs-4" />
 
-                    login as: 
+                            <p:password label="passwordLabel" value="#{login.password}" required="true" styleClass="col-sm-7 col-xs-8" requiredMessage="password is reqiured" />
+                        </div>    
+                        <div class="col-sm-5 col-xs-12" style="padding: 0px;" >
+                            <div class="col-sm-8 col-xs-12" style="padding: 0px;">
+                                <p:outputLabel id="type"  value="login as:" styleClass="col-sm-6 col-xs-4" />
+                                <p:selectOneMenu   label="type" value="#{login.selectedRole}" style="vertical-align: middle" styleClass="col-sm-6 col-xs-8" >
+                                    <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
+                                    <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
+                                    <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
+                                    <p:ajax event="valueChange" process="@this"  />
+                                </p:selectOneMenu >
+                            </div>
+                            <div class="col-sm-4 col-xs-12" style="padding: 0px;">
+                                <!--<h:outputLabel value="|" styleClass="" />-->
+                                <span class="ui-separator col-sm-2  col-xs-4">
+                                    <span style="
+                                          float: left;
+                                          border-right: 1px dotted #0073ea;
+                                          height: 40px;
+                                          "></span>
+                                </span>
+                                <!--<div class="btn-primary"/>-->
+                                <p:commandButton  action="#{login.login}"  style="    font-size: smaller;    border-color: #2e6da4;" styleClass="btn col-sm-9  btn-primary  col-xs-7" value="Login"  icon="fa fa-sign-in" />
+                            </div>
 
+                        </div>
 
-                    <p:selectOneMenu  styleClass="emptyWhite" value="#{login.selectedRole}" style="vertical-align: middle" >
-                        <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
-                        <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
-                        <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
-                        <p:ajax event="valueChange" process="@this"  />
-                    </p:selectOneMenu >
-
-                    <span class="ui-separator">
-                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
-                    </span>
-
-                    <p:commandButton  action="#{login.login}"  value="Login"  icon="fa fa-sign-in" />
+                    </div>
                 </h:form>
             </f:facet>
 
@@ -174,7 +194,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav cl-effect-14">
-                            <li><a href="index.html" class='${Home}' > Home</a></li>
+                            <li><a href="/fashny/faces/guestPages/home.xhtml" class='${Home}' > Home</a></li>
                             <li><a href="about.html" class='${Places}'>Places</a></li>
                             <li><a href="features.html" class='${Trips}'>Trips</a></li>
                             <li><a href="portfolio.html" class='${Companies}'>Companies</a></li>
@@ -216,17 +236,17 @@
         <div class="contact" id="contact">
             <div class="container">
                 <h3>Contact Us</h3>
-                <div class="col-md-4 contact-grid">
+                <div class="col-sm-4 contact-grid">
                     <i class="glyphicon glyphicon-home" aria-hidden="true"></i>
                     <h4>Address</h4>
                     <p>JI.Paulnadwam 2nd D.No:23-50-903.<span>United States</span></p>
                 </div>
-                <div class="col-md-4 contact-grid">
+                <div class="col-sm-4 contact-grid">
                     <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
                     <h4>Mail</h4>
                     <a href="mailto:info@example.com">info@example.com</a>
                 </div>
-                <div class="col-md-4 contact-grid">
+                <div class="col-sm-4 contact-grid">
                     <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
                     <h4>Phone</h4>
                     <p>+020 456 9696</p>

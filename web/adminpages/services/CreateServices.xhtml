@@ -32,6 +32,7 @@
                             <p:outputLabel for="category" value="#{bundle.CreateServiceLabel_categoreyServiceid}" />
                             <p:selectOneMenu id="category" value="#{serviceBean.service.categoreyServiceid.id}" style="width:150px"
                                              requiredMessage="#{bundle.CreateServiceRequiredMessage_categoreyServiceid}">
+                                
                                 <f:selectItem itemLabel="Select Category" itemValue="" noSelectionOption="true" />
                                 <f:selectItems  value="#{serviceBean.categories}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat.id}"/>
                             </p:selectOneMenu>

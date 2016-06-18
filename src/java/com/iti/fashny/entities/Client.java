@@ -27,8 +27,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -113,8 +115,11 @@ public class Client implements Serializable,UserAccount {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     private List<JoinTrip> joinTripList;
     @JoinColumn(name = "profile_Pic", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Resouce profilePic;
+    @Transient
+    private UploadedFile pic;
+    
 
     public Client() {
     }
@@ -315,6 +320,14 @@ public class Client implements Serializable,UserAccount {
     @Override
     public String toString() {
         return "entities.Client[ id=" + id + " ]";
+    }
+
+    public UploadedFile getPic() {
+        return pic;
+    }
+
+    public void setPic(UploadedFile pic) {
+        this.pic = pic;
     }
     
 }

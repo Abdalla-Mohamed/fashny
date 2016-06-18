@@ -27,130 +27,105 @@
             <ui:define name="content">
                 <br/><br/>
                 <h:form>
-                     <div class="col-sm-12" >
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <table class="table table-striped">
-                                            <tbody>
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_name}" for="name" /></td>
-                                                    <td><p:inputText id="name" value="#{tripMB.selected.name}" title="#{bundle.CreateTripTitle_name}" 
-                                                                     required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_name}"
-                                                                     style="width:280px;"/></td>
-                                                </tr> 
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_companyId}"  for="companyId"/></td>
-                                                    <td><p:selectOneMenu id="companyId" value="#{tripMB.selected.companyId}" style="width:280px;" 
-                                                                         converter="converterCompany" requiredMessage="#{bundle.CreateTripRequiredMessage_companyId}">
-                                                            <f:selectItems value="#{CompanyMB.items}" var="company"  itemLabel="#{company.name}" itemValue="#{company}"/>  
-                                                        </p:selectOneMenu></td>
-                                                </tr> 
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_program}" for="program" /></td>
-                                                    <td><p:inputTextarea id="program" value="#{tripMB.selected.program}" 
-                                                                         title="#{bundle.CreateTripTitle_program}" required="true" 
-                                                                         requiredMessage="#{bundle.CreateTripRequiredMessage_program}"
-                                                                         style="width:280px;"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_cost}" for="cost" /></td>
-                                                    <td><p:inputText id="cost" value="#{tripMB.selected.cost}" title="#{bundle.CreateTripTitle_cost}" 
-                                                                     required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_cost}"
-                                                                     style="width:280px;">
-                                                            <f:convertNumber currencyCode="EGP" type="currency" />
-                                                        </p:inputText> </td>   
-                                                </tr>
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_date}" for="date" /></td>
-                                                    <td><p:calendar id="date" value="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
-                                                                    title="#{bundle.CreateTripTitle_date}" required="true" 
-                                                                    requiredMessage="#{bundle.CreateTripRequiredMessage_date}">
-                                                            <p:ajax event="dateSelect" update="joinDeadline" />                                            
-                                                        </p:calendar></td>
-                                                </tr> 
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_joinDeadline}" for="joinDeadline" /></td>
-                                                    <td><p:calendar id="joinDeadline" value="#{tripMB.selected.joinDeadline}" 
-                                                                    maxdate="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
-                                                                    required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_joinDeadline}"/></td>
-                                                </tr> 
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_maxbooking}" for="maxbooking" /></td>
-                                                    <td><p:spinner id="maxbooking" value="#{tripMB.selected.maxbooking}" min="1"
-                                                                   title="#{bundle.CreateTripTitle_maxbooking}" required="true"
-                                                                   requiredMessage="#{bundle.CreateTripRequiredMessage_maxbooking}">
-                                                            <p:ajax event="blur" update="countBooking" />
-                                                        </p:spinner>
-                                                    </td>
-                                                </tr>
-                                                <tr style="height:30px; ">
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_countBooking}" for="countBooking" /></td>
-                                                    <td><p:spinner id="countBooking" value="#{tripMB.selected.countBooking}" 
-                                                                   max="#{tripMB.selected.maxbooking}" min="0" title="#{bundle.CreateTripTitle_countBooking}" 
-                                                                   required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_countBooking}"/></td>
-                                                </tr> 
+                    <div class="container-fluid" >
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-8">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
 
-                                            </tbody>
-                                        </table>
 
-                                    </td>
-                                    <td>
-                                        <table class="table table-striped">
-                                            <tbody>
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_places}" styleClass="col-xs-12" for="place"/></td>
-                                                    <td><p:selectManyMenu id="place" value="#{tripMB.selected.placeList}" tabindex="indx"  
-                                                                          converter="converterPlace" filter="true" filterMatchMode="contains" 
-                                                                          showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12"
-                                                                          style="width:280px;">
-                                                            <f:selectItems value="#{placeView_1.items}" var="place"  itemLabel="       #{place.name}" itemValue="#{place}" />
-                                                        </p:selectManyMenu></td>
-                                                </tr> 
-                                                 
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_needTools}" for="needTools" /></td>
-                                                    <td><p:inputText id="needTools" value="#{tripMB.selected.needTools}" 
-                                                                     title="#{bundle.CreateTripTitle_needTools}"  style="width:280px;"/></td>
-                                                </tr> 
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_tag}" styleClass="col-xs-12" for="tag"/></td>
-                                                    <td><p:selectManyMenu id="tag" value="#{tripMB.selected.tagList}" tabindex="indx"  
-                                                                          converter="tagConverter" filter="true" filterMatchMode="contains" 
-                                                                          showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12"
-                                                                          style="width:280px;">
-                                                            <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="       #{tag.name}" itemValue="#{tag}" />
-                                                        </p:selectManyMenu></td>
-                                                </tr> 
-                                                
-                                                 
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_hint}" for="hint" /></td>
-                                                    <td><p:inputText id="hint" value="#{tripMB.selected.hint}" title="#{bundle.CreateTripTitle_hint}" 
-                                                                     style="width:280px;"/></td>
-                                                </tr> 
-                                                
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_validated}" for="validated" /></td>
-                                                    <td><p:selectBooleanCheckbox id="validated" value="#{tripMB.selected.validated}" style="width:280px;"
-                                                                                 required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/></td>
-                                                </tr> 
-                                                <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreateTripLabel_offer}" for="offer" /></td>
-                                                    <td><p:selectBooleanCheckbox id="offer" value="#{tripMB.selected.offer}" /></td>
-                                                </tr> 
-                                                
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center"><p:commandButton action="#{tripMB.save()}" value="#{bundle.Save}" /></td>
-                                    <td align="center"><p:commandButton value="#{bundle.Cancel}" action="#{tripMB.goToTrips}" immediate="true"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_name}" for="name" /></td>
+                                        <td><p:inputText id="name" value="#{tripMB.selected.name}" title="#{bundle.CreateTripTitle_name}" 
+                                                         required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_name}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_companyId}"  for="companyId"/></td>
+                                        <td><p:selectOneMenu id="companyId" value="#{tripMB.selected.companyId}" style="width:150px" 
+                                                             converter="converterCompany" requiredMessage="#{bundle.CreateTripRequiredMessage_companyId}">
+                                                <f:selectItems value="#{CompanyMB.items}" var="company"  itemLabel="#{company.name}" itemValue="#{company}"/>  
+                                            </p:selectOneMenu></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_date}" for="date" /></td>
+                                        <td><p:calendar id="date" value="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
+                                                        title="#{bundle.CreateTripTitle_date}" required="true" 
+                                                        requiredMessage="#{bundle.CreateTripRequiredMessage_date}">
+                                            <p:ajax event="dateSelect" update="joinDeadline" />                                            
+                                            </p:calendar></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_joinDeadline}" for="joinDeadline" /></td>
+                                        <td><p:calendar id="joinDeadline" value="#{tripMB.selected.joinDeadline}" 
+                                                        maxdate="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
+                                                        required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_joinDeadline}"/></td>
+                                    </tr> 
+                                    <tr style="height:30px; ">
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_countBooking}" for="countBooking" /></td>
+                                        <td><p:spinner id="countBooking" value="#{tripMB.selected.countBooking}" 
+                                                       max="#{tripMB.selected.maxbooking}" min="0" title="#{bundle.CreateTripTitle_countBooking}" 
+                                                       required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_countBooking}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_maxbooking}" for="maxbooking" /></td>
+                                        <td><p:spinner id="maxbooking" value="#{tripMB.selected.maxbooking}" min="1"
+                                                       title="#{bundle.CreateTripTitle_maxbooking}" required="true"
+                                                       requiredMessage="#{bundle.CreateTripRequiredMessage_maxbooking}">
+                                            <p:ajax event="blur" update="countBooking" />
+                                            </p:spinner>
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_hint}" for="hint" /></td>
+                                        <td><p:inputText id="hint" value="#{tripMB.selected.hint}" title="#{bundle.CreateTripTitle_hint}" /></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_needTools}" for="needTools" /></td>
+                                        <td><p:inputText id="needTools" value="#{tripMB.selected.needTools}" title="#{bundle.CreateTripTitle_needTools}" /></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_program}" for="program" /></td>
+                                        <td><p:inputTextarea id="program" value="#{tripMB.selected.program}" 
+                                                             title="#{bundle.CreateTripTitle_program}" required="true" 
+                                                             requiredMessage="#{bundle.CreateTripRequiredMessage_program}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_tag}" styleClass="col-xs-12" for="tag"/></td>
+                                        <td><p:selectManyMenu id="tag" value="#{tripMB.selected.tagList}" tabindex="indx"  converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
+                                                <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="       #{tag.name}" itemValue="#{tag}" />
+                                            </p:selectManyMenu></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_places}" styleClass="col-xs-12" for="place"/></td>
+                                        <td><p:selectManyMenu id="place" value="#{tripMB.selected.placeList}" tabindex="indx"  converter="converterPlace" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
+                                                <f:selectItems value="#{placeView_1.items}" var="place"  itemLabel="       #{place.name}" itemValue="#{place}" />
+                                            </p:selectManyMenu></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_cost}" for="cost" /></td>
+                                        <td><p:inputText id="cost" value="#{tripMB.selected.cost}" title="#{bundle.CreateTripTitle_cost}" 
+                                                         required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_cost}">
+                                                <f:convertNumber currencyCode="EGP" type="currency" />
+                                            </p:inputText> </td>   
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_validated}" for="validated" /></td>
+                                        <td><p:selectBooleanCheckbox id="validated" value="#{tripMB.selected.validated}" 
+                                                                     required="true" requiredMessage="#{bundle.EditPlaceRequiredMessage_validated}"/></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateTripLabel_offer}" for="offer" /></td>
+                                        <td><p:selectBooleanCheckbox id="offer" value="#{tripMB.selected.offer}" /></td>
+                                    </tr> 
+                                    <tr>
+                                        <td><p:commandButton action="#{tripMB.save()}" value="#{bundle.Save}" /></td>
+                                        <td><p:commandButton value="#{bundle.Cancel}" action="#{tripMB.goToTrips}" immediate="true"/></td>
+                                    </tr> 
+                                </tbody>
+                            </table>
+                        </div> 
+
+
                     </div>   
                 </h:form>
 
@@ -159,6 +134,9 @@
             <ui:define name="rightHeader">
                 rightHeader
             </ui:define>
+
+            <!--            <ui:define name="">-->
         </ui:composition>
+
     </body>
 </html>

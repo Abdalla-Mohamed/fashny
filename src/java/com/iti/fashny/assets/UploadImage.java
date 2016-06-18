@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
@@ -20,12 +21,18 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Bakar M.M.R
  */
-public class UploadImage {
+public class UploadImage implements Serializable {
 
-    UploadedFile file;
-    String folderName = "C:" + File.separator + "uploaded"+File.separator;
+    private UploadedFile file;
+    private String folderId;
+    String folderName = "C:" + File.separator + "uploaded";
 
+    public UploadImage() {
+    }
 
+    /**
+     * Creates a new instance of FileUploadMB
+     */
     public UploadedFile getFile() {
         return file;
     }
@@ -34,43 +41,45 @@ public class UploadImage {
         this.file = file;
     }
 
-    public String getFolderName() {
-        return folderName;
+    private String getFolderId() {
+        return folderId;
     }
 
-    public void setFolderName(String folderName) {
-        this.folderName = folderName;
+    private void setFolderId(String folderId) {
+        this.folderId = folderId;
     }
 
     public void forClient(String id) {
-        folderName += "clients" + File.separator + id;
+        folderId = "clients" + File.separator + id;
     }
 
     public void forCompany(String id) {
-        folderName += "companies" + File.separator + id;
+        folderId = "companies" + File.separator + id;
     }
 
     public void forPartner(String id) {
-        folderName += "partners" + File.separator + id;
+        folderId = "partners" + File.separator + id;
     }
 
     public void forPlace(String id) {
-        folderName += "places" + File.separator + id;
+        folderId = "places" + File.separator + id;
     }
 
     public void forTrip(String id) {
-        folderName += "Trips" + File.separator + id;
+        folderId = "Trips" + File.separator + id;
     }
+    FileUploadEvent event;
 
-    public void handleFileUpload(FileUploadEvent event) {
-        file = event.getFile();
-    }
+    public String handleFileUpload() {
+//        forClient("5");
+        folderName += File.separator + folderId;
+        String newFileName = "";
 
-    public void copyFile() {
-
-        String newFileName = this.folderName + File.separator + file.getFileName();
         try {
-            new File(folderName).mkdirs();
+            boolean mkdirs = new File(folderName).mkdirs();
+            int count = new File(folderName).list().length;
+            newFileName = folderName + File.separator+ count + file.getFileName();
+
             FileOutputStream fos = new FileOutputStream(new File(newFileName));
             InputStream is = file.getInputstream();
             int BUFFER_SIZE = 8192;
@@ -86,11 +95,12 @@ public class UploadImage {
             }
             fos.close();
             is.close();
-            FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return newFileName;
     }
 
 }

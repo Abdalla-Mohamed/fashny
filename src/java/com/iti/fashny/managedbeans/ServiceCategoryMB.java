@@ -6,6 +6,7 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.ServiceCategoryBusiness;
+import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Service;
 import com.iti.fashny.entities.ServiceCategorey;
 import java.util.List;
@@ -27,18 +28,24 @@ import org.primefaces.event.RowEditEvent;
 public class ServiceCategoryMB {
 
     ServiceCategoryBusiness catBusiness;
-    private ServiceCategorey serviceCat;
     private ServiceCategorey category;
     private List<ServiceCategorey> serviceCatList = null;
     private List<ServiceCategorey> serviceFilteredList;
+    private List<Partener> partnerList;
+    private PartnerCRUDSBean partnerBean;
 
     public ServiceCategoryMB() {
         catBusiness = new ServiceCategoryBusiness();
+        prepareCreate();
+        partnerBean=new PartnerCRUDSBean();
     }
-//Setters
 
     public void setCategory(ServiceCategorey category) {
         this.category = category;
+    }
+
+    public void setPartnerList(List<Partener> partnerList) {
+        this.partnerList = partnerList;
     }
 
     public ServiceCategorey getCategory() {
@@ -62,20 +69,16 @@ public class ServiceCategoryMB {
         return catBusiness;
     }
 
-    public void setServiceCat(ServiceCategorey serviceCat) {
-        this.serviceCat = serviceCat;
-    }
-
-    public ServiceCategorey getServiceCat() {
-        return serviceCat;
-    }
-
     public List<ServiceCategorey> getServiceCatList() {
         return serviceCatList;
     }
 
     public List<ServiceCategorey> getServiceFilteredList() {
         return serviceFilteredList;
+    }
+
+    public List<Partener> getPartnerList() {
+        return partnerList;
     }
 
     public List<ServiceCategorey> getItems() {
@@ -93,9 +96,18 @@ public class ServiceCategoryMB {
         this.serviceCatList = services;
     }
 
-    public ServiceCategorey prepareCreate() {
-        serviceCat = new ServiceCategorey();
-        return serviceCat;
+    public List<Partener> getPartners() {
+        partnerList = partnerBean.getItems();
+        return partnerList;
+    }
+
+    public void setPartner(List<Partener> partnerList) {
+        this.partnerList = partnerList;
+    }
+
+    public void prepareCreate() {
+        category = new ServiceCategorey();
+        category.setPartenersId(new Partener());
     }
 
     protected void setEmbeddableKeys() {
@@ -107,7 +119,7 @@ public class ServiceCategoryMB {
     public void create() {
         if (getCatBusiness() != null) {
             try {
-                catBusiness.add(serviceCat);
+                catBusiness.add(category);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -117,11 +129,19 @@ public class ServiceCategoryMB {
     public void update() {
         if (catBusiness != null) {
             try {
-                catBusiness.update(serviceCat);
+                catBusiness.update(category);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public String save() {
+        System.out.println("===================");
+        create();
+        serviceCatList = getItems();
+        category = new ServiceCategorey();
+        return "Services";
     }
 
     public ServiceCategorey getServiceCategorey(java.lang.Integer id) {
@@ -148,7 +168,7 @@ public class ServiceCategoryMB {
 //        return serviceList;
 //    }
     public void onRowEdit(RowEditEvent event) {
-        serviceCat = (ServiceCategorey) event.getObject();
+        category = (ServiceCategorey) event.getObject();
         update();
         FacesMessage msg = new FacesMessage("Category Edited", ((ServiceCategorey) event.getObject()).getName());
         FacesContext.getCurrentInstance().addMessage(null, msg);

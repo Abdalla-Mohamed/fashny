@@ -24,9 +24,6 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class JoinTipMB {
     
-    DaoFactory daoFactory = new DaoFactory();
-    ClientFacade cf = daoFactory.getClientDoa();
-    Client client ;
     List<JoinTrip>oldTrips;
     List<JoinTrip>comingTrips;
     JoinTripBuisinesss joinBuisiness; 
@@ -36,25 +33,14 @@ public class JoinTipMB {
         joinBuisiness = new JoinTripBuisinesss();
     }
     public List<JoinTrip> getOldTrips(Client c) {
-             getClient(c);
-        for (JoinTrip trip : client.getJoinTripList()) {
-            
-            if(trip.getTrip().getDate().getTime() < System.currentTimeMillis())
-                oldTrips.add(trip);
-                        
-        }
-        
+         
+        oldTrips = joinBuisiness.getOldTrips(c);
         return oldTrips;
     }
     
     public List<JoinTrip> getComingTrips(Client c) {
-             getClient(c);
-        for (JoinTrip trip : client.getJoinTripList()) {
-            
-            if(trip.getTrip().getDate().getTime() >= System.currentTimeMillis())
-                comingTrips.add(trip);                        
-        }
-        
+       
+        comingTrips = joinBuisiness.getComingTrips(c);
         return comingTrips;
     }
 
@@ -66,18 +52,6 @@ public class JoinTipMB {
 
     public void setComingTrips(List<JoinTrip> comingTrips) {
         this.comingTrips = comingTrips;
-    }
-    
-    public Client getClient(Client c) {
-    if (client==null)
-        client=new Client();
-    
-        client = cf.find(c.getId());
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
    
     public void onrate(JoinTrip joinTrip){
