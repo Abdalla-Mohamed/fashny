@@ -71,13 +71,13 @@ public class TagManagedBean {
     }
 
     public List<Tag> getItems() {
-        if (tags == null) {
-            try {
-                tags = tagBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            tags = tagBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return tags;
     }
 

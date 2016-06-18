@@ -7,7 +7,6 @@ package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.ServiceCategoryBusiness;
 import com.iti.fashny.entities.Partener;
-import com.iti.fashny.entities.Service;
 import com.iti.fashny.entities.ServiceCategorey;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,7 +36,7 @@ public class ServiceCategoryMB {
     public ServiceCategoryMB() {
         catBusiness = new ServiceCategoryBusiness();
         prepareCreate();
-        partnerBean=new PartnerCRUDSBean();
+        partnerBean = new PartnerCRUDSBean();
     }
 
     public void setCategory(ServiceCategorey category) {
@@ -82,13 +81,13 @@ public class ServiceCategoryMB {
     }
 
     public List<ServiceCategorey> getItems() {
-        if (serviceCatList == null) {
-            try {
-                serviceCatList = catBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            serviceCatList = catBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return serviceCatList;
     }
 
