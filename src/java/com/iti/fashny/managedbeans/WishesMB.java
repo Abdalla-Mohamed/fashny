@@ -64,12 +64,7 @@ public class WishesMB implements Serializable{
     public void setWishes(List<Wishes> wishes) {
         this.wishes = wishes;
     }
-    
-    public static void main(String[] args) {
-       
-        WishesMB wishesMB = new WishesMB();
-        wishesMB.getWishes();
-    }
+   
     
     public void addWish(Client client , Place place){
     

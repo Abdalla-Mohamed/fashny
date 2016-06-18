@@ -83,8 +83,16 @@ public class ClientBusiness implements Commens<Client> {
     public Client showSpecificInfo(int id) {
         Client client = new Client();
         DaoFactory daoFactory = new DaoFactory();
-        ClientFacade clientFacade = daoFactory.getClientDoa();
-        client = clientFacade.find(id);
+
+        try {
+            ClientFacade clientFacade = daoFactory.getClientDoa();
+            client = clientFacade.find(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            daoFactory.close();
+        }
         return client;
     }
 

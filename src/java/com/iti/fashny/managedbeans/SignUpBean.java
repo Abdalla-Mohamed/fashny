@@ -77,8 +77,14 @@ public class SignUpBean {
 
     public String registerNewClient() {
         new guestImpl().signUp(c);
-        uploadImage.forClient(c.getId()+"");
-        uploadImage.copyFile();
+        c=new Client();
+        return "/info";
+    }
+
+    public String registerNewClientTest() {
+        Client client = new Client(null, "omr", "abdo4@g.com", "123", "alex", new Date(), (short) 1, (short) 2, new Timestamp(System.currentTimeMillis()), "2");
+        client.setPic(c.getPic());
+        new guestImpl().signUp(client);
         return "/info";
     }
 

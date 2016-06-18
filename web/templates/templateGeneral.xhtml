@@ -35,6 +35,14 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <style>
+
+            .ui-icon.fa {
+                text-indent:0px;
+                background-image:none;
+            }
+        </style>
+
         <ui:insert name="heads"/>
     </h:head>
 
@@ -117,7 +125,6 @@
                         <ui:insert name="contPageName">Page name</ui:insert>
                         <small><ui:insert name="contPageDescrp">Page description </ui:insert></small>
                     </h1>
-                    <p:messages class="col-lg-12" autoUpdate="true" id="growl" />
 
                     <ol class="breadcrumb">
                         <ui:insert name="contPagePath">
@@ -125,26 +132,30 @@
                             <li class="active">.....</li>
                         </ui:insert>
                     </ol>
-                    <section class="content">
+
+                </section>
+                <section class="content">
+
+                    <div class="row" >
                         <div class="col-lg-12" >
-                            <!--<p:growl autoUpdate="true" redisplay="true"  life="3000" />-->
+                            <p:messages autoUpdate="true" redisplay="true"   />
                             <ui:insert class="col-lg-5" name="content">
-                                
+
                                 <div class="col-lg-7">Page content</div>
                                 <div class="col-lg-2"><p:commandButton styleClass=" btn btn-block btn-success btn-xs " /></div>
-                                
-         
+
+
                             </ui:insert>
                         </div>
-                    </section>  
-                </section>
+                    </div>
+                </section>  
 
 
             </div>
             <!-- /.content-wrapper -->
 
 
-           
+
 
             <!--....................................right bar ...............................-->
 
@@ -194,7 +205,7 @@
 
         <!-- AdminLTE App -->
         <h:outputScript  name="dist/js/app.min.js" />
-     
+
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:body>
 

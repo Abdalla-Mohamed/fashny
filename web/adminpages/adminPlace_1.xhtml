@@ -77,7 +77,10 @@
                     <p:column >
                         <p:commandButton id="viewButton" icon="ui-icon-search" action="#{placeView_1.goToViewPlace(item.id)}" styleClass="btnview"/>
                     </p:column>
-
+                    <p:column >
+                        <p:commandButton id="imgButton" icon="fa fa-image" action="#{placeView_1.goToImages(item.id)}" class="btnview" />
+                    </p:column>
+                    
                     <p:column >
                         <p:rowEditor />
                     </p:column>

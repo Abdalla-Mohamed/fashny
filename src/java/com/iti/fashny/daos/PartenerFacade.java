@@ -12,7 +12,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.iti.fashny.entities.Service;
+import com.iti.fashny.exceptions.DeletedAccountException;
 import com.iti.fashny.exceptions.Fasa7nyException;
+import com.iti.fashny.exceptions.InvalidLoginDataException;
+import com.iti.fashny.exceptions.NotConfirmAccountException;
 
 /**
  *
@@ -52,13 +55,22 @@ public class PartenerFacade extends AbstractFacade<Partener> {
         return services;
      }
 
-    public Partener login(String email, String pass) throws Fasa7nyException{
+    public Partener login(String email, String pass) throws InvalidLoginDataException, NotConfirmAccountException, DeletedAccountException{
+        Partener partener;
         List result = getEntityManager().createQuery(HQL_LOGIN)
                 .setParameter("email", email).setParameter("password", pass).getResultList();
-        if (result == null||result.isEmpty()) {
-            throw new Fasa7nyException();
+        if (result == null || result.isEmpty()) {
+            throw new InvalidLoginDataException();
+        } else {
+            partener = (Partener) result.get(0);
+            if (partener.getValidated() == false) {
+                throw new NotConfirmAccountException();
+            } else if (partener.getActive()== false) {
+                throw new DeletedAccountException();
+                  
+            }
         }
-        return (Partener) result.get(0);
+        return partener;
 
     }
      
