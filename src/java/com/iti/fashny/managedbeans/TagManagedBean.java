@@ -33,6 +33,7 @@ public class TagManagedBean {
     private List<Tag> filteredItems;
     private Tag selectedTag;
 
+//****************Setters & Getters*****************
     public List<Tag> getFilteredItems() {
         return filteredItems;
     }
@@ -70,13 +71,13 @@ public class TagManagedBean {
     }
 
     public List<Tag> getItems() {
-        if (tags == null) {
-            try {
-                tags = tagBusiness.view();
-            } catch (Exception ex) {
-                Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            tags = tagBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return tags;
     }
 
@@ -114,8 +115,6 @@ public class TagManagedBean {
             }
         }
     }
-
-   
 
     public Tag getTag(java.lang.Integer id) {
         return tagBusiness.showSpecificInfo(id);

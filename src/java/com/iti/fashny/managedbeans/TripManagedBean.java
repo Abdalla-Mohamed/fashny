@@ -127,6 +127,7 @@ public class TripManagedBean implements Serializable {
         }
     }
 
+    
     public void update() {
         System.err.println("......_____________________________________#####");
 
