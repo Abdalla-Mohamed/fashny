@@ -28,6 +28,7 @@ public class ServiceCategoryMB {
 
     ServiceCategoryBusiness catBusiness;
     private ServiceCategorey serviceCat;
+    private ServiceCategorey category;
     private List<ServiceCategorey> serviceCatList = null;
     private List<ServiceCategorey> serviceFilteredList;
 
@@ -36,12 +37,12 @@ public class ServiceCategoryMB {
     }
 //Setters
 
-    public void setServiceCat(ServiceCategorey serviceCat) {
-        this.serviceCat = serviceCat;
+    public void setCategory(ServiceCategorey category) {
+        this.category = category;
     }
 
-    public ServiceCategorey getServiceCat() {
-        return serviceCat;
+    public ServiceCategorey getCategory() {
+        return category;
     }
 
     public void setCatBusiness(ServiceCategoryBusiness catBusiness) {
@@ -59,6 +60,14 @@ public class ServiceCategoryMB {
 
     public ServiceCategoryBusiness getCatBusiness() {
         return catBusiness;
+    }
+
+    public void setServiceCat(ServiceCategorey serviceCat) {
+        this.serviceCat = serviceCat;
+    }
+
+    public ServiceCategorey getServiceCat() {
+        return serviceCat;
     }
 
     public List<ServiceCategorey> getServiceCatList() {

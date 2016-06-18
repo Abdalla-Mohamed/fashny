@@ -28,7 +28,7 @@
 
                             <p:ajax event="rowSelect"   update="createButton"/>
                             <p:ajax event="rowUnselect" update="createButton"/>
-                            <p:ajax event="rowEdit" listener="#{serviceBean.onRowEdit}"/><!--update="TagForm:msg2"-->
+                            <p:ajax event="rowEdit" listener="#{serviceBean.onRowEdit}"/>
                             <p:ajax event="rowEditCancel" listener="#{serviceBean.onRowCancel}"/>
 
                             <p:column headerText="#{bundle.ListServiceTitle_id}">
@@ -70,7 +70,7 @@
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}"   update=":ServiceForm" oncomplete="PF('ServiceCreateDialog').show()"/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{serviceBean.prepareCreate()}"  update=":ServiceForm" oncomplete="PF('ServiceCreateDialog').show()"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
@@ -85,8 +85,7 @@
 
         <ui:include src="CreateServices.xhtml"/>
 
-        <!--        <ui:include src="Edit.xhtml"/>
-                <ui:include src="ViewTag.xhtml"/>-->
+      
     </ui:define>
 
 </ui:composition>

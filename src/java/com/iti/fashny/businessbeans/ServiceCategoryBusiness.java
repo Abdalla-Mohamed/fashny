@@ -29,13 +29,10 @@ public class ServiceCategoryBusiness implements Commens<ServiceCategorey> {
     public void add(ServiceCategorey t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         ServiceCategoreyFacade serviceCatFacade = daoFactory.getServiceCategoreyDoa();
-
         try {
-
             daoFactory.beginTransaction();
             serviceCatFacade.create(t);
             daoFactory.commitTransaction();
-
         } catch (Exception exception) {
             exception.printStackTrace();
             daoFactory.rollbackTransaction();
@@ -46,13 +43,10 @@ public class ServiceCategoryBusiness implements Commens<ServiceCategorey> {
     public void update(ServiceCategorey t) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         ServiceCategoreyFacade serviceCatFacade = daoFactory.getServiceCategoreyDoa();
-
         try {
-
             daoFactory.beginTransaction();
             serviceCatFacade.edit(t);
             daoFactory.commitTransaction();
-
         } catch (Exception exception) {
             exception.printStackTrace();
             daoFactory.rollbackTransaction();

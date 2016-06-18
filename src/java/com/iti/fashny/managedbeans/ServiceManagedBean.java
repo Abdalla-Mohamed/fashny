@@ -104,7 +104,7 @@ public class ServiceManagedBean {
         this.serviceList = services;
     }
 
-    private void prepareCreate() {
+    public void prepareCreate() {
         service = new Service();
         service.setCategoreyServiceid(new ServiceCategorey());
     }
