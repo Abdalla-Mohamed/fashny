@@ -51,14 +51,8 @@
                     </p:column>
 
                     <p:column headerText="#{bundle.ListCompanyTitle_email}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.email}" /></f:facet>
-                            <f:facet name="input">
-                                <p:inputText id="modelInput_email" value="#{item.email}" style="width:100%"
-                                             required="true" requiredMessage="#{bundle.EditCompanyRequiredMessage_email}"
-                                             validator="com.iti.fashny.validators.CustomeEmailValidator"/>
-                            </f:facet>
-                        </p:cellEditor>
+                        <h:outputText value="#{item.email}" />
+                        
                     </p:column>
                     <p:column headerText="#{bundle.ListCompanyTitle_address}">
                         <p:cellEditor>

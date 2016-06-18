@@ -25,60 +25,70 @@
             </ui:define>
 
             <ui:define name="content">
-                <br/> <br/> <br/>
+                <br/> <br/>
+                
                 <h:form id="PlaceViewForm">
-                    <div  class="col-sm-12" align="center">
+                    <div class="col-sm-12" align="center">
                         <div class="col-sm-2" align="center"></div>
                         <div class="col-sm-8" align="center">    
-                            <font size="10">
-                                <p:panelGrid  columns="2" rendered="#{clientOfCompanyTrips.trip != null}" styleClass="col-sm-12" >
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_name}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.name}" title="#{bundle.ViewTripTitle_name}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_cost}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.cost}" title="#{bundle.ViewTripTitle_cost}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_countBooking}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.countBooking}" title="#{bundle.ViewTripTitle_countBooking}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_date}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.date}" title="#{bundle.ViewTripTitle_date}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_hint}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.hint}" title="#{bundle.ViewTripTitle_hint}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_joinDeadline}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.joinDeadline}" title="#{bundle.ViewTripTitle_joinDeadline}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_maxbooking}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.maxbooking}" title="#{bundle.ViewTripTitle_maxbooking}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_needTools}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.needTools}" title="#{bundle.ViewTripTitle_needTools}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_program}"/>
-                                    <h:outputText value="#{clientOfCompanyTrips.trip.program}" title="#{bundle.ViewTripTitle_program}"/>
-
-                                    <p:outputLabel value="#{bundle.ViewTripLabel_tag}"/>
-                                    <p:dataList value="#{clientOfCompanyTrips.trip.tagList}" var="tag" >#{tag.name}</p:dataList>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_offer}"/>
-                                    <p:selectBooleanCheckbox value="#{clientOfCompanyTrips.trip.offer}" disabled="true"/>
-                                </p:panelGrid>
-                            </font>   
-                        </div> 
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_name}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.name}" title="#{bundle.ViewTripTitle_name}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_cost}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.cost}" title="#{bundle.ViewTripTitle_cost}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_countBooking}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.countBooking}" title="#{bundle.ViewTripTitle_countBooking}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_date}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.date}" title="#{bundle.ViewTripTitle_date}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_hint}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.hint}" title="#{bundle.ViewTripTitle_hint}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_joinDeadline}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.joinDeadline}" title="#{bundle.ViewTripTitle_joinDeadline}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_maxbooking}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.maxbooking}" title="#{bundle.ViewTripTitle_maxbooking}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_needTools}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.needTools}" title="#{bundle.ViewTripTitle_needTools}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_program}"/></td>
+                                        <td><h:outputText value="#{clientOfCompanyTrips.trip.program}" title="#{bundle.ViewTripTitle_program}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.ViewTripLabel_tag}"/></td>
+                                        <td><p:dataList value="#{clientOfCompanyTrips.trip.tagList}" var="tag" >#{tag.name}</p:dataList></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_offer}"/></td>
+                                        <td><p:selectBooleanCheckbox value="#{clientOfCompanyTrips.trip.offer}" disabled="true"/></td>
+                                    </tr>
+                                </tbody>
+                            </table> 
+                        </div>
                     </div>
                 </h:form>
                 <div class="col-sm-12" align="justify"><br/> <br/> <br/></div>
-
                 <h4 align="center"> #{clientOfCompanyTrips.trip.name} involves visiting to these places </h4>
                 <h:form id="form">
                     <p:dataGrid var="place" value="#{clientOfCompanyTrips.trip.placeList}" columns="3" layout="grid"
-                                rows="1" paginator="true" id="places"
+                                rows="3" paginator="true" id="places"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="2,3,6,12">
-
+                                rowsPerPageTemplate="3,6,12">
 
                         <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
                             <div class="col-xs-4 blog-grid-left">
@@ -96,15 +106,14 @@
                         </div>
                     </p:dataGrid>
                 </h:form>
-
                 <div class="col-sm-12" align="justify"><br/> <br/> <br/></div>
 
                 <h4 align="center"> Members who joined #{clientOfCompanyTrips.trip.name}</h4>
                 <h:form id="clientform">
                     <p:dataGrid var="joinTrip" value="#{clientOfCompanyTrips.trip.joinTripList}" columns="3" layout="grid"
-                                rows="1" paginator="true" id="places"
+                                rows="3" paginator="true" id="places"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="2,3,6,12">
+                                rowsPerPageTemplate="3,6,12">
 
 
                         <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
@@ -124,7 +133,7 @@
                         </div>
                     </p:dataGrid>
                 </h:form>   
-
+ 
             </ui:define>
 
             <ui:define name="rightHeader"> 
