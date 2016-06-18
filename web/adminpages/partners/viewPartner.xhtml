@@ -42,7 +42,7 @@
                         </ui:remove>
                         
                         <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
-                        <h:selectOneMenu value="#{PartnerCRUDSBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType">
+                        <h:selectOneMenu value="#{PartnerCRUDSBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType" disabled="true">
                             <f:selectItems value="#{PartnerCRUDSBean.findAll}" var="findall" itemValue="#{findall}" itemLabel="#{findall.name}" />
                         </h:selectOneMenu>
 
