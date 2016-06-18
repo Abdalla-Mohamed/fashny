@@ -15,7 +15,7 @@
             </ui:define>
 
             <ui:define name="contPageName">
-                Client
+                New Client
             </ui:define>
 
             <ui:define name="contPageDescrp">
@@ -23,98 +23,123 @@
             </ui:define>
 
             <ui:define name="contPagePath">
-                admin>client>create client
+                <a href="">Home</a> 
+                <a href="./../../adminpages/client/adminClient.xhtml">Show All Clients</a> 
+                <a href="./../../adminpages/client/CreateClient.xhtml">Add New Client</a>
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="ClientCreateForm" enctype="multipart/form-data">
-                    <h:panelGroup id="display" class="col-sm-8">
-                        <p:panelGrid columns="3" class="col-sm-12" >
+                <div  class="col-sm-12" align="center">
+                    <h:form id="ClientCreateForm" enctype="multipart/form-data">
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="table-responsive col-sm-8">    
+                            <table class="table table-striped " align="center" >
+                                <tbody>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_name}" for="name" /></td>
+                                        <td><p:inputText id="name" value="#{adminClient.selected.name}" title="#{bundle.CreateClientTitle_name}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_name}">
+                                                <f:validateLength minimum="3" />
+                                            </p:inputText></td>
+                                        <td><p:message for="name"/></td>
+                                    </tr>
+                                    <tr>
 
-                            <p:outputLabel value="#{bundle.CreateClientLabel_name}" for="name" />
-                            <p:inputText id="name" value="#{adminClient.selected.name}" title="#{bundle.CreateClientTitle_name}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_name}">
-                                <f:validateLength minimum="3" />
-                            </p:inputText>
-                            <p:message for="name"/>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_email}" for="email" /></td>
+                                        <td><p:inputText id="email" value="#{adminClient.selected.email}" title="#{bundle.CreateClientTitle_email}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_email}" validator="com.iti.fashny.validators.CustomeEmailValidator"> 
+                                                <p:ajax update="emailmsg" event="blur"/>
+                                            </p:inputText></td>
+                                        <td><p:message for="email" id="emailmsg"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_contactEmail}" for="contactEmail" /></td>
+                                        <td><p:inputText id="contactEmail" value="#{adminClient.selected.contactEmail}" title="#{bundle.CreateClientTitle_contactEmail}" required="true" type="email">
 
-                            <p:outputLabel value="#{bundle.CreateClientLabel_email}" for="email" />
-                            <p:inputText id="email" value="#{adminClient.selected.email}" title="#{bundle.CreateClientTitle_email}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_email}" validator="com.iti.fashny.validators.CustomeEmailValidator"> 
-                                <p:ajax update="emailmsg" event="blur"/>
-                            </p:inputText>
-                            <p:message for="email" id="emailmsg"/>
+                                        </p:inputText></td>
+                                        <td><p:message for="contactEmail"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_password}" for="password" /></td>
+                                        <td><p:inputText id="password" value="#{adminClient.selected.password}" title="#{bundle.CreateClientTitle_password}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_password}">
+                                                <f:validateLength minimum="6" />
+                                            </p:inputText></td>
+                                        <td><p:message for="password"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_address}" for="address" /></td>
+                                        <td><p:inputText id="address" value="#{adminClient.selected.address}" title="#{bundle.CreateClientTitle_address}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_address}"/></td>
+                                        <td><p:message for="address"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_birthDate}" for="birthDate" /></td>
+                                        <td><p:calendar id="birthDate" pattern="MM/dd/yyyy" value="#{adminClient.selected.birthDate}" title="#{bundle.EditClientTitle_birthDate}" required="true" requiredMessage="#{bundle.EditClientRequiredMessage_birthDate}" showOn="button"/></td>
+                                        <td><p:message for="birthDate"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_gender}" for="gender" /></td>
+                                        <td><h:selectOneMenu id="gender" value="#{adminClient.selected.gender}" title="#{bundle.CreateClientTitle_gender}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_gender}">
+                                                <f:selectItem itemLabel="Male" itemValue="0" />
+                                                <f:selectItem itemLabel="Female" itemValue="1" />
+                                            </h:selectOneMenu></td>
+                                        <td><p:message for="gender"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputLabel value="#{bundle.CreateClientLabel_maritalStatus}" for="maritalStatus" /></td>
+                                        <td><h:selectOneMenu id="maritalStatus" value="#{adminClient.selected.maritalStatus}" title="#{bundle.CreateClientTitle_maritalStatus}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_maritalStatus}">
+                                                <f:selectItem itemLabel="Single" itemValue="0" />
+                                                <f:selectItem itemLabel="Maried" itemValue="1" />
+                                            </h:selectOneMenu></td>
+                                        <td><p:message for="maritalStatus"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_mobile1}" for="mobile1" /></td>
+                                        <td><p:inputText id="mobile1" value="#{adminClient.selected.mobile1}" title="#{bundle.CreateClientTitle_mobile1}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_mobile1}">
+                                                <f:validateLength minimum="11" maximum="11"/>
+                                            </p:inputText></td>
+                                        <td><p:message for="mobile1"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_mobile2}" for="mobile2" /></td>
+                                        <td><p:inputText id="mobile2" value="#{adminClient.selected.mobile2}" title="#{bundle.CreateClientTitle_mobile2}" >
+                                                <f:validateLength minimum="11" maximum="11"/>
+                                            </p:inputText></td>
+                                        <td><p:message for="mobile2"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_phone}" for="phone" /></td>
+                                        <td><p:inputText id="phone" value="#{adminClient.selected.phone}" title="#{bundle.CreateClientTitle_phone}" >
+                                                <f:validateLength minimum="7"/>
+                                            </p:inputText></td>
+                                        <td><p:message for="phone"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_active}" for="active" /></td>
+                                        <td><p:selectBooleanCheckbox id="active" value="#{adminClient.selected.active}" /></td>
+                                        <td><p:message for="active"/></td>
 
-                            <p:outputLabel value="#{bundle.CreateClientLabel_contactEmail}" for="contactEmail" />
-                            <p:inputText id="contactEmail" value="#{adminClient.selected.contactEmail}" title="#{bundle.CreateClientTitle_contactEmail}" required="true" type="email">
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_profilePic}" for="profilePic" /></td>
+                                        <td><p:fileUpload id="profilePic" fileUploadListener="#{adminClient.uploadImage.handleFileUpload}" mode="simple" dragDropSupport="false"
+                                                          auto="true" label="choose" sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /></td>
 
-                            </p:inputText>
-                            <p:message for="contactEmail"/>
+                                    </tr>
+                                    <tr>
+                                        <td align="center"><p:commandButton action="#{adminClient.create}" value="#{bundle.Save}" id="create" /></td>
+                                        <td></td>
+                                        <td align="center"><p:commandButton id="cancel" action="adminClient" value="#{bundle.Cancel}" immediate="true"/></td>
 
-                            <p:outputLabel value="#{bundle.CreateClientLabel_password}" for="password" />
-                            <p:inputText id="password" value="#{adminClient.selected.password}" title="#{bundle.CreateClientTitle_password}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_password}">
-                                <f:validateLength minimum="6" />
-                            </p:inputText>
-                            <p:message for="password"/>
-
-                            <p:outputLabel value="#{bundle.CreateClientLabel_address}" for="address" />
-                            <p:inputText id="address" value="#{adminClient.selected.address}" title="#{bundle.CreateClientTitle_address}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_address}"/>
-                            <p:message for="address"/>
-
-                            <p:outputLabel value="#{bundle.CreateClientLabel_birthDate}" for="birthDate" />
-                            <p:calendar id="birthDate" pattern="MM/dd/yyyy" value="#{adminClient.selected.birthDate}" title="#{bundle.EditClientTitle_birthDate}" required="true" requiredMessage="#{bundle.EditClientRequiredMessage_birthDate}" showOn="button"/>
-                            <p:message for="birthDate"/>
-
-                            <p:outputLabel value="#{bundle.CreateClientLabel_gender}" for="gender" />
-                            <h:selectOneMenu id="gender" value="#{adminClient.selected.gender}" title="#{bundle.CreateClientTitle_gender}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_gender}">
-                                <f:selectItem itemLabel="Male" itemValue="0" />
-                                <f:selectItem itemLabel="Female" itemValue="1" />
-                            </h:selectOneMenu>
-                            <p:message for="gender"/>
-
-                            <h:outputLabel value="#{bundle.CreateClientLabel_maritalStatus}" for="maritalStatus" />
-                            <h:selectOneMenu id="maritalStatus" value="#{adminClient.selected.maritalStatus}" title="#{bundle.CreateClientTitle_maritalStatus}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_maritalStatus}">
-                                <f:selectItem itemLabel="Single" itemValue="0" />
-                                <f:selectItem itemLabel="Maried" itemValue="1" />
-                            </h:selectOneMenu>
-                            <p:message for="maritalStatus"/>
-
-                            <p:outputLabel value="#{bundle.CreateClientLabel_mobile1}" for="mobile1" />
-                            <p:inputText id="mobile1" value="#{adminClient.selected.mobile1}" title="#{bundle.CreateClientTitle_mobile1}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_mobile1}">
-                                <f:validateLength minimum="11" maximum="11"/>
-                            </p:inputText>
-                            <p:message for="mobile1"/>
-
-                            <p:outputLabel value="#{bundle.CreateClientLabel_mobile2}" for="mobile2" />
-                            <p:inputText id="mobile2" value="#{adminClient.selected.mobile2}" title="#{bundle.CreateClientTitle_mobile2}" >
-                                <f:validateLength minimum="11" maximum="11"/>
-                            </p:inputText>
-                            <p:message for="mobile2"/>
-
-                            <p:outputLabel value="#{bundle.CreateClientLabel_phone}" for="phone" />
-                            <p:inputText id="phone" value="#{adminClient.selected.phone}" title="#{bundle.CreateClientTitle_phone}" >
-                                <f:validateLength minimum="7"/>
-                            </p:inputText>
-                            <p:message for="phone"/>
-
-                            <p:outputLabel value="#{bundle.CreateClientLabel_active}" for="active" />
-                            <p:selectBooleanCheckbox id="active" value="#{adminClient.selected.active}" />
-                            <p:message for="active"/>
+                                    </tr>
+                                </tbody>
+                            </table>
 
 
-                            <p:outputLabel value="#{bundle.CreateClientLabel_profilePic}" for="profilePic" />
-                            <p:fileUpload id="profilePic" fileUploadListener="#{adminClient.uploadImage.handleFileUpload}" mode="simple" dragDropSupport="false"
-                                          auto="true" label="choose" sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-
-                        </p:panelGrid>
-                        <p:commandButton action="#{adminClient.create}" value="#{bundle.Save}" id="create"/>
-                        <p:commandButton id="cancel" action="adminClient" value="#{bundle.Cancel}" immediate="true"/>
-
-
-                    </h:panelGroup>
-                    <p:blockUI block="bobo" trigger="cancel create">
-                        LOADING<br />
-                        <p:graphicImage name="/processing-bar.gif"/>
-                    </p:blockUI>
-                </h:form>
+                            <p:blockUI block="bobo" trigger="cancel create">
+                                LOADING<br />
+                                <p:graphicImage name="/processing-bar.gif"/>
+                            </p:blockUI>
+                        </div>
+                    </h:form>
+                </div>
             </ui:define>
 
             <ui:define name="rightHeader">

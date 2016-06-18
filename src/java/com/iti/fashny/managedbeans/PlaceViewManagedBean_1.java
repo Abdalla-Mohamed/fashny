@@ -268,15 +268,17 @@ public class PlaceViewManagedBean_1 implements Serializable {
             uploadImage.copyFile();
         }
     }
-
-    public void update() {
+    public String update() {
+        String next = null;
         if (selected != null) {
             try {
                 placeBusiness.update(selected);
+                next = "adminPlace_1";
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        return next;
     }
 
     public void destroy() {

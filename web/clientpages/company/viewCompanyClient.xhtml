@@ -21,8 +21,8 @@
                 </f:facet>
                 <div  class="col-sm-12" align="center">
                     <h:form id="PlaceViewForm">
-                        <div class="col-sm-3" align="center"></div>
-                        <div class="table-responsive col-sm-6">      
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="table-responsive col-sm-8">      
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
@@ -93,7 +93,7 @@
                                     </div>
                                     <div class="clearfix"> </div>
                                     <div class="more m1">
-                                        <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                        <h:commandButton   action="#{CompanyMBClient.goToViewTrip(trip.id)}" value="More Details"/>
                                     </div>
                                 </div>
                             </p:dataGrid>
