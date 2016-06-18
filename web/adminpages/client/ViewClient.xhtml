@@ -124,7 +124,7 @@
                             </p:inplace>
 
                             <h:outputText value="#{bundle.ViewClientLabel_profilePic}"/>
-                            <p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic}" id="image" width="400" height="200"/>
+                            <p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic.path}" id="image" width="400" height="200"/>
 
                         </p:panelGrid>
                         <p:commandButton id="update" action="#{adminClient.update}" value="#{bundle.Edit}"/>
