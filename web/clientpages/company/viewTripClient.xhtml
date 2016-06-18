@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./../../templates/clientTemplate.xhtml"  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                #{CompanyMBClient.trip.name} Trip 
+            </ui:define>
+
+            <ui:define name="content">
+                <!-- Keep the first param for next redirection -->
+                <f:facet name="header">
+                    #{CompanyMBClient.selected.name}
+                </f:facet>
+
+                <h:form id="PlaceViewForm">
+                    <div class="col-sm-12" align="center">
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="col-sm-8" align="center">    
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_name}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.name}" title="#{bundle.ViewTripTitle_name}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_cost}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.cost}" title="#{bundle.ViewTripTitle_cost}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_countBooking}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.countBooking}" title="#{bundle.ViewTripTitle_countBooking}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_date}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.date}" title="#{bundle.ViewTripTitle_date}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_hint}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.hint}" title="#{bundle.ViewTripTitle_hint}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_joinDeadline}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.joinDeadline}" title="#{bundle.ViewTripTitle_joinDeadline}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_maxbooking}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.maxbooking}" title="#{bundle.ViewTripTitle_maxbooking}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_needTools}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.needTools}" title="#{bundle.ViewTripTitle_needTools}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_program}"/></td>
+                                        <td><h:outputText value="#{CompanyMBClient.trip.program}" title="#{bundle.ViewTripTitle_program}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.ViewTripLabel_tag}"/></td>
+                                        <td><p:dataList value="#{CompanyMBClient.trip.tagList}" var="tag" >#{tag.name}</p:dataList></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_offer}"/></td>
+                                        <td><p:selectBooleanCheckbox value="#{CompanyMBClient.trip.offer}" disabled="true"/></td>
+                                    </tr>
+                                </tbody>
+                            </table> 
+                        </div>
+                    </div>
+                </h:form>
+                <div class="col-sm-12" align="justify"><br/> <br/> <br/></div>
+                <h2 align="center"> #{CompanyMBClient.trip.name} involves visiting to these places </h2><br/>
+                <div class="col-sm-12" align="center">
+                    <div class="col-sm-2" align="center"></div>
+                    <div class="table-responsive col-sm-8"> 
+                        <h:form id="form">
+                            <p:dataGrid var="place" value="#{CompanyMBClient.trip.placeList}" columns="3" layout="grid"
+                                        rows="3" paginator="true" id="places"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="3,6,12">
+
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right">
+                                        <h3><a href="single.html">#{place.name}</a></h3>
+                                        <p>#{place.address}</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                        <h:commandButton   action="#{CompanyMBClient.placeDetails(place.id)}" value="More Details"/>
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
