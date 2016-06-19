@@ -11,44 +11,39 @@
                         xmlns:p="http://primefaces.org/ui"
                         xmlns:f="http://xmlns.jcp.org/jsf/core"
                         xmlns:h="http://xmlns.jcp.org/jsf/html">
+<ui:define name="activePage">
+                <c:set var="Places" value="active" />
 
+            </ui:define>
             <ui:define name="title">
-                Trips
+                Places
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="form" prependId="false">
-                    <p:dataGrid id="trips" var="trip" value="#{tripMB.items}" columns="3" layout="grid"
-                                rows="12" paginator="true"  paginatorPosition="bottom"
+                <h:form id="form">
+                    <p:dataGrid var="place" value="#{placeView_1.items}" columns="3" layout="grid"
+                                rows="12" paginator="true" id="places"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 rowsPerPageTemplate="6,12,16">
-
-
+                        
+                         
                         <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" id="dee">
                             <div class="col-xs-4 blog-grid-left">
-
-                                <p:commandLink action="#{tripMB.tripDetails(trip.id)}">
-                                    <p:graphicImage  styleClass="img-responsive" name="19.jpg" width="100%" />
-                                </p:commandLink>
+                                <a ><p:graphicImage styleClass="img-responsive" value="/Image?imageName=#{placeView_1.getFirstImg(place)}" width="100%" /></a>
                             </div> 
                             <div class="col-xs-8 blog-grid-right">
-                                <a href=".html">#{trip.name}</a>
-                                <h4>#{trip.companyId.name} Company</h4>
-                                <p>#{trip.cost}L.E</p>
+                                <a href="single.html">#{place.name}</a>
+                                <h4>#{place.address}</h4>
+                                <p>#{place.description}</p>
                             </div>
                             <div class="clearfix"> </div>
                             <div class="more m1">
-                                <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
-                                <p:commandButton id="moreDetails"   action="#{tripMB.tripDetails(trip.id)}" value="More Details" styleClass="btn btn-info col-xs-6"/>
-                                <p:rating value="#{tripMB.getRate(trip)}" readonly="true" />                             
+                                <p:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details" styleClass="btn btn-info col-xs-6"/>
+
+                                <p:commandButton actionListener="#{wishes.addWish(login.loginAccount.client, place)}" id="add-wish"  icon="#{!login.loginAccount.client.placeList.contains(place)?'fa fa-heart-o':'fa fa-heart'}"  update="@this" title="add wish" rendered="#{login.logged}" styleClass="btn btn-info col-xs-2"/>
                             </div>
                         </div>
                     </p:dataGrid>
-                    
-                    <p:blockUI block="bobo" trigger="trips:moreDetails">
-                        LOADING<br />
-                        <p:graphicImage name="/processing-bar.gif"/>
-                    </p:blockUI>
                 </h:form>
 
             </ui:define>

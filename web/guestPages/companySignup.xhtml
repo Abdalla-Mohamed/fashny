@@ -15,7 +15,7 @@
             </ui:define>
 
             <ui:define name="content">
-        <c:set var="blockFrom" value="PlaceViewForm:companySignBtn" />
+        <c:set var="blockFrom" value="PlaceViewForm:companySignBtn  PlaceViewForm:cancelSignBtn" />
 
                 <div  class="col-sm-12" align="center">
                     <h:form id="PlaceViewForm">
@@ -146,7 +146,7 @@
                                     </tr>
                                     <tr>
                                         <td><p:commandButton id="companySignBtn" action="#{CompanyMB.saveForClient()}" value="#{bundle.Save}"  /></td>
-                                        <td align="right"><p:commandButton value="#{bundle.Cancel}" action="#{CompanyMB.cancelForClient()}"
+                                        <td align="right"><p:commandButton id="cancelSignBtn" value="#{bundle.Cancel}" action="#{CompanyMB.cancelForClient()}"
                                                                            immediate="true"/></td>
                                     </tr>
                                 </tbody>
