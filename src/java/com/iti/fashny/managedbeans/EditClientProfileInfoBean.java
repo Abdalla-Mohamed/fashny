@@ -28,82 +28,43 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class EditClientProfileInfoBean 
 {
-    //Client c = new AdditionalFns().getClientObject() ;
-    
-//    @ManagedProperty("#{loginManagedBean}")
-//    private LoginManagedBean loginManagedBean; // +setter (no getter!)
-//    Client c =loginManagedBean.c;
- // Client c=loginManagedBean.c;
-    
    
     Client c;
-    public LoginManagedBean loginManagedBean;
+   
+   @ManagedProperty(value = "#{login}")
+    private LoginManagedBean loginManagedBean;
     
-   //Client c = new LoginManagedBean().c;
-    
-//    FacesContext facesContext = FacesContext.getCurrentInstance();
-//    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-//    Client c = (Client) session.getAttribute("c");
-    
+
     public EditClientProfileInfoBean()
     {
-        loginManagedBean = new LoginManagedBean();
-        c=loginManagedBean.getLoginAccount().getClient();
+        
+        
     }
 
-//     @ManagedProperty(value = "#{navigationBean}")
-//    private NavigationBean navigationBean;
-//     
-//      @ManagedProperty(value = "#{loginBean}")
-//    private LoginBean loginBean;
+    public LoginManagedBean getLoginManagedBean() {
+        return loginManagedBean;
+    }
 
-//    public LoginManagedBean getLoginManagedBean() {
-//        return loginManagedBean;
-//    }
-//
-//    public void setLoginManagedBean(LoginManagedBean loginManagedBean) {
-//        this.loginManagedBean = loginManagedBean;
-//    }
+    public void setLoginManagedBean(LoginManagedBean loginManagedBean) {
+        this.loginManagedBean = loginManagedBean;
+    }
+
 
     public Boolean getIsEditable() {
         return isEditable;
     }
+
 
     public void setIsEditable(Boolean isEditable) {
         this.isEditable = isEditable;
     }
       
       public Boolean isEditable;
-    
-    // to get object from session
-
-   // FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("yourKey", yourObject);
-//ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//Map<String, Object> sessionMap = externalContext.getSessionMap();
-//sessionMap.put("somekey", yourVariable);
-    //----
-    //SomeObject yourVariable = (SomeObject) sessionMap.get("somekey");
-
-//    public NavigationBean getNavigationBean() {
-//        return navigationBean;
-//    }
-//
-//    public void setNavigationBean(NavigationBean navigationBean) {
-//        this.navigationBean = navigationBean;
-//    }
-//
-//    public LoginBean getLoginBean() {
-//        return loginBean;
-//    }
-//
-//    public void setLoginBean(LoginBean loginBean) {
-//        this.loginBean = loginBean;
-//    }
-    
 
     
 
     public Client getC() {
+        c=loginManagedBean.getLoginAccount().getClient();
         return c;
     }
 
@@ -127,18 +88,5 @@ public class EditClientProfileInfoBean
      return"/info";
         
     }
-    
-    
-     /*
-     //Common
-     DaoFactory daoFactory = new DaoFactory();
-     ClientFacade clientFacade = daoFactory.getClientDoa();
-        
-     daoFactory.beginTransaction();
-     clientFacade.create(c);
-     //clientFacade.create(new Client(null, "omr", "2cli2@cc.com", "asasd2", "asdasd2", new Date(), (short) 1, (short) 2, new Timestamp(System.currentTimeMillis()), "2"));
-     daoFactory.commitTransaction();
-     daoFactory.close();
-     */
     
 }

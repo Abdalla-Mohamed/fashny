@@ -63,10 +63,12 @@
                         <p:inputText value="#{SignUpCreatePartenerBean.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
+                        <ui:remove>
                         <p:outputLabel value="#{MyPropertyFile.PartnerValidated}"/>
                         <ui:remove><p:inputText value="#{SignUpCreatePartenerBean.selected.validated}" title="#{MyPropertyFile.PartnerValidated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
                         <p:selectBooleanCheckbox value="#{SignUpCreatePartenerBean.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
-
+                        </ui:remove>
+                        
                         <p:outputLabel value="#{MyPropertyFile.PartnerEmail}"/>
                         <p:inputText value="#{SignUpCreatePartenerBean.selected.email}" title="#{MyPropertyFile.PartnerEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
                             <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
@@ -98,10 +100,11 @@
                         </ui:remove>
 
 
+                        <ui:remove>
                         <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
                         <ui:remove><p:inputText value="#{SignUpCreatePartenerBean.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
                         <p:selectBooleanCheckbox value="#{SignUpCreatePartenerBean.selected.active}" />
-                        
+                        </ui:remove>
                         
                     </p:panelGrid>
                     
