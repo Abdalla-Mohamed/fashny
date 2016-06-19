@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
@@ -120,6 +121,8 @@ public class ServiceManagedBean {
         if (getService() != null) {
             try {
                 serviceBusiness.add(service);
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('ServiceCreateDialog').hide()");
                 prepareCreate();
             } catch (Exception ex) {
                 ex.printStackTrace();

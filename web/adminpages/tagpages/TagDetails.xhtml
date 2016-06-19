@@ -50,12 +50,24 @@
                             </p:column>
 
                             <p:column style="width:32px">
-                                <p:rowEditor />
+                                <!--<p:rowEditor />-->
+                                <f:facet name="header"/>
+                                <p:commandButton id="editButton" icon="ui-icon-search"  value="Edit Tag"   update="editForm" onclick="PF('TagEditDialog').show();">
+                                    <f:setPropertyActionListener value="#{tag}" target="#{tagAdminBean.selectedTag}" />
+                                </p:commandButton>
                             </p:column>
 
-                            <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tagAdminBean.prepareCreate()}"  update=":TagForm" oncomplete="PF('TagCreateDialog').show()"/>  
-                            </f:facet>
+
+                                <p:commandButton  icon="fa fa-times" title="View" action="#{placeView_1.deleteRecource()}" >
+                                    <f:setPropertyActionListener value="#{image}" target="#{placeView_1.selectedPic}" />
+                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+
+
+                                <f:facet name="footer">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tagAdminBean.prepareCreate()}"  update=":TagForm" oncomplete="PF('TagCreateDialog').show()"/>  
+                                </f:facet>
                         </p:dataTable>
                     </p:panel>
                 </div>
@@ -65,7 +77,10 @@
 
         <ui:include src="CreateTag.xhtml"/>
 
-       
+        <ui:include src="EditTag.xhtml"/>
+
+
+
     </ui:define>
 
 </ui:composition>

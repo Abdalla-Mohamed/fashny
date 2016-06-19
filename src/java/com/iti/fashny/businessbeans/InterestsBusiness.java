@@ -95,8 +95,7 @@ public class InterestsBusiness implements Commens<Tag> {
 
     public void addInterests(Client c, List<Tag> tags) {
         DaoFactory factory = new DaoFactory();
-        ClientFacade cf = factory.getClientDoa();
-        
+        ClientFacade cf = factory.getClientDoa();  
         try {
             factory.beginTransaction();
             c = cf.find(c.getId());
