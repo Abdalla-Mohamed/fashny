@@ -76,9 +76,12 @@ public class SignUpBean {
     }
 
     public String registerNewClient() {
+        c.setActive(Boolean.TRUE);
+        c.setLastSeen(new Date());
+        
         new guestImpl().signUp(c);
         c=new Client();
-        return "/info";
+        return "login";
     }
 
     public String registerNewClientTest() {

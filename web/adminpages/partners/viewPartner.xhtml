@@ -76,8 +76,10 @@
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerProfilePic}"/>
                         <ui:remove><p:outputLabel value="#{PartnerCRUDSBean.selected.profilePic}" title="#{MyPropertyFile.PartnerProfilePic}"/></ui:remove>
-                        <p:fileUpload fileUploadListener="#{PartnerCRUDSBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
+                        <ui:remove>
+                            <p:fileUpload fileUploadListener="#{PartnerCRUDSBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
                                       sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                        </ui:remove>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -134,6 +135,28 @@ public class PartnerCRUDSBean implements Serializable
         }
         return items;
     }
+
+//    public List<Partener> getItems() {
+//        return items;
+//    }
+    
+    
+        public List<Partener> changingItems() {
+       
+             List<Partener> partenerList=new ArrayList<>();
+            try 
+            {
+                partenerList=partnerBusiness.view();
+            } catch (Exception ex) 
+            {
+               // Logger.getLogger(PartnerCRUDSBean.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+            }
+        
+        return partenerList;
+    }
+    
+    
 
     public void setItems(List<Partener> items) {
         this.items = items;
