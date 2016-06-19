@@ -111,8 +111,6 @@ public class InterestsManagedBean implements Serializable {
     public void onSelect(SelectEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", event.getObject().toString()));
-        //System.out.println(event.getObject().toString());
-        // selectedItem = event.getObject().toString();
     }
 
     public void onUnselect(UnselectEvent event) {

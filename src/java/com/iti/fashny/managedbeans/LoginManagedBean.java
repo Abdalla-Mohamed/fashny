@@ -131,4 +131,13 @@ public class LoginManagedBean implements Serializable {
     public void setLogged(boolean isLogged) {
         this.isLogged = isLogged;
     }
+    
+    public String goToSignup(){
+        switch(Role.valueOf(selectedRole)){
+            case  Client :return "signUp";
+            case  Company :return "signUpCompany";
+            case  Partner :return "signUpPartner";
+            default:return "";
+        }
+    }
 }

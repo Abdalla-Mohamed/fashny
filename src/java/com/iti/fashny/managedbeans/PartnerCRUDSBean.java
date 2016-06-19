@@ -57,8 +57,6 @@ public class PartnerCRUDSBean implements Serializable
     public PartnerCRUDSBean()
     {
         partnerBusiness = new PartnerBusiness();
-        
-        
         additionalFns = new AdditionalFns();
         findAll = additionalFns.getAllPartnType();
     }

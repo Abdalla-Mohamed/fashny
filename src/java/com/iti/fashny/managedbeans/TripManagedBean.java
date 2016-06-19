@@ -5,7 +5,6 @@
  */
 package com.iti.fashny.managedbeans;
 
-import com.iti.fashny.assets.LoginAccount;
 import com.iti.fashny.assets.Role;
 import com.iti.fashny.businessbeans.ClientJoinTripBusiness;
 import com.iti.fashny.businessbeans.JoinTripBuisinesss;
@@ -14,7 +13,7 @@ import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.JoinTrip;
 import com.iti.fashny.entities.JoinTripPK;
-import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.entities.Trip;
 import java.util.*;
 import java.util.logging.Level;
@@ -25,7 +24,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
 
 @ManagedBean(name = "tripMB")
@@ -40,7 +41,7 @@ public class TripManagedBean implements Serializable {
     private JoinTripBuisinesss joinTripBuisinesss;
     private Date date;
     ClientJoinTripBusiness clientJoinTripBusiness;
-
+    private Resouce selectedPic;
     @ManagedProperty(value = "#{login}")
     private LoginManagedBean loginManagedBean;
     //_______________________________________________________________________//
@@ -95,6 +96,17 @@ public class TripManagedBean implements Serializable {
         this.clientJoinTrip = clientJoinTrip;
     }
 
+    public Resouce getSelectedPic() {
+        return selectedPic;
+    }
+
+    public void setSelectedPic(Resouce selectedPic) {
+        this.selectedPic = selectedPic;
+    }
+
+    
+    
+    
     public Date getDate() {
         return date;
     }
@@ -239,6 +251,36 @@ public class TripManagedBean implements Serializable {
         return "viewTrip";
     }
 
+    public String goToImages(int id) {
+        System.out.println(id);
+        selected = tripBusiness.showSpecificInfo(id);
+        return "manageTripImages?faces-redirect=true";
+
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        tripBusiness.addImageToTrip(event.getFile(), selected);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("imagTable");
+        context.execute("PF('uploadImage').hide()");
+
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void deleteRecource() {
+        boolean deleteImageFromPlace = tripBusiness.deleteImageFromTrip(selectedPic);
+        if (deleteImageFromPlace) {
+            selected.getResouceList().remove(selectedPic);
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.update("imagTable");
+
+            FacesMessage message = new FacesMessage("delete Succesfully");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+
     public String goToCreateTrip() {
         selected = new Trip();
         return "createTrip";
@@ -269,5 +311,14 @@ public class TripManagedBean implements Serializable {
     public int getRate(Trip trip) {
 
         return joinTripBuisinesss.tripRate(trip);
+    }
+    
+    
+     public String getFirstImg(Trip trip) {
+        String path = "0";
+        if (trip.getResouceList() != null && !trip.getResouceList().isEmpty()) {
+            path = trip.getResouceList().get(0).getPath();
+        }
+        return path;
     }
 }

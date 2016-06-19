@@ -112,17 +112,19 @@ public class CompanyManagedBean implements Serializable {
             }
         }
     }
-
-    public void update() {
+  public String update() {
+        String next = null;
         if (selected != null) {
             try {
                 companyController.update(selected);
+                next = "compaies";
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            System.out.println("=====update===");
         }
+        return next;
     }
+    
 
     public void destroy() {
         if (selected != null) {
