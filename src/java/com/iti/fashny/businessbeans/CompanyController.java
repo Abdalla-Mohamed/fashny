@@ -77,12 +77,16 @@ public class CompanyController implements Commens<Company>, Serializable {
         List<Company> companies = new ArrayList<>();
         try {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
-            companies = companyFacade.getConfirmCompanies();
+            //companies = companyFacade.getConfirmCompanies();
+            companies = companyFacade.getConfirmAndActiveCompanies();
         } finally {
             daoFactory.close();
         }
+        System.out.println("====================================================================");
+        for (Company company : companies) {
+            System.out.println(".......>>>"+ company.getName());
+        }
         return companies;
-
     }
 
     public Company gitTripsOfCompany(Company company) throws Exception {
@@ -139,10 +143,11 @@ public class CompanyController implements Commens<Company>, Serializable {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
             daoFactory.beginTransaction();
             Company company = new Company();
-            company = companyFacade.refreshObj(companyObj);
+            company = companyFacade.find(companyObj.getId());
+            company.getTagList().size();
             companyObj.setTagList(company.getTagList());
+            company.getTripList().size();
             companyObj.setTripList(company.getTripList());
-            companyObj.getTagList().size();
             daoFactory.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();

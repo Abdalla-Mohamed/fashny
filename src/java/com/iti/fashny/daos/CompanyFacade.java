@@ -24,6 +24,7 @@ import org.hibernate.Criteria;
 public class CompanyFacade extends AbstractFacade<Company> {
 
     private static final String HQL_LOGIN = "FROM Company c WHERE c.email =:email AND c.password =:password ";
+    private static final String HQL_CLIENT_COMPANY = "FROM Company c WHERE c.validated = :validated AND c.active = :active";
 
     CompanyFacade(EntityManager em) {
         super(Company.class, em);
@@ -74,6 +75,16 @@ public class CompanyFacade extends AbstractFacade<Company> {
         }
         return unconfirmCompanies;
     }
+    public List<Company> getConfirmAndActiveCompanies() {
+        List<Company> validActiveCompanies = new ArrayList<>();
+        try {
+               validActiveCompanies = (List) getEntityManager().createQuery(HQL_CLIENT_COMPANY)
+                .setParameter("validated", true).setParameter("active",true).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return validActiveCompanies;
+    }
 
     public Company login(String email, String pass) throws InvalidLoginDataException, NotConfirmAccountException, DeletedAccountException {
         Company company;
@@ -88,9 +99,9 @@ public class CompanyFacade extends AbstractFacade<Company> {
             company = (Company) result.get(0);
             if (company.getValidated() == false) {
                 throw new NotConfirmAccountException();
-            } else if (company.getActive()== false) {
+            } else if (company.getActive() == false) {
                 throw new DeletedAccountException();
-                  
+
             }
         }
 

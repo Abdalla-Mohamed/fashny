@@ -72,4 +72,11 @@
             <to-view-id>/adminpages/company/compaies.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/companypages/viewClient.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>case1</from-outcome>
+            <to-view-id>/companypages/viewCompany.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

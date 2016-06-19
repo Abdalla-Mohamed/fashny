@@ -100,7 +100,7 @@ public class Company implements Serializable,UserAccount {
     private String phone;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "companyId")
     private List<Trip> tripList;
     @JoinColumn(name = "profile_Pic", referencedColumnName = "id")
     @ManyToOne
