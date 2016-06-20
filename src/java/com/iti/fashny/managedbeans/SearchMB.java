@@ -40,7 +40,7 @@ public class SearchMB implements Serializable {
     CompanyController companyController;
 
     List<String> governorate;
-    String selectdGovernorat;
+    String address;
 
     List<Tag> selectedTags;
     List<Company> selectedCompanies;
@@ -59,7 +59,7 @@ public class SearchMB implements Serializable {
         companyController = new CompanyController();
         governorate = new ArrayList<>();
         selectType = SearchType.Place;
-
+        address="";
     }
 
     public String getNameSearch() {
@@ -70,12 +70,12 @@ public class SearchMB implements Serializable {
         this.nameSearch = nameSearch;
     }
 
-    public String getSelectdGovernorat() {
-        return selectdGovernorat;
+    public String getAddress() {
+        return address;
     }
 
-    public void setSelectdGovernorat(String selectdGovernorat) {
-        this.selectdGovernorat = selectdGovernorat;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public SearchType[] getSelectTypes() {
@@ -176,7 +176,8 @@ public class SearchMB implements Serializable {
     private void searchForPlaces() {
         Place placeExample = new Place();
         placeExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
-        placeExample.setAddress(selectdGovernorat.isEmpty()?null:selectdGovernorat);
+        System.out.println("th address is"+address);
+        placeExample.setAddress(address.isEmpty()?null:address);
         placeExample.setTagList(selectedTags);
         try {
             placesResult = getSearchEngine().searchByExample(placeExample);

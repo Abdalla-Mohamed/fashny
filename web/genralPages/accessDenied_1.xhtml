@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../templates/clientTemplate.xhtml">
+
+            <ui:define name="title">
+                Access Denied
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="container">
+
+                    <h:form>
+                        <p:growl id="msgs" showDetail="true" />
+<p:panel header="Select a Location" style="margin-bottom:10px;">
+                        <h:panelGroup class="row"   rendered="#{searchMB.renderForPlace() or searchMB.renderForCompany()}" layout="block" >
+                                        <p:outputLabel value=" Address" styleClass="col-xs-12" />
+                                         <p:outputLabel  value="Governorate: " />
+                                         <p:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px" valueChangeListener="#{searchMB.setAddress(addressMB.governorate)}">
+                                    <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                    <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{addressMB.governorates}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel  for="city" value="City: " />
+                                <p:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" valueChangeListener="#{searchMB.setAddress(addressMB.address)}">
+                                    <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{addressMB.cities}" />
+                                </p:selectOneMenu>
+
+                            <p:separator />
+                             
+                             <p:commandButton value="Submit" update="msgs" actionListener="#{addressMB.displayLocation()}" icon="ui-icon-check" />
+                       
+                        </h:panelGroup></p:panel>
+                    </h:form>
+
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

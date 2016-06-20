@@ -61,6 +61,16 @@
             <to-view-id>/guestPages/login.xhtml</to-view-id>
             <redirect />            
         </navigation-case>
+        <navigation-case>
+            <from-outcome>signUp</from-outcome>
+            <to-view-id>/guestPages/SignUp.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>signUpCompany</from-outcome>
+            <to-view-id>/guestPages/companySignup.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
     </navigation-rule>
 
     
