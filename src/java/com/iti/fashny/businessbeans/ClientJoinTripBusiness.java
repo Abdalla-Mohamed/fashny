@@ -14,13 +14,14 @@ import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.JoinTrip;
 import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.entities.Trip;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Bakar M.M.R
  */
-public class ClientJoinTripBusiness {
+public class ClientJoinTripBusiness implements Serializable{
 
     public void joinTrip(JoinTrip t, Trip trip) throws Exception{
         DaoFactory daoFactory = new DaoFactory();

@@ -11,66 +11,66 @@
                 <h:panelGroup  id="display">
                     <p:panelGrid columns="4"  rendered="#{PartnerCRUDSBean.selected != null}">
                         <p:outputLabel value="#{MyPropertyFile.PartnerName}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.name}" title="#{MyPropertyFile.PartnerName}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.name}" title="#{MyPropertyFile.PartnerName}" required="true" requiredMessage="#{MyPropertyFile.PartnerNameIsRequiredMsg}"/>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerPassword}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.password}" title="#{MyPropertyFile.PartnerPassword}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.password}" title="#{MyPropertyFile.PartnerPassword}" required="true" requiredMessage="#{MyPropertyFile.PartnerPasswordIsRequiredMsg}"/>
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerWebSite}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}" required="true" requiredMessage="#{MyPropertyFile.PartnerWebSiteIsRequiredMsg}"/>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerAddress}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.address}" title="#{MyPropertyFile.PartnerAddress}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.address}" title="#{MyPropertyFile.PartnerAddress}" required="true" requiredMessage="#{MyPropertyFile.PartnerAddressIsRequiredMsg}"/>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerDescription}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerDescriptionIsRequiredMsg}"/>
 
 
                         <ui:remove>
                         <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
+                        <p:inputText value="#{PartnerCRUDSBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerTypeIsRequiredMsg}">
                             <f:converter converterId="PartenerCreatePartenerConverterForPartenerType" />
                         </p:inputText>
                         </ui:remove>
                         
                         <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
-                        <h:selectOneMenu value="#{PartnerCRUDSBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType">
+                        <h:selectOneMenu value="#{PartnerCRUDSBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType" required="true" requiredMessage="#{MyPropertyFile.PartnerTypeIsRequiredMsg}">
                             <f:selectItems value="#{PartnerCRUDSBean.findAll}" var="findall" itemValue="#{findall}" itemLabel="#{findall.name}" />
                         </h:selectOneMenu>
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerWorkHours}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerWorkHoursIsRequiredMsg}"/>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerValidated}"/>
-                        <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.validated}" title="#{MyPropertyFile.PartnerValidated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
-                        <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.validated}" title="#{MyPropertyFile.PartnerValidated}" required="true" requiredMessage="#{MyPropertyFile.PartnerValidatedIsRequiredMsg}"/></ui:remove>
+                        <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerValidatedIsRequiredMsg}"/>
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerEmail}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.email}" title="#{MyPropertyFile.PartnerEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
+                        <p:inputText value="#{PartnerCRUDSBean.selected.email}" title="#{MyPropertyFile.PartnerEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerEmailIsRequiredMsg}">
                         <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
                         </p:inputText>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerContactEmail}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.contactEmail}" title="#{MyPropertyFile.PartnerContactEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
+                        <p:inputText value="#{PartnerCRUDSBean.selected.contactEmail}" title="#{MyPropertyFile.PartnerContactEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerContactEmailIsRequiredMsg}">
                         <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
                         </p:inputText>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerMobile1}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.mobile1}" title="#{MyPropertyFile.PartnerMobile1}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.mobile1}" title="#{MyPropertyFile.PartnerMobile1}" required="true" requiredMessage="#{MyPropertyFile.PartnerMobile1IsRequiredMsg}"/>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerMobile2}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.mobile2}" title="#{MyPropertyFile.PartnerMobile2}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.mobile2}" title="#{MyPropertyFile.PartnerMobile2}" required="true" requiredMessage="#{MyPropertyFile.PartnerMobile2IsRequiredMsg}"/>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerPhone}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.phone}" title="#{MyPropertyFile.PartnerPhone}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.phone}" title="#{MyPropertyFile.PartnerPhone}" required="true" requiredMessage="#{MyPropertyFile.PartnerPhone}"/>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerProfilePic}"/>
@@ -80,11 +80,11 @@
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
-                        <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
+                        <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerActiveIsRequiredMsg}"/></ui:remove>
                         <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.active}" />
 
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{PartnerCRUDSBean.create()}" value="#{MyPropertyFile.Save}" update="display,:PartenerListForm:datalist,:growl" oncomplete="handleSubmit(args,'PartenerCreateDialog');"/>
+                    <p:commandButton actionListener="#{PartnerCRUDSBean.create()}" value="#{MyPropertyFile.Save}" update="display,:PartenerListForm:datalist,PartenerListForm:msgs" oncomplete="handleSubmit(args,'PartenerCreateDialog');"/>
                     <p:commandButton value="#{MyPropertyFile.Cancel}" onclick="PartenerCreateDialog.hide()" immediate="true"/>
                 </h:panelGroup>
             </h:form>
