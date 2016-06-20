@@ -146,7 +146,7 @@ public class HomeMB {
         if (trip.getResouceList() != null && !trip.getResouceList().isEmpty()) {
             path = trip.getResouceList().get(0).getPath();
         }
-        return path;
+        return path;  
     }
         
     
