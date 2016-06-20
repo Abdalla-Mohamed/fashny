@@ -103,4 +103,12 @@ public class UploadImage implements Serializable {
         return newFileName;
     }
 
+    public void handleFileUploadEvent(FileUploadEvent event) {
+        file = event.getFile();
+        handleFileUpload();
+        
+        
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }

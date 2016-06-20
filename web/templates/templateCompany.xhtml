@@ -4,7 +4,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./templateGeneral.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
 
 
@@ -16,32 +17,23 @@
 
 
     <ui:define name="headerComp">
-
-
-      <!-- User Account Menu -->
-        <li id="menuProfile" class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a aria-expanded="false" onclick="showLogout()" onblur="$('#menuProfile').removeClass('open');$(this).blur()" href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <!-- The user image in the navbar-->
-                <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <span class="hidden-xs">#{login.loginAccount.company.name}</span>
-            </a>
-            <ul class="dropdown-menu">
-
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                    <div class="pull-left">
-                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
-                        <h:form>
-                            <h:commandLink action="#{login.logOut()}" styleClass="btn btn-default btn-flat" value="logout" />
-                        </h:form> 
-                    </div>
-                </li>
-            </ul>
-        </li>
-
+        <h:form style="    margin-right: 10px !important;
+                margin-top: 10px !important;">
+            <p:graphicImage style="height: 35px;
+                            width: 80px;
+                            margin-right: 10px;
+                            border: 1px solid rgb(255, 255, 255);
+                            margin-top: -5px;" value="/Image?imageName=#{login.loginAccount.company.profilePic.path}" />
+            <p:commandButton style="    font-size: initial !important;" id="dynaButton" value="#{login.loginAccount.company.name}" type="button" icon="ui-icon-extlink"/>
+            <p:menu styleClass="dropdown user user-menu" overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                <p:submenu >
+                    <p:menuitem value="profile" icon="ui-icon-home"/>
+                    <p:separator />
+                    <p:menuitem value="logout"  action="#{login.logOut()}" icon="fa fa-sign-out" />
+                </p:submenu>
+            </p:menu>
+        </h:form>
+        <!-- User Account Menu -->
 
     </ui:define>
     <ui:define name="leftSearch">
