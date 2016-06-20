@@ -5,15 +5,18 @@
  */
 package com.iti.fashny.businessbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.interfaces.Commens;
 import java.util.List;
 import java.util.ArrayList;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -95,5 +98,39 @@ public class ClientBusiness implements Commens<Client> {
         }
         return client;
     }
+    
+    
+     public void addImageToPlace(UploadedFile image, Client client) {
+        DaoFactory daoFactory = new DaoFactory();
+        ClientFacade clientFacade = daoFactory.getClientDoa();
+        ResouceFacade resouceDoa = daoFactory.getResouceDoa();
+        System.out.println("~~~~~~~~~~~~~~~~~~~  " + image.getFileName() + " ~~~~~~~~~~~~~~~");
+        try {
+            daoFactory.beginTransaction();
+
+            Integer clientId = client.getId();
+
+            UploadImage uploadImage = new UploadImage();
+            uploadImage.setFile(image);
+            uploadImage.forClient("" + clientId);
+            String filePath = uploadImage.handleFileUpload();
+
+            Resouce resouce = new Resouce(null, filePath);
+
+            resouceDoa.remove(client.getProfilePic());
+            resouceDoa.create(resouce);
+            
+            Client find = clientFacade.find(clientId);
+            find.setProfilePic(resouce);
+            client.setProfilePic(resouce);
+            
+            daoFactory.commitTransaction();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
+
+    }
+
 
 }

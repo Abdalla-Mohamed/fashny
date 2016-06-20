@@ -71,6 +71,11 @@
             <to-view-id>/guestPages/companySignup.xhtml</to-view-id>
             <redirect />            
         </navigation-case>
+        <navigation-case>
+            <from-outcome>waitConfirmtion</from-outcome>
+            <to-view-id>/genralPages/waitConfirmtion.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
     </navigation-rule>
 
     

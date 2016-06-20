@@ -23,6 +23,7 @@ import org.primefaces.event.RowEditEvent;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -196,6 +197,18 @@ public class AdminClientManagedBean implements Serializable {
         FacesMessage message = new FacesMessage("in valid mail");
         context.addMessage(comp.getClientId(context), message);
 
+    }
+    
+    
+    public void handleFileUpload(FileUploadEvent event) {
+        clientBusiness.addImageToPlace(event.getFile(), selected);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("picForm");
+        context.execute("PF('uploadImage').hide()");
+
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     //<editor-fold defaultstate="collapsed" desc="update in table">

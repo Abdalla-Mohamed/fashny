@@ -28,10 +28,10 @@
             <ui:define name="content">
                 <br/> <br/> <br/>
                 <div  class="col-sm-12" align="center">
-                    <h:form id="CompanyViewForm">
+                    <h:form id="CompanyViewForm" styleClass="col-sm-8"  >
                         <div class="col-sm-2" align="center"></div>
-                        <div class="table-responsive col-sm-8">    
-                            <table class="table table-striped " align="center" >
+                        <div class="table-responsive col-sm-12">    
+                            <table class="table table-striped col-sm-12 " align="center" >
                                 <tbody>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_name}"/></td>
@@ -137,6 +137,27 @@
 
                         <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
 
+                    </h:form>
+                    <div class="col-sm-4">
+                        <h:form id="picForm" prependId="false">
+                            <p:panel >
+                                <p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic.path}" id="image" styleClass="img-responsive" />
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="upload profile image" type="button" onclick="PF('uploadImage').show();" />
+                            </p:panel>
+                        </h:form>
+                        
+                        <p:dialog header="upload profile image" widgetVar="uploadImage" modal="true" showEffect="explode" hideEffect="bounce" resizable="true" >
+                            <h:form>
+                                <p:fileUpload fileUploadListener="#{adminClient.handleFileUpload}" mode="advanced" dragDropSupport="false" 
+                                              multiple="true" update="imgMessages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+                                <p:growl id="imgMessages" showDetail="true"  />
+                            </h:form>
+                        </p:dialog>
+
+
+                    </div>
+                    
                         <div class="col-sm-12" align="center">
                             <h:form id="form">
                                 <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
@@ -165,7 +186,6 @@
                             </h:form>
                         </div>    
 
-                    </h:form>
                 </div>
             </ui:define>
 

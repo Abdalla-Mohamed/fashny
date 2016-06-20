@@ -66,9 +66,11 @@
 
             <f:facet name="right">
                 <h:form style="margin: 0px" prependId="false" >
-
+                    <p:graphicImage style="height: 35px;
+                                    width: 45px;
+                                    border: 1px solid rgb(255, 255, 255);" value="/Image?imageName=#{login.loginAccount.client.profilePic.path}" />
                     <!--<p:commandButton id="notficationButton" type="button" icon="fa fa-bell"/>-->
-                  <span class="ui-separator">
+                    <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
                     <p:commandButton id="dynaButton" value="#{login.loginAccount.client.name}" type="button" icon="fa fa-user"/>
@@ -85,7 +87,7 @@
                         </p:submenu>
                     </p:menu>
 
-                    
+
 
 
                 </h:form>

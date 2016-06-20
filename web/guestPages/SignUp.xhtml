@@ -39,7 +39,7 @@
                                         <tr>
                                             <td> <p:outputLabel value="#{MyPropertyFile.Password}"/> </td>
 
-                                            <td>  <p:password value="#{SignUpBean.c.password}" id="password" required="true" requiredMessage="#{MyPropertyFile.ClientPasswordIsRequired}"> 
+                                            <td>  <p:password value="#{SignUpBean.c.password}" feedback="true" id="password" required="true" requiredMessage="#{MyPropertyFile.ClientPasswordIsRequired}"> 
                                                     <f:validateLength minimum="5" maximum="10"/>
                                                 </p:password>
                                                 <h:message for="password" style="color:red" /></td>
@@ -110,7 +110,7 @@
                                             <td> <p:fileUpload value="#{SignUpBean.c.pic}" mode="simple" skinSimple="true" required="true" requiredMessage="#{m}"/></td>
                                         </tr>
                                         <tr>
-                                            <td>   <p:commandButton value="#{MyPropertyFile.SignUp}" ajax="false" action="#{SignUpBean.registerNewClient()}" /></td>
+                                            <td>   <p:commandButton value="#{MyPropertyFile.SignUp}" ajax="false" action="#{SignUpBean.registerNewClient()}" validateClient="true"/></td>
                                             <td>    <p:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="home"/></td>
 
                                         </tr>
