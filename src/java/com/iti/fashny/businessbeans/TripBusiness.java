@@ -27,7 +27,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Amira Anis
  */
-public class TripBusiness implements Commens<Trip> ,Serializable {
+public class TripBusiness implements Commens<Trip>, Serializable {
 
     @Override
     public Trip login(String email, String password) throws Exception {
@@ -118,9 +118,9 @@ public class TripBusiness implements Commens<Trip> ,Serializable {
 //            List<Place> placesOfTripList = trip.getPlaceList();
 //            List<Tag> tagsOfPlaceList = trip.getTagList();
 //         
-                    
-            System.out.println("places : -->"+tripObj.getPlaceList().size());
-            System.out.println("tags : -->"+tripObj.getTagList().size());
+
+            System.out.println("places : -->" + tripObj.getPlaceList().size());
+            System.out.println("tags : -->" + tripObj.getTagList().size());
 //            for (Place place : placesOfTripList) {
 //                System.out.println(place.getName());
 //            }
@@ -137,9 +137,9 @@ public class TripBusiness implements Commens<Trip> ,Serializable {
     }
 
     public void addImageToTrip(UploadedFile image, Trip trip) {
-   
-       DaoFactory daoFactory = new DaoFactory();
-         TripFacade placeDoa = daoFactory.getTripDoa();
+
+        DaoFactory daoFactory = new DaoFactory();
+        TripFacade placeDoa = daoFactory.getTripDoa();
         ResouceFacade resouceDoa = daoFactory.getResouceDoa();
         System.out.println("~~~~~~~~~~~~~~~~~~~  " + image.getFileName() + " ~~~~~~~~~~~~~~~");
         try {
@@ -159,9 +159,8 @@ public class TripBusiness implements Commens<Trip> ,Serializable {
 
 //            Place find = placeDoa.find(placeId);
 //            System.out.println("image count::"+find.getResouceList().size());
-
             trip.getResouceList().add(resouce);
-            
+
             daoFactory.commitTransaction();
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -174,23 +173,44 @@ public class TripBusiness implements Commens<Trip> ,Serializable {
         boolean deleted = false;
         DaoFactory daoFactory = new DaoFactory();
         ResouceFacade resouceDoa = daoFactory.getResouceDoa();
-        try{
+        try {
             daoFactory.beginTransaction();
-            
+
             Resouce find = resouceDoa.find(selectedPic.getId());
             find.getPlaceList().clear();
             resouceDoa.remove(find);
-            
+
             Files.delete(new File(selectedPic.getPath()).toPath());
-            deleted =true;
-            
+            deleted = true;
+
             daoFactory.commitTransaction();
-        }catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
-            deleted =false;
+            deleted = false;
             daoFactory.rollbackTransaction();
         }
         return deleted;
+    }
+
+    public Trip getResources(Trip trip) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            TripFacade tripFacade = daoFactory.getTripDoa();
+            daoFactory.beginTransaction();
+            trip = tripFacade.find(trip.getId());
+            List<Resouce> resouceList = trip.getResouceList();
+            System.out.println(resouceList.size());
+            for (Resouce resouceList1 : resouceList) {
+                System.out.println(resouceList1.getPath());
+            }
+            daoFactory.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            daoFactory.close();
+        }
+        return trip;
     }
 
 }
