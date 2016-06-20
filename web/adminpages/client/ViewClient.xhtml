@@ -211,17 +211,19 @@
 
                             <h:outputText value="#{bundle.ViewClientLabel_profilePic}"/>
                             <p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic.path}" id="image" width="400" height="200"/>
-
-                        </p:panelGrid>
+                        
+                        
                         <p:commandButton id="update" action="#{adminClient.update}" value="#{bundle.Edit}"/>
                         <p:commandButton id="cancelbtn" value="#{bundle.Close}" action="adminClient" immediate="true"/>
-                    </h:panelGroup>
-                    
-                    <p:blockUI block="bobo" trigger="update cancelbtn">
-                        LOADING<br />
-                        <p:graphicImage name="/processing-bar.gif"/>
-                    </p:blockUI>
-                </h:form>
+                       
+
+                        <p:blockUI block="bobo" trigger="update cancelbtn">
+                            LOADING<br />
+                            <p:graphicImage name="/processing-bar.gif"/>
+                        </p:blockUI>
+                    </div>    
+                    </h:form>
+                    </div>
             </ui:define>
 
             <ui:define name="rightHeader">
