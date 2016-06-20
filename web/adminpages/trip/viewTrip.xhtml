@@ -15,7 +15,7 @@
             </ui:define>
 
             <ui:define name="contPageDescrp">
-                
+
             </ui:define>
 
             <ui:define name="contPagePath">
@@ -30,49 +30,167 @@
                     <div  class="col-sm-12" align="center">
                         <div class="col-sm-2" align="center"></div>
                         <div class="col-sm-8" align="center">    
-                            <font size="10">
-                                <p:panelGrid  columns="2" rendered="#{tripMB.selected != null}" styleClass="col-sm-12" >
+                            <table class="table table-striped " align="center" >
+                                <tbody>                                         
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_name}"/></td>
+                                        <td><p:inplace id="name" label="#{empty tripMB.selected.name?'---':tripMB.selected.name}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{tripMB.selected.name}" title="#{bundle.CreateTripTitle_name}" 
+                                                             required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_name}"
+                                                             style="width: 330;"/>
 
-                                    <h:outputText value="#{bundle.ViewTripLabel_name}"/>
-                                    <h:outputText value="#{tripMB.selected.name}" title="#{bundle.ViewTripTitle_name}"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.ViewTripLabel_companyId}"/></td>
+                                        <td><p:inplace id="companyId" label="#{empty tripMB.selected.companyId?'---':tripMB.selected.companyId}" effectSpeed="fast" event="dblclick">
+                                                <f:facet name="output">
+                                                <h:outputText value="#{tripMB.selected.companyId.name}" title="#{bundle.ViewTripTitle_companyId}" />
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectOneMenu value="#{tripMB.selected.companyId}" style="width:150px" 
+                                                                     converter="converterCompany" requiredMessage="#{bundle.CreateTripRequiredMessage_companyId}">
+                                                        <f:selectItems value="#{CompanyMB.items}" var="company"  itemLabel="#{company.name}" itemValue="#{company}"/>  
+                                                    </p:selectOneMenu>                    
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_date}"/></td>
+                                        <td><p:inplace id="date" label="#{empty tripMB.selected.date?'---':tripMB.selected.date}" effectSpeed="fast" event="dblclick">
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{tripMB.selected.date}" title="#{bundle.ViewTripTitle_date}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar value="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
+                                                                title="#{bundle.CreateTripTitle_date}" required="true" 
+                                                                requiredMessage="#{bundle.CreateTripRequiredMessage_date}">
+                                                        <p:ajax event="dateSelect" update="joinDeadline" />                                            
+                                                    </p:calendar>                    
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_joinDeadline}"/></td>
+                                        <td><p:inplace id="joinDeadline" label="#{empty tripMB.selected.joinDeadline?'---':tripMB.selected.joinDeadline}" effectSpeed="fast" event="dblclick">
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{tripMB.selected.joinDeadline}" title="#{bundle.ViewTripTitle_joinDeadline}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar value="#{tripMB.selected.joinDeadline}" 
+                                                                maxdate="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
+                                                                required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_joinDeadline}"/>                   
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_maxbooking}"/></td>
+                                        <td><p:inplace id="maxbooking" label="#{empty tripMB.selected.maxbooking?'---':tripMB.selected.maxbooking}" effectSpeed="fast" event="dblclick">
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{tripMB.selected.maxbooking}" title="#{bundle.ViewTripTitle_maxbooking}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:spinner value="#{tripMB.selected.maxbooking}" min="1"
+                                                               title="#{bundle.CreateTripTitle_maxbooking}" required="true"
+                                                               requiredMessage="#{bundle.CreateTripRequiredMessage_maxbooking}">
+                                                        <p:ajax event="blur" update="countBooking" />
+                                                    </p:spinner>                    
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_countBooking}"/></td>
+                                        <td><p:inplace id="countBooking" label="#{empty tripMB.selected.countBooking?'---':tripMB.selected.countBooking}" effectSpeed="fast" event="dblclick">
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{tripMB.selected.countBooking}" title="#{bundle.ViewTripTitle_countBooking}"/>                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:spinner value="#{tripMB.selected.countBooking}" 
+                                                               max="#{tripMB.selected.maxbooking}" min="0" title="#{bundle.CreateTripTitle_countBooking}" 
+                                                               required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_countBooking}"/>                    
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_program}"/></td>
+                                        <td><p:inplace id="program" label="#{empty tripMB.selected.program?'---':tripMB.selected.program}" effectSpeed="fast" event="dblclick">
+                                                <p:inputTextarea value="#{tripMB.selected.program}" title="#{bundle.CreateTripTitle_program}" 
+                                                                 required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_program}"
+                                                                 style="width: 330;"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_cost}"/></td>
+                                        <td><p:inplace id="cost" label="#{empty tripMB.selected.cost?'---':tripMB.selected.cost}" effectSpeed="fast" event="dblclick">
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{tripMB.selected.cost}" title="#{bundle.ViewTripTitle_cost}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputText value="#{tripMB.selected.cost}" title="#{bundle.CreateTripTitle_cost}" 
+                                                                 required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_cost}">
+                                                        <f:convertNumber currencyCode="EGP" type="currency" />
+                                                    </p:inputText>                    
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_needTools}"/></td>
+                                        <td><p:inplace id="needTools" label="#{empty tripMB.selected.needTools?'---':tripMB.selected.needTools}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{tripMB.selected.needTools}" title="#{bundle.CreateTripTitle_needTools}" 
+                                                             style="width: 330;"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_hint}"/></td>
+                                        <td><p:inplace id="hint" label="#{empty tripMB.selected.hint?'---':tripMB.selected.hint}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{tripMB.selected.hint}" title="#{bundle.CreateTripTitle_hint}" 
+                                                             style="width: 330;"/>
+                                            </p:inplace></td>
+                                    </tr>
                                     
-                                    <p:outputLabel value="#{bundle.ViewTripLabel_companyId}"/>
-                                    <h:outputText value="#{tripMB.selected.companyId.name}" title="#{bundle.ViewTripTitle_companyId}" />
-                                    
-                                    <h:outputText value="#{bundle.ViewTripLabel_cost}"/>
-                                    <h:outputText value="#{tripMB.selected.cost}" title="#{bundle.ViewTripTitle_cost}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_countBooking}"/>
-                                    <h:outputText value="#{tripMB.selected.countBooking}" title="#{bundle.ViewTripTitle_countBooking}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_date}"/>
-                                    <h:outputText value="#{tripMB.selected.date}" title="#{bundle.ViewTripTitle_date}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_hint}"/>
-                                    <h:outputText value="#{tripMB.selected.hint}" title="#{bundle.ViewTripTitle_hint}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_joinDeadline}"/>
-                                    <h:outputText value="#{tripMB.selected.joinDeadline}" title="#{bundle.ViewTripTitle_joinDeadline}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_maxbooking}"/>
-                                    <h:outputText value="#{tripMB.selected.maxbooking}" title="#{bundle.ViewTripTitle_maxbooking}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_needTools}"/>
-                                    <h:outputText value="#{tripMB.selected.needTools}" title="#{bundle.ViewTripTitle_needTools}"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_program}"/>
-                                    <h:outputText value="#{tripMB.selected.program}" title="#{bundle.ViewTripTitle_program}"/>
-
-                                    <p:outputLabel value="#{bundle.ViewTripLabel_tag}"/>
-                                    <p:dataList value="#{tripMB.selected.tagList}" var="tag" >#{tag.name}</p:dataList>
-                                    
-                                    <h:outputText value="#{bundle.ViewTripLabel_validated}"/>
-                                    <p:selectBooleanCheckbox value="#{tripMB.selected.validated}" disabled="true"/>
-
-                                    <h:outputText value="#{bundle.ViewTripLabel_offer}"/>
-                                    <p:selectBooleanCheckbox value="#{tripMB.selected.offer}" disabled="true"/>
-                                </p:panelGrid>
-                            </font>   
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.ViewTripLabel_tag}"/></td>
+                                        <td><p:inplace id="tags" effect="none" style="width: 330;">
+                                                <f:facet name="output">
+                                                    <p:dataList value="#{tripMB.updatedTags}" var="tag" >#{tag.name}</p:dataList>           
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectManyMenu value="#{tripMB.updatedTags}" tabindex="indx" style="width: 330;" converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
+                                                        <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}"/>
+                                                    </p:selectManyMenu>                   
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_validated}"/></td>
+                                        <td><p:inplace id="validated" effect="none">
+                                                <f:facet name="output">
+                                                    <p:selectBooleanCheckbox value="#{tripMB.selected.validated}" disabled="true"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectBooleanCheckbox value="#{tripMB.selected.validated}" />                    
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewTripLabel_offer}"/></td>
+                                        <td><p:inplace id="offer" effect="none">
+                                                <f:facet name="output">
+                                                    <p:selectBooleanCheckbox value="#{tripMB.selected.offer}" disabled="true"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectBooleanCheckbox value="#{tripMB.selected.offer}" />                    
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td align="left"><p:commandButton id="update" action="#{tripMB.update}" value="#{bundle.Edit}"/></td>
+                                        <td align="right"><p:commandButton id="cancelbtn" value="#{bundle.Close}" action="trips" immediate="true"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div> 
                     </div>
 
@@ -92,9 +210,9 @@
                                         <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
                                     </div> 
                                     <div class="col-xs-8 blog-grid-right">
-                                        <a href="single.html">#{place.name}</a>
-                                        <h4>#{place.address}</h4>
-                                        <p>#{place.description}</p>
+                                        <p><a href="single.html">#{place.name}</a></p>
+                                        <p>#{place.address}</p>
+
                                     </div>
                                     <div class="clearfix"> </div>
                                     <div class="more m1">

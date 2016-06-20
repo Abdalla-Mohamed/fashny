@@ -82,12 +82,16 @@
                                             <tbody>
                                                 <tr>
                                                     <td><h:outputText value="Latitude:"/></td>
-                                                    <td><h:inputText id="lat" maxlength="5" value="#{placeView_1.selected.attd}" style="width:280px;"/></td>  
+                                                    <td><h:inputText id="lat" value="#{placeView_1.selected.attd}" style="width:280px;">
+                                                        <f:convertNumber type="number"/>
+                                                        </h:inputText></td>  
                                                     <td rowspan="2" align="center"><button onclick="getThisLocation()" type="button">Get this Position</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td><h:outputText value="Longitude:"/></td>
-                                                    <td><h:inputText id="lon" maxlength="5" value="#{placeView_1.selected.lang}" style="width:280px;"/></td>
+                                                    <td><h:inputText id="lon"  value="#{placeView_1.selected.lang}" style="width:280px;">
+                                                        <f:convertNumber type="number"/>
+                                                        </h:inputText></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2" ><h:outputText value="If you do not now the Latitude and Longitude of the place click the next button"/></td>
