@@ -22,7 +22,7 @@
         <h:form id="PartenerListForm">
             <p:growl id="msgs" showDetail="true"/>
             <p:panel header="#{MyPropertyFile.PartenerListClientTitle}">
-                <p:dataTable id="datalist" value="#{PartnerCRUDSBean.items}" var="item"
+                <p:dataTable id="datalist" value="#{PartnerCRUDSBean.changingItems()}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
                              rows="10"
@@ -33,8 +33,8 @@
                              >
 
 
-                    <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
-                    <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
+                    <p:ajax event="rowSelect"   update="createButton"/>
+                    <p:ajax event="rowUnselect" update="createButton"/>
                     <p:ajax event="rowEdit" listener="#{PartnerCRUDSBean.onRowEdit}" update="PartenerListForm:msgs" />
                     <p:ajax event="rowEditCancel" listener="#{PartnerCRUDSBean.onRowCancel}" update="PartenerListForm:msgs" />
 
@@ -46,63 +46,63 @@
                     <p:column headerText="#{MyPropertyFile.PartnerName}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.name}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_name" value="#{item.name}" style="width:100%"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_name" value="#{item.name}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerNameIsRequiredMsg}" /></f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{MyPropertyFile.PartnerEmail}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.email}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_email" value="#{item.email}" style="width:100%"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_email" value="#{item.email}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerEmailIsRequiredMsg}" /></f:facet>
                         </p:cellEditor>
                     </p:column>       
 
                     <p:column headerText="#{MyPropertyFile.PartnerContactEmail}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.contactEmail}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_contactEmail" value="#{item.contactEmail}" style="width:100%"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_contactEmail" value="#{item.contactEmail}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerContactEmailIsRequiredMsg}"/></f:facet>
                         </p:cellEditor>
                     </p:column>      
 
                     <p:column headerText="#{MyPropertyFile.PartnerPassword}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.password}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_password" value="#{item.password}" style="width:100%"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_password" value="#{item.password}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerPasswordIsRequiredMsg}"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{MyPropertyFile.PartnerAddress}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.address}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_address" value="#{item.address}" style="width:100%"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_address" value="#{item.address}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerAddressIsRequiredMsg}"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{MyPropertyFile.PartnerMobile1}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.mobile1}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_mob1" value="#{item.mobile1}" style="width:100%"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_mob1" value="#{item.mobile1}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerMobile1IsRequiredMsg}"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{MyPropertyFile.PartnerMobile2}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.mobile2}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_mob2" value="#{item.mobile2}" style="width:100%"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_mob2" value="#{item.mobile2}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerMobile2IsRequiredMsg}"/></f:facet>
                         </p:cellEditor>
                     </p:column> 
 
                     <p:column headerText="#{MyPropertyFile.PartnerPhone}">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.phone}" /></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_phone" value="#{item.phone}" style="width:100%"/></f:facet>
+                            <f:facet name="output"><h:outputText value="#{item.phone}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_phone" value="#{item.phone}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerPhoneIsRequiredMsg}"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="#{MyPropertyFile.PartnerType}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.type}"><f:converter converterId="PartenerCreatePartenerConverterForPartenerType" /></h:outputText></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput_type" value="#{item.type}" style="width:100%"><f:converter converterId="PartenerCreatePartenerConverterForPartenerType" /></p:inputText></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_type" value="#{item.type}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerTypeIsRequiredMsg}"><f:converter converterId="PartenerCreatePartenerConverterForPartenerType" /></p:inputText></f:facet>
                         </p:cellEditor>
                     </p:column>
 
@@ -122,8 +122,12 @@
 
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{MyPropertyFile.Create}" actionListener="#{PartnerCRUDSBean.prepareCreate}" update=":PartenerCreateForm" oncomplete="PF('PartenerCreateDialog').show()"/>
+                        
+                        <ui:remove>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{MyPropertyFile.View}" update=":PartenerViewForm" oncomplete="PF('PartenerViewDialog').show()" disabled="#{empty PartnerCRUDSBean.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{MyPropertyFile.Edit}" update=":PartenerEditForm" oncomplete="PF('PartenerEditDialog').show()" disabled="#{empty PartnerCRUDSBean.selected}"/>
+                        </ui:remove>
+                    
                     </f:facet>
 
 

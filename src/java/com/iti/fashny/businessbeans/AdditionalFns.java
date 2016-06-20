@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -30,7 +31,8 @@ import org.primefaces.event.FileUploadEvent;
  *
  * @author MANAR ADEL
  */
-public class AdditionalFns {
+public class AdditionalFns implements Serializable
+{
 
     public Boolean isMailExist(String email) {
         boolean valid = true;
