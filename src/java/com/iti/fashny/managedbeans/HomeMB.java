@@ -5,10 +5,21 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.CompanyController;
+import com.iti.fashny.businessbeans.PartnerBusiness;
+import com.iti.fashny.businessbeans.PlaceBusiness;
+import com.iti.fashny.businessbeans.TripBusiness;
+import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Partener;
+import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Trip;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
+import org.hibernate.cfg.HbmBinder;
 
 /**
  *
@@ -31,30 +42,7 @@ public class HomeMB {
 //           for (int i = 1; i <= 4; i++) {
 //            images.add(new placeImage("sdfsdfsdf", "nature" + i + ".jpg"));
 //        }
-        images= new ArrayList<>();
-            images.add(new placeImage("deal with professional companies", "C:/Users/Abdalla/Desktop/fashny bar/com.jpg"));
-            images.add(new placeImage("deal with professional companies", "C:/Users/Abdalla/Desktop/fashny bar/comp.jpg"));
-            images.add(new placeImage("deal with professional Hotels", "C:/Users/Abdalla/Desktop/fashny bar/hotel.jpg"));
-            images.add(new placeImage("BEST Restaurant, DELICIOUS food", "C:/Users/Abdalla/Desktop/fashny bar/rest.jpg"));
-            images.add(new placeImage("discover new places", "C:/Users/Abdalla/Desktop/fashny bar/place.jpg"));
-            images.add(new placeImage("discover new places", "C:/Users/Abdalla/Desktop/fashny bar/place2.jpg"));
-            images.add(new placeImage("catch special offers", "C:/Users/Abdalla/Desktop/fashny bar/offers.jpg"));
-            images.add(new placeImage("meet new people in amazing trips", "C:/Users/Abdalla/Desktop/fashny bar/trip.jpg"));
-            images.add(new placeImage("meet new people in amazing trips", "C:/Users/Abdalla/Desktop/fashny bar/trip2.jpg"));
-            images.add(new placeImage("meet new people in amazing trips", "C:/Users/Abdalla/Desktop/fashny bar/trips.jpg"));
-        
-        barImages= new ArrayList<>();
-            barImages.add(new placeImage("deal with professional companies", "com.jpg"));
-            barImages.add(new placeImage("deal with professional companies", "comp.jpg"));
-            barImages.add(new placeImage("deal with professional Hotels", "hotel.jpg"));
-            barImages.add(new placeImage("BEST Restaurant, DELICIOUS food", "rest.jpg"));
-            barImages.add(new placeImage("discover new places", "place.jpg"));
-            barImages.add(new placeImage("discover new places", "place2.jpg"));
-            barImages.add(new placeImage("catch special offers", "offers.jpg"));
-            barImages.add(new placeImage("meet new people in amazing trips", "trip.jpg"));
-            barImages.add(new placeImage("meet new people in amazing trips", "trip2.jpg"));
-            barImages.add(new placeImage("meet new people in amazing trips", "trips.jpg"));
-        
+       
     }
 
     public List<placeImage> getImages() {
@@ -65,18 +53,56 @@ public class HomeMB {
         this.images = images;
     }
 
+
+//get the first two images from Places , trips , companies , parteners   
+    
     public List<placeImage> getBarImages() {
-        return barImages;
-    }
+       // places list
+        List<Place> places = null;
+        PlaceBusiness placeBusiness = new PlaceBusiness();
+       //trips list
+        List<Trip> trips = null;
+        TripBusiness tripBusiness = new TripBusiness();
+      // companies list
+        List<Company> companies =null;
+        CompanyController companyController =new CompanyController();
+      // parteners list
+        List<Partener>parteners = null;
+        PartnerBusiness partnerBusiness = new PartnerBusiness();
+      // bar images list  
+       List<placeImage>bar = new ArrayList();
+        // full the lists       
+         try {
+           places  = placeBusiness.view();
+           trips  = tripBusiness.view();
+           companies = companyController.view();
+           parteners = partnerBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(HomeMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       // add first 2 pics of every list
+         for (int x =0; x<2;x++) {
+          
+           bar.add(new placeImage(places.get(x).getName(),getFirstImg(places.get(x))));
+           bar.add(new placeImage(trips.get(x).getName(),getTripFirstImg(trips.get(x))));
+                if(companies.get(x).getProfilePic() != null)
+           bar.add(new placeImage(companies.get(x).getName(),companies.get(x).getProfilePic().getPath()));
+                if(parteners.get(x).getProfilePic() != null)
+           bar.add(new placeImage(parteners.get(x).getName(),parteners.get(x).getProfilePic().getPath()));
+         
+        }
+        
+        return bar;
+    }     
 
     public void setBarImages(List<placeImage> barImages) {
         this.barImages = barImages;
     }
 
+   
+
     
 
-
-    
 //----------------------------------------------------------------------------    
 //----------------------------------------------------------------------------    
     public class placeImage{
@@ -106,5 +132,22 @@ public class HomeMB {
         
         
     }
+    
+    public String getFirstImg(Place place) {
+        String path = "0";
+        if (place.getResouceList() != null && !place.getResouceList().isEmpty()) {
+            path = place.getResouceList().get(0).getPath();
+        }
+        return path;
+    }  
+    
+     public String getTripFirstImg(Trip trip) {
+         String path = "0";
+        if (trip.getResouceList() != null && !trip.getResouceList().isEmpty()) {
+            path = trip.getResouceList().get(0).getPath();
+        }
+        return path;  
+    }
+        
     
 }

@@ -12,54 +12,58 @@ import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.JoinTrip;
 import com.iti.fashny.entities.Trip;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.criteria.Join;
 
 /**
  *
  * @author Hosam
  */
-public class JoinTripBuisinesss implements Serializable{
+public class JoinTripBuisinesss1 {
 
     DaoFactory daoFactory = new DaoFactory();
     JoinTripFacade joinTripFacade = daoFactory.getJoinTripDoa();
-    
+    ClientFacade cf = daoFactory.getClientDoa();
     TripFacade tripFacade = daoFactory.getTripDoa();
 
+   
+    
+    
     public List<JoinTrip> getOldTrips(Client c) {
-        List<JoinTrip> oldTrips = new ArrayList();
-
+         List<JoinTrip>oldTrips = new ArrayList();
+         
         for (JoinTrip trip : getClient(c).getJoinTripList()) {
-
-            if (trip.getTrip().getDate().getTime() < System.currentTimeMillis()) {
+            
+            if(trip.getTrip().getDate().getTime() < System.currentTimeMillis())
                 oldTrips.add(trip);
-            }
-
+                        
         }
-
+        
         return oldTrips;
     }
-
-    public List<JoinTrip> getComingTrips(Client c) {
-        List<JoinTrip> comingTrips = new ArrayList();
-
+    
+    
+     public List<JoinTrip> getComingTrips(Client c) {
+            List<JoinTrip>comingTrips = new ArrayList(); 
+            
         for (JoinTrip trip : getClient(c).getJoinTripList()) {
-
-            if (trip.getTrip().getDate().getTime() >= System.currentTimeMillis()) {
-                comingTrips.add(trip);
-            }
+            
+            if(trip.getTrip().getDate().getTime() >= System.currentTimeMillis())
+                comingTrips.add(trip);                        
         }
-
+        
         return comingTrips;
     }
-
-    public Client getClient(Client c) {
-        ClientFacade cf = daoFactory.getClientDoa();
-        Client client = cf.find(c.getId());
+     
+    
+     public Client getClient(Client c) {
+      
+       Client client = cf.find(c.getId());
         return client;
     }
-
+    
+    
     public void rate(JoinTrip joinTrip) {
         daoFactory.beginTransaction();
         joinTripFacade.edit(joinTrip);

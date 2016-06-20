@@ -11,6 +11,7 @@ import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.JoinTrip;
 import com.iti.fashny.entities.Trip;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +23,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean(name = "joinMB") 
 @RequestScoped
-public class JoinTipMB {
+public class JoinTipMB implements Serializable{
     
     List<JoinTrip>oldTrips;
     List<JoinTrip>comingTrips;
