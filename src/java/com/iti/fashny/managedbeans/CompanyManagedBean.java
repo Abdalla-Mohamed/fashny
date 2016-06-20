@@ -36,7 +36,7 @@ public class CompanyManagedBean implements Serializable {
 
     CompanyController companyController;
     private List<Company> items = null;
-    private List<Tag> selectedTags;
+    private List<Tag> updatedTags;
     private Company selected;
     UploadImage uploadImage;
 
@@ -50,22 +50,25 @@ public class CompanyManagedBean implements Serializable {
         companyController = new CompanyController();
         selected = new Company();
         uploadImage = new UploadImage();
-        selectedTags = new ArrayList<>();
+        updatedTags = new ArrayList<>();
         signUpDone = false;
         picUploaded = false;
     }
+
+   
+    
 
 //_________________________  setter and getter _______________________________//
     public CompanyController getCompanyController() {
         return companyController;
     }
 
-    public List<Tag> getSelectedTags() {
-        return selectedTags;
+    public List<Tag> getUpdatedTags() {
+        return updatedTags;
     }
 
-    public void setSelectedTags(List<Tag> selectedTags) {
-        this.selectedTags = selectedTags;
+    public void setUpdatedTags(List<Tag> updatedTags) {
+        this.updatedTags = updatedTags;
     }
 
     public void setPicUploaded(boolean picUploaded) {
@@ -152,12 +155,16 @@ public class CompanyManagedBean implements Serializable {
         String next = null;
         if (selected != null) {
             try {
+                selected.setTagList(updatedTags);
+                System.out.println(selected.getDescription());
                 companyController.update(selected);
+                updatedTags.clear();
                 next = "compaies";
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        selected = new Company();
         return next;
     }
 
@@ -214,6 +221,8 @@ public class CompanyManagedBean implements Serializable {
         selected = companyController.showSpecificInfo(id);
         try {
             selected = companyController.gitAllCompanyLists(selected);
+            updatedTags.clear();
+            updatedTags.addAll(selected.getTagList());
         } catch (Exception ex) {
             Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -254,12 +263,12 @@ public class CompanyManagedBean implements Serializable {
     }
 
     public String saveForClient() {
-        selected.setTagList(selectedTags);
+        selected.setTagList(updatedTags);
         signup();
         newCompany = selected;
         items = getItems();
         selected = new Company();
-        selectedTags = new ArrayList<>();
+        updatedTags = new ArrayList<>();
 //        uploadImage = new UploadImage();
 //        uploadImage.forCompany(""+selected.getId());
   RequestContext context = RequestContext.getCurrentInstance();
@@ -276,7 +285,8 @@ public class CompanyManagedBean implements Serializable {
 
     public String editCompany() {
         update();
-        System.out.println("------ edit------");
+        items = getItems();
+        selected = new Company();
         return "compaies";
     }
 

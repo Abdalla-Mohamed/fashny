@@ -98,9 +98,8 @@ public class ClientBusiness implements Commens<Client> {
         }
         return client;
     }
-    
-    
-     public void addImageToPlace(UploadedFile image, Client client) {
+
+    public void addImageToPlace(UploadedFile image, Client client) {
         DaoFactory daoFactory = new DaoFactory();
         ClientFacade clientFacade = daoFactory.getClientDoa();
         ResouceFacade resouceDoa = daoFactory.getResouceDoa();
@@ -117,13 +116,15 @@ public class ClientBusiness implements Commens<Client> {
 
             Resouce resouce = new Resouce(null, filePath);
 
-            resouceDoa.remove(client.getProfilePic());
+            if (client.getProfilePic() != null) {
+                resouceDoa.remove(client.getProfilePic());
+            }
             resouceDoa.create(resouce);
-            
+
             Client find = clientFacade.find(clientId);
             find.setProfilePic(resouce);
             client.setProfilePic(resouce);
-            
+
             daoFactory.commitTransaction();
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -131,6 +132,5 @@ public class ClientBusiness implements Commens<Client> {
         }
 
     }
-
 
 }
