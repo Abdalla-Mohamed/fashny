@@ -47,7 +47,7 @@
                                         <td><p:inplace id="password" label="#{empty CompanyMB.selected.password?'---':CompanyMB.selected.password}" effectSpeed="fast" event="dblclick">
                                                 <p:password value="#{CompanyMB.selected.password}" 
                                                             title="#{bundle.CreateCompanyTitle_password}" style="width: 330;" feedback="true"
-                                                            required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"
+                                                             required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"
                                                             validatorMessage="Password length is less than allowable minimum of '6'">
                                                     <f:validateLength minimum="6" />
                                                 </p:password>
@@ -169,16 +169,17 @@
                             </p:blockUI>
                         </div> 
 
-
+                    </h:form>    
                         <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
 
                         <div class="col-sm-12" align="center">
                             <h:form id="form">
                                 <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
                                 <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
-                                            rows="1" paginator="true" id="trip"
+                                                        rows="12" paginator="true" 
                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                            rowsPerPageTemplate="1,3,6,12">
+                                                        rowsPerPageTemplate="6,12,16"
+                                            >
 
 
                                     <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
@@ -193,14 +194,14 @@
                                         </div>
                                         <div class="clearfix"> </div>
                                         <div class="more m1">
-                                            <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                            <p:commandButton  type="" action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
                                         </div>
                                     </div>
                                 </p:dataGrid>
                             </h:form>
                         </div>    
 
-                    </h:form>
+                   
                 </div>
             </ui:define>
 

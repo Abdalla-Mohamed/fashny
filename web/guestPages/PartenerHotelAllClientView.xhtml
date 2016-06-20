@@ -1,18 +1,23 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
-    
-    
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
     <body>
-        
-         <ui:composition template="./../templates/clientTemplate.xhtml"
+
+        <ui:composition template="./../templates/clientTemplate.xhtml"
                         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                         xmlns:p="http://primefaces.org/ui"
                         xmlns:f="http://xmlns.jcp.org/jsf/core"
                         xmlns:h="http://xmlns.jcp.org/jsf/html">
 
+            <ui:define name="activePage">
+                <c:set var="Hotels" value="active" />
+
+            </ui:define>
             <ui:define name="title">
                 Hotels
             </ui:define>
@@ -24,41 +29,41 @@
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 rowsPerPageTemplate="6,12,16"
                                 styleClass="no-border">
-                        
+
 
                         <f:facet name="header">
                             All Hotels 
                         </f:facet>
-                        
-                        
-                        
-                        
+
+
+
+
                         <p:panel header="#{place.name}" style="text-align:center">
                             <h:panelGrid columns="1" style="width:100%">
                                 <ui:remove> <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> </ui:remove>
 
-                                
+
                                 <p:graphicImage name="index.jpg" value="index.jpg"/>
-                                
-                                <a href="PartenerHotelAllClientView">#{place.name}</a>
+
+                                <a href="PartenerHotelShowDetailsClientView">#{place.name}</a>
                                 <h:outputText value="#{place.description}" />
                                 <a href="https://#{place.website}">#{place.website}</a>
-                                
-                                
-                                    <h:commandButton   action="#{PartenerHotelAllClientViewManagedBean.placeDetails(place.id)}" value="More Details" styleClass="btn btn-info col-xs-12"/>
-                                
+
+
+                                <h:commandButton   action="#{PartenerHotelAllClientViewManagedBean.placeDetails(place.id)}" value="More Details" styleClass="btn btn-info col-xs-12"/>
+
                             </h:panelGrid>
                         </p:panel>
-                        
-                        
-                        
+
+
+
                     </p:dataGrid>
                 </h:form>
             </ui:define>
-         </ui:composition>
-        
-        
-        
+        </ui:composition>
+
+
+
     </body>
 </html>
 

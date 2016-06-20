@@ -6,7 +6,9 @@
 package com.iti.fashny.converters;
 
 import com.iti.fashny.businessbeans.CompanyController;
+import com.iti.fashny.businessbeans.ServicesBusiness;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Service;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,28 +23,28 @@ import javax.faces.convert.FacesConverter;
  *
  * @author Abdalla
  */
-@FacesConverter("converterCompany")
-public class ConverterCompany implements Converter {
+@FacesConverter("converterService")
+public class ConverterService implements Converter {
 
-    public ConverterCompany() {
+    public ConverterService() {
     }
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if (value != null && value.trim().length() > 0) {
             try {
-                CompanyController companyController = new CompanyController();
-                List<Company> companys = companyController.view();
-                for (Company company : companys) {
-                    if (company.getId() == Integer.parseInt(value)) {
-                        return company;
+                ServicesBusiness serviceBusiness = new ServicesBusiness();
+                List<Service> services = serviceBusiness.view();
+                for (Service s : services) {
+                    if (s.getId() == Integer.parseInt(value)) {
+                        return s;
                     }
                 }
 
             } catch (NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid service."));
             } catch (Exception ex) {
-                Logger.getLogger(ConverterCompany.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConverterService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
@@ -52,10 +54,9 @@ public class ConverterCompany implements Converter {
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if (object != null) {
-            return String.valueOf(((Company) object).getId());
+            return String.valueOf(((Service) object).getId());
         } else {
             return null;
         }
     }
-
 }

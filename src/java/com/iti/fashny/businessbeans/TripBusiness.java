@@ -5,7 +5,9 @@
  */
 package com.iti.fashny.businessbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Place;
@@ -14,9 +16,12 @@ import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;
+import java.io.File;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -129,6 +134,63 @@ public class TripBusiness implements Commens<Trip> ,Serializable {
             daoFactory.close();
         }
         return tripObj;
+    }
+
+    public void addImageToTrip(UploadedFile image, Trip trip) {
+   
+       DaoFactory daoFactory = new DaoFactory();
+         TripFacade placeDoa = daoFactory.getTripDoa();
+        ResouceFacade resouceDoa = daoFactory.getResouceDoa();
+        System.out.println("~~~~~~~~~~~~~~~~~~~  " + image.getFileName() + " ~~~~~~~~~~~~~~~");
+        try {
+            daoFactory.beginTransaction();
+
+            Integer tripId = trip.getId();
+
+            UploadImage uploadImage = new UploadImage();
+            uploadImage.setFile(image);
+            uploadImage.forTrip("" + tripId);
+            String filePath = uploadImage.handleFileUpload();
+
+            Resouce resouce = new Resouce(null, filePath);
+            resouce.setTripList(new ArrayList<>());
+            resouce.getTripList().add(trip);
+            resouceDoa.create(resouce);
+
+//            Place find = placeDoa.find(placeId);
+//            System.out.println("image count::"+find.getResouceList().size());
+
+            trip.getResouceList().add(resouce);
+            
+            daoFactory.commitTransaction();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
+
+    }
+
+    public boolean deleteImageFromTrip(Resouce selectedPic) {
+        boolean deleted = false;
+        DaoFactory daoFactory = new DaoFactory();
+        ResouceFacade resouceDoa = daoFactory.getResouceDoa();
+        try{
+            daoFactory.beginTransaction();
+            
+            Resouce find = resouceDoa.find(selectedPic.getId());
+            find.getPlaceList().clear();
+            resouceDoa.remove(find);
+            
+            Files.delete(new File(selectedPic.getPath()).toPath());
+            deleted =true;
+            
+            daoFactory.commitTransaction();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            deleted =false;
+            daoFactory.rollbackTransaction();
+        }
+        return deleted;
     }
 
 }
