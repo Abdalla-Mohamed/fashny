@@ -85,7 +85,7 @@ public class EditClientProfileInfoBean
      daoFactory.close();
      
 //     return navigationBean.toWelcome();
-     return"/info";
+     return "home";
         
     }
     
