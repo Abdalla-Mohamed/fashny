@@ -217,11 +217,15 @@
                                     <div class="clearfix"> </div>
                                     <div class="more m1">
                                         <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
-                                        <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details"/>
+                                        <h:commandButton id="placeDetails"   action="#{placeView_1.placeDetails(place.id)}" value="More Details"/>
                                     </div>
                                 </div>
                             </p:dataGrid>
                         </h:form>
+                        <p:blockUI block="bobo" trigger="update cancelbtn placeDetails">
+                                LOADING<br/>
+                                <p:graphicImage name="/processing-bar.gif"/>
+                        </p:blockUI>
                     </div>    
                 </h:form>
             </ui:define>

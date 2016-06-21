@@ -51,12 +51,13 @@
                                         <td><p:calendar id="date" value="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
                                                         title="#{bundle.CreateTripTitle_date}" required="true" 
                                                         requiredMessage="#{bundle.CreateTripRequiredMessage_date}">
-                                            <p:ajax event="dateSelect" update="joinDeadline" />                                            
+                                            <p:ajax event="dateSelect" update="joinDeadline" />   
+                                            <p:ajax event="blur" update="joinDeadline" />   
                                             </p:calendar></td>
                                     </tr> 
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateTripLabel_joinDeadline}" for="joinDeadline" /></td>
-                                        <td><p:calendar id="joinDeadline" value="#{tripMB.selected.joinDeadline}" 
+                                        <td><p:calendar id="joinDeadline" value="#{tripMB.selected.joinDeadline}" disabled="#{(empty tripMB.selected.date?true : false) or (tripMB.selected.date== null?true : false)}"
                                                         maxdate="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
                                                         required="true" requiredMessage="#{bundle.CreateTripRequiredMessage_joinDeadline}"/></td>
                                     </tr> 
@@ -118,14 +119,17 @@
                                         <td><p:selectBooleanCheckbox id="offer" value="#{tripMB.selected.offer}" /></td>
                                     </tr> 
                                     <tr>
-                                        <td><p:commandButton action="#{tripMB.save()}" value="#{bundle.Save}" /></td>
-                                        <td><p:commandButton value="#{bundle.Cancel}" action="#{tripMB.goToTrips}" immediate="true"/></td>
+                                        <td><p:commandButton id="create" action="#{tripMB.save()}" value="#{bundle.Save}" /></td>
+                                        <td><p:commandButton id="cancel" value="#{bundle.Cancel}" action="#{tripMB.goToTrips}" immediate="true"/></td>
                                     </tr> 
                                 </tbody>
                             </table>
                         </div> 
 
-
+                        <p:blockUI block="bobo" trigger="cancel create">
+                                LOADING<br/>
+                                <p:graphicImage name="/processing-bar.gif"/>
+                            </p:blockUI>
                     </div>   
                 </h:form>
 
