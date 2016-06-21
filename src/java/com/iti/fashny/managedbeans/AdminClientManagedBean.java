@@ -201,7 +201,7 @@ public class AdminClientManagedBean implements Serializable {
     
     
     public void handleFileUpload(FileUploadEvent event) {
-        clientBusiness.addImageToPlace(event.getFile(), selected);
+        clientBusiness.addImageToClient(event.getFile(), selected);
 
         RequestContext context = RequestContext.getCurrentInstance();
         context.update("picForm");
