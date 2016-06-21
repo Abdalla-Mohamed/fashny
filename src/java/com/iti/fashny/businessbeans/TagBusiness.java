@@ -31,7 +31,6 @@ public class TagBusiness implements Commens<Tag> {
         DaoFactory daoFactory = new DaoFactory();
         TagFacade tagFacade = daoFactory.getTagDoa();
 
-
         try {
 
             daoFactory.beginTransaction();
@@ -90,6 +89,26 @@ public class TagBusiness implements Commens<Tag> {
     @Override
     public Tag showSpecificInfo(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+ 
+    }
+
+    public Tag getAllTags(Tag tagObj) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            TagFacade tagFacade = daoFactory.getTagDoa();
+            daoFactory.beginTransaction();
+            Tag t = new Tag();
+            t = tagFacade.refreshObj(tagObj);
+
+            daoFactory.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return tagObj;
     }
 
 }

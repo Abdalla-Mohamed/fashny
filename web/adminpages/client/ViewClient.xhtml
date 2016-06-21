@@ -31,10 +31,10 @@
             <ui:define name="content">
                 <div  class="col-sm-12" align="center">
 
-                    <h:form id="ClientViewForm">
+                    <h:form id="ClientViewForm" styleClass="col-sm-8" >
                         <div class="col-sm-2" align="center"></div>
-                        <div class="table-responsive col-sm-8">    
-                            <table class="table table-striped " align="center" >
+                        <div class="table-responsive col-sm-12">    
+                            <table class="table table-striped col-sm-12 " align="center" >
                                 <tbody>
                                     <tr>
 
@@ -146,7 +146,6 @@
                                     </tr>
                                     <tr> 
                                         <td><h:outputText value="#{bundle.ViewClientLabel_profilePic}"/></td>
-                                        <td><p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic}" id="image" width="180" height="180"/></td>
 
                                     </tr>
                                     <tr> 
@@ -157,73 +156,33 @@
                             </table>
 
 
-                            <h:outputLabel for="gender" value="#{bundle.ViewClientLabel_gender}"/>
-                            <p:inplace id="gender" label="#{adminClient.selected.gender}" effectSpeed="fast" event="dblclick">
-                                <h:selectOneMenu value="#{adminClient.selected.gender}" title="#{bundle.CreateClientTitle_gender}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_gender}">
-                                    <f:selectItem itemLabel="Male" itemValue="0" />
-                                    <f:selectItem itemLabel="Female" itemValue="1" />
-                                </h:selectOneMenu>
-                                <p:message for="gender"/>
-                            </p:inplace>
 
-                            <h:outputLabel for="maritalStatus" value="#{bundle.ViewClientLabel_maritalStatus}"/>
-                            <p:inplace id="maritalStatus" label="#{adminClient.selected.maritalStatus}" effectSpeed="fast" event="dblclick">
-                                <h:selectOneMenu value="#{adminClient.selected.maritalStatus}" title="#{bundle.CreateClientTitle_maritalStatus}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_maritalStatus}">
-                                    <f:selectItem itemLabel="Single" itemValue="0" />
-                                    <f:selectItem itemLabel="Maried" itemValue="1" />
-                                </h:selectOneMenu>
-                                <p:message for="maritalStatus"/>
-                            </p:inplace>
-
-                            <h:outputLabel value="#{bundle.ViewClientLabel_lastSeen}"/>
-                            <h:outputText value="#{adminClient.selected.lastSeen}" title="#{bundle.ViewClientTitle_lastSeen}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-
-                            <h:outputLabel for="mobile1" value="#{bundle.ViewClientLabel_mobile1}"/>
-                            <p:inplace id="mobile1" label="#{adminClient.selected.mobile1}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.mobile1}" title="#{bundle.CreateClientTitle_mobile1}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_mobile1}"/>
-                                <p:message for="mobile1"/>
-                            </p:inplace>
-
-                            <h:outputLabel for="mobile2" value="#{bundle.ViewClientLabel_mobile2}"/>
-                            <p:inplace id="mobile2" label="#{adminClient.selected.mobile2}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.mobile2}" title="#{bundle.CreateClientTitle_mobile2}" />
-                                <p:message for="mobile2"/>
-                            </p:inplace>
-
-                            <h:outputLabel for="phone" value="#{bundle.ViewClientLabel_phone}"/>
-                            <p:inplace id="phone" label="#{adminClient.selected.phone}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.phone}" title="#{bundle.CreateClientTitle_phone}" />
-                                <p:message for="phone"/>
-                            </p:inplace>
-
-                            <h:outputLabel for="active" value="#{bundle.ViewClientLabel_active}"/>
-                            <p:inplace id="active" effect="none">
-                                <f:facet name="output">
-                                    <p:selectBooleanCheckbox value="#{adminClient.selected.active}" disabled="true"/>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:selectBooleanCheckbox value="#{adminClient.selected.active}" />
-                                    <p:message for="active"/>
-                                </f:facet>
-                            </p:inplace>
-
-                            <h:outputText value="#{bundle.ViewClientLabel_profilePic}"/>
-                            <p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic.path}" id="image" width="400" height="200"/>
-                        
-                        
-                        <p:commandButton id="update" action="#{adminClient.update}" value="#{bundle.Edit}"/>
-                        <p:commandButton id="cancelbtn" value="#{bundle.Close}" action="adminClient" immediate="true"/>
-                       
-
-                        <p:blockUI block="bobo" trigger="update cancelbtn">
-                            LOADING<br />
-                            <p:graphicImage name="/processing-bar.gif"/>
-                        </p:blockUI>
-                    </div>    
+                            <p:blockUI block="bobo" trigger="update cancelbtn">
+                                LOADING<br />
+                                <p:graphicImage name="/processing-bar.gif"/>
+                            </p:blockUI>
+                        </div>
                     </h:form>
+                    <div class="col-sm-4">
+                        <h:form id="picForm" prependId="false">
+                            <p:panel >
+                                <p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic.path}" id="image" styleClass="img-responsive" />
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="upload profile image" type="button" onclick="PF('uploadImage').show();" />
+                            </p:panel>
+                        </h:form>
+                        
+                        <p:dialog header="upload profile image" widgetVar="uploadImage" modal="true" showEffect="explode" hideEffect="bounce" resizable="true" >
+                            <h:form>
+                                <p:fileUpload fileUploadListener="#{adminClient.handleFileUpload}" mode="advanced" dragDropSupport="false" 
+                                              multiple="true" update="imgMessages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+                                <p:growl id="imgMessages" showDetail="true"  />
+                            </h:form>
+                        </p:dialog>
+
+
                     </div>
+                </div>
             </ui:define>
 
             <ui:define name="rightHeader">
