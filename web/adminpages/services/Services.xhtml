@@ -10,12 +10,21 @@
                  xmlns:h="http://xmlns.jcp.org/jsf/html"
                  xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    
+       <ui:define name="contPageName">
+                 Service
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+
+            </ui:define>
+
     <ui:define name="content">
         <h:form id="ServiceForm" prependId="false">
             <div  class="col-sm-12" align="center">
                 <div class="col-sm-2" align="center"></div>
                 <div class="col-sm-8" align="center"> 
-                    <p:panel header="#{bundle.ListServiceTitle}" id="pnlList">
+                    <p:panel header="#{bundle.ListServiceTitle}"  id="pnlList">
                         <p:dataTable id="datalist" value="#{serviceBean.items}" var="service"
                                      paginator="true"
                                      rowKey="#{service.id}"
@@ -66,7 +75,10 @@
                             </p:column>
 
                             <p:column style="width:32px">
-                                <p:rowEditor />
+                                <f:facet name="header"/>
+                                <p:commandButton id="editButton" icon="ui-icon-pencil"  value="Edit Service" update="editForm" onclick="PF('ServiceEditDialog').show();">
+                                    <f:setPropertyActionListener value="#{service}" target="#{serviceBean.service}" />
+                                </p:commandButton>               
                             </p:column>
 
                             <f:facet name="footer">
@@ -84,8 +96,9 @@
 
 
         <ui:include src="CreateServices.xhtml"/>
+        <ui:include src="EditService.xhtml"/>
 
-      
+
     </ui:define>
 
 </ui:composition>

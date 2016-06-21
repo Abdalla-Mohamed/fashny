@@ -6,6 +6,10 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.TagBusiness;
+import com.iti.fashny.daos.CompanyFacade;
+import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.TagFacade;
+import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Tag;
 import java.util.*;
 import java.util.logging.Level;
@@ -19,6 +23,7 @@ import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -44,6 +49,7 @@ public class TagManagedBean {
 
     public TagManagedBean() {
         tagBusiness = new TagBusiness();
+        selectedTag = new Tag();
     }
 
     public TagBusiness getTagBusiness() {
@@ -100,6 +106,9 @@ public class TagManagedBean {
         if (getSelectedTag() != null) {
             try {
                 tagBusiness.add(selectedTag);
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('TagCreateDialog').hide()");
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

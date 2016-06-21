@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition>
+        <p:dialog id="ServiceEditDlg" widgetVar="ServiceEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTagTitle}">
+            <h:form id="editForm">
+                <div class="col-sm-6">
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" rendered="#{not empty serviceBean.service}">
+
+                            <p:outputLabel value="#{bundle.EditServiceLabel_name}" for="name" />
+                            <p:inputText id="name" value="#{serviceBean.service.name}" rendered="true" title="#{bundle.EditServiceTitle_name}">
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.EditServiceLabel_name}" for="desc" />
+                            <p:inputText id="desc" value="#{serviceBean.service.description}" rendered="true" title="#{bundle.EditServiceTitle_description}">
+                            </p:inputText>
+
+
+                            <p:outputLabel value="#{bundle.EditServiceLabel_cost}" for="cost" />
+                            <p:inputText id="cost" value="#{serviceBean.service.cost}" rendered="true" title="#{bundle.EditServiceTitle_cost}">
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.EditServiceCategoreyLabel_active}" for="active" />
+                            <p:selectBooleanCheckbox id="active" value="#{serviceBean.service.active}" required="true"/>
+
+                            <p:outputLabel for="category" value="#{bundle.CreateServiceLabel_categoreyServiceid}" />
+                            <p:selectOneMenu id="category" value="#{serviceBean.service.categoreyServiceid.id}" style="width:150px"
+                                             requiredMessage="#{bundle.CreateServiceRequiredMessage_categoreyServiceid}">
+
+                                <f:selectItem itemLabel="Select Category" itemValue="" noSelectionOption="true" />
+                                <f:selectItems  value="#{serviceBean.items}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat.id}"/>
+                            </p:selectOneMenu>
+
+                            <p:commandButton action="#{serviceBean.update()}" value="#{bundle.Edit}" oncomplete="PF('ServiceEditDialog').hide()" update="datalist"/>
+                            <p:commandButton oncomplete="PF('ServiceEditDialog').hide()" value="#{bundle.Cancel}"/>
+
+                        </p:panelGrid>
+
+                    </h:panelGroup>
+                </div> 
+            </h:form>
+
+        </p:dialog>
+        <ui:define name="rightHeader">
+            rightHeader
+        </ui:define>
+
+    </ui:composition>
+
+</html>
