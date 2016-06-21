@@ -88,6 +88,11 @@
             <redirect />            
         </navigation-case>
         <navigation-case>
+            <from-outcome>signUpPartner</from-outcome>
+            <to-view-id>/guestPages/partnerSignup.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
             <from-outcome>waitConfirmtion</from-outcome>
             <to-view-id>/genralPages/waitConfirmtion.xhtml</to-view-id>
             <redirect />            

@@ -43,7 +43,7 @@
                                 <ui:remove> <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> </ui:remove>
 
 
-                                <p:graphicImage name="index.jpg" value="index.jpg"/>
+                                <p:graphicImage width="100%" height="150" value="/Image?imageName=#{place.profilePic.path}"  />
 
                                 <a href="PartenerHotelShowDetailsClientView">#{place.name}</a>
                                 <h:outputText value="#{place.description}" />
