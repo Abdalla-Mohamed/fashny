@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <body>
+
+        <ui:composition template="./../templates/clientTemplate.xhtml"
+                        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                Trip Details
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form prependId="false" id="tripDetails">
+
+                    <div class="single">
+                        <div class="container">
+                            <div class="single-page-artical">
+                                <div class="artical-content">
+                                    <h3>#{tripMB.selected.name}</h3>
+
+                                    <div class="artical-links">
+                                        <ul>
+                                            <li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Date:#{tripMB.selected.date}</li>
+                                            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>#{tripMB.selected.companyId.name}</a></li>
+                                            <li><a href="#"><span class="fa fa-money" aria-hidden="true"></span> Cost:#{tripMB.selected.cost}</a></li>
+                                            <li><p:commandLink id="completed" value="Completed" action="trips" rendered="#{!tripMB.checkTripComplete}" class="fa fa-money"/></li>
+                                            <li><p:commandLink id="expired" value="Expired" action="trips" rendered="#{!tripMB.checkTripDate}"/></li>
+                                        </ul>
+                                    </div>
+                                    <div class="artical-links">
+                                        Tags:<p:tagCloud model="#{tripMB.tagCloud}"/>
+                                    </div>
+                                    <p:imageSwitch  effect="turnDown" id="manuelSwitcher" styleClass="img-responsive" >
+                                        <ui:repeat value="#{tripMB.imagesList}" var="image" id="manuelSwitcherImages">
+                                            <p:graphicImage styleClass="img-responsive" value="/Image?imageName=#{image}" id="image" width="100%" height="400"/>
+                                        </ui:repeat>
+                                    </p:imageSwitch>
+                                </div>
+
+                                <br/>
+                                <div class="banner-bottom1 col-md-12" >
+                                    <div class="container col-md-8" >	
+                                        <div class="banner-bottom1-grids">
+                                            <div class="col-md-8 banner-bottom1-grid-left">
+                                                <h3>Program</h3>
+                                                <p>#{tripMB.selected.program}</p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                    </div>
+                                    <div class="container col-md-4">	
+                                        <div class="banner-bottom1-grids">
+                                            <div class="col-md-8 banner-bottom1-grid-left">
+                                                <h3>Tools Need</h3>
+                                                <p>#{tripMB.selected.needTools}</p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                    </div>
+                                </div> 
+
+
+                                <p:commandButton id="joinTrip" value="Join Trip" type="button" onclick="PF('dlg2').show();" rendered="#{tripMB.render}"/>
+
+                                <p:dialog header="Join Trip" widgetVar="dlg2" modal="true" height="200">
+                                    <h:panelGrid columns="2" styleClass="ui-grid" cellspacing="5">
+                                        <p:outputLabel value="Count Booking : "/>
+                                        <p:outputLabel value="#{tripMB.selected.countBooking}"/>
+
+                                        <p:outputLabel value="Max Booking : "/>
+                                        <p:outputLabel value="#{tripMB.selected.maxbooking}"/>
+
+                                        <p:outputLabel value="Count : "/>
+                                        <p:spinner value="#{tripMB.clientJoinTrip.count}"/>
+
+                                        <f:facet name="footer">
+                                            <p:commandButton id="join" value="Join" action="#{tripMB.joinTrip(login.loginAccount.client)}"  update="tripDetails" styleClass="ui-priority-primary" oncomplete="handleSubmit(args,'dlg2');" />
+                                            <p:commandButton id="cancel" value="Cancel" onclick="dlg2.hide()"/>
+                                        </f:facet>
+
+                                    </h:panelGrid>
+                                </p:dialog> 
+
+
+
+                                <div class="col-sm-12" align="center">
+                                    <div class="col-sm-2" align="center"></div>
+                                    <div class="table-responsive col-sm-8"> 
+                                        <h:form id="form">
+                                            <h2> Places #{tripMB.selected.name}</h2><br/>
+                                            <p:dataGrid var="place" value="#{tripMB.selected.placeList}" columns="3" layout="grid"
+                                                        rows="3" paginator="true" id="place"
+                                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                        rowsPerPageTemplate="3,6,12,16">
+
+
+                                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                                    <div class="col-xs-4 blog-grid-left">
+                                                        <p:commandLink action="#{placeView_1.placeDetails(place.id)}">
+                                                            <p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" />
+                                                        </p:commandLink>
+                                                    </div> 
+                                                    <div class="col-xs-8 blog-grid-right">
+                                                        <p:commandLink action="#{placeView_1.placeDetails(place.id)}">
+                                                            <h4>#{place.name}</h4>
+                                                        </p:commandLink>
+                                                        <p>#{place.address}</p>
+                                                        <p>#{place.workHours} joined</p>
+                                                    </div>
+                                                    <div class="clearfix"> </div>
+                                                    <div class="more m1">
+                                                        <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details"/>
+                                                    </div>
+                                                </div>
+                                            </p:dataGrid>
+                                        </h:form>
+                                    </div>
+                                </div>
+
+                                <p:blockUI block="bobo" trigger="joinTrip completed expired join cancel">
+                                    LOADING<br />
+                                    <p:graphicImage name="/processing-bar.gif"/>
+                                </p:blockUI>
+
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+
+                <!-- Keep the first param for next redirection -->
+                <f:facet name="header">
+                    Places
+                </f:facet>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -3,9 +3,33 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./templateGeneral.xhtml">
+                template="./templateGeneral.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
 
+    <ui:define name="headerComp">
+        <h:form style="    margin-right: 10px !important;
+                margin-top: 10px !important;">
+            <p:graphicImage style="height: 35px;
+                            width: 80px;
+                            margin-right: 10px;
+                            border: 1px solid rgb(255, 255, 255);
+                            margin-top: -5px;" value="/Image?imageName=#{login.loginAccount.partener.profilePic.path}" />
+            <p:commandButton style="    font-size: initial !important;" id="dynaButton" value="#{login.loginAccount.partener.name}" type="button" icon="ui-icon-extlink"/>
+            <p:menu styleClass="dropdown user user-menu" overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                <p:submenu >
+                    <p:menuitem value="profile" icon="ui-icon-home"/>
+                    <p:separator />
+                    <p:menuitem value="logout"  action="#{login.logOut()}" icon="fa fa-sign-out" />
+                </p:submenu>
+            </p:menu>
+        </h:form>
+
+     
+
+
+    </ui:define>
 
     <ui:define name="leftUesr">
         leftUesr
@@ -23,56 +47,16 @@
         </li>
         <li class=" treeview">
             <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Profile</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-th-list"></i> <span>Menus</span> <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li class="active"><a href="index.html">
-                        <i class="fa fa-circle-o"></i>Category</a></li>
+
                 <li><a href="index2.html">
-                        <i class="fa fa-circle-o"></i>Service</a></li>
+                        <i class="fa fa-bed"></i>ROOMS</a></li>
+                <li><a href="index2.html">        <i class="fa fa-cutlery"></i>meals</a></li>
             </ul>
         </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Trips </span> 
-            </a>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Places </span> 
-            </a>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Companies</span> 
-            </a>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Hotels </span> 
-            </a>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Restaurants</span> 
-            </a>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Transport</span> 
 
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Photographer</span> 
-            </a>
-        </li>
-        <li>
-            <a href="documentation/index.html">
-                <i class="fa fa-book"></i> <span>Photographer</span>
-            </a>
-        </li>
     </ui:define>
 
     <ui:define name="contPageName">
@@ -80,7 +64,7 @@
     </ui:define>
 
     <ui:define name="contPageDescrp">
-                <ui:insert name="contPageDescrp"/>
+        <ui:insert name="contPageDescrp"/>
 
     </ui:define>
 
@@ -89,16 +73,16 @@
     </ui:define>
 
     <ui:define name="content">
-                <ui:insert name="content"/>
+        <ui:insert name="content"/>
 
     </ui:define>
 
     <ui:define name="rightHeader">
-         <ui:insert name="rightHeader"/>
+        <ui:insert name="rightHeader"/>
     </ui:define>
 
-<!--    <ui:define name="rightTabs">
-        rightTabs
-    </ui:define>-->
+    <!--    <ui:define name="rightTabs">
+            rightTabs
+        </ui:define>-->
 
 </ui:composition>

@@ -14,7 +14,7 @@
         <ui:composition template="./../templates/templateAdmin.xhtml">
 
             <ui:define name="contPageName">
-               <h:outputText value="#{placeView_1.selected.name}"/>
+                <h:outputText value="#{placeView_1.selected.name}"/>
             </ui:define>
 
             <ui:define name="contPageDescrp">
@@ -28,54 +28,134 @@
             </ui:define>
 
             <ui:define name="content">
-                <br/> <br/> <br/>
-                <h:form id="PlaceViewForm">
-                    <div  class="col-sm-12" align="center">
-                        <div class="col-sm-6" align="center">    
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_id}" style="font-size: 24px"/></td>
-                                        <td><h:outputText value="#{placeView_1.selected.id}" title="#{bundle.ViewPlaceTitle_id}"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_name}"/></td>
-                                        <td><h:outputText value="#{placeView_1.selected.name}" title="#{bundle.ViewPlaceTitle_name}"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_address}"/></td>
-                                        <td><h:outputText value="#{placeView_1.selected.address}" title="#{bundle.ViewPlaceTitle_address}"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_description}"/></td>
-                                        <td><h:outputText value="#{placeView_1.selected.description}" title="#{bundle.ViewPlaceTitle_description}"/></td>
-                                    </tr> 
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_workHours}"/></td>
-                                        <td><h:outputText value="#{placeView_1.selected.workHours}" title="#{bundle.ViewPlaceTitle_workHours}"/></td>
-                                    </tr> 
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_lang}"/></td>
-                                        <td><h:outputText id="lon" value="#{placeView_1.selected.lang}" title="#{bundle.ViewPlaceTitle_lang}"/></td>
-                                    </tr> 
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_attd}"/></td>
-                                        <td><h:outputText id="lat" value="#{placeView_1.selected.attd}" title="#{bundle.ViewPlaceTitle_attd}"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_validated}"/></td>
-                                        <td><p:selectBooleanCheckbox value="#{placeView_1.selected.validated}" disabled="true"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h:outputText value="#{bundle.ViewPlaceLabel_active}"/></td>
-                                        <td><p:selectBooleanCheckbox value="#{placeView_1.selected.active}" disabled="true"/></td>
-                                    </tr> 
-                                </tbody>
-                            </table>  
-                        </div> 
-                        <div class="col-sm-1" align="center"></div>
-                        <div id="googleMap" style="width:380px;height:350px;" class="col-sm-5" align="center"></div>
+                <br/> 
+                <h:form id="PlaceViewForm" prependId="false">
+                    <div class="col-sm-12" >
+                        <br/>
+                        <table class="table table-striped" >
+                            <tbody>
+                                <tr>
+                                    <td style="width: 450px;">   
+                                        <table class="table table-striped col-sm-7">
+                                            <tbody>  
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPlaceLabel_name}"/></td>
+                                                    <td><p:inplace id="name" label="#{empty placeView_1.selected.name?'---':placeView_1.selected.name}" effectSpeed="fast" event="dblclick" style="width:100%;">
+                                                            <p:inputText value="#{placeView_1.selected.name}" title="#{bundle.ViewPlaceTitle_name}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_name}"/>
+                                                         
+                                                        </p:inplace></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPlaceLabel_address}"/></td>
+                                                    <td><p:inplace id="address" label="#{empty placeView_1.selected.address?'---':placeView_1.selected.address}" effectSpeed="fast" event="dblclick">
+                                                            <p:inputText value="#{placeView_1.selected.address}" title="#{bundle.ViewPlaceTitle_address}" required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_address}"/>
+                                                            <h:message for="address"/>
+                                                        </p:inplace></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPlaceLabel_description}"/></td>
+                                                    <td><p:inplace id="description" label="#{empty placeView_1.selected.description?'---':placeView_1.selected.description}" effectSpeed="fast" event="dblclick">
+                                                            <p:inputTextarea rows="4" cols="30"  value="#{placeView_1.selected.description}" 
+                                                                             title="#{bundle.CreatePlaceTitle_description}" />
+                                                            <p:message for="description"/>
+                                                        </p:inplace></td>
+                                                </tr> 
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPlaceLabel_workHours}"/></td>
+                                                    <td><p:inplace id="workHours" label="#{empty placeView_1.selected.workHours?'---':placeView_1.selected.workHours}" effectSpeed="fast" event="dblclick">
+                                                            <p:inputText value="#{placeView_1.selected.workHours}" title="#{bundle.workHours}"/>
+                                                            <p:message for="workHours"/>
+                                                        </p:inplace></td>
+                                                </tr> 
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPlaceLabel_lang}"/></td>
+                                                    <td><h:outputText  value="#{placeView_1.selected.lang}" title="#{bundle.ViewPlaceTitle_lang}"/></td>
+                                                </tr> 
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPlaceLabel_attd}"/></td>
+                                                    <td><h:outputText  value="#{placeView_1.selected.attd}" title="#{bundle.ViewPlaceTitle_attd}"/></td>
+                                                </tr>
+                                                <td><h:outputText value="#{bundle.ViewPlaceLabel_tags}"/></td>
+                                                <td><p:inplace id="tags" effect="none" style="width:100%; max-height: 20px;">
+                                                        <f:facet name="output">
+                                                            <p:dataList value="#{placeView_1.updatedTags}" var="tag" style="max-height:5px;">#{tag.name}</p:dataList>           
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:selectManyMenu id="tag" value="#{placeView_1.updatedTags}" tabindex="indx" style="width: 330;" converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
+                                                                <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}"/>
+                                                            </p:selectManyMenu>                   
+                                                        </f:facet>
+                                                    </p:inplace></td>
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPlaceLabel_validated}"/></td>
+                                                    <td><p:inplace id="validated" effect="none">
+                                                            <f:facet name="output">
+                                                                <p:selectBooleanCheckbox value="#{placeView_1.selected.validated}" disabled="true"/>
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                <p:selectBooleanCheckbox value="#{placeView_1.selected.validated}" />
+                                                                <p:message for="validated"/>
+                                                            </f:facet>
+                                                        </p:inplace></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h:outputText value="#{bundle.ViewPlaceLabel_active}"/></td>
+                                                    <td><p:inplace id="active" effect="none">
+                                                            <f:facet name="output">
+                                                                <p:selectBooleanCheckbox value="#{placeView_1.selected.active}" disabled="true"/>
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                <p:selectBooleanCheckbox value="#{placeView_1.selected.active}" />
+                                                                <p:message for="active"/>
+                                                            </f:facet>
+                                                        </p:inplace></td>
+                                                </tr> 
+
+                                            </tbody>
+                                        </table>  
+                                    </td>
+                                    <td>
+                                        <p:inplace id="map" effect="none">
+                                            <f:facet name="output">
+                                                <div id="googleMap" style="width:430px;height:350px; alignment-adjust: auto" class="col-sm-5" align="center"></div>
+                                            </f:facet>
+                                            <f:facet name="input">
+
+
+                                                <table class="table table-striped col-sm-5" align="right">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><h:outputText value="Latitude:"/></td>
+                                                            <td><h:inputText id="lat"  value="#{placeView_1.selected.attd}" style="width:280px;">
+                                                                    <f:convertNumber type="number"/>
+                                                                </h:inputText></td>  
+                                                            <td rowspan="2" align="center"><button onclick="getThisLocation()" type="button">Get this Position</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><h:outputText value="Longitude:"/></td>
+                                                            <td><h:inputText id="lon"  value="#{placeView_1.selected.lang}" style="width:280px;">
+                                                                    <f:convertNumber type="number"/>                                                                   
+                                                                </h:inputText></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" ><h:outputText value="If you do not now the Latitude and Longitude of the place click the next button"/></td>
+                                                            <td align="center" ><button onclick="getLocation()" type="button">Get My Position</button></td>
+                                                        </tr>
+                                                        <tr><td colspan="3" align="center"><div id="mapholder"></div></td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </f:facet>
+                                        </p:inplace>
+                                    </td>
+                                </tr>  
+                                <tr> 
+                                    <td><p:commandButton id="update" action="#{placeView_1.update}" value="#{bundle.Edit}" /></td>
+                                    <td align="right"><p:commandButton id="cancelbtn" value="#{bundle.Close}" action="adminPlace_1" immediate="true"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div> 
+
                     <script
                         src="http://maps.googleapis.com/maps/api/js">
                     </script>
@@ -101,9 +181,80 @@
                         }
 
                         google.maps.event.addDomListener(window, 'load', initialize);
+
+                        var x = document.getElementById("demo");
+                        function getThisLocation() {
+                            lat = document.getElementById("lat").value;
+                            lon = document.getElementById("lon").value;
+                            latlon = new google.maps.LatLng(lat, lon);
+                            mapholder = document.getElementById('mapholder');
+                            mapholder.style.height = '250px';
+                            mapholder.style.width = '400px';
+
+                            var myOptions = {
+                                center: latlon, zoom: 14,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                mapTypeControl: false,
+                                navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL}
+                            };
+                            var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
+                            var marker = new google.maps.Marker({position: latlon, map: map, title: "You are here!"});
+                        }
+                        function getLocation()
+                        {
+                            if (navigator.geolocation)
+                            {
+                                navigator.geolocation.getCurrentPosition(showPosition, showError);
+                            } else {
+                                x.innerHTML = "Geolocation is not supported by this browser.";
+                            }
+                        }
+
+                        function showPosition(position)
+                        {
+                            lat = position.coords.latitude;
+                            lon = position.coords.longitude;
+                            document.getElementById("lat").value = lat;
+                            document.getElementById("lon").value = lon;
+                            latlon = new google.maps.LatLng(lat, lon);
+                            mapholder = document.getElementById('mapholder');
+                            mapholder.style.height = '250px';
+                            mapholder.style.width = '405px';
+
+                            var myOptions = {
+                                center: latlon, zoom: 14,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                mapTypeControl: false,
+                                navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL}
+                            };
+                            var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
+                            var marker = new google.maps.Marker({position: latlon, map: map, title: "You are here!"});
+                        }
+
+                        function showError(error)
+                        {
+                            switch (error.code)
+                            {
+                                case error.PERMISSION_DENIED:
+                                    x.innerHTML = "User denied the request for Geolocation."
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    x.innerHTML = "Location information is unavailable."
+                                    break;
+                                case error.TIMEOUT:
+                                    x.innerHTML = "The request to get user location timed out."
+                                    break;
+                                case error.UNKNOWN_ERROR:
+                                    x.innerHTML = "An unknown error occurred."
+                                    break;
+                            }
+                        }
                     </script>
 
-
+                    <p:blockUI block="bobo" trigger="update cancelbtn">
+                        LOADING<br />
+                        <p:graphicImage name="/processing-bar.gif"/>
+                    </p:blockUI>
                 </h:form>
 
             </ui:define>

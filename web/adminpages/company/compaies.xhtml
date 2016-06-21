@@ -31,7 +31,7 @@
                              rows="10"
                              rowsPerPageTemplate="10,20,30,40,50"
                              widgetVar="companyTable"
-                             editable="true"
+                             editable="false"
                              >
 
                     <p:ajax event="rowSelect"   update="createButton"/>
@@ -51,14 +51,8 @@
                     </p:column>
 
                     <p:column headerText="#{bundle.ListCompanyTitle_email}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.email}" /></f:facet>
-                            <f:facet name="input">
-                                <p:inputText id="modelInput_email" value="#{item.email}" style="width:100%"
-                                             required="true" requiredMessage="#{bundle.EditCompanyRequiredMessage_email}"
-                                             validator="com.iti.fashny.validators.CustomeEmailValidator"/>
-                            </f:facet>
-                        </p:cellEditor>
+                        <h:outputText value="#{item.email}" />
+                        
                     </p:column>
                     <p:column headerText="#{bundle.ListCompanyTitle_address}">
                         <p:cellEditor>
@@ -113,9 +107,6 @@
                         <p:commandButton  style="width:20px" id="viewButton" icon="ui-icon-search" action="#{CompanyMB.goToViewCompany(item.id)}"/>
                     </p:column>
 
-                    <p:column style="width:32px">
-                        <p:rowEditor />
-                    </p:column>
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" action="#{CompanyMB.goToCreateCompany()}"/>
                     </f:facet>

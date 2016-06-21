@@ -15,127 +15,174 @@
             </ui:define>
 
             <ui:define name="contPageName">
-                contPageName
+                <h:outputText value="#{adminClient.selected.name}"/>
             </ui:define>
 
             <ui:define name="contPageDescrp">
-                contPageDescrp
+                More details about this client
             </ui:define>
 
             <ui:define name="contPagePath">
-                contPagePath
+                <a href="">Home</a> 
+                <a href="./../../adminpages/client/adminClient.xhtml">Show All Clients</a> 
+                <a href="./../../adminpages/client/ViewClient.xhtml">Client Details</a>
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="ClientViewForm">
-                    <h:panelGroup id="display" class="col-sm-8">
-                        <p:panelGrid columns="2" rendered="#{adminClient.selected != null}" class="col-sm-12">
+                <div  class="col-sm-12" align="center">
 
-                            <h:outputLabel for="name" value="#{bundle.ViewClientLabel_name}"/>
-                            <p:inplace id="name" label="#{adminClient.selected.name}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.name}" title="#{bundle.CreateClientTitle_name}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_name}"/>
-                                <p:message for="name"/>
-                            </p:inplace>
+                    <h:form id="ClientViewForm" styleClass="col-sm-8" >
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="table-responsive col-sm-12">    
+                            <table class="table table-striped col-sm-12 " align="center" >
+                                <tbody>
+                                    <tr>
 
-                            <h:outputLabel for="facet" value="#{bundle.ViewClientLabel_email}" />
-                            <h:outputText value="#{adminClient.selected.email}" title="#{bundle.ViewClientTitle_email}"/>
 
-                            <h:outputLabel for="contactEmail" value="#{bundle.ViewClientLabel_contactEmail}"/>
-                            <p:inplace id="contactEmail" label="#{adminClient.selected.contactEmail}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.contactEmail}" title="#{bundle.CreateClientTitle_contactEmail}" required="true"/>
-                                <p:message for="contactEmail"/>
-                            </p:inplace>
+                                        <td><h:outputLabel for="name" value="#{bundle.ViewClientLabel_name}"/></td>
+                                        <td><p:inplace id="name" label="#{adminClient.selected.name}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{adminClient.selected.name}" title="#{bundle.CreateClientTitle_name}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_name}"/>
+                                                <p:message for="name"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>     
 
-                            <h:outputLabel for="password" value="#{bundle.ViewClientLabel_password}"/>
-                            <p:inplace id="password" label="#{adminClient.selected.password}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.password}" title="#{bundle.CreateClientTitle_password}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_password}"/>
-                                <p:message for="password"/>
-                            </p:inplace>
+                                        <td><h:outputLabel for="facet" value="#{bundle.ViewClientLabel_email}" /></td>
+                                        <td><h:outputText value="#{adminClient.selected.email}" title="#{bundle.ViewClientTitle_email}"/></td>
+                                    </tr>
+                                    <tr>     
+                                        <td><h:outputLabel for="contactEmail" value="#{bundle.ViewClientLabel_contactEmail}"/></td>
+                                        <td><p:inplace id="contactEmail" label="#{adminClient.selected.contactEmail}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{adminClient.selected.contactEmail}" title="#{bundle.CreateClientTitle_contactEmail}" required="true"/>
+                                                <p:message for="contactEmail"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="password" value="#{bundle.ViewClientLabel_password}"/></td>
+                                        <td><p:inplace id="password" label="#{adminClient.selected.password}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{adminClient.selected.password}" title="#{bundle.CreateClientTitle_password}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_password}"/>
+                                                <p:message for="password"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="address" value="#{bundle.ViewClientLabel_address}"/></td>
+                                        <td><p:inplace id="address" label="#{adminClient.selected.address}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{adminClient.selected.address}" title="#{bundle.CreateClientTitle_address}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_address}"/>
+                                                <p:message for="address"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="birthDate" value="#{bundle.ViewClientLabel_birthDate}" /> </td>
+                                        <td><p:inplace id="birthDate" effect="none">
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{adminClient.selected.birthDate}" title="#{bundle.ViewClientTitle_birthDate}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                    </h:outputText>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:calendar pattern="MM/dd/yyyy" value="#{adminClient.selected.birthDate}" title="#{bundle.EditClientTitle_birthDate}" required="true" requiredMessage="#{bundle.EditClientRequiredMessage_birthDate}" showOn="button"/>
+                                                    <p:message for="birthDate"/>
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="gender" value="#{bundle.ViewClientLabel_gender}"/></td>
+                                        <td><p:inplace id="gender" label="#{adminClient.selected.gender}" effectSpeed="fast" event="dblclick">
+                                                <h:selectOneMenu value="#{adminClient.selected.gender}" title="#{bundle.CreateClientTitle_gender}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_gender}">
+                                                    <f:selectItem itemLabel="Male" itemValue="0" />
+                                                    <f:selectItem itemLabel="Female" itemValue="1" />
+                                                </h:selectOneMenu>
+                                                <p:message for="gender"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="maritalStatus" value="#{bundle.ViewClientLabel_maritalStatus}"/></td>
+                                        <td><p:inplace id="maritalStatus" label="#{adminClient.selected.maritalStatus}" effectSpeed="fast" event="dblclick">
+                                                <h:selectOneMenu value="#{adminClient.selected.maritalStatus}" title="#{bundle.CreateClientTitle_maritalStatus}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_maritalStatus}">
+                                                    <f:selectItem itemLabel="Single" itemValue="0" />
+                                                    <f:selectItem itemLabel="Maried" itemValue="1" />
+                                                </h:selectOneMenu>
+                                                <p:message for="maritalStatus"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel value="#{bundle.ViewClientLabel_lastSeen}"/></td>
+                                        <td><h:outputText value="#{adminClient.selected.lastSeen}" title="#{bundle.ViewClientTitle_lastSeen}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                            </h:outputText></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="mobile1" value="#{bundle.ViewClientLabel_mobile1}"/></td>
+                                        <td><p:inplace id="mobile1" label="#{adminClient.selected.mobile1}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{adminClient.selected.mobile1}" title="#{bundle.CreateClientTitle_mobile1}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_mobile1}"/>
+                                                <p:message for="mobile1"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="mobile2" value="#{bundle.ViewClientLabel_mobile2}"/></td>
+                                        <td><p:inplace id="mobile2" label="#{adminClient.selected.mobile2}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{adminClient.selected.mobile2}" title="#{bundle.CreateClientTitle_mobile2}" />
+                                                <p:message for="mobile2"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="phone" value="#{bundle.ViewClientLabel_phone}"/></td>
+                                        <td><p:inplace id="phone" label="#{adminClient.selected.phone}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{adminClient.selected.phone}" title="#{bundle.CreateClientTitle_phone}" />
+                                                <p:message for="phone"/>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputLabel for="active" value="#{bundle.ViewClientLabel_active}"/></td>
+                                        <td><p:inplace id="active" effect="none">
+                                                <f:facet name="output">
+                                                    <p:selectBooleanCheckbox value="#{adminClient.selected.active}" disabled="true"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectBooleanCheckbox value="#{adminClient.selected.active}" />
+                                                    <p:message for="active"/>
+                                                </f:facet>
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr> 
+                                        <td><h:outputText value="#{bundle.ViewClientLabel_profilePic}"/></td>
 
-                            <h:outputLabel for="address" value="#{bundle.ViewClientLabel_address}"/>
-                            <p:inplace id="address" label="#{adminClient.selected.address}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.address}" title="#{bundle.CreateClientTitle_address}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_address}"/>
-                                <p:message for="address"/>
-                            </p:inplace>
+                                    </tr>
+                                    <tr> 
+                                        <td><p:commandButton id="update" action="#{adminClient.update}" value="#{bundle.Edit}"/></td>
+                                        <td><p:commandButton id="cancelbtn" value="#{bundle.Close}" action="adminClient" immediate="true"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                            <h:outputLabel for="birthDate" value="#{bundle.ViewClientLabel_birthDate}" />
-                            <p:inplace id="birthDate" effect="none">
-                                <f:facet name="output">
-                                    <h:outputText value="#{adminClient.selected.birthDate}" title="#{bundle.ViewClientTitle_birthDate}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                                    </h:outputText>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:calendar pattern="MM/dd/yyyy" value="#{adminClient.selected.birthDate}" title="#{bundle.EditClientTitle_birthDate}" required="true" requiredMessage="#{bundle.EditClientRequiredMessage_birthDate}" showOn="button"/>
-                                    <p:message for="birthDate"/>
-                                </f:facet>
-                            </p:inplace>
 
-                            <h:outputLabel for="gender" value="#{bundle.ViewClientLabel_gender}"/>
-                            <p:inplace id="gender" label="#{adminClient.selected.gender}" effectSpeed="fast" event="dblclick">
-                                <h:selectOneMenu value="#{adminClient.selected.gender}" title="#{bundle.CreateClientTitle_gender}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_gender}">
-                                    <f:selectItem itemLabel="Male" itemValue="0" />
-                                    <f:selectItem itemLabel="Female" itemValue="1" />
-                                </h:selectOneMenu>
-                                <p:message for="gender"/>
-                            </p:inplace>
 
-                            <h:outputLabel for="maritalStatus" value="#{bundle.ViewClientLabel_maritalStatus}"/>
-                            <p:inplace id="maritalStatus" label="#{adminClient.selected.maritalStatus}" effectSpeed="fast" event="dblclick">
-                                <h:selectOneMenu value="#{adminClient.selected.maritalStatus}" title="#{bundle.CreateClientTitle_maritalStatus}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_maritalStatus}">
-                                    <f:selectItem itemLabel="Single" itemValue="0" />
-                                    <f:selectItem itemLabel="Maried" itemValue="1" />
-                                </h:selectOneMenu>
-                                <p:message for="maritalStatus"/>
-                            </p:inplace>
+                            <p:blockUI block="bobo" trigger="update cancelbtn">
+                                LOADING<br />
+                                <p:graphicImage name="/processing-bar.gif"/>
+                            </p:blockUI>
+                        </div>
+                    </h:form>
+                    <div class="col-sm-4">
+                        <h:form id="picForm" prependId="false">
+                            <p:panel >
+                                <p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic.path}" id="image" styleClass="img-responsive" />
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="upload profile image" type="button" onclick="PF('uploadImage').show();" />
+                            </p:panel>
+                        </h:form>
+                        
+                        <p:dialog header="upload profile image" widgetVar="uploadImage" modal="true" showEffect="explode" hideEffect="bounce" resizable="true" >
+                            <h:form>
+                                <p:fileUpload fileUploadListener="#{adminClient.handleFileUpload}" mode="advanced" dragDropSupport="false" 
+                                              multiple="true" update="imgMessages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
-                            <h:outputLabel value="#{bundle.ViewClientLabel_lastSeen}"/>
-                            <h:outputText value="#{adminClient.selected.lastSeen}" title="#{bundle.ViewClientTitle_lastSeen}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
+                                <p:growl id="imgMessages" showDetail="true"  />
+                            </h:form>
+                        </p:dialog>
 
-                            <h:outputLabel for="mobile1" value="#{bundle.ViewClientLabel_mobile1}"/>
-                            <p:inplace id="mobile1" label="#{adminClient.selected.mobile1}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.mobile1}" title="#{bundle.CreateClientTitle_mobile1}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_mobile1}"/>
-                                <p:message for="mobile1"/>
-                            </p:inplace>
 
-                            <h:outputLabel for="mobile2" value="#{bundle.ViewClientLabel_mobile2}"/>
-                            <p:inplace id="mobile2" label="#{adminClient.selected.mobile2}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.mobile2}" title="#{bundle.CreateClientTitle_mobile2}" />
-                                <p:message for="mobile2"/>
-                            </p:inplace>
-
-                            <h:outputLabel for="phone" value="#{bundle.ViewClientLabel_phone}"/>
-                            <p:inplace id="phone" label="#{adminClient.selected.phone}" effectSpeed="fast" event="dblclick">
-                                <p:inputText value="#{adminClient.selected.phone}" title="#{bundle.CreateClientTitle_phone}" />
-                                <p:message for="phone"/>
-                            </p:inplace>
-
-                            <h:outputLabel for="active" value="#{bundle.ViewClientLabel_active}"/>
-                            <p:inplace id="active" effect="none">
-                                <f:facet name="output">
-                                    <p:selectBooleanCheckbox value="#{adminClient.selected.active}" disabled="true"/>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:selectBooleanCheckbox value="#{adminClient.selected.active}" />
-                                    <p:message for="active"/>
-                                </f:facet>
-                            </p:inplace>
-
-                            <h:outputText value="#{bundle.ViewClientLabel_profilePic}"/>
-                            <p:graphicImage value="/Image?imageName=#{adminClient.selected.profilePic}" id="image" width="400" height="200"/>
-
-                        </p:panelGrid>
-                        <p:commandButton id="update" action="#{adminClient.update}" value="#{bundle.Edit}"/>
-                        <p:commandButton id="cancelbtn" value="#{bundle.Close}" action="adminClient" immediate="true"/>
-                    </h:panelGroup>
-                    
-                    <p:blockUI block="bobo" trigger="update cancelbtn">
-                        LOADING<br />
-                        <p:graphicImage name="/processing-bar.gif"/>
-                    </p:blockUI>
-                </h:form>
+                    </div>
+                </div>
             </ui:define>
 
             <ui:define name="rightHeader">

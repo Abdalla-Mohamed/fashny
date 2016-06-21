@@ -6,8 +6,10 @@
 package com.iti.fashny.businessbeans;
 
 import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.TagFacade;
 import com.iti.fashny.daos.TripFacade;
+import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
@@ -26,7 +28,20 @@ public class TagBusiness implements Commens<Tag> {
 
     @Override
     public void add(Tag t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DaoFactory daoFactory = new DaoFactory();
+        TagFacade tagFacade = daoFactory.getTagDoa();
+
+
+        try {
+
+            daoFactory.beginTransaction();
+            tagFacade.create(t);
+            daoFactory.commitTransaction();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
     }
 
     @Override
@@ -56,7 +71,7 @@ public class TagBusiness implements Commens<Tag> {
             // search/read/select 
             tagResults = tagFacade.findAll();
             for (Tag tag : tagResults) {
-                System.out.println(">>>>>>>>>>>>>"+tag.getName());
+                System.out.println(tag.getName());
             }
         } catch (Exception e) {
             e.printStackTrace();

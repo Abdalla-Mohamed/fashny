@@ -61,76 +61,83 @@
         </f:facet>
         <!--<div id="MyMenu1"></div>-->
 
+        <p:growl autoUpdate="true" life="1000" />
         <p:toolbar rendered="#{login.logged}"  styleClass="emptyWhite" >
 
             <f:facet name="right">
-                <h:form style="margin: 0px">
-
-                    <p:commandButton id="notficationButton" type="button" icon="fa fa-bell"/>
-                    <p:menu style="font-size: small" overlay="true" trigger="notficationButton" my="left top" at="left bottom">
-                        <p:submenu  label="Ajax">
-                            <p:menuitem value="Save"  icon="ui-icon-disk"/>
-                            <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
-                        </p:submenu>
-                        <p:submenu label="Non-Ajax">
-                            <p:menuitem value="Delete"  ajax="false" icon="ui-icon-close"/>
-                        </p:submenu>
-                        <p:submenu label="Navigations">
-                            <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
-                            <p:menuitem value="Internal" icon="ui-icon-star"/>
-                        </p:submenu>
-                    </p:menu>
-
-                    <p:commandButton id="dynaButton" value="Profile" type="button" icon="fa fa-user"/>
-                    <p:menu style="font-size: small" overlay="true" trigger="dynaButton" my="left top" at="left bottom">
-                        <p:submenu  label="Ajax">
-                            <p:menuitem value="Save"  icon="ui-icon-disk"/>
-                            <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
-                        </p:submenu>
-                        <p:submenu label="Non-Ajax">
-                            <p:menuitem value="Delete"  ajax="false" icon="ui-icon-close"/>
-                        </p:submenu>
-                        <p:submenu label="Navigations">
-                            <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
-                            <p:menuitem value="Internal" icon="ui-icon-star"/>
-                        </p:submenu>
-                    </p:menu>
-
+                <h:form style="margin: 0px" prependId="false" >
+                    <p:graphicImage style="height: 35px;
+                                    width: 45px;
+                                    border: 1px solid rgb(255, 255, 255);" value="/Image?imageName=#{login.loginAccount.client.profilePic.path}" />
+                    <!--<p:commandButton id="notficationButton" type="button" icon="fa fa-bell"/>-->
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
+                    <p:commandButton id="dynaButton" value="#{login.loginAccount.client.name}" type="button" icon="fa fa-user"/>
+                    <p:menu style="font-size: small" overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                        <p:submenu  label="manage">
+                            <p:menuitem value="Update Profile"  outcome="/clientpages/EditClientProfileInfo.xhtml" icon="fa fa-pencil-square-o"/>
+                            <p:menuitem value="My Interests" outcome="/clientpages/ClinetInterests.xhtml" icon="fa fa-tags"/>
+                            <p:separator />
+                            <p:menuitem value="My Trips"  outcome="/clientpages/clientTrips.xhtml" style="color: blue"  icon="fa fa-plane "/>
+                            <p:menuitem value="My Wishs"  style="color: blue"  icon="fa fa-heart "/>
+                        </p:submenu>
+                        <p:submenu >
+                            <p:menuitem  id="logoutBtn"   action="#{login.logOut}"   value="Logout"  icon="fa fa-sign-out" />
+                        </p:submenu>
+                    </p:menu>
 
-                    <p:commandButton   action="#{login.logOut}" styleClass="emptyWhite"  value="Logout"  icon="fa fa-sign-out" />
+
+
 
                 </h:form>
             </f:facet>
 
         </p:toolbar>
 
-        <p:toolbar  rendered="#{!login.logged}"  styleClass="emptyWhite" >
+        <p:toolbar  rendered="#{!login.logged}"  styleClass="co" >
 
             <f:facet name="right">
-                <h:form style="margin: 0px">
-                    <p:outputLabel id="usernameLabel" for="username" value="email" />
-                    <p:inputText type="email" label="usernameLabel" value="#{login.mail}" id="username"/>
-                    password
-                    <h:inputSecret value="#{login.password}"/>
+                <h:form prependId="false" style="margin: 0px;padding: 0px " styleClass="col-sm-12 col-xs-12" >
+                    <div class="col-sm-2 col-xs-12" style="padding: 0px;">
+                        <p:outputLabel value="Fas7ny logo"/>
+                    </div>
+                    <div class="col-sm-10 col-xs-12" style="padding: 0px;" >
+                        <div class="col-sm-3 col-xs-12" style="padding: 0px;" >
+                            <p:outputLabel id="usernameLabel" for="username" value="email" styleClass="col-sm-5 col-xs-4" />
+                            <p:inputText type="mail" label="usernameLabel" styleClass="col-sm-7 col-xs-8" value="#{login.mail}" id="username" converterMessage="enter valid email format"  required="true" requiredMessage="email is reqiured"/>
+                        </div>
+                        <div class="col-sm-4 col-xs-12" style="padding: 0px;" >
+                            <p:outputLabel id="passwordLabel" for="username" value="password" styleClass="col-sm-5 col-xs-4" />
 
-                    login as: 
+                            <p:password label="passwordLabel" value="#{login.password}" required="true" styleClass="col-sm-7 col-xs-8" requiredMessage="password is reqiured" />
+                        </div>    
+                        <div class="col-sm-5 col-xs-12" style="padding: 0px;" >
+                            <div class="col-sm-8 col-xs-12" style="padding: 0px;">
+                                <p:outputLabel id="type"  value="login as:" styleClass="col-sm-6 col-xs-4" />
+                                <p:selectOneMenu   label="type" value="#{login.selectedRole}" style="vertical-align: middle" styleClass="col-sm-6 col-xs-8" >
+                                    <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
+                                    <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
+                                    <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
+                                    <p:ajax event="valueChange" process="@this"  />
+                                </p:selectOneMenu >
+                            </div>
+                            <div class="col-sm-4 col-xs-12" style="padding: 0px;">
+                                <!--<h:outputLabel value="|" styleClass="" />-->
+                                <span class="ui-separator col-sm-2  col-xs-4">
+                                    <span style="
+                                          float: left;
+                                          border-right: 1px dotted #0073ea;
+                                          height: 40px;
+                                          "></span>
+                                </span>
+                                <!--<div class="btn-primary"/>-->
+                                <p:commandButton id="loginBtn" action="#{login.login}"  style="    font-size: smaller;    border-color: #2e6da4;" styleClass="btn col-sm-9  btn-primary  col-xs-7" value="Login"  icon="fa fa-sign-in" />
+                            </div>
 
+                        </div>
 
-                    <p:selectOneMenu  styleClass="emptyWhite" value="#{login.selectedRole}" style="vertical-align: middle" >
-                        <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
-                        <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
-                        <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
-                        <p:ajax event="valueChange" process="@this"  />
-                    </p:selectOneMenu >
-
-                    <span class="ui-separator">
-                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
-                    </span>
-
-                    <p:commandButton  action="#{login.login}"  value="Login"  icon="fa fa-sign-in" />
+                    </div>
                 </h:form>
             </f:facet>
 
@@ -170,20 +177,38 @@
 
 
                     <ui:insert name="activePage"> </ui:insert>
+                    <div class="col-xs-12">
+                        <div class="col-xs-1"/>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse nav-wil col-sm-8" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav cl-effect-14">
+                                <li><a href="/fashny/faces/guestPages/home.xhtml" class='${Home}' > Home</a></li>
+                                <li><a href="/fashny/faces/guestPages/PlaceClient.xhtml" class='${Places}'>Places</a></li>
+                                <li><a href="/fashny/faces/guestPages/trips.xhtml" class='${Trips}'>Trips</a></li>
+                                <li><a href="portfolio.html" class='${Companies}'>Companies</a></li>
+                                <li><a href="/fashny/faces/guestPages/PartenerHotelAllClientView.xhtml" class='${Hotels}' >Hotels</a></li>
+                                <li ><a href="/fashny/faces/guestPages/PartenerResturantesAllClientView.xhtml" class='${Restaurants}' >Restaurants </a></li>
+                                <ui:fragment rendered="#{!login.logged}"><li><a  onclick="PF('signupDilg').show();;" style="font-style: italic; color: rgb(134, 252, 248) !important;cursor: url(/fashny/resources/signCors.png), auto;  " ><b>Sign up</b></a></li></ui:fragment>
+                                <li><a href="#contact" class="scroll">Contact Us</a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->	
+                        <div class="col-xs-2"/>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav cl-effect-14">
-                            <li><a href="index.html" class='${Home}' > Home</a></li>
-                            <li><a href="about.html" class='${Places}'>Places</a></li>
-                            <li><a href="features.html" class='${Trips}'>Trips</a></li>
-                            <li><a href="portfolio.html" class='${Companies}'>Companies</a></li>
-                            <li><a href="codes.html" class='${Hotels}' >Hotels</a></li>
-                            <li><a href="blog.html" class='${Restaurants}' >Restaurants </a></li>
-                            <li><a href="#contact" class="scroll">Contact Us</a></li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->	
-
+                    </div>
+                    <p:dialog widgetVar="signupDilg" header="sign up dialog:"  showEffect="Clip" hideEffect="Shake" >
+                        <h:form prependId="false" >
+                            <p:panelGrid columns="1" layout="grid">
+                                <p:outputLabel id="typesign"  value="Sign up as:" styleClass="col-sm-12" />
+                                <p:selectOneMenu   label="type" value="#{login.selectedRole}" style="vertical-align: middle" styleClass="col-sm-12" >
+                                    <f:selectItem  itemLabel="#{login.roles.clientName}" itemValue="#{login.roles.clientName}" />
+                                    <f:selectItem   itemLabel="#{login.roles.companyName}" itemValue="#{login.roles.companyName}" />
+                                    <f:selectItem  itemLabel="#{login.roles.partnerName}" itemValue="#{login.roles.partnerName}" />
+                                    <p:ajax event="valueChange" process="@this"  />
+                                </p:selectOneMenu>
+                                <p:commandButton id="signupBtn" value="sign up" action="#{login.goToSignup()}" styleClass="col-sm-12" />
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
                 </nav>
                 <div class="logo">
                     <a href="index.html">Fashny<span>Your Trips </span></a>
@@ -216,17 +241,17 @@
         <div class="contact" id="contact">
             <div class="container">
                 <h3>Contact Us</h3>
-                <div class="col-md-4 contact-grid">
+                <div class="col-sm-4 contact-grid">
                     <i class="glyphicon glyphicon-home" aria-hidden="true"></i>
                     <h4>Address</h4>
                     <p>JI.Paulnadwam 2nd D.No:23-50-903.<span>United States</span></p>
                 </div>
-                <div class="col-md-4 contact-grid">
+                <div class="col-sm-4 contact-grid">
                     <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
                     <h4>Mail</h4>
                     <a href="mailto:info@example.com">info@example.com</a>
                 </div>
-                <div class="col-md-4 contact-grid">
+                <div class="col-sm-4 contact-grid">
                     <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
                     <h4>Phone</h4>
                     <p>+020 456 9696</p>
@@ -262,6 +287,38 @@
 
 
         <h:outputScript library="js" name="jsfcrud.js"/>
+
+        <style>
+            .ui-blockuiMe{
+
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                /* bring your own prefixes */
+                transform: translate(-50%, -50%) ;
+
+            }
+            .ui-blockuiMeContent{
+
+                position: fixed !important;
+
+                /* bring your own prefixes */
+                transform: translate(-50%, -50%) ;
+
+            }
+
+        </style>
+
+        <p:dialog  closable="false"  >
+
+            <p:blockUI block="bobo" trigger="loginBtn logoutBtn signupBtn ${blockFrom} " styleClass="ui-blockuiMe" >
+                <p:panelGrid columns="1" styleClass="ui-blockuiMeContent" layout="grid" >
+                    <p:outputLabel value="  LOADING" />
+                    <p:graphicImage name="processing-bar.gif" />
+                </p:panelGrid>
+            </p:blockUI>
+        </p:dialog>
+
     </h:body>
 
 </html>

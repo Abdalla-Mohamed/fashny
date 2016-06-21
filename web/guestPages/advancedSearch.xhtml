@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../templates/clientTemplate.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -37,11 +38,21 @@
                                     </div>
                                     <p:separator/>
                                     <h:panelGroup class="row"   rendered="#{searchMB.renderForPlace() or searchMB.renderForCompany()}" layout="block" >
-                                        <p:outputLabel value="states:" styleClass="col-xs-12" />
-                                        <p:selectOneMenu value="#{searchMB.selectdGovernorat}" id="state" filter="true" filterMatchMode="contains" styleClass="col-xs-12">
-                                            <f:selectItem itemValue="#{null}" itemLabel="select Governorat: "/> 
-                                            <f:selectItems value="#{searchMB.governorate}" var="gov" itemValue="#{gov}" itemLabel="#{gov}"/> 
-                                        </p:selectOneMenu>
+                                        <p:outputLabel value=" Address" styleClass="col-xs-12" />
+                                         <p:outputLabel  value="Governorate: " />
+                                         <p:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px">
+                                    <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                    <p:ajax listener="#{searchMB.setAddress(addressMB.governorate)}" />
+                                    <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{addressMB.governorates}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel  for="city" value="City: " />
+                                 <p:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" >
+                                    <p:ajax listener="#{searchMB.setAddress(addressMB.address)}" />
+                                    <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{addressMB.cities}" />
+                                </p:selectOneMenu>
                                         <p:separator/>
                                     </h:panelGroup>
                                     <h:panelGroup class="row"   rendered="#{searchMB.renderForTrip()}" layout="block" >

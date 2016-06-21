@@ -42,7 +42,7 @@
                         </ui:remove>
                         
                         <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
-                        <h:selectOneMenu value="#{PartnerCRUDSBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType">
+                        <h:selectOneMenu value="#{PartnerCRUDSBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType" disabled="true">
                             <f:selectItems value="#{PartnerCRUDSBean.findAll}" var="findall" itemValue="#{findall}" itemLabel="#{findall.name}" />
                         </h:selectOneMenu>
 
@@ -52,7 +52,7 @@
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerValidated}"/>
                         <ui:remove><p:outputLabel value="#{PartnerCRUDSBean.selected.validated}" title="#{MyPropertyFile.PartnerValidated}"/></ui:remove>
-                        <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                        <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"  disabled="true"/>
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerEmail}"/>
                         <p:outputLabel value="#{PartnerCRUDSBean.selected.email}" title="#{MyPropertyFile.PartnerEmail}"/>
@@ -76,13 +76,15 @@
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerProfilePic}"/>
                         <ui:remove><p:outputLabel value="#{PartnerCRUDSBean.selected.profilePic}" title="#{MyPropertyFile.PartnerProfilePic}"/></ui:remove>
-                        <p:fileUpload fileUploadListener="#{PartnerCRUDSBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
+                        <ui:remove>
+                            <p:fileUpload fileUploadListener="#{PartnerCRUDSBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
                                       sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                        </ui:remove>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
                         <ui:remove><p:outputLabel value="#{PartnerCRUDSBean.selected.active}" title="#{MyPropertyFile.PartnerActive}"/></ui:remove>
-                        <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.active}" />
+                        <p:selectBooleanCheckbox value="#{PartnerCRUDSBean.selected.active}" disabled="true"/>
 
                     </p:panelGrid>
                     <ui:remove><p:commandButton actionListener="#{PartnerCRUDSBean.create()}" value="#{MyPropertyFile.Save}"/></ui:remove>

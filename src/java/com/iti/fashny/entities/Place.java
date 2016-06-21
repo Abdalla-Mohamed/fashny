@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -78,11 +79,11 @@ public class Place implements Serializable {
     @JoinTable(name = "place_has_tag", joinColumns = {
         @JoinColumn(name = "place_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "tag_id", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Tag> tagList;
     @ManyToMany(mappedBy = "placeList")
     private List<Client> clientList;
-    @ManyToMany(mappedBy = "placeList")
+    @ManyToMany(mappedBy = "placeList" , cascade = CascadeType.MERGE)
     private List<Resouce> resouceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "placeId")
     private List<ClientReviewPlace> clientReviewPlaceList;

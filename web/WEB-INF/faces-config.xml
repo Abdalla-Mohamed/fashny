@@ -30,6 +30,22 @@
         </resource-bundle>
        
     </application>
+    
+    <navigation-rule>
+        <from-view-id>/adminpages/company/viewCompany.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tripDetails</from-outcome>
+            <to-view-id>/adminpages/trip/viewTrip.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/adminpages/trip/viewTrip.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>PlaceDetails</from-outcome>
+            <to-view-id>/adminpages/ViewPlacePage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
@@ -39,21 +55,60 @@
         <navigation-case>
             <from-outcome>advSearch</from-outcome>
             <to-view-id>/guestPages/advancedSearch.xhtml</to-view-id>
+            <redirect />            
         </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>loginCompaney</from-outcome>
+            <to-view-id>/companypages/companyProfile.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>loginPartner</from-outcome>
+            <to-view-id>/partnerpages/partnerProfile.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>loginClient</from-outcome>
+            <to-view-id>/guestPages/home.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/guestPages/login.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>signUp</from-outcome>
+            <to-view-id>/guestPages/SignUp.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>signUpCompany</from-outcome>
+            <to-view-id>/guestPages/companySignup.xhtml</to-view-id>
+            <redirect />            
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>waitConfirmtion</from-outcome>
+            <to-view-id>/genralPages/waitConfirmtion.xhtml</to-view-id>
+            <redirect />            
         </navigation-case>
     </navigation-rule>
+
     
     <navigation-rule>
         <from-view-id>/adminpages/*</from-view-id>
+      
         <navigation-case>
             <from-outcome>adminCompnies</from-outcome>
             <to-view-id>/adminpages/company/compaies.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/companypages/viewClient.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>case1</from-outcome>
+            <to-view-id>/companypages/viewCompany.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>

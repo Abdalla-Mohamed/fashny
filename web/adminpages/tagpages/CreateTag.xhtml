@@ -19,8 +19,7 @@
 
                             <p:outputLabel value="#{bundle.CreateTagLabel_vaidated}" for="validation" />
                             <p:selectBooleanCheckbox id="validation" value="#{tagAdminBean.selectedTag.vaidated}" required="true" requiredMessage="#{bundle.EditTagRequiredMessage_vaidated}"/>
-
-                            <p:commandButton actionListener="#{tagAdminBean.create()}" value="#{bundle.Save}" oncomplete="PF('TagCreateDialog').hide()"/>
+                            <p:commandButton action="#{tagAdminBean.create()}" value="#{bundle.Save}" oncomplete="PF('TagCreateDialog').hide()" update="datalist"/>
                             <p:commandButton oncomplete="PF('TagCreateDialog').hide()" value="#{bundle.Cancel}"/>
                         </p:panelGrid>
 

@@ -12,6 +12,7 @@ import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
+import com.iti.fashny.entities.Tag;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,10 +25,10 @@ import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.StreamedContent;
 import javax.faces.bean.ManagedBean;
-import org.primefaces.model.DefaultStreamedContent;
 import java.io.*;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -52,6 +53,9 @@ public class PlaceViewManagedBean_1 implements Serializable {
     private StreamedContent img;
     private MapModel draggableModel;
     private MapModel viewMap;
+
+    private List<Tag> updatedTags ;
+    private Resouce selectedPic;
     LatLng latLng;
     private ClientReviewPlace clientReviewPlace;
     private Marker marker;
@@ -144,6 +148,15 @@ public class PlaceViewManagedBean_1 implements Serializable {
         return placeBusiness.showSpecificInfo(id);
     }
 
+    public void setUpdatedTags(List<Tag> updatedTags) {
+        this.updatedTags = updatedTags;
+    }
+    
+    public List<Tag> getUpdatedTags() {
+        return updatedTags;
+    }
+    
+    
     public List<String> getImagesList() {
         imagesList = new ArrayList<>();
         List<Resouce> resouceList = new ArrayList<>();
@@ -172,8 +185,16 @@ public class PlaceViewManagedBean_1 implements Serializable {
     public void setUploadImage(UploadImage uploadImage) {
         this.uploadImage = uploadImage;
     }
-    //</editor-fold>
 
+    public Resouce getSelectedPic() {
+        return selectedPic;
+    }
+
+    public void setSelectedPic(Resouce selectedPic) {
+        this.selectedPic = selectedPic;
+    }
+
+    //</editor-fold>
 //--------------------contructor
     public PlaceViewManagedBean_1() {
         placeBusiness = new PlaceBusiness();
@@ -182,6 +203,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
         selected = new Place();
         clientReviewPlace = new ClientReviewPlace();
         uploadImage = new UploadImage();
+        updatedTags = new ArrayList<>();
     }
 
     public String placeDetails(int id) {
@@ -210,7 +232,10 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public String goToViewPlace(int id) {
+        
         selected = placeBusiness.showSpecificInfo(id);
+        updatedTags.clear();
+        updatedTags.addAll(selected.getTagList());
         return "ViewPlacePage";
 
     }
@@ -265,18 +290,23 @@ public class PlaceViewManagedBean_1 implements Serializable {
                 ex.printStackTrace();
             }
             uploadImage.forPlace(selected.getId() + "");
-            uploadImage.copyFile();
+            //uploadImage.handleFileUpload();
         }
     }
-
-    public void update() {
+    public String update() {
+        String next = null;
         if (selected != null) {
             try {
+                selected.setTagList(updatedTags);               
                 placeBusiness.update(selected);
+                items = getItems();
+                updatedTags.clear();
+                next = "adminPlace_1";
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        return next;
     }
 
     public void destroy() {
@@ -397,5 +427,43 @@ public class PlaceViewManagedBean_1 implements Serializable {
     public String cancel() {
         selected = new Place();
         return "adminPlace_1";
+    }
+
+    public String goToImages(int id) {
+        System.out.println(id);
+        selected = placeBusiness.showSpecificInfo(id);
+        return "managePlaceImages?faces-redirect=true";
+
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        placeBusiness.addImageToPlace(event.getFile(), selected);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("imagTable");
+        context.execute("PF('uploadImage').hide()");
+
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void deleteRecource() {
+        boolean deleteImageFromPlace = placeBusiness.deleteImageFromPlace(selectedPic);
+        if (deleteImageFromPlace) {
+            selected.getResouceList().remove(selectedPic);
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.update("imagTable");
+
+            FacesMessage message = new FacesMessage("delete Succesfully");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+
+    public String getFirstImg(Place place) {
+        String path = "0";
+        if (place.getResouceList() != null && !place.getResouceList().isEmpty()) {
+            path = place.getResouceList().get(0).getPath();
+        }
+        return path;
     }
 }

@@ -19,29 +19,35 @@
                 <f:facet name="header">
                     Companies
                 </f:facet>
-                <h:form id="form">
-                    <p:dataGrid var="company" value="#{CompanyMBClient.items}" columns="3" layout="grid"
-                                rows="12" paginator="true" id="company"
-                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="6,12,16">
+                <div class="col-sm-12" align="center">
+                    <div class="col-sm-2" align="center"></div>
+                    <div class="table-responsive col-sm-8"> 
+                        <h:form id="form">
+                            <p:dataGrid  var="company" value="#{CompanyMBClient.items}" columns="2" layout="grid"
+                                        rows="12" paginator="true" id="company"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="6,12,16">
 
 
-                        <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
-                            <div class="col-xs-4 blog-grid-left">
-                                <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
-                            </div> 
-                            <div class="col-xs-8 blog-grid-right">
-                                <a href="single.html"><h4>#{company.name}</h4></a>
-                                <p>Trip Date :</p>
-                                
-                            </div>
-                            <div class="clearfix"> </div>
-                            <div class="more m1">
-                                <h:commandButton   action="#{CompanyMBClient.goToViewCompanyForClient(company.id)}" value="More Details"/>
-                            </div>
-                        </div>
-                    </p:dataGrid>
-                </h:form>            
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid"  style="height: 100%">
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right" style="height: 80%; ">
+                                        <a href="single.html"><h4>#{company.name}</h4></a>
+                                        <p>Address : #{company.address}</p>
+                                        <p>Mobile : #{company.mobile1}</p>
+
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <h:commandButton   action="#{CompanyMBClient.goToViewCompanyForClient(company.id)}" value="More Details"/>
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </h:form> 
+                    </div>
+                </div>
             </ui:define>
         </ui:composition>
     </body>
