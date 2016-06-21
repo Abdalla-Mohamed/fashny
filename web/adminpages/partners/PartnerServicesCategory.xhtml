@@ -10,15 +10,6 @@
                  xmlns:h="http://xmlns.jcp.org/jsf/html"
                  xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    
-       <ui:define name="contPageName">
-                Categories of Services
-            </ui:define>
-
-            <ui:define name="contPageDescrp">
-
-            </ui:define>
-
     <ui:define name="content">
         <h:form id="ServiceCatForm" prependId="false">
             <div  class="col-sm-12" align="center">
@@ -30,8 +21,7 @@
                                      rowKey="#{serviceCat.id}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50"
-                                     filteredValue="#{serviceCatBean.serviceFilteredList}" 
-                                     widgetVar="serviceCategoryTable"
+                                     filteredValue="#{serviceCatBean.serviceFilteredList}"  widgetVar="serviceCategoryTable"
                                      editable="true"
                                      >
 
@@ -52,12 +42,7 @@
                             </p:column>
 
 
-                            <p:column headerText="#{bundle.ListServiceCategoreyTitle_name}">
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{serviceCat.partenersId.name}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{serviceCat.partenersId.name}" style="width:100%"/></f:facet>
-                                </p:cellEditor>
-                            </p:column>
+
                             <p:column headerText="#{bundle.ListServiceCategoreyTitle_active}">
                                 <p:cellEditor>
                                     <f:facet name="output"><p:selectBooleanCheckbox value="#{serviceCat.active}" disabled="true"/></f:facet>
@@ -66,14 +51,11 @@
                             </p:column>
 
                             <p:column style="width:32px">
-                                <f:facet name="header"/>
-                                <p:commandButton id="editButton" icon="ui-icon-pencil"  value="Edit Service" update="editForm" onclick="PF('ServiceCatEditDialog').show();">
-                                    <f:setPropertyActionListener value="#{serviceCat}" target="#{serviceCatBean.category}" />
-                                </p:commandButton>               
+                                <p:rowEditor />
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}"  actionListener="#{serviceCatBean.prepareCreate()}" update=":ServiceCatForm" oncomplete="PF('ServiceCatEditDialog').show()"/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}"  actionListener="#{serviceCatBean.prepareCreate()}" update=":ServiceCatForm" oncomplete="PF('ServiceCatCreateDialog').show()"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
@@ -86,8 +68,7 @@
         </h:form>
 
 
-        <ui:include src="CreateServiceCategory.xhtml"/>
-        <ui:include src="EditServiceCategory.xhtml"/>
+<!--        <ui:include src="CreateServiceCategory.xhtml"/>-->
 
     </ui:define>
 

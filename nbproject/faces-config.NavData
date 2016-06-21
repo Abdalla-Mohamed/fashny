@@ -12,11 +12,13 @@
         <Node id="clientpages/company/companiesClient.xhtml" x="17344" y="32" zoom="true"/>
         <Node id="adminpages/client/CreateClient.xhtml" x="11588" y="32" zoom="true"/>
         <Node id="adminpages/CreatePlacePage.xhtml" x="4550" y="32" zoom="true"/>
+        <Node id="partnerpages/SignUpCreatePartener.xhtml" x="11971" y="32" zoom="true"/>
         <Node id="companypages/clientWishesPage.xhtml" x="5352" y="32" zoom="true"/>
         <Node id="genralPages/adminLogin.xhtml" x="13084" y="32" zoom="true"/>
         <Node id="companypages/viewClient.xhtml" x="650" y="150" zoom="true"/>
         <Node id="clientpages/company/viewPlaceClient.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="guestPages/advancedSearch.xhtml" x="1123" y="32" zoom="true"/>
+        <Node id="genralPages/adminLogin.xhtml" x="13084" y="32" zoom="true"/>
         <Node id="adminpages/tagpages/TagDetails.xhtml" x="6078" y="32" zoom="true"/>
         <Node id="genralPages/waitConfirmtion.xhtml" x="150" y="900" zoom="true"/>
         <Node id="partnerpages/partnerPageEx.xhtml" x="15194" y="32" zoom="true"/>

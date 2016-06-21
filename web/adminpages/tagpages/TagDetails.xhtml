@@ -10,13 +10,22 @@
                  xmlns:h="http://xmlns.jcp.org/jsf/html"
                  xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    
+       <ui:define name="contPageName">
+                Tags
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+
+            </ui:define>
+
     <ui:define name="content">
         <h:form id="TagForm" prependId="false">
             <div  class="col-sm-12" align="center">
                 <div class="col-sm-2" align="center"></div>
                 <div class="col-sm-8" align="center"> 
-                    <p:panel header="#{bundle.ListTagTitle}">
-                        <p:dataTable id="datalist" value="#{tagAdminBean.items}" var="tag"
+                    <p:panel header="#{bundle.ListTagTitle}" id="pnlList">
+                        <p:dataTable id="datalist" value="#{tagAdminBean.items}"  var="tag"
                                      paginator="true"
                                      rowKey="#{tag.id}"
                                      rows="10"
@@ -50,8 +59,14 @@
                             </p:column>
 
                             <p:column style="width:32px">
-                                <p:rowEditor />
+                                <!--<p:rowEditor />-->
+                                <f:facet name="header"/>
+                                <p:commandButton id="editButton" icon="ui-icon-search"  value="Edit Tag"   update="editForm" onclick="PF('TagEditDialog').show();">
+                                    <f:setPropertyActionListener value="#{tag}" target="#{tagAdminBean.selectedTag}" />
+                                </p:commandButton>
                             </p:column>
+
+
 
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tagAdminBean.prepareCreate()}"  update=":TagForm" oncomplete="PF('TagCreateDialog').show()"/>  
@@ -60,12 +75,19 @@
                     </p:panel>
                 </div>
             </div>
+            <p:blockUI block="pnlList" trigger="datalist:createButton">
+                LOADING<br/>
+                <p:graphicImage name="/processing-bar.gif"/>
+            </p:blockUI>
         </h:form>
 
 
         <ui:include src="CreateTag.xhtml"/>
 
-       
+        <ui:include src="EditTag.xhtml"/>
+
+
+
     </ui:define>
 
 </ui:composition>
