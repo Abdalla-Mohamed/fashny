@@ -5,18 +5,22 @@
  */
 package com.iti.fashny.businessbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PartenerFacade;
 import com.iti.fashny.daos.PartnTypeFacade;
 import com.iti.fashny.daos.PlaceFacade;
+import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.PartnType;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -25,6 +29,11 @@ import java.util.logging.Logger;
 public class PartnerBusiness implements Commens<Partener>
 {
 
+    public PartnerBusiness() {
+    }
+
+    
+    
     @Override
     public Partener login(String email, String password) throws Exception 
     {
@@ -161,6 +170,36 @@ public class PartnerBusiness implements Commens<Partener>
 //            Logger.getLogger(PartnerBusiness.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
+
+    public void addImageToPartner(UploadedFile image, Partener partener) {
+        DaoFactory daoFactory = new DaoFactory();
+        PartenerFacade partenerFacade = daoFactory.getPartenerDoa();
+        ResouceFacade resouceDoa = daoFactory.getResouceDoa();
+        System.out.println("~~~~~~~~~~~~~~~~~~~  " + image.getFileName() + " ~~~~~~~~~~~~~~~");
+        try {
+            daoFactory.beginTransaction();
+
+            Integer partenerId = partener.getId();
+
+            UploadImage uploadImage = new UploadImage();
+            uploadImage.setFile(image);
+            uploadImage.forPartner("" + partenerId);
+            String filePath = uploadImage.handleFileUpload();
+
+            Resouce resouce = new Resouce(null, filePath);
+            resouceDoa.create(resouce);
+            Partener find = partenerFacade.find(partener.getId());
+            find.setProfilePic(resouce);
+//            Place find = placeDoa.find(placeId);
+//            System.out.println("image count::"+find.getResouceList().size());
+            partener.setProfilePic(resouce);
+
+            daoFactory.commitTransaction();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
+    }
     
     
 }

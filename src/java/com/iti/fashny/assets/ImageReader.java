@@ -47,23 +47,23 @@ public class ImageReader extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("image/png");
         String imageName = request.getParameter("imageName");
-        int thumbWidth = 350;
-        int thumbHeight = 460;
+        int thumbWidth = 450;
+        int thumbHeight = 360;
 //        String pathToWeb = "C:/Book_Shop/images/";//getServletContext().getRealPath("/");
         File f = new File(imageName);
         System.out.println(f.getAbsolutePath());
         BufferedImage image = ImageIO.read(f);
 
-//        BufferedImage thumb = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
-//        Graphics2D graphics2D = thumb.createGraphics();
-//        graphics2D.setBackground(Color.WHITE);
-//        graphics2D.setPaint(Color.WHITE);
-//        graphics2D.fillRect(0, 0, thumbWidth, thumbHeight);
-//        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-//        graphics2D.drawImage(image, 0, 0, thumbWidth, thumbHeight, null);
+        BufferedImage thumb = new BufferedImage(thumbWidth, thumbHeight, image.getType());
+        Graphics2D graphics2D = thumb.createGraphics();
+        graphics2D.setBackground(Color.WHITE);
+        graphics2D.setPaint(Color.WHITE);
+        graphics2D.fillRect(0, 0, thumbWidth, thumbHeight);
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphics2D.drawImage(image, 0, 0, thumbWidth, thumbHeight, null);
 
         OutputStream out = response.getOutputStream();
-        ImageIO.write(image, "png", out);
+        ImageIO.write(thumb, "png", out);
         out.close();
     }
 

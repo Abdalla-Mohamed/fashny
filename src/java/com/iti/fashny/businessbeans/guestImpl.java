@@ -41,12 +41,7 @@ public class guestImpl implements Guest {
             daoFactory.beginTransaction();
             clientFacade.create(c);
             
-            uploadImage.setFile(c.getPic());
-            uploadImage.forClient("" + c.getId());
-            String imgPath = uploadImage.handleFileUpload();
-            
-            c.setProfilePic(new Resouce(null, imgPath));
-            clientFacade.edit(c);
+          
             daoFactory.commitTransaction();
         } catch (Exception exception) {
             exception.printStackTrace();

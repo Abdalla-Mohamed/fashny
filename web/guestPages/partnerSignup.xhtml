@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+        <ui:composition template="./../templates/clientTemplate.xhtml"  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                Sign up as a company 
+            </ui:define>
+
+            <ui:define name="content">
+                <c:set var="blockFrom" value="SignUpCreatePartenerForm:SignBtn  SignUpCreatePartenerForm:cancelSignBtn" />
+
+                <h:panelGroup id="upldImg" >
+                    <div  class="col-sm-12" align="center">
+                        <h:panelGroup rendered="#{SignUpCreatePartenerBean.signUpDone eq false }" id="SignUpCreatePartenerdisplay">
+                            <h:form id="SignUpCreatePartenerForm">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerName}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.name}" title="#{MyPropertyFile.PartnerName}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerPassword}"/>
+                                    <p:password value="#{SignUpCreatePartenerBean.selected.password}" title="#{MyPropertyFile.PartnerPassword}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
+                                        <f:validateLength minimum="5" maximum="10"/>
+                                    </p:password>
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerWebSite}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerAddress}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.address}" title="#{MyPropertyFile.PartnerAddress}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerDescription}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+
+                                    <ui:remove>
+                                        <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
+                                        <p:inputText value="#{SignUpCreatePartenerBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
+                                            <f:converter converterId="PartenerCreatePartenerConverterForPartenerType" />
+                                        </p:inputText>
+                                    </ui:remove>
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
+                                    <h:selectOneMenu value="#{SignUpCreatePartenerBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType">
+                                        <f:selectItems value="#{SignUpCreatePartenerBean.findAll}" var="findall" itemValue="#{findall}" itemLabel="#{findall.name}" />
+                                    </h:selectOneMenu>
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerWorkHours}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+
+                                    <ui:remove>
+                                        <p:outputLabel value="#{MyPropertyFile.PartnerValidated}"/>
+                                        <ui:remove><p:inputText value="#{SignUpCreatePartenerBean.selected.validated}" title="#{MyPropertyFile.PartnerValidated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
+                                        <p:selectBooleanCheckbox value="#{SignUpCreatePartenerBean.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                                    </ui:remove>
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerEmail}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.email}" title="#{MyPropertyFile.PartnerEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
+                                        <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
+                                    </p:inputText>
+
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerContactEmail}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.contactEmail}" title="#{MyPropertyFile.PartnerContactEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}">
+                                        <!--<f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>-->
+                                    </p:inputText>
+
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerMobile1}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.mobile1}" title="#{MyPropertyFile.PartnerMobile1}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerMobile2}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.mobile2}" title="#{MyPropertyFile.PartnerMobile2}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+
+                                    <p:outputLabel value="#{MyPropertyFile.PartnerPhone}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.phone}" title="#{MyPropertyFile.PartnerPhone}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+
+                                    <ui:remove>
+                                        <p:outputLabel value="#{MyPropertyFile.PartnerProfilePic}"/>
+                                        <ui:remove><p:inputText value="#{SignUpCreatePartenerBean.selected.profilePic}" title="#{MyPropertyFile.PartnerProfilePic}"/></ui:remove>
+                                        <p:fileUpload fileUploadListener="#{SignUpCreatePartenerBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
+                                                      sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                    </ui:remove>
+
+
+                                    <ui:remove>
+                                        <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
+                                        <ui:remove><p:inputText value="#{SignUpCreatePartenerBean.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
+                                        <p:selectBooleanCheckbox value="#{SignUpCreatePartenerBean.selected.active}" />
+                                    </ui:remove>
+
+                                </p:panelGrid>
+
+                                <p:commandButton id="SignBtn" actionListener="#{SignUpCreatePartenerBean.registerNewPartener()}" value="#{MyPropertyFile.Save}"  update=":upldImg"/>
+                                <p:commandButton id="cancelSignBtn" value="#{MyPropertyFile.Cancel}" immediate="true"/>
+
+                            </h:form>
+                        </h:panelGroup>
+                    </div>
+
+                    <div class="portfolio">
+                        <h:panelGroup   rendered="#{SignUpCreatePartenerBean.signUpDone}" >
+                            <div class="container col-lg-12">
+                                <div class=" col-lg-4" />
+                                <h:form id="login-form" prependId="false">
+                                    <div class=" col-lg-4 " style="
+                                         padding-bottom: 0px;
+                                         margin-bottom: 0px;
+                                         " >
+                                        <p:panelGrid  id="uploadGrid" columns="1" styleClass="ui-panelgrid-blank well" >
+                                            <p:messages  autoUpdate="true" id="msgs" />
+
+                                            <p:growl id="msg"></p:growl>
+                                            <p:outputLabel rendered="#{SignUpCreatePartenerBean.picUploaded eq false}" value="upload your image: "/>
+                                            <p:graphicImage rendered="#{not (SignUpCreatePartenerBean.selected.profilePic eq null )}" height="100px" style="  width:50%;   margin-right: auto; margin-left: auto;    display: block;  " value="/Image?imageName=#{SignUpCreatePartenerBean.selected.profilePic.path}"  />
+                                            <p:fileUpload  rendered="#{SignUpCreatePartenerBean.picUploaded eq false}"  style="width: 100% !important" styleClass="col-lg-12"
+                                                           invalidSizeMessage="JournalDev: Invalid Size"
+                                                           invalidFileMessage="JournalDev: Invalid File Type"
+                                                           fileLimitMessage="JournalDev: Invalid File Limit" 
+                                                           mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
+                                                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                           fileUploadListener="#{SignUpCreatePartenerBean.handleFileUpload}" 
+                                                           update="msg uploadGrid"></p:fileUpload>
+
+
+
+                                            <h:panelGroup styleClass="col-sm-12 col-xs-12" >
+                                                <div class="col-sm-1 col-xs-12" />
+                                                <p:commandButton styleClass="col-sm-3 col-xs-5" update="uploadGrid" id="buttonCncl"  value="Skip" disabled="#{ SignUpCreatePartenerBean.picUploaded}" action="#{SignUpCreatePartenerBean.waitConfirmtion()}" />
+                                                <div class="col-sm-4 col-xs-2" />
+                                                <p:commandButton styleClass="col-sm-3 col-xs-5" update="uploadGrid" id="buttonNext" value="start"  disabled="#{not SignUpCreatePartenerBean.picUploaded}" action="#{SignUpCreatePartenerBean.waitConfirmtion()}" />
+                                                <div class="col-sm-1 col-xs-offset-01" />
+
+                                            </h:panelGroup>
+                                        </p:panelGrid>
+
+                                        <br/>
+                                        <h:messages />
+                                        <br/>
+                                    </div>
+                                </h:form>    
+                                <div class="  col-lg-4" />
+
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </h:panelGroup>
+                <p:spacer height="2"/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
