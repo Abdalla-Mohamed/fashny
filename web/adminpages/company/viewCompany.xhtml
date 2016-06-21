@@ -28,11 +28,11 @@
             <ui:define name="content">
                 <br/> <br/> <br/>
                 <div  class="col-sm-12" align="center">
-                    <h:form id="CompanyViewForm">
+                    <h:form id="CompanyViewForm" styleClass="col-sm-8"  >
                         <div class="col-sm-2" align="center"></div>
-                        <div class="table-responsive col-sm-8">    
-                            <table class="table table-striped " align="center" >
-                                <tbody>                                         
+                        <div class="table-responsive col-sm-12">    
+                            <table class="table table-striped col-sm-12 " align="center" >
+                                <tbody>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_name}"/></td>
                                         <td><p:inplace id="name" label="#{empty CompanyMB.selected.name?'---':CompanyMB.selected.name}" effectSpeed="fast" event="dblclick" emptyLabel="None">
@@ -44,13 +44,19 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_password}"/></td>
-                                        <td><p:inplace id="password" label="#{empty CompanyMB.selected.password?'---':CompanyMB.selected.password}" effectSpeed="fast" event="dblclick">
-                                                <p:password value="#{CompanyMB.selected.password}" 
-                                                            title="#{bundle.CreateCompanyTitle_password}" style="width: 330;" feedback="true"
-                                                             required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"
-                                                            validatorMessage="Password length is less than allowable minimum of '6'">
-                                                    <f:validateLength minimum="6" />
-                                                </p:password>
+                                        <td>  <p:inplace id="password"  effectSpeed="fast" event="dblclick">
+                                                <f:facet name="output">
+                                                    <p:outputLabel value="#{empty CompanyMB.selected.password?'---':CompanyMB.selected.password}" />
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputText value="#{CompanyMB.selected.password}" 
+                                                                title="#{bundle.CreateCompanyTitle_password}" style="width: 330;" 
+                                                                required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"
+                                                                validatorMessage="Password length is less than allowable minimum of '6'">
+                                                        <f:validateLength minimum="6" />
+                                                    </p:inputText>>                   
+                                                </f:facet>
+
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
@@ -66,10 +72,10 @@
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_contactEmail}"/></td>
                                         <td><p:inplace id="contactEmail" label="#{empty CompanyMB.selected.contactEmail?'---':CompanyMB.selected.contactEmail}" effectSpeed="fast" event="dblclick" style="width: 330;">
-                                            <p:inputText  value="#{CompanyMB.selected.contactEmail}" title="#{bundle.CreateCompanyTitle_contactEmail}"
-                                                         style="width: 85%;" validatorMessage="Contact Email format is invalid">
-                                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                            </p:inputText>
+                                                <p:inputText  value="#{CompanyMB.selected.contactEmail}" title="#{bundle.CreateCompanyTitle_contactEmail}"
+                                                              style="width: 85%;" validatorMessage="Contact Email format is invalid">
+                                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                </p:inputText>
                                             </p:inplace></td>
 
                                     </tr>
@@ -87,7 +93,7 @@
                                         <td><p:inplace id="phone" label="#{empty CompanyMB.selected.phone?'---':CompanyMB.selected.phone}" effectSpeed="fast" event="dblclick">
                                                 <p:inputText value="#{CompanyMB.selected.phone}" title="#{bundle.ViewCompanyTitle_phone}" 
                                                              style="width: 330;" validatorMessage="Phone length is less than allowable minimum of '9'"
-                                                         converterMessage="Phone should be numbers only">
+                                                             converterMessage="Phone should be numbers only">
                                                     <f:convertNumber  type="number" />
                                                     <f:validateLength minimum="9" maximum="10"/>
                                                 </p:inputText>
@@ -170,38 +176,58 @@
                         </div> 
 
                     </h:form>    
-                        <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
 
-                        <div class="col-sm-12" align="center">
-                            <h:form id="form">
-                                <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
-                                <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
-                                                        rows="12" paginator="true" 
-                                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                        rowsPerPageTemplate="6,12,16"
-                                            >
+                    <div class="col-sm-4">
+                        <h:form id="picForm" prependId="false">
+                            <p:panel >
+                                <p:graphicImage value="/Image?imageName=#{CompanyMB.selected.profilePic.path}" id="image" styleClass="img-responsive" />
+                                <p:spacer height="3"/>
+                                <br/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="upload profile image" type="button" onclick="PF('uploadImage').show();" />
+                            </p:panel>
+                        </h:form>
 
+                        <p:dialog header="upload profile image" widgetVar="uploadImage" modal="true" showEffect="explode" hideEffect="bounce" resizable="true" >
+                            <h:form>
+                                <p:fileUpload fileUploadListener="#{CompanyMB.uploadPicProfile}" mode="advanced" dragDropSupport="false" 
+                                              multiple="true" update="imgMessages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
-                                    <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
-                                        <div class="col-xs-4 blog-grid-left">
-                                            <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
-                                        </div> 
-                                        <div class="col-xs-8 blog-grid-right">
-                                            <a href="single.html"><h4>#{trip.name}</h4></a>
-                                            <p>Trip Date : #{trip.date}</p>
-                                            <p>#{trip.countBooking} joined</p>
-                                            <h5>#{trip.cost} EGP</h5>
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                        <div class="more m1">
-                                            <p:commandButton  type="" action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
-                                        </div>
-                                    </div>
-                                </p:dataGrid>
+                                <p:growl id="imgMessages" showDetail="true"  />
                             </h:form>
-                        </div>    
+                        </p:dialog>
 
-                   
+
+                    </div>
+
+                    <div class="col-sm-12" align="center">
+                        <h:form id="form">
+                            <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
+                            <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
+                                        rows="12" paginator="true" 
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="6,12,16"
+                                        >
+
+
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right">
+                                        <a href="single.html"><h4>#{trip.name}</h4></a>
+                                        <p>Trip Date : #{trip.date}</p>
+                                        <p>#{trip.countBooking} joined</p>
+                                        <h5>#{trip.cost} EGP</h5>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <p:commandButton  type="" action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </h:form>
+                    </div>    
+
                 </div>
             </ui:define>
 

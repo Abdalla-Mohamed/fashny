@@ -12,6 +12,7 @@ import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.PartnType;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.ServiceCategorey;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +23,16 @@ import java.util.logging.Logger;
  *
  * @author MANAR ADEL
  */
-public class PartnerBusiness implements Commens<Partener>
-{
+public class PartnerBusiness implements Commens<Partener> {
 
     @Override
-    public Partener login(String email, String password) throws Exception 
-    {
+    public Partener login(String email, String password) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void add(Partener t) throws Exception 
-    {
-         System.out.println(t.getName());
+    public void add(Partener t) throws Exception {
+        System.out.println(t.getName());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         DaoFactory daoFactory = new DaoFactory();
         PartenerFacade partenerDoa = daoFactory.getPartenerDoa();
@@ -59,9 +57,8 @@ public class PartnerBusiness implements Commens<Partener>
     }
 
     @Override
-    public void update(Partener t) throws Exception 
-    {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Partener t) throws Exception {
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         DaoFactory daoFactory = new DaoFactory();
         PartenerFacade partenerDoa = daoFactory.getPartenerDoa();
         PartnTypeFacade partnTypeDoa = daoFactory.getPartnTypeDoa();
@@ -81,12 +78,11 @@ public class PartnerBusiness implements Commens<Partener>
             daoFactory.close();
 
         }
-        
+
     }
 
     @Override
-    public List<Partener> view() throws Exception 
-    {
+    public List<Partener> view() throws Exception {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
         List<Partener> partnerResults = new ArrayList<>();
@@ -126,41 +122,33 @@ public class PartnerBusiness implements Commens<Partener>
     @Override
     public Partener showSpecificInfo(int id) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         Partener partenr = new Partener();
         DaoFactory dao = new DaoFactory();
         PartenerFacade partenerDoa = dao.getPartenerDoa();
-        partenr=partenerDoa.find(id);
+        partenr = partenerDoa.find(id);
         return partenr;
     }
-    
-  
-//    public static void main(String[] args) {
-//        try {
-//            
-//            Partener selected = new Partener();
-//             selected.setName("dfa");
-//          selected.setActive(Boolean.TRUE);
-//          selected.setAddress("dfaf");
-//          selected.getContactEmail();
-//          selected.getDescription();
-//          selected.setEmail("adf");
-//          selected.setPassword("dfaf");
-//          selected.setWebsite("dfaf");
-//          selected.setAddress("dfadf");
-//          selected.setType(new PartnType(1));
-//          selected.setWorkHours("dfasdf");
-//          selected.setValidated(Boolean.TRUE);
-//          selected.setMobile1("sfad");
-//          selected.setMobile2("fsfda");
-//          selected.setPhone("wfa");
-//          selected.setActive(Boolean.TRUE);
-//            
-//            new PartnerBusiness().add(selected);
-//        } catch (Exception ex) {
-//            Logger.getLogger(PartnerBusiness.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-    
-    
+
+    public Partener getCategoryList(Partener partener) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            PartenerFacade partenerFacade = daoFactory.getPartenerDoa();
+            daoFactory.beginTransaction();
+            partener = partenerFacade.find(partener.getId());
+            List<ServiceCategorey> serviceCategoreyList = partener.getServiceCategoreyList();
+            System.out.println(serviceCategoreyList.size());
+            for (ServiceCategorey serviceCategorey : serviceCategoreyList) {
+                System.out.println( serviceCategorey.getName());
+            }
+            daoFactory.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return partener;
+    }
 }

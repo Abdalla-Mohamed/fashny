@@ -8,6 +8,9 @@ package com.iti.fashny.businessbeans;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.ServiceCategoreyFacade;
 import com.iti.fashny.daos.ServiceFacade;
+import com.iti.fashny.entities.Client;
+import com.iti.fashny.entities.JoinTrip;
+import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Service;
 import com.iti.fashny.entities.ServiceCategorey;
 import com.iti.fashny.interfaces.Commens;
@@ -84,4 +87,11 @@ public class ServiceCategoryBusiness implements Commens<ServiceCategorey> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public List<ServiceCategorey> getCategory(Partener p) {
+        List<ServiceCategorey> partnerCat;
+        partnerCat = p.getServiceCategoreyList();
+        return partnerCat;
+    }
+    
+    
 }

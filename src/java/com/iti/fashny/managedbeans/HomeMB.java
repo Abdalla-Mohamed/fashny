@@ -85,7 +85,9 @@ public class HomeMB {
           
            bar.add(new placeImage(places.get(x).getName(),getFirstImg(places.get(x))));
            bar.add(new placeImage(trips.get(x).getName(),getTripFirstImg(trips.get(x))));
+                if(companies.get(x).getProfilePic() != null)
            bar.add(new placeImage(companies.get(x).getName(),companies.get(x).getProfilePic().getPath()));
+                if(parteners.get(x).getProfilePic() != null)
            bar.add(new placeImage(parteners.get(x).getName(),parteners.get(x).getProfilePic().getPath()));
          
         }
@@ -144,15 +146,8 @@ public class HomeMB {
         if (trip.getResouceList() != null && !trip.getResouceList().isEmpty()) {
             path = trip.getResouceList().get(0).getPath();
         }
-        return path;
+        return path;  
     }
-     
-     public static void main(String[] args) {
-        HomeMB b = new HomeMB();
-        List<placeImage> barImages1 = b.getBarImages();
-         for (placeImage image : barImages1) {
-             System.out.println(image.getPlaceName()+"  "+image.getImgPath());
-         }
-    }
+        
     
 }
