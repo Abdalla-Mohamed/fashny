@@ -12,6 +12,7 @@ import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
+import com.iti.fashny.entities.Tag;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +54,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
     private MapModel draggableModel;
     private MapModel viewMap;
 
+    private List<Tag> updatedTags ;
     private Resouce selectedPic;
     LatLng latLng;
     private ClientReviewPlace clientReviewPlace;
@@ -146,6 +148,15 @@ public class PlaceViewManagedBean_1 implements Serializable {
         return placeBusiness.showSpecificInfo(id);
     }
 
+    public void setUpdatedTags(List<Tag> updatedTags) {
+        this.updatedTags = updatedTags;
+    }
+    
+    public List<Tag> getUpdatedTags() {
+        return updatedTags;
+    }
+    
+    
     public List<String> getImagesList() {
         imagesList = new ArrayList<>();
         List<Resouce> resouceList = new ArrayList<>();
@@ -192,6 +203,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
         selected = new Place();
         clientReviewPlace = new ClientReviewPlace();
         uploadImage = new UploadImage();
+        updatedTags = new ArrayList<>();
     }
 
     public String placeDetails(int id) {
@@ -220,7 +232,10 @@ public class PlaceViewManagedBean_1 implements Serializable {
     }
 
     public String goToViewPlace(int id) {
+        
         selected = placeBusiness.showSpecificInfo(id);
+        updatedTags.clear();
+        updatedTags.addAll(selected.getTagList());
         return "ViewPlacePage";
 
     }
@@ -275,14 +290,17 @@ public class PlaceViewManagedBean_1 implements Serializable {
                 ex.printStackTrace();
             }
             uploadImage.forPlace(selected.getId() + "");
-            uploadImage.handleFileUpload();
+            //uploadImage.handleFileUpload();
         }
     }
     public String update() {
         String next = null;
         if (selected != null) {
             try {
+                selected.setTagList(updatedTags);               
                 placeBusiness.update(selected);
+                items = getItems();
+                updatedTags.clear();
                 next = "adminPlace_1";
             } catch (Exception ex) {
                 ex.printStackTrace();

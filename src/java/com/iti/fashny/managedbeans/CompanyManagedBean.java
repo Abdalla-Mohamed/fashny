@@ -9,8 +9,10 @@ import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.businessbeans.CompanyController;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Tag;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +21,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -32,8 +36,12 @@ public class CompanyManagedBean implements Serializable {
 
     CompanyController companyController;
     private List<Company> items = null;
+    private List<Tag> updatedTags;
     private Company selected;
     UploadImage uploadImage;
+
+    private boolean signUpDone;
+    private boolean picUploaded;
 
     /**
      * Creates a new instance of CompanyManagedBean
@@ -42,11 +50,41 @@ public class CompanyManagedBean implements Serializable {
         companyController = new CompanyController();
         selected = new Company();
         uploadImage = new UploadImage();
+        updatedTags = new ArrayList<>();
+        signUpDone = false;
+        picUploaded = false;
     }
+
+   
+    
 
 //_________________________  setter and getter _______________________________//
     public CompanyController getCompanyController() {
         return companyController;
+    }
+
+    public List<Tag> getUpdatedTags() {
+        return updatedTags;
+    }
+
+    public void setUpdatedTags(List<Tag> updatedTags) {
+        this.updatedTags = updatedTags;
+    }
+
+    public void setPicUploaded(boolean picUploaded) {
+        this.picUploaded = picUploaded;
+    }
+
+    public boolean isPicUploaded() {
+        return picUploaded;
+    }
+
+    public boolean isSignUpDone() {
+        return signUpDone;
+    }
+
+    public void setSignUpDone(boolean signUpDone) {
+        this.signUpDone = signUpDone;
     }
 
     public List<Company> getItems() {
@@ -97,8 +135,8 @@ public class CompanyManagedBean implements Serializable {
                 ex.printStackTrace();
             }
             //new guestImpl().signUp(c);
-            uploadImage.forCompany(selected.getId()+"");
-            uploadImage.handleFileUpload();
+//            uploadImage.forCompany(selected.getId()+"");
+//            uploadImage.handleFileUpload();
         }
     }
 
@@ -112,19 +150,23 @@ public class CompanyManagedBean implements Serializable {
             }
         }
     }
-  public String update() {
+
+    public String update() {
         String next = null;
         if (selected != null) {
             try {
+                selected.setTagList(updatedTags);
+                System.out.println(selected.getDescription());
                 companyController.update(selected);
+                updatedTags.clear();
                 next = "compaies";
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        selected = new Company();
         return next;
     }
-    
 
     public void destroy() {
         if (selected != null) {
@@ -179,6 +221,8 @@ public class CompanyManagedBean implements Serializable {
         selected = companyController.showSpecificInfo(id);
         try {
             selected = companyController.gitAllCompanyLists(selected);
+            updatedTags.clear();
+            updatedTags.addAll(selected.getTagList());
         } catch (Exception ex) {
             Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -208,10 +252,29 @@ public class CompanyManagedBean implements Serializable {
     }
 
     //___________________________ for client _______________________________//
+    private Company newCompany;
+
+    public Company getNewCompany() {
+        return newCompany;
+    }
+
+    public void setNewCompany(Company newCompany) {
+        this.newCompany = newCompany;
+    }
+
     public String saveForClient() {
+        selected.setTagList(updatedTags);
         signup();
+        newCompany = selected;
         items = getItems();
         selected = new Company();
+        updatedTags = new ArrayList<>();
+//        uploadImage = new UploadImage();
+//        uploadImage.forCompany(""+selected.getId());
+  RequestContext context = RequestContext.getCurrentInstance();
+
+        context.scrollTo("uploadGrid");
+        signUpDone = true;
         return "login";
     }
 
@@ -219,11 +282,39 @@ public class CompanyManagedBean implements Serializable {
         selected = new Company();
         return "home";
     }
-    
-    public String editCompany()
-    {
+
+    public String editCompany() {
         update();
-        System.out.println("------ edit------");
+        items = getItems();
+        selected = new Company();
         return "compaies";
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        companyController.addImageToCompany(event.getFile(), newCompany);
+
+        picUploaded = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+
+//        context.execute("PF('uploadImage').hide()");
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    public void uploadPicProfile(FileUploadEvent event) {
+        companyController.addImageToCompany(event.getFile(), selected);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("picForm");
+        context.execute("PF('uploadImage').hide()");
+
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public String waitConfirmtion(){
+        picUploaded =false;
+        signUpDone = true;
+        newCompany = new Company();
+        return "waitConfirmtion";
     }
 }

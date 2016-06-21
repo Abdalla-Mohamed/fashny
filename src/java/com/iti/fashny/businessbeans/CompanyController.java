@@ -5,9 +5,12 @@
  */
 package com.iti.fashny.businessbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;
@@ -15,6 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import static javassist.bytecode.InnerClassesAttribute.tag;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -77,12 +81,16 @@ public class CompanyController implements Commens<Company>, Serializable {
         List<Company> companies = new ArrayList<>();
         try {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
-            companies = companyFacade.getConfirmCompanies();
+            //companies = companyFacade.getConfirmCompanies();
+            companies = companyFacade.getConfirmAndActiveCompanies();
         } finally {
             daoFactory.close();
         }
+        System.out.println("====================================================================");
+        for (Company company : companies) {
+            System.out.println(".......>>>"+ company.getName());
+        }
         return companies;
-
     }
 
     public Company gitTripsOfCompany(Company company) throws Exception {
@@ -139,10 +147,11 @@ public class CompanyController implements Commens<Company>, Serializable {
             CompanyFacade companyFacade = daoFactory.getCompanyDoa();
             daoFactory.beginTransaction();
             Company company = new Company();
-            company = companyFacade.refreshObj(companyObj);
+            company = companyFacade.find(companyObj.getId());
+            company.getTagList().size();
             companyObj.setTagList(company.getTagList());
+            company.getTripList().size();
             companyObj.setTripList(company.getTripList());
-            companyObj.getTagList().size();
             daoFactory.commitTransaction();
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,6 +179,37 @@ public class CompanyController implements Commens<Company>, Serializable {
             daoFactory.close();
         }
         return company;
+
+    }
+
+    public void addImageToCompany(UploadedFile image, Company company) {
+        DaoFactory daoFactory = new DaoFactory();
+        CompanyFacade companyFacade = daoFactory.getCompanyDoa();
+        ResouceFacade resouceDoa = daoFactory.getResouceDoa();
+        System.out.println("~~~~~~~~~~~~~~~~~~~  " + image.getFileName() + " ~~~~~~~~~~~~~~~");
+        try {
+            daoFactory.beginTransaction();
+
+            Integer companyId = company.getId();
+
+            UploadImage uploadImage = new UploadImage();
+            uploadImage.setFile(image);
+            uploadImage.forCompany("" + companyId);
+            String filePath = uploadImage.handleFileUpload();
+
+            Resouce resouce = new Resouce(null, filePath);
+            resouceDoa.create(resouce);
+            Company find = companyFacade.find(company.getId());
+            find.setProfilePic(resouce);
+//            Place find = placeDoa.find(placeId);
+//            System.out.println("image count::"+find.getResouceList().size());
+            company.setProfilePic(resouce);
+
+            daoFactory.commitTransaction();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
 
     }
 }

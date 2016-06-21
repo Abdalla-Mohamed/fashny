@@ -10,6 +10,15 @@
                  xmlns:h="http://xmlns.jcp.org/jsf/html"
                  xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    
+       <ui:define name="contPageName">
+                Categories of Services
+            </ui:define>
+
+            <ui:define name="contPageDescrp">
+
+            </ui:define>
+
     <ui:define name="content">
         <h:form id="ServiceCatForm" prependId="false">
             <div  class="col-sm-12" align="center">
@@ -58,7 +67,7 @@
 
                             <p:column style="width:32px">
                                 <f:facet name="header"/>
-                                <p:commandButton id="editButton" icon="ui-icon-search"  value="Edit Service" update="editForm" onclick="PF('ServiceCatEditDialog').show();">
+                                <p:commandButton id="editButton" icon="ui-icon-pencil"  value="Edit Service" update="editForm" onclick="PF('ServiceCatEditDialog').show();">
                                     <f:setPropertyActionListener value="#{serviceCat}" target="#{serviceCatBean.category}" />
                                 </p:commandButton>               
                             </p:column>

@@ -51,25 +51,34 @@
 
                             <p:column style="width: 32px" >
                                 <f:facet name="header"/>
-                                <p:commandButton id="editButton" icon="ui-icon-pencil" onclick="onclick = PF('ServiceEditDialog').show();">
+                                <p:commandButton id="editButton" icon="ui-icon-pencil" onclick="onclick = PF('ServiceCatEditDialog').show();">
                                 </p:commandButton>
                             </p:column>
 
 
 
-                        <p:column style="width: 32px">
-                            <f:facet name="header"/>
-                            <p:commandButton id="viewButton" icon="ui-icon-search" update="editForm"  action="#{serviceBean.categoryDetails(cat.id)}">
-                                <f:setPropertyActionListener value="#{cat}" target="#{serviceCatBean.category}" />
-                            </p:commandButton>
-                        </p:column>
-                    </p:dataTable>
-                </p:panel>
+                            <p:column style="width:32px">
+                                <f:facet name="header"/>
+                                <p:commandButton id="editButton" icon="ui-icon-pencil"  value="Edit Service" update="editForm" onclick="PF('ServiceCatEditDialog').show();">
+                                    <f:setPropertyActionListener value="#{serviceCat}" target="#{serviceCatBean.category}" />
+                                </p:commandButton>               
+                            </p:column>
+
+
+
+                            <p:column style="width: 32px">
+                                <f:facet name="header"/>
+                                <p:commandButton id="viewButton" icon="ui-icon-search" update="editForm"  action="#{serviceBean.categoryDetails(cat.id)}">
+                                    <f:setPropertyActionListener value="#{cat}" target="#{serviceCatBean.category}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </div>
             </div>
-        </div>
-    </h:form>
-    <ui:include src="services/EditService.xhtml"></ui:include>
-</ui:define>
+        </h:form>
+        <ui:include src="EditServiceCategory.xhtml"></ui:include>
+    </ui:define>
 
 </ui:composition>
 

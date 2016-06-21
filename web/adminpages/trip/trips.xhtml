@@ -63,6 +63,15 @@
                         </p:cellEditor>
                     </p:column>
 
+                    <p:column headerText="#{bundle.ListTripTitle_date}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{item.date}" /></f:facet>
+                            <f:facet name="input">
+                                <p:calendar id="modelInput_date" value="#{item.date}" style="width:100%" pattern="yyyy-MM-dd" 
+                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_date}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
                     <p:column headerText="#{bundle.ListTripTitle_countBooking}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.countBooking}" /></f:facet>
@@ -96,33 +105,7 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="#{bundle.ListTripTitle_program}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.program}" /></f:facet>
-                            <f:facet name="input">
-                                <p:inputText id="modelInput_program" value="#{item.program}" style="width:100%"
-                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_program}"/>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="#{bundle.ListTripTitle_date}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.date}" /></f:facet>
-                            <f:facet name="input">
-                                <p:calendar id="modelInput_date" value="#{item.date}" style="width:100%" pattern="yyyy-MM-dd" 
-                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_date}"/>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="#{bundle.ListTripTitle_joinDeadline}">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{item.joinDeadline}" /></f:facet>
-                            <f:facet name="input">
-                                <p:calendar id="modelInput_joinDeadline" value="#{tripMB.selected.joinDeadline}" style="width:100%" pattern="yyyy-MM-dd" 
-                                            required="true" requiredMessage="#{bundle.EditTripRequiredMessage_joinDeadline}"/>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                    
 
                     <p:column style="width:40px">
                         <p:commandButton style="width:20px" id="viewButton" icon="ui-icon-search" action="#{tripMB.goToViewTrip(item.id)}"/>

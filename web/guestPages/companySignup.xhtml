@@ -15,12 +15,14 @@
             </ui:define>
 
             <ui:define name="content">
-        <c:set var="blockFrom" value="PlaceViewForm:companySignBtn  PlaceViewForm:cancelSignBtn" />
+                <c:set var="blockFrom" value="PlaceViewForm:companySignBtn  PlaceViewForm:cancelSignBtn" />
 
-                <div  class="col-sm-12" align="center">
-                    <h:form id="PlaceViewForm">
-                        <div class="col-sm-3" align="center"></div>
-                        <div class="table-responsive col-sm-6">
+                <h:panelGroup id="upldImg" >
+                    <div  class="col-sm-12" align="center">
+                        <h:panelGroup rendered="#{CompanyMB.signUpDone eq false }">
+                            <h:form id="PlaceViewForm">
+                                <div class="col-sm-3" align="center"></div>
+                                <div class="table-responsive col-sm-6">
 
                             <table class="table table-striped">
                                 <tbody>
@@ -31,43 +33,48 @@
                                                          requiredMessage="#{bundle.CreateCompanyRequiredMessage_name}"
                                                          style="width:300px;"/></td>
                                     </tr>.
+                                    
                                     <tr>
-                                        <td><p:outputLabel value="#{bundle.CreateCompanyLabel_address}" for="address1" /></td>
-                                        <td><p:inputText id="address1" value="#{CompanyMB.selected.address}" 
-                                                         title="#{bundle.CreateCompanyTitle_address}" required="true" 
-                                                         requiredMessage="#{bundle.CreateCompanyRequiredMessage_address}"
-                                                         style="width:300px;"/></td>
-                                    </tr><tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_password}" for="password1" /></td>
                                         <td><p:password id="password1" value="#{CompanyMB.selected.password}" 
                                                         title="#{bundle.CreateCompanyTitle_password}" required="true" 
-                                                        requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"
-                                                        style="width:300px;"/></td>
-                                    </tr><tr>
+                                                        requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}" feedback="true"
+                                                        style="width:300px;" validatorMessage="Password length is less than allowable minimum of '6'">
+                                                <f:validateLength minimum="6" />
+                                            </p:password></td>
+                                    </tr>
+                                    <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_email}" for="email" /></td>
                                         <td><p:inputText id="email" value="#{CompanyMB.selected.email}" title="#{bundle.CreateCompanyTitle_email}" 
                                                          required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_email}"
                                                          validator="com.iti.fashny.validators.CustomeEmailValidator"
                                                          style="width:300px;"/></td>
-                                    </tr><tr>
+                                    </tr>
+                                    <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_contactEmail}" for="contactEmail" /></td>
                                         <td><p:inputText id="contactEmail" value="#{CompanyMB.selected.contactEmail}" 
                                                          title="#{bundle.CreateCompanyTitle_contactEmail}"
-                                                         validator="com.iti.fashny.validators.CustomeEmailValidator" 
-                                                         validatorMessage="The Contact Email not valid"
-                                                         style="width:300px;"/></td>
+                                                         style="width:300px;" validatorMessage="Contact Email format is invalid">
+                                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                            
+                                            </p:inputText></td>
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_website}" for="website" /></td>
                                         <td><p:inputText id="website" value="#{CompanyMB.selected.website}" 
-                                                         title="#{bundle.CreateCompanyTitle_website}" style="width:300px;"/></td>
+                                                         title="#{bundle.CreateCompanyTitle_website}" style="width:300px;" 
+                                                         validatorMessage="Website  is not valid">
+                                                <f:validateRegex pattern="(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})"/>
+                                            </p:inputText></td>
 
                                     </tr> 
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile1}" for="mobile1" /></td>
                                         <td><p:inputText id="mobile1" value="#{CompanyMB.selected.mobile1}" 
                                                          title="#{bundle.CreateCompanyTitle_mobile1}" style="width:300px;"
-                                                         required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}">
+                                                         required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}"
+                                                         validatorMessage="Mobile1 length is less than allowable minimum of '11'"
+                                                         converterMessage="Mobile1 should be numbers only">
                                                 <f:convertNumber  type="number" />
                                                 <f:validateLength minimum="11" maximum="11"/>
                                             </p:inputText></td>
@@ -75,7 +82,9 @@
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile2}" for="mobile2" /></td>
                                         <td><p:inputText id="mobile2" value="#{CompanyMB.selected.mobile2}" 
-                                                         title="#{bundle.CreateCompanyTitle_mobile2}" style="width:300px;">
+                                                         title="#{bundle.CreateCompanyTitle_mobile2}" style="width:300px;"
+                                                         validatorMessage="Mobile2 length is less than allowable minimum of '11'"
+                                                         converterMessage="Mobile2 should be numbers only">
                                                 <f:convertNumber  type="number" />
                                                 <f:validateLength minimum="11" maximum="11"/>                                    
                                             </p:inputText></td> 
@@ -83,10 +92,19 @@
                                     <tr>       
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_phone}" for="phone" /></td>
                                         <td><p:inputText id="phone" value="#{CompanyMB.selected.phone}" 
-                                                         title="#{bundle.CreateCompanyTitle_phone}" style="width:300px;">
+                                                         title="#{bundle.CreateCompanyTitle_phone}" style="width:300px;"
+                                                         validatorMessage="Phone length is less than allowable minimum of '9'"
+                                                         converterMessage="Phone should be numbers only">
                                                 <f:convertNumber  type="number" />
                                                 <f:validateLength minimum="9" maximum="10"/>
                                             </p:inputText></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{bundle.CreateCompanyLabel_address}" for="address1" /></td>
+                                        <td><p:inputText id="address1" value="#{CompanyMB.selected.address}" 
+                                                         title="#{bundle.CreateCompanyTitle_address}" required="true" 
+                                                         requiredMessage="#{bundle.CreateCompanyRequiredMessage_address}"
+                                                         style="width:300px;"/></td>
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_workHoures}" for="workHours" /></td>
@@ -121,39 +139,72 @@
 
 
 
-                                            <ui:remove>                                    <p:outputLabel value="#{MyPropertyFile.Photo}"/>
-                                                <p:fileUpload fileUploadListener="#{CompanyMB.uploadImage.handleFileUpload(event)}" dragDropSupport="true" label="Choose" auto="true"
-                                                              sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-                                            </ui:remove>
+
+
+
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><p:commandButton id="companySignBtn"  actionListener="#{CompanyMB.saveForClient()}" value="#{bundle.Save}" update=":upldImg" /></td>
+                                                <td align="right"><p:commandButton id="cancelSignBtn" value="#{bundle.Cancel}" action="#{CompanyMB.cancelForClient()}"
+                                                                                   immediate="true"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </h:form>
+                        </h:panelGroup>
+                    </div>
+
+                    <div class="portfolio">
+                        <h:panelGroup   rendered="#{CompanyMB.signUpDone}" >
+                             <div class="container col-lg-12">
+                                <div class=" col-lg-4" />
+                                <h:form id="login-form" prependId="false">
+                                    <div class=" col-lg-4 " style="
+                                         padding-bottom: 0px;
+                                         margin-bottom: 0px;
+                                         " >
+                                        <p:panelGrid  id="uploadGrid" columns="1" styleClass="ui-panelgrid-blank well" >
+                                            <p:messages  autoUpdate="true" id="msgs" />
 
                                             <p:growl id="msg"></p:growl>
-                                            <p:fileUpload value="#{CompanyMB.uploadImage.file}"
-                                                          invalidSizeMessage="JournalDev: Invalid Size"
-                                                          invalidFileMessage="JournalDev: Invalid File Type"
-                                                          fileLimitMessage="JournalDev: Invalid File Limit" 
-                                                          mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
-                                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                                                          fileUploadListener="#{CompanyMB.uploadImage.handleFileUpload}" 
-                                                          update="msg"></p:fileUpload>
-                                            <ui:remove>
-
-                                                <h:graphicImage url="#{CompanyMB.selected.profilePic.path}" width="200" height="171" />
-
-                                            </ui:remove>
+                                            <p:outputLabel rendered="#{CompanyMB.picUploaded eq false}" value="upload your image: "/>
+                                            <p:graphicImage rendered="#{not (CompanyMB.newCompany.profilePic eq null )}" height="100px" style="  width:50%;   margin-right: auto; margin-left: auto;    display: block;  " value="/Image?imageName=#{CompanyMB.newCompany.profilePic.path}"  />
+                                            <p:fileUpload  rendered="#{CompanyMB.picUploaded eq false}"  style="width: 100% !important" styleClass="col-lg-12"
+                                                           invalidSizeMessage="JournalDev: Invalid Size"
+                                                           invalidFileMessage="JournalDev: Invalid File Type"
+                                                           fileLimitMessage="JournalDev: Invalid File Limit" 
+                                                           mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
+                                                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                           fileUploadListener="#{CompanyMB.handleFileUpload}" 
+                                                           update="msg uploadGrid"></p:fileUpload>
 
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><p:commandButton id="companySignBtn" action="#{CompanyMB.saveForClient()}" value="#{bundle.Save}"  /></td>
-                                        <td align="right"><p:commandButton id="cancelSignBtn" value="#{bundle.Cancel}" action="#{CompanyMB.cancelForClient()}"
-                                                                           immediate="true"/></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </h:form>
-                </div>
+
+                                            <h:panelGroup styleClass="col-sm-12 col-xs-12" >
+                                                <div class="col-sm-1 col-xs-12" />
+                                                <p:commandButton styleClass="col-sm-3 col-xs-5" update="uploadGrid" id="buttonCncl"  value="Skip" disabled="#{ CompanyMB.picUploaded}" action="#{CompanyMB.waitConfirmtion()}" />
+                                                <div class="col-sm-4 col-xs-2" />
+                                                <p:commandButton styleClass="col-sm-3 col-xs-5" update="uploadGrid" id="buttonNext" value="start"  disabled="#{not CompanyMB.picUploaded}" action="#{CompanyMB.waitConfirmtion()}" />
+                                                <div class="col-sm-1 col-xs-offset-01" />
+
+                                            </h:panelGroup>
+                                        </p:panelGrid>
+
+                                        <br/>
+                                        <h:messages />
+                                        <br/>
+                                    </div>
+                                </h:form>    
+                                <div class="  col-lg-4" />
+
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </h:panelGroup>
+                <p:spacer height="2"/>
             </ui:define>
         </ui:composition>
     </body>

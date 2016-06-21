@@ -63,10 +63,13 @@
                         <p:inputText value="#{EditProfilePartener.selected.workHours}" title="#{MyPropertyFile.PartnerWorkHours}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
 
 
+                        <ui:remove>
                         <p:outputLabel value="#{MyPropertyFile.PartnerValidated}"/>
                         <ui:remove><p:inputText value="#{EditProfilePartener.selected.validated}" title="#{MyPropertyFile.PartnerValidated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
                         <p:selectBooleanCheckbox value="#{EditProfilePartener.selected.validated}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
-
+                        </ui:remove>
+                        
+                        
                         <p:outputLabel value="#{MyPropertyFile.PartnerEmail}"/>
                         <p:outputLabel value="#{EditProfilePartener.selected.email}" title="#{MyPropertyFile.PartnerEmail}">
 <!--                            <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>-->
@@ -98,10 +101,11 @@
                         </ui:remove>
 
                           
+                        <ui:remove>
                         <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
                         <ui:remove><p:inputText value="#{EditProfilePartener.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
                         <p:selectBooleanCheckbox value="#{EditProfilePartener.selected.active}" />
-
+                        </ui:remove>
                         
                            
                         
