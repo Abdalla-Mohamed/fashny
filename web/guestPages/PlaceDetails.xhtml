@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <body>
+
+        <ui:composition template="./../templates/clientTemplate.xhtml"
+                        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:f="http://xmlns.jcp.org/jsf/core"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <ui:define name="title">
+                Selected Place
+            </ui:define>
+
+            <ui:define name="content">
+
+
+
+                <h:form prependId="false">
+
+
+                    <div  class="col-sm-12" align="center">
+                        <div class="col-sm-2" align="center"></div>
+                        <div class="col-sm-8" align="center"> 
+
+
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Name :" />
+                                        <h:outputText value="#{placeView_1.selected.name}"/>
+
+                                        <h:outputText value="Desciption : " />
+                                        <h:outputText value="#{placeView_1.selected.description}"/>
+
+                                        <h:outputText value="Working Hours :" />
+                                        <h:outputText value="#{placeView_1.selected.workHours}"/>
+
+                                        <h:outputText value="Address : " />
+                                        <h:outputText value="#{placeView_1.selected.address}"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+
+                            <p:dataTable>
+                                <p:column headerText="Name">
+                                    <h:outputText value="#{placeView_1.selected.name}" />
+                                </p:column>
+
+                                <p:column headerText="Description">
+                                    <h:outputText value="#{placeView_1.selected.description}" />
+                                </p:column>
+
+                                <p:column headerText="Address">
+                                    <h:outputText value="#{placeView_1.selected.address}" />
+                                </p:column>
+
+                                <p:column headerText="Working Hours">
+                                    <h:outputText value="#{placeView_1.selected.workHours}" />
+                                </p:column>
+                            </p:dataTable>
+
+                            <p:imageSwitch  effect="fade" widgetVar="switcher" id="manuelSwitcher" >
+                                <ui:repeat value="#{placeView_1.imagesList}" var="image" id="manuelSwitcherImages">
+                                    <p:graphicImage  styleClass="img-responsive "  value="/Image?imageName=#{image}" id="image" width="800" height="400"/>
+                                </ui:repeat>
+                            </p:imageSwitch>
+
+                            <p:dataGrid var="comment" value="#{placeView_1.reviewPlaces()}" columns="1" layout="grid"
+                                        rows="12" id="places" 
+                                        rowsPerPageTemplate="6,12,16">
+
+                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputText value="Name:" />
+                                            <h:outputText value="#{comment.clientId.name}"/>
+
+                                            <h:outputText value="Comment:" />
+                                            <h:outputText value="#{comment.comment}"/>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </h:panelGrid>
+                                <hr />
+                            </p:dataGrid>
+
+                            <p:panel id="leave" header="leave a comment" footer="Comments" style="margin-bottom:20px" rendered="#{login.logged and login.loginAccount.role=='Client'}">
+                                <div class="table-form">
+                                    <p:inputTextarea id="commenttxt" value="#{placeView_1.clientReviewPlace.comment}" rows="6" cols="33" />	
+                                    <p:commandButton value="Comment" id="comment" action="#{placeView_1.comment(login.loginAccount.client)}"  update="places commenttxt" styleClass="ui-priority-primary" />
+                                </div>
+                            </p:panel>
+                        </div>
+                    </div>
+                </h:form>
+
+                <!-- Keep the first param for next redirection -->
+                <f:facet name="header">
+                    Places
+                </f:facet>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

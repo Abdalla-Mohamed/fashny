@@ -67,7 +67,7 @@
 
                             <p:column style="width:32px">
                                 <f:facet name="header"/>
-                                <p:commandButton id="editButton" icon="ui-icon-search"  value="Edit Service"  onclick="PF('ServiceEditDialog').show();">
+                                <p:commandButton id="editButton" icon="ui-icon-search"  value="Edit Service" update="editForm" onclick="PF('ServiceEditDialog').show();">
                                     <f:setPropertyActionListener value="#{service}" target="#{serviceBean.service}" />
                                 </p:commandButton>               
                             </p:column>
@@ -87,7 +87,7 @@
 
 
         <ui:include src="CreateServices.xhtml"/>
-        <!--<ui:include src="EditService.xhtml"/>-->
+        <ui:include src="EditService.xhtml"/>
 
 
     </ui:define>

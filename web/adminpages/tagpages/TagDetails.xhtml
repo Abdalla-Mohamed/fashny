@@ -58,12 +58,6 @@
                             </p:column>
 
 
-                                <p:commandButton  icon="fa fa-times" title="View" action="#{placeView_1.deleteRecource()}" >
-                                    <f:setPropertyActionListener value="#{image}" target="#{placeView_1.selectedPic}" />
-                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                </p:commandButton>
-
-
 
                                 <f:facet name="footer">
                                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tagAdminBean.prepareCreate()}"  update=":TagForm" oncomplete="PF('TagCreateDialog').show()"/>  

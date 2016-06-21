@@ -127,8 +127,11 @@
                     <p:column style="width:40px">
                         <p:commandButton style="width:20px" id="viewButton" icon="ui-icon-search" action="#{tripMB.goToViewTrip(item.id)}"/>
                     </p:column>
+                    <p:column width="5%" >
+                        <p:commandButton id="imgButton" icon="fa fa-image" action="#{tripMB.goToImages(item.id)}" class="btnview" />
+                    </p:column>
 
-                    <p:column style="width:32px">
+                    <p:column  style="width:32px">
                         <p:rowEditor />
                     </p:column>
                     <f:facet name="footer">

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<ui:composition  template="./../../templates/templateAdmin.xhtml"  
+                 xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="ServiceCatForm" prependId="false">
+            <div  class="col-sm-12" align="center">
+                <div class="col-sm-2" align="center"></div>
+                <div class="col-sm-8" align="center"> 
+                    <p:panel header="#{bundle.ListServiceCategoreyTitle}" id="pnlList">
+                        <p:dataTable id="datalist" value="#{serviceCatBean.items}" var="serviceCat"
+                                     paginator="true"
+                                     rowKey="#{serviceCat.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     filteredValue="#{serviceCatBean.serviceFilteredList}"  widgetVar="serviceCategoryTable"
+                                     editable="true"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton"/>
+                            <p:ajax event="rowUnselect" update="createButton"/>
+                            <p:ajax event="rowEdit" listener="#{serviceCatBean.onRowEdit}"/>
+                            <p:ajax event="rowEditCancel" listener="#{serviceCatBean.onRowCancel}"/>
+
+                            <p:column headerText="#{bundle.ListServiceTitle_id}">
+                                <h:outputText value="#{serviceCat.id}"/>
+                            </p:column>
+
+                            <p:column headerText="#{bundle.ListServiceCategoreyTitle_name}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{serviceCat.name}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{serviceCat.name}" style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+
+
+                            <p:column headerText="#{bundle.ListServiceCategoreyTitle_active}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><p:selectBooleanCheckbox value="#{serviceCat.active}" disabled="true"/></f:facet>
+                                    <f:facet name="input"><p:selectBooleanCheckbox value="#{serviceCat.active}" disabled="false"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column style="width:32px">
+                                <p:rowEditor />
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}"  actionListener="#{serviceCatBean.prepareCreate()}" update=":ServiceCatForm" oncomplete="PF('ServiceCatCreateDialog').show()"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </div>
+            </div>
+            <p:blockUI block="pnlList" trigger="datalist:createButton">
+                LOADING<br/>
+                <p:graphicImage name="/processing-bar.gif"/>
+            </p:blockUI>
+        </h:form>
+
+
+<!--        <ui:include src="CreateServiceCategory.xhtml"/>-->
+
+    </ui:define>
+
+</ui:composition>
+
+

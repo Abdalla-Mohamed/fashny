@@ -21,13 +21,7 @@
                             <p:outputLabel value="#{bundle.CreateServiceCategoreyLabel_active}" for="active"/>
                             <p:selectBooleanCheckbox id="active" value="#{serviceCatBean.category.active}"/>
 
-                            <p:outputLabel for="partner" value="#{bundle.CreateServiceCategoreyLabel_partenersId}" />
-                            <p:selectOneMenu id="partner" value="#{serviceCatBean.category.partenersId.id}" style="width:150px"
-                                             requiredMessage="#{bundle.CreateServiceRequiredMessage_categoreyServiceid}">
-                              
-                                <f:selectItem itemLabel="Select Partner" itemValue="" noSelectionOption="true" />
-                                <f:selectItems  value="#{serviceCatBean.partners}" var="partner" itemLabel="#{partner.name}" itemValue="#{partner.id}"/>
-                            </p:selectOneMenu>
+                           
 
                             <p:commandButton action="#{serviceCatBean.save()}" value="#{bundle.Save}" update="datalist" oncomplete="PF('ServiceCatCreateDialog').hide()"/>
                             <p:commandButton oncomplete="PF('ServiceCatCreateDialog').hide()" value="#{bundle.Cancel}"/>

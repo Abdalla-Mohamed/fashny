@@ -6,9 +6,11 @@
 package com.iti.fashny.businessbeans;
 
 import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.ServiceCategoreyFacade;
 import com.iti.fashny.daos.ServiceFacade;
 import com.iti.fashny.daos.TagFacade;
 import com.iti.fashny.entities.Service;
+import com.iti.fashny.entities.ServiceCategorey;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
@@ -80,9 +82,25 @@ public class ServicesBusiness implements Commens<Service> {
         return serviceResults;
     }
 //public Service findService(){}
+
     @Override
     public List<Service> searchByExample(Service t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    
+    public ServiceCategorey showCategory(int id) {
+        ServiceCategorey categorey = new ServiceCategorey();
+        DaoFactory dao = new DaoFactory();
+        ServiceCategoreyFacade categoreyFacade = dao.getServiceCategoreyDoa();
+         categorey= categoreyFacade.find(id);
+        List<Service> serviceList = categorey.getServiceList();
+        for (Service service : serviceList) {
+            service.getName();
+        }
+        dao.close();
+        return categorey;
     }
 
     @Override

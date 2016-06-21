@@ -100,7 +100,6 @@ public class InterestsBusiness implements Commens<Tag> {
             factory.beginTransaction();
             c = cf.find(c.getId());
             for (Tag t : tags) {
-
                 if (!c.getTagList().contains(t)) {
                     c.getTagList().add(t);
                     cf.edit(c);

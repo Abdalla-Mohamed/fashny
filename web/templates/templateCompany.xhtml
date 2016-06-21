@@ -12,82 +12,16 @@
         leftUesr
     </ui:define>
 
-    
-    
-    
-     <ui:define name="headerComp">
 
 
-        <!-- Notifications Menu -->
-        <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">#{adminNotify.notifyCount()}</span>
-            </a>
-            <ul class="dropdown-menu">
-                <li class="header">You have #{adminNotify.notifyCount()} notifications</li>
-                <li>
-                    <!-- Inner Menu: contains the notifications -->
-                    <div style="position: relative; overflow: hidden; width: auto; height: 200px;" class="slimScrollDiv"><ul style="overflow: hidden; width: 100%; height: 200px;" class="menu">
-                            <li><!-- start notification -->
-                                <a href="#">
-                                    <i class="fa fa-picture-o text-aqua"></i> (#{adminNotify.placesList.size()}) new places
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-users text-aqua"></i> (#{adminNotify.companiesList.size()}) new Companies
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-tags text-aqua"></i> (#{adminNotify.tagsList.size()}) new Tags
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-plane text-aqua"></i> (#{adminNotify.tripsList.size()}) new Trips
-                                </a>
-                            </li><!-- end notification -->
-                        </ul><div style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;" class="slimScrollBar"></div><div style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;" class="slimScrollRail"></div></div>
-                </li>
-                <li class="footer"><a href="#">View all</a></li>
-            </ul>
-        </li>
-        <!-- Tasks Menu -->
-        <li class="dropdown tasks-menu">
+
+    <ui:define name="headerComp">
+
+
+      <!-- User Account Menu -->
+        <li id="menuProfile" class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-flag-o"></i>
-                <span class="label label-danger">9</span>
-            </a>
-            <ul class="dropdown-menu">
-                <li class="header">You have 9 tasks</li>
-                <li>
-                    <!-- Inner menu: contains the tasks -->
-                    <div style="position: relative; overflow: hidden; width: auto; height: 200px;" class="slimScrollDiv"><ul style="overflow: hidden; width: 100%; height: 200px;" class="menu">
-                            <li><!-- Task item -->
-                                <a href="#">
-                                    <!-- Task title and progress text -->
-                                    <h3>
-                                        Design some buttons
-                                        <small class="pull-right">20%</small>
-                                    </h3>
-                                    <!-- The progress bar -->
-                                    <div class="progress xs">
-                                        <!-- Change the css width attribute to simulate progress -->
-                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li><!-- end task item -->
-                        </ul><div style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;" class="slimScrollBar"></div><div style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;" class="slimScrollRail"></div></div>
-                </li>
-                <li class="footer">
-                    <a href="#">View all tasks</a>
-                </li>
-            </ul>
-        </li>
-        <!-- User Account Menu -->
-        <li class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a aria-expanded="false" href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a aria-expanded="false" onclick="showLogout()" onblur="$('#menuProfile').removeClass('open');$(this).blur()" href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs">#{login.loginAccount.company.name}</span>
@@ -119,76 +53,43 @@
             <a href="#">
                 <i class="fa fa-dashboard"></i> <span>Home Page</span> 
             </a>
-            <!--    
+
+        </li>
+
+        <li class=" treeview">
+            <a >
+                <i class="fa fa-map-marker"></i> <span>Places </span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
             <ul class="treeview-menu">
-                <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-            </ul>-->
+                <li class="active"><a href="/fashny/faces/companypages/clientWishesPage.xhtml">
+                        <i class="fa fa-heart"></i>Wish List</a></li>
+
+            </ul>
         </li>
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Trips</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-plane"></i> <span>Trips</span> <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
                 <li class="active"><a href="index.html">
-                        <i class="fa fa-circle-o"></i>History</a></li>
+                        <i class="fa fa-history"></i>History</a></li>
                 <li><a href="index2.html">
-                        <i class="fa fa-circle-o"></i>Current Trip</a></li>
-                <li><a href="index2.html">
-                        <i class="fa fa-circle-o"></i>Create Trip</a></li>
+                        <i class="fa fa-calendar-check-o"></i>Current Trip</a></li>
+                <li><a href="/faces/companypages/companyCreateTrip.xhtml">
+                        <i class="fa fa-plus-square"></i>Create Trip</a></li>
             </ul>
         </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Places </span> <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li class="active"><a href="index.html">
-                        <i class="fa fa-circle-o"></i>Wish List</a></li>
-                <li><a href="index2.html">
-                        <i class="fa fa-circle-o"></i>Add Place</a></li>
-            </ul>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Companies</span> 
-            </a>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Hotels </span> 
-            </a>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Restaurants</span> 
-            </a>
-        </li>
-        <li class=" treeview">
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Transport</span> 
 
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fa fa-dashboard"></i> <span> Photographer</span> 
-            </a>
-        </li>
-        <li>
-            <a href="documentation/index.html">
-                <i class="fa fa-book"></i> <span>Photographer</span>
-            </a>
-        </li>
+
     </ui:define>
 
-   
+
     <ui:define name="contPageName">
         <ui:insert name="contPageName"/>
     </ui:define>
 
     <ui:define name="contPageDescrp">
-                <ui:insert name="contPageDescrp"/>
+        <ui:insert name="contPageDescrp"/>
 
     </ui:define>
 
@@ -197,17 +98,17 @@
     </ui:define>
 
     <ui:define name="content">
-                <ui:insert name="content"/>
+        <ui:insert name="content"/>
 
     </ui:define>
 
     <ui:define name="rightHeader">
-         <ui:insert name="rightHeader"/>
+        <ui:insert name="rightHeader"/>
     </ui:define>
 
 
-<!--    <ui:define name="rightTabs">
-        rightTabs
-    </ui:define>-->
+    <!--    <ui:define name="rightTabs">
+            rightTabs
+        </ui:define>-->
 
 </ui:composition>
