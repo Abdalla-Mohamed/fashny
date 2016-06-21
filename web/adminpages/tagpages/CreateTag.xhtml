@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition>
         <p:dialog id="TagCreateDlg" widgetVar="TagCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTagTitle}">
@@ -11,16 +12,19 @@
                 <div class="col-sm-6">
                     <h:panelGroup id="display">
                         <p:panelGrid columns="2" >
+                          
+                            <p:outputLabel value="#{bundle.CreateTagLabel_name}" for="name"/>
+                            <p:inputText id="name" value="#{tagAdminBean.selectedTag.name}" required="true" requiredMessage="Please Enter Tag Name" title="#{bundle.CreateTagTitle_name}">
 
-
-
-                            <p:outputLabel value="#{bundle.CreateTagLabel_name}" for="name" />
-                            <p:inputText id="name" value="#{tagAdminBean.selectedTag.name}" title="#{bundle.CreateTagTitle_name}"/>
+                                <h:message for="name" id="test" style="color: red"/>
+                            </p:inputText>
 
                             <p:outputLabel value="#{bundle.CreateTagLabel_vaidated}" for="validation" />
-                            <p:selectBooleanCheckbox id="validation" value="#{tagAdminBean.selectedTag.vaidated}" required="true" requiredMessage="#{bundle.EditTagRequiredMessage_vaidated}"/>
-                            <p:commandButton action="#{tagAdminBean.create()}" value="#{bundle.Save}" oncomplete="PF('TagCreateDialog').hide()" update="datalist"/>
+                            <p:selectBooleanCheckbox id="validation" value="#{tagAdminBean.selectedTag.vaidated}"/>
+
+                            <p:commandButton action="#{tagAdminBean.create()}" value="#{bundle.Save}" update="datalist test"/>
                             <p:commandButton oncomplete="PF('TagCreateDialog').hide()" value="#{bundle.Cancel}"/>
+
                         </p:panelGrid>
 
                     </h:panelGroup>
