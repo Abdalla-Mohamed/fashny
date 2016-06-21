@@ -57,25 +57,19 @@
                                     </h:panelGroup>
                                     <h:panelGroup class="row"   rendered="#{searchMB.renderForTrip()}" layout="block" >
                                         <p:outputLabel for="places" value="places:"  styleClass="col-xs-12" />
-                                        <p:selectManyMenu id="places" filter="true"  filterMatchMode="contains" showCheckbox="true" scrollHeight="100"  styleClass="col-xs-12">
-                                            <f:selectItem itemLabel="Option 1" itemValue="1" />
-                                            <f:selectItem itemLabel="Option 2" itemValue="2" />
-                                            <f:selectItem itemLabel="Option 3" itemValue="3" />
-                                            <f:selectItem itemLabel="Option 1" itemValue="1" />
-                                            <f:selectItem itemLabel="Option 2" itemValue="2" />
-                                            <f:selectItem itemLabel="Option 3" itemValue="3" />
-                                            <f:selectItem itemLabel="Option 1" itemValue="1" />
-                                            <f:selectItem itemLabel="Option 2" itemValue="2" />
-                                            <f:selectItem itemLabel="Option 3" itemValue="3" />
+                                        <p:selectManyMenu id="places" value="#{searchMB.selectedPlaces}" tabindex="index" converter="converterPlace" filter="true"  filterMatchMode="contains" showCheckbox="true" scrollHeight="100"  styleClass="col-xs-12">
+                                            <f:selectItems value="#{searchMB.places}" var="placex" itemLabel="#{placex.name}" itemValue="#{placex}" />
                                         </p:selectManyMenu>
                                         <p:separator/>
                                     </h:panelGroup>
                                     <h:panelGroup class="row"   rendered="#{searchMB.renderForTrip()}" layout="block" >
 
-                                        <p:outputLabel for="companies" value="companies:" styleClass="col-xs-12" />
-                                        <p:selectManyMenu id="companies" value="#{searchMB.selectedCompanies}" tabindex="indx"  converter="converterCompany" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="100"  styleClass="col-xs-12">
-                                            <f:selectItems value="#{searchMB.companies}" var="comp"  itemLabel="#{comp.name}" itemValue="#{comp}" />
-                                        </p:selectManyMenu>
+                                        <p:outputLabel for="company" value="company:" styleClass="col-xs-12" />
+                                        <p:selectOneMenu id="company" value="#{searchMB.selectedCompany}" style="width:150px" tabindex="indx"  converter="converterCompany" filter="true" filterMatchMode="contains" >
+                                            <f:selectItem itemLabel="select company" itemValue="#{null}" noSelectionOption="true"/>                          
+                                    <f:selectItems value="#{searchMB.companies}" var="comp" itemLabel="#{comp.name}" itemValue="#{comp}"/>
+                                </p:selectOneMenu>
+                                                                                
                                         <p:separator/>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -93,7 +87,7 @@
             <div class="col-md-9 col-xs-12">
                 <div class=" blog-grids col-xs-12">
                     <h:form id="resultForm">
-                        <ui:repeat  value="#{searchMB.placesResult}" var="placeRslt" >
+                        <ui:repeat  value="#{searchMB.placesResult}" var="placeRslt" rendered="#{searchMB.renderForPlace()}">
 <!--                            <p:panel class="col-md-4 col-sm-6 col-xs-12"  header="#{placeRslt.name}"  >
 
                                 <f:facet name="actions">
@@ -114,6 +108,35 @@
                                     <a href="single.html">#{placeRslt.name}</a>
                                     <h4>27 November 2015</h4>
                                     <p>#{placeRslt.description}</p>
+                                </div>
+                                <div class="clearfix"> </div>
+                                <div class="more m1">
+                                    <a class="btn effect6" href="single.html">Learn More</a>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                        
+                        <ui:repeat  value="#{searchMB.tripsResult}" var="tripRslt" rendered="#{searchMB.renderForTrip()}">
+            <!--                            <p:panel class="col-md-4 col-sm-6 col-xs-12"  header="#{tripRslt.name}"  >
+
+                                <f:facet name="actions">
+                                    <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-info " /></h:commandLink>
+                                    <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-heart " /></h:commandLink>
+                                </f:facet>
+                                <p:graphicImage name="index.jpg" width="100%" />
+                                <p:separator/>
+                                <p:commandLink value="more details"/>
+
+                            </p:panel>
+                            -->
+                            <div class="well col-md-4 col-sm-6 col-xs-12 blog-grid" >
+                                <div class="col-xs-4 blog-grid-left">
+                                    <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                </div> 
+                                <div class="col-xs-8 blog-grid-right">
+                                    <a href="single.html">#{tripRslt.name}</a>
+                                    <h4>#{tripRslt.date}</h4>
+                                    <p>#{tripRslt.companyId.name}</p>
                                 </div>
                                 <div class="clearfix"> </div>
                                 <div class="more m1">
