@@ -16,6 +16,7 @@ import com.iti.fashny.exceptions.DeletedAccountException;
 import com.iti.fashny.exceptions.Fasa7nyException;
 import com.iti.fashny.exceptions.InvalidLoginDataException;
 import com.iti.fashny.exceptions.NotConfirmAccountException;
+import java.util.ArrayList;
 
 /**
  *
@@ -74,5 +75,14 @@ public class PartenerFacade extends AbstractFacade<Partener> {
 
     }
      
-    
+    public List<Partener> getUnconcirmPartener()
+    {
+        List<Partener> unconfirmPartener = new ArrayList<>();
+        try {
+            unconfirmPartener = getEntityManager().createNamedQuery("Partener.findByValidated").setParameter("validated", false).getResultList();           
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return unconfirmPartener;
+    }
 }

@@ -7,17 +7,22 @@ package com.iti.fashny.businessbeans;
 
 import com.iti.fashny.daos.CompanyFacade;
 import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.PartenerFacade;
 import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.TagFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Admin;
 import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.AdminInterface;
+import com.iti.fashny.managedbeans.CompanyManagedBean;
+import com.iti.fashny.managedbeans.PartnerCRUDSBean;
 import com.iti.fashny.managedbeans.PlaceViewManagedBean_1;
+import com.iti.fashny.managedbeans.TripManagedBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,6 +38,7 @@ public class AdminManager implements AdminInterface {
     private TripBusiness tripBusiness;
     private TagBusiness tagBusiness;
     private CompanyController companyController;
+    private PartnerBusiness partnerBusiness;
 
     @Override
     public void addAdmin(Admin admin) {
@@ -52,6 +58,19 @@ public class AdminManager implements AdminInterface {
     @Override
     public List<Admin> FinAllAdmin() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void confirmPartener(Partener partener) throws Exception {
+        if (partener!= null) {
+            try {
+                partener.setValidated(Boolean.TRUE);
+                partnerBusiness = new PartnerBusiness();
+                partnerBusiness.update(partener);
+            } catch (Exception ex) {
+                Logger.getLogger(PartnerCRUDSBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
@@ -96,7 +115,7 @@ public class AdminManager implements AdminInterface {
                 companyController= new CompanyController();
                 companyController.update(company);
             } catch (Exception ex) {
-                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CompanyManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -110,7 +129,7 @@ public class AdminManager implements AdminInterface {
                 tripBusiness = new TripBusiness();
                 tripBusiness.update(trip);
             } catch (Exception ex) {
-                Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -120,6 +139,29 @@ public class AdminManager implements AdminInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<Partener> findAllUncofirmPartener() {
+        DaoFactory daoFactory = new DaoFactory();
+        List<Partener> unconfirmPartener = new ArrayList<>();
+
+        try {
+
+            // get doas
+            PartenerFacade partenerFacade = daoFactory.getPartenerDoa();
+            unconfirmPartener = partenerFacade.getUnconcirmPartener();
+
+            for (Partener partenerRslt : unconfirmPartener) {
+                System.out.println( partenerRslt.getName());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            daoFactory.close();
+        }
+
+        return unconfirmPartener;
+    }
     @Override
     public List<Place> findAllUncofirmPlaces() {
         DaoFactory daoFactory = new DaoFactory();

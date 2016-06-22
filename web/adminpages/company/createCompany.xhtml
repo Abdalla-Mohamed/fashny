@@ -19,15 +19,15 @@
             </ui:define>
 
             <ui:define name="contPagePath">
-                <a href="">Home</a> ->
-                <a href="./../../adminpages/company/compaies.xhtml">Show All Companies</a> ->
+                <a href="">Home</a> >
+                <a href="./../../adminpages/company/compaies.xhtml">Show All Companies</a> >
                 <a href="./../../adminpages/company/createCompany.xhtml">Add New Company</a>
             </ui:define>
 
             <ui:define name="content">
                 <br/><br/>
                 <div  class="col-sm-12" align="center">
-                    <h:form>
+                    <h:form id="createCompanyForm" prependId="false">
                         <div class="col-sm-2" align="center"></div>
                         <div class="table-responsive col-sm-8">    
                             <table class="table table-striped " align="center" >
@@ -75,28 +75,23 @@
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile1}" for="mobile1" /></td>
                                         <td><p:inputText id="mobile1" value="#{CompanyMB.selected.mobile1}" title="#{bundle.CreateCompanyTitle_mobile1}" 
                                                          required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}" style="width: 85%;"
-                                                         validatorMessage="Mobile1 length is less than allowable minimum of '11'"
-                                                         converterMessage="Mobile1 should be numbers only">
-                                                <f:convertNumber  type="number" />
-                                                <f:validateLength minimum="11" maximum="11" />
+                                                          validatorMessage="Mobil 1 should be consists of '11' numbers"
+                                                             >
+                                                    <f:validateRegex pattern="(\d{11})"/>
                                             </p:inputText></td>
                                     </tr>                                        
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile2}" for="mobile2" /></td>
                                         <td><p:inputText id="mobile2" value="#{CompanyMB.selected.mobile2}" title="#{bundle.CreateCompanyTitle_mobile2}" 
-                                                         style="width: 85%;" validatorMessage="Mobile2 length is less than allowable minimum of '11'"
-                                                         converterMessage="Mobile2 should be numbers only">
-                                        <f:convertNumber  type="number" />
-                                        <f:validateLength minimum="11" maximum="11"/>                                    
+                                                         style="width: 85%;" validatorMessage="Mobil 2 should be consists of '11' numbers">
+                                                    <f:validateRegex pattern="(\d{11})"/>                                   
                                         </p:inputText> </td>   
                                     </tr>                                        
                                     <tr>                                           
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_phone}" for="phone" /></td>
                                         <td><p:inputText id="phone" value="#{CompanyMB.selected.phone}" title="#{bundle.CreateCompanyTitle_phone}" 
-                                                         style="width: 85%;" validatorMessage="Phone length is less than allowable minimum of '9'"
-                                                         converterMessage="Phone should be numbers only">
-                                                <f:convertNumber  type="number" />
-                                                <f:validateLength minimum="9" maximum="10"/>
+                                                         style="width: 85%;" validatorMessage="Phone should be consists of '9' or '10' numbers">
+                                                    <f:validateRegex pattern="(\d{9,10})"/>
                                             </p:inputText></td>
                                     </tr> 
                                      <tr>    
@@ -126,8 +121,10 @@
                                         <td><p:selectBooleanCheckbox id="active" value="#{CompanyMB.selected.active}" /></td>
                                     </tr>                                        
                                     <tr>
-                                        <td><p:commandButton id="create" action="#{CompanyMB.save()}" value="#{bundle.Save}"  /></td>
+                                        <td><p:commandButton id="create" action="#{CompanyMB.save()}" value="#{bundle.Save}" update="createCompanyForm" update="createCompanyForm"/></td>
+                                        <p:tooltip for="create" value="Save information of a new company" trackMouse="true" />
                                         <td align="right"><p:commandButton id="cancel" value="#{bundle.Cancel}" action="#{CompanyMB.goToCompanies()}" immediate="true"/></td>
+                                        <p:tooltip for="cancel" value="Discard entered information and back to companies page" trackMouse="true" />
                                     </tr>                                        
                                 </tbody>
                             </table>

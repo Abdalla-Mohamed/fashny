@@ -22,7 +22,7 @@
     </ui:define>
 
     <ui:define name="content"> 
-        <h:form id="CompaniesListForm">
+        <h:form id="companiesListForm" prependId="false">
             <p:growl id="msgs" showDetail="true"/>
             <p:panel header="Companies">
                 <p:dataTable id="companyDatalist" value="#{CompanyMB.items}" var="item"
@@ -33,12 +33,6 @@
                              widgetVar="companyTable"
                              editable="false"
                              >
-
-                    <p:ajax event="rowSelect"   update="createButton"/>
-                    <p:ajax event="rowUnselect" update="createButton"/>
-                    <p:ajax event="rowEdit" listener="#{CompanyMB.onRowEdit}" update="CompaniesListForm:msgs" />
-                    <p:ajax event="rowEditCancel" listener="#{CompanyMB.onRowCancel}" update="CompaniesListForm:msgs" />
-
 
                     <p:column headerText="#{bundle.ListCompanyTitle_name}">
                         <p:cellEditor>
@@ -52,7 +46,7 @@
 
                     <p:column headerText="#{bundle.ListCompanyTitle_email}">
                         <h:outputText value="#{item.email}" />
-                        
+
                     </p:column>
                     <p:column headerText="#{bundle.ListCompanyTitle_address}">
                         <p:cellEditor>
@@ -70,8 +64,8 @@
                             <f:facet name="input">
                                 <p:inputText id="modelInput_mobile1" value="#{item.mobile1}" style="width:100%"
                                              required="true" requiredMessage="#{bundle.EditCompanyRequiredMessage_mobile1}">
-                                <f:convertNumber  type="number" />
-                                <f:validateLength minimum="11" maximum="11"/>
+                                    <f:convertNumber  type="number" />
+                                    <f:validateLength minimum="11" maximum="11"/>
                                 </p:inputText>
                             </f:facet>
                         </p:cellEditor>
@@ -104,14 +98,19 @@
                     </p:column>
 
                     <p:column  style="width:40px">
-                        <p:commandButton  style="width:20px" id="viewButton" icon="ui-icon-search" action="#{CompanyMB.goToViewCompany(item.id)}"/>
+                        <p:commandButton  style="width:20px" id="viewButton" icon="ui-icon-search" action="#{CompanyMB.goToViewCompany(item.id)}" styleClass="btnView"/>
+                        <p:tooltip for="viewButton" value="Show and edit company's information" trackMouse="true" />
                     </p:column>
 
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" action="#{CompanyMB.goToCreateCompany()}"/>
+                        <p:tooltip for="createButton" value="Create new company" trackMouse="true" />
                     </f:facet>
                 </p:dataTable>
-
+                <p:blockUI block="bobo" trigger="@(.btnView) companyDatalist:createButton">
+                    LOADING<br/>
+                    <p:graphicImage name="/processing-bar.gif"/>
+                </p:blockUI>
             </p:panel>
 
         </h:form> 
