@@ -18,6 +18,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.transaction.Transactional;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
@@ -157,6 +159,8 @@ public class ServiceCategoryMB {
         if (getCatBusiness() != null) {
             try {
                 catBusiness.add(category);
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('ServiceCatCreateDialog').hide()");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -173,6 +177,7 @@ public class ServiceCategoryMB {
         }
     }
 
+    
     public String save() {
         System.out.println("===================");
         create();

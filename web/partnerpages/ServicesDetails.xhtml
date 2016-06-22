@@ -15,12 +15,12 @@
             <ui:define name="content">
                 content
 
-                <h:form id="CatForm" prependId="false">
+                <h:form id="serviceForm" prependId="false">
                     <div  class="col-sm-12" align="center">
                         <div class="col-sm-2" align="center"></div>
                         <div class="col-sm-8" align="center"> 
-                            <p:panel header="#{bundle.ListServiceCategoreyTitle}">
-                                <p:dataTable id="datalist" value="#{serviceBean.categorey.serviceList}" var="service"
+                            <p:panel header="#{bundle.ListServiceTitle}">
+                                <p:dataTable id="servicedatalist" value="#{serviceBean.categorey.serviceList}" var="service"
                                              paginator="true"
                                              rowKey="#{service.id}"
                                              rows="10"
@@ -31,7 +31,7 @@
 
 
 
-                                    <p:column headerText="#{bundle.ListServiceCategoreyTitle_id}">
+                                    <p:column headerText="#{bundle.ListServiceTitle_id}">
                                         <h:outputText value="#{service.id}"/>
                                     </p:column>
 
@@ -48,29 +48,38 @@
                                             <f:facet name="input"><p:inputText id="modelInput_name" value="#{service.description}" style="width:100%"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    
-                                    
+
+
                                     <p:column headerText="#{bundle.ListServiceTitle_cost}">
                                         <p:cellEditor>
                                             <f:facet name="output"><h:outputText value="#{service.cost}" /></f:facet>
                                             <f:facet name="input"><p:inputText id="modelInput_name" value="#{service.cost}" style="width:100%"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    
+
                                     <p:column headerText="#{bundle.ListServiceTitle_active}">
                                         <p:cellEditor>
                                             <f:facet name="output"><p:selectBooleanCheckbox value="#{service.active}" disabled="true"/></f:facet>
                                             <f:facet name="input"><p:selectBooleanCheckbox value="#{service.active}" disabled="false"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                        <!--<p:commandButton id="editButton" icon="ui-icon-search"  value="Search Service"  action=""/>-->
 
-                                
+                                    <p:column style="width:32px">
+                                        <f:facet name="header"/>
+                                        <p:commandButton id="editButton2" icon="ui-icon-pencil"  value="Edit Service"  onclick="PF('ServiceEditDialog').show();">
+                                            <f:setPropertyActionListener value="#{service}" target="#{serviceBean.service}" />
+                                        </p:commandButton>               
+                                    </p:column>
+                                    <!--<p:commandButton id="editButton" icon="ui-icon-search"  value="Search Service"  action=""/>-->
+
+
                                 </p:dataTable>
                             </p:panel>
                         </div>
                     </div>
                 </h:form>
+                <ui:include src="EditService.xhtml"></ui:include>
+
             </ui:define>
 
             <ui:define name="rightHeader">
