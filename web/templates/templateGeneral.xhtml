@@ -85,9 +85,7 @@
                                                                     </li>
                                                                 </ul>-->
                             </ui:insert>
-                            <li>
-                                <a  style="background-color: #00a65a;" ><i  ></i></a>
-                            </li>
+                            
                         </ul>
                     </div>
                 </nav>
@@ -166,10 +164,9 @@
         <!-- jQuery UI 1.11.4 -->
         <!--<h:outputScript  name="jQueryUI/jquery-ui.min.js" />-->
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-                <h:outputScript library="primefaces" name="jquery/jquery.js"/>
-
+              
         <!-- Bootstrap 3.3.5 -->
-        <!--<h:outputScript  name="bootstrap/js/bootstrap.min.js" />-->
+        <h:outputScript  name="bootstrap/js/bootstrap.min.js" />
 
              <script type="text/javascript">
 
@@ -202,6 +199,7 @@
         <!-- AdminLTE App -->
         <h:outputScript  name="dist/js/app.min.js" />
 
+  <h:outputScript library="primefaces" name="jquery/jquery.js"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:body>
 

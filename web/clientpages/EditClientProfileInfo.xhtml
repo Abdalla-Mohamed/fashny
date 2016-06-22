@@ -9,160 +9,122 @@
         <title> Edit Your Profile Info</title>
     </h:head>
     <h:body>
-        
-        
-        
+
+
+
         <h1><h:outputText value="#{MyPropertyFile.EditYourProfileInfo}"/></h1>
         <center>
 
             <ui:composition template="./../templates/clientTemplate.xhtml">
 
+
+                <ui:define name="title">
+                    Profile 
+                </ui:define>
+
                 <ui:define name="content">
-                    <center>
-                        <h2>Welcome To Fashny :)</h2>
-                    </center>
+                    <div  class="col-sm-12" align="center">
 
-                  <h:form id="myEditClientProfileForm" prependId="false">
-                        <center>
-                            Please Enter Your Personal Info
+                        <h:form id="myEditClientProfileForm" prependId="false" enctype="multipart/form-data">
 
-                            <table align="center">
+                            <div class="col-sm-3" align="center"></div>
+                            <div class="table-responsive col-sm-6">
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.Name}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.name}" id="name" required="true"/>
-                                        <h:message for="name" style="color:red" />
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.Password}"/> </td>
-                                    <td> <h:inputSecret value="#{EditClientProfileInfoBean.c.password}" id="password" required="true"> 
-                                            <f:validateLength minimum="5" maximum="10"/>
-                                        </h:inputSecret>
-                                        <h:message for="password" style="color:red" />
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.Mail}"/> </td>
-                                    <td> 
-                                        <ui:remove>
-                                        <h:inputText value="#{logEditClientProfileInfoBean.c.email}" id="mail" required="true">
-                                            <!--                                <f:validator validatorId="com.mngdBens.CustomeEmailValidator"/>-->
-                                        </h:inputText>
-                                        <h:message for="mail" style="color:red" />
-                                        </ui:remove>
-                                        
-                                        <h:outputText value="#{EditClientProfileInfoBean.c.email}"/> 
-                                        
-                                    </td>
-                                </tr>
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td> <p:outputLabel value="#{MyPropertyFile.Name}"/> </td>
+                                            <td> <p:inputText value="#{EditClientProfileInfoBean.c.name}" id="name" required="true"/>
+                                                <h:message for="name" style="color:red" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td> <p:outputLabel value="#{MyPropertyFile.Password}"/> </td>
+                                            <td>  <p:password value="#{EditClientProfileInfoBean.c.password}" redisplay="true" feedback="true" id="password" required="true" requiredMessage="#{MyPropertyFile.ClientPasswordIsRequired}"> 
+                                                    <f:validateLength minimum="5" maximum="10"/>
+                                                </p:password>
+                                                <h:message for="password" style="color:red" /></td>
+                                        </tr>
 
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.ContactEmail}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.contactEmail}" id="contactmail">
-                                            <!--                                <f:validator validatorId="com.mngdBens.CustomeEmailValidator"/>-->
-                                        </h:inputText>
-                                        <h:message for="contactmail" style="color:red" />
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td> <p:outputLabel value="#{MyPropertyFile.Mail}"/></td>
+                                            <td>  <p:outputLabel value="#{EditClientProfileInfoBean.c.email}" id="mail"/></td>
+                                        </tr>
 
+                                        <tr>
+                                            <td><p:outputLabel value="#{MyPropertyFile.ContactEmail}"/></td>
+                                            <td>    <p:inputText value="#{EditClientProfileInfoBean.c.contactEmail}" id="contactmail"  required="true" requiredMessage="#{MyPropertyFile.ClientContactEmailIsRequired}">
+                                                </p:inputText>
+                                                <h:message for="contactmail" style="color:red" /></td>
+                                        </tr>
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.Address}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.address}" id="address"/>
-                                        <h:message for="address" style="color:red" />
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td>  <p:outputLabel value="#{MyPropertyFile.Address}"/></td>
+                                            <td>  <p:inputText value="#{EditClientProfileInfoBean.c.address}" id="address"/>
+                                                <h:message for="address" style="color:red" /></td>
+                                        </tr>
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.Gender}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.gender}" id="gender"/>
-                                        
-                                        <h:selectOneRadio value="#{EditClientProfileInfoBean.c.gender}">
-                                            <f:selectItem itemValue="1" itemLabel="Female" />
-                                            <f:selectItem itemValue="2" itemLabel="Male" /> 
-                                        </h:selectOneRadio>	
-                                        
-                                        <h:message for="gender" style="color:red" />
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td>   <p:outputLabel value="#{MyPropertyFile.MaritalStatus}"/></td>
+                                            <td>    <h:selectOneMenu id="maritalStatus3" value="#{EditClientProfileInfoBean.c.maritalStatus}">
+                                                    <f:selectItem itemValue="1" itemLabel="Singel" />
+                                                    <f:selectItem itemValue="2" itemLabel="Engaged" />
+                                                    <f:selectItem itemValue="3" itemLabel="Married" />
+                                                    <f:selectItem itemValue="4" itemLabel="Divorced" />
+                                                    <f:selectItem itemValue="5" itemLabel="Widow" />
+                                                    <ui:remove> <f:selectItem itemValue="6" itemLabel="ay 7aga" /> </ui:remove>
+                                                </h:selectOneMenu>
+                                                <h:message for="maritalStatus3" style="color:red" /></td>
+                                        </tr>
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.MaritalStatus}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.maritalStatus}" id="maritalStatus"/>
-                                        
-                                        <h:selectOneRadio value="#{EditClientProfileInfoBean.c.maritalStatus}">
-                                            <f:selectItem itemValue="1" itemLabel="Singel" />
-                                            <f:selectItem itemValue="2" itemLabel="Engaged" />
-                                            <f:selectItem itemValue="3" itemLabel="Married" />
-                                            <f:selectItem itemValue="4" itemLabel="Divorced" />
-                                            <f:selectItem itemValue="5" itemLabel="Widow" />
-                                        </h:selectOneRadio>	
-                                        
-                                        <h:message for="maritalStatus" style="color:red" />
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td><p:outputLabel value="#{MyPropertyFile.Phone}"/></td>
+                                            <td>   <p:inputMask id="phone" value="#{EditClientProfileInfoBean.c.phone}" mask="(999) 9999-9999"/>
+                                                <h:message for="phone" style="color:red" /></td>
+                                        </tr>
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.Phone}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.phone}" id="phone"/> 
-                                        <h:message for="phone" style="color:red" />
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td><p:outputLabel value="#{MyPropertyFile.Mobile}"/></td>
+                                            <td> <p:inputText value="#{EditClientProfileInfoBean.c.mobile1}" id="mobile1"/>
+                                                <h:message for="mobile1" style="color:red" /></td>
+                                        </tr>
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.Mobile}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.mobile1}" id="mobile1"/>
-                                        <h:message for="mobile1" style="color:red" />
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td>   <p:outputLabel for="german" value="#{MyPropertyFile.BirthDate}"/></td>
+                                            <td>  <p:calendar id="german" value="#{EditClientProfileInfoBean.c.birthDate}" locale="de" navigator="true" pattern="dd/mm/yyyy" />
+                                                <h:message for="german" style="color:red" /></td>
+                                        </tr>
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.BirthDate}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.birthDate}" id="birthDate" required="true">
-                                            <f:convertDateTime pattern="dd/mm/yyyy"/>
-                                            <!--<f:converter converterId="javax.faces.DateTime"  />-->
-                                        </h:inputText>
-                                        <h:message for="birthDate" style="color:red" />
-                                    </td>
-                                </tr> 
+                                        <tr>
+                                            <td>  <p:outputLabel value="#{MyPropertyFile.Gender}"/></td>
+                                            <td> <h:selectOneRadio  id="gender2" value="#{EditClientProfileInfoBean.c.gender}">
+                                                    <f:selectItem itemValue="1" itemLabel="Female" />
+                                                    <f:selectItem itemValue="2" itemLabel="Male" />
+                                                </h:selectOneRadio>
+                                                <h:message for="gender2" style="color:red" /></td>
+                                        </tr>
 
-                                <tr>
-                                    <td> <h:outputText value="#{MyPropertyFile.LastSeen}"/> </td>
-                                    <td> <h:inputText value="#{EditClientProfileInfoBean.c.lastSeen}" id="lastSeen" required="true">
-                                            <f:convertDateTime pattern="dd/mm/yyyy"/>
-                                            <!--<f:converter converterId="javax.faces.DateTime"  />-->
-                                        </h:inputText>
-                                        <h:message for="lastSeen" style="color:red" />
-                                    </td>
-                                </tr> 
-                                <tr>
-                                    <h:graphicImage url="#{EditClientProfileInfoBean.c.profilePic.path}" width="200" height="171" />
-                                </tr>
+                                        <tr>
+                                            <p:graphicImage value="/Image?imageName=#{EditClientProfileInfoBean.c.profilePic.path}" width="200" height="171" />
+                                        </tr>
 
-                            </table>
+                                        <tr>
+                                            <td><p:commandButton value="#{MyPropertyFile.Save}" action="#{EditClientProfileInfoBean.editProfile()}"/></td>
+                                            <td>    <p:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="home"/></td>
 
-                            <center>
-                                <p> <h:commandButton value="#{MyPropertyFile.Save}" action="#{EditClientProfileInfoBean.editProfile()}"/>
-                                    <h:commandButton value="#{MyPropertyFile.ShowInfo}" action="index"/>
-                                    <h:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="index"/> </p>
-                                <br/>
-                                <br/>
-                            </center>
-                        </center>
-                    </h:form>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </h:form>
 
-
+                    </div>
 
                 </ui:define>
             </ui:composition>
 
         </center>
-        
+
     </h:body>
 </html>
 

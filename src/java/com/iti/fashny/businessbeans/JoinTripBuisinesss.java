@@ -12,6 +12,7 @@ import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.JoinTrip;
 import com.iti.fashny.entities.Trip;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author Hosam
  */
-public class JoinTripBuisinesss {
+public class JoinTripBuisinesss implements Serializable{
 
     DaoFactory daoFactory = new DaoFactory();
     JoinTripFacade joinTripFacade = daoFactory.getJoinTripDoa();

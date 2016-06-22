@@ -12,6 +12,8 @@ import com.iti.fashny.entities.Client;
 import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
+import com.iti.fashny.entities.Tag;
+import com.iti.fashny.entities.Trip;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +55,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
     private MapModel draggableModel;
     private MapModel viewMap;
 
+    private List<Tag> updatedTags ;
     private Resouce selectedPic;
     LatLng latLng;
     private ClientReviewPlace clientReviewPlace;
@@ -146,6 +149,15 @@ public class PlaceViewManagedBean_1 implements Serializable {
         return placeBusiness.showSpecificInfo(id);
     }
 
+    public void setUpdatedTags(List<Tag> updatedTags) {
+        this.updatedTags = updatedTags;
+    }
+    
+    public List<Tag> getUpdatedTags() {
+        return updatedTags;
+    }
+    
+    
     public List<String> getImagesList() {
         imagesList = new ArrayList<>();
         List<Resouce> resouceList = new ArrayList<>();
@@ -162,8 +174,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
         }
         return imagesList;
     }
-
-    public void setImagesList(List<String> imagesList) {
+  public void setImagesList(List<String> imagesList) {
         this.imagesList = imagesList;
     }
 
@@ -192,10 +203,12 @@ public class PlaceViewManagedBean_1 implements Serializable {
         selected = new Place();
         clientReviewPlace = new ClientReviewPlace();
         uploadImage = new UploadImage();
+        updatedTags = new ArrayList<>();
     }
 
     public String placeDetails(int id) {
         selected = placeBusiness.showSpecificInfo(id);
+       
         try {
             selected = placeBusiness.getComments(selected);
         } catch (Exception ex) {
@@ -204,6 +217,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
         return "PlaceDetails";
     }
 
+    
     public List<ClientReviewPlace> reviewPlaces() {
         List<ClientReviewPlace> clientReviewPlaceList = new ArrayList<>();
         try {
@@ -214,13 +228,29 @@ public class PlaceViewManagedBean_1 implements Serializable {
         return clientReviewPlaceList;
     }
 
+    public List<Trip> getTripsList() {
+        List<Trip> tripList = new ArrayList<>();
+        
+            try {
+                tripList = placeBusiness.getTrips(selected).getTripList();
+            } catch (Exception ex) {
+                // Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+            }
+        
+        return tripList;
+    }
+    
     public void count() {
         int size = draggableModel.getMarkers().size();
         System.out.println("---->> " + size);
     }
 
     public String goToViewPlace(int id) {
+        
         selected = placeBusiness.showSpecificInfo(id);
+        updatedTags.clear();
+        updatedTags.addAll(selected.getTagList());
         return "ViewPlacePage";
 
     }
@@ -275,14 +305,17 @@ public class PlaceViewManagedBean_1 implements Serializable {
                 ex.printStackTrace();
             }
             uploadImage.forPlace(selected.getId() + "");
-            uploadImage.handleFileUpload();
+            //uploadImage.handleFileUpload();
         }
     }
     public String update() {
         String next = null;
         if (selected != null) {
             try {
+                selected.setTagList(updatedTags);               
                 placeBusiness.update(selected);
+                items = getItems();
+                updatedTags.clear();
                 next = "adminPlace_1";
             } catch (Exception ex) {
                 ex.printStackTrace();

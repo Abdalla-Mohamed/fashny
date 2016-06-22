@@ -7,6 +7,7 @@ package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.businessbeans.AdditionalFns;
+import com.iti.fashny.businessbeans.ClientBusiness;
 import com.iti.fashny.daos.ClientFacade;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.entities.Client;
@@ -20,9 +21,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.Date;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 
 /**
@@ -36,6 +40,9 @@ public class SignUpBean {
     UploadImage uploadImage;
     
     Client c = new Client();
+    private Client newClient;
+    private boolean signUpDone;
+    private boolean picUploaded;
 
     public SignUpBean() {
         uploadImage =new UploadImage();
@@ -80,8 +87,15 @@ public class SignUpBean {
         c.setLastSeen(new Date());
         
         new guestImpl().signUp(c);
+        newClient = c;
         c=new Client();
-        return "login";
+        
+        RequestContext context = RequestContext.getCurrentInstance();
+
+        context.scrollTo("uploadGrid");
+        signUpDone = true;
+        
+        return "";
     }
 
     public String registerNewClientTest() {
@@ -91,62 +105,51 @@ public class SignUpBean {
         return "/info";
     }
 
-/*    String fileName;
-    String logo;
-    String path = "C:\\Users\\";
+ 
 
-    public String handleFileUpload(FileUploadEvent event) {
+    public void handleFileUpload(FileUploadEvent event) {
+        ClientBusiness clientBusiness = new ClientBusiness();
+         clientBusiness.addImageToClient(event.getFile(), newClient);
 
-        fileName = event.getFile().getFileName();
-        logo = event.getFile().getFileName();
-        System.out.println("Logo=" + logo);
-        try {
-            copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return logo;
+        picUploaded = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        
 
+//        context.execute("PF('uploadImage').hide()");
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    private void copyFile(String fileName, InputStream inputstream) {
-
-        try {
-
-            // write the inputStream to a FileOutputStream
-            OutputStream out = new FileOutputStream(new File(path + fileName));
-
-            int read = 0;
-            byte[] bytes = new byte[1024];
-
-            while ((read = inputstream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-
-            Resouce r = new Resouce();
-            r.setId(c.getId());
-            r.setDescription(logo);
-            r.setPath(path + fileName);
-            r.setType(1);
-
-            DaoFactory daoFactory = new DaoFactory();
-            ResouceFacade resouceDoa = daoFactory.getResouceDoa();
-            daoFactory.beginTransaction();
-            resouceDoa.create(r);
-            //resouceDoa.
-            daoFactory.commitTransaction();
-            daoFactory.close();
-
-            inputstream.close();
-            out.flush();
-            out.close();
-
-            System.out.println("New file created!");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
+    public boolean isPicUploaded() {
+        return picUploaded;
     }
-*/
+
+    public boolean isSignUpDone() {
+        return signUpDone;
+    }
+
+    public void setPicUploaded(boolean picUploaded) {
+        this.picUploaded = picUploaded;
+    }
+
+    public void setSignUpDone(boolean signUpDone) {
+        this.signUpDone = signUpDone;
+    }
+
+    public Client getNewClient() {
+        return newClient;
+    }
+
+    public void setNewClient(Client newClient) {
+        this.newClient = newClient;
+    }
+   
+ public String goToLoginPage(){
+        picUploaded =false;
+        signUpDone = true;
+        newClient = new Client();
+        return "login";
+    }
+    
     
 }

@@ -5,16 +5,21 @@
  */
 package com.iti.fashny.managedbeans;
 
+import com.iti.fashny.businessbeans.PartnerBusiness;
 import com.iti.fashny.businessbeans.ServiceCategoryBusiness;
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.ServiceCategorey;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.transaction.Transactional;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
@@ -28,15 +33,50 @@ public class ServiceCategoryMB {
 
     ServiceCategoryBusiness catBusiness;
     private ServiceCategorey category;
-    private List<ServiceCategorey> serviceCatList = null;
+    private List<ServiceCategorey> serviceCatList;
     private List<ServiceCategorey> serviceFilteredList;
     private List<Partener> partnerList;
     private PartnerCRUDSBean partnerBean;
+    List<ServiceCategorey> partnerCatList;
+    private Partener partner;
+
+    @ManagedProperty(value = "#{login}")
+    private LoginManagedBean loginManagedBean;
 
     public ServiceCategoryMB() {
         catBusiness = new ServiceCategoryBusiness();
         prepareCreate();
         partnerBean = new PartnerCRUDSBean();
+        category = new ServiceCategorey();
+    }
+
+    public void setLoginManagedBean(LoginManagedBean loginManagedBean) {
+        this.loginManagedBean = loginManagedBean;
+    }
+
+    public LoginManagedBean getLoginManagedBean() {
+        return loginManagedBean;
+    }
+
+    public void setPartner(Partener partner) {
+        this.partner = partner;
+    }
+
+    public Partener getPartner() {
+        return partner;
+    }
+
+    public List<ServiceCategorey> getPartnerCategories(Partener p) {
+        partnerCatList = catBusiness.getCategory(p);
+        return partnerCatList;
+    }
+
+    public void setPartnerCatList(List<ServiceCategorey> partnerCatList) {
+        this.partnerCatList = partnerCatList;
+    }
+
+    public List<ServiceCategorey> getPartnerCatList() {
+        return partnerCatList;
     }
 
     public void setCategory(ServiceCategorey category) {
@@ -119,6 +159,8 @@ public class ServiceCategoryMB {
         if (getCatBusiness() != null) {
             try {
                 catBusiness.add(category);
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('ServiceCatCreateDialog').hide()");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -135,6 +177,7 @@ public class ServiceCategoryMB {
         }
     }
 
+    
     public String save() {
         System.out.println("===================");
         create();
@@ -147,25 +190,21 @@ public class ServiceCategoryMB {
         return catBusiness.showSpecificInfo(id);
     }
 
-//    public List<Service> getItemsAvailableSelectMany() {
-//        List<Service> services = null;
-//        try {
-//            serviceList = serviceBusiness.view();
-//        } catch (Exception ex) {
-//            Logger.getLogger(ServiceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return serviceList;
-//    }
-//
-//    public List<Service> getItemsAvailableSelectOne() {
-//        List< Tag> tagsList = null;
-//        try {
-//            serviceList = serviceBusiness.view();
-//        } catch (Exception ex) {
-//            Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return serviceList;
-//    }
+    public List<ServiceCategorey> catList() {
+        System.out.println("grtcatmethod");
+        PartnerBusiness business = new PartnerBusiness();
+        List<ServiceCategorey> list = new ArrayList<>();
+        Partener p = new Partener();
+        try {
+            p = business.getCategoryList(loginManagedBean.getLoginAccount().getPartener());
+            list = p.getServiceCategoreyList();
+
+        } catch (Exception ex) {
+            Logger.getLogger(ServiceCategoryMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public void onRowEdit(RowEditEvent event) {
         category = (ServiceCategorey) event.getObject();
         update();

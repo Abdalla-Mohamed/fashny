@@ -20,105 +20,149 @@
                 </ui:define>
 
                 <ui:define name="content">
+                    <h:panelGroup id="upldImg" >
+                        <div  class="col-sm-12" align="center">
 
-                    <div  class="col-sm-12" align="center">
+                            <h:panelGroup rendered="#{SignUpBean.signUpDone eq false }">
+
+                                <h:form id="mySignUpForm" prependId="false"  >
+
+                                    <div class="col-sm-3" align="center"></div>
+                                    <div class="table-responsive col-sm-7">
+
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{MyPropertyFile.Name}"/></td>
+                                                    <td><p:inputText value="#{SignUpBean.c.name}" id="name" required="true" requiredMessage="#{MyPropertyFile.ClientNameMsgIsRequired}"/> </td>
+                                                    <td>  <h:message for="name" style="color:red" /> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> <p:outputLabel value="#{MyPropertyFile.Password}"/> </td>
+
+                                                    <td>  <p:password value="#{SignUpBean.c.password}" feedback="true" id="password" required="true" requiredMessage="#{MyPropertyFile.ClientPasswordIsRequired}"> 
+                                                            <f:validateLength minimum="5" maximum="10"/>
+                                                        </p:password> </td>
+                                                    <td>  <h:message for="password" style="color:red" /></td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td> <p:outputLabel value="#{MyPropertyFile.Mail}"/></td>
+                                                    <td>  <p:inputText value="#{SignUpBean.c.email}" id="mail" required="true" requiredMessage="#{MyPropertyFile.ClientMailIsRequired}">
+                                                            <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
+                                                            <f:ajax event="blur" render="mail"/>
+                                                        </p:inputText> </td>
+                                                    <td> <h:message for="mail" style="color:red" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p:outputLabel value="#{MyPropertyFile.ContactEmail}"/></td>
+                                                    <td><p:inputText value="#{SignUpBean.c.contactEmail}" id="contactmail" >
+                                                        </p:inputText> </td>
+                                                    <td>    <h:message for="contactmail" style="color:red" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>  <p:outputLabel value="#{MyPropertyFile.Address}"/></td>
+                                                    <td>  <p:inputText value="#{SignUpBean.c.address}" id="address"/> </td>
+                                                    <td>   <h:message for="address" style="color:red" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>   <p:outputLabel value="#{MyPropertyFile.MaritalStatus}"/></td>
+                                                    <td>    <h:selectOneMenu id="maritalStatus3" value="#{SignUpBean.c.maritalStatus}">
+                                                            <f:selectItem itemValue="1" itemLabel="Singel" />
+                                                            <f:selectItem itemValue="2" itemLabel="Engaged" />
+                                                            <f:selectItem itemValue="3" itemLabel="Married" />
+                                                            <f:selectItem itemValue="4" itemLabel="Divorced" />
+                                                            <f:selectItem itemValue="5" itemLabel="Widow" />
+                                                            <ui:remove> <f:selectItem itemValue="6" itemLabel="ay 7aga" /> </ui:remove>
+                                                        </h:selectOneMenu> </td>
+                                                    <td>    <h:message for="maritalStatus3" style="color:red" /></td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td><p:outputLabel value="#{MyPropertyFile.Phone}"/></td>
+                                                    <td>   <p:inputMask id="phone" value="#{SignUpBean.c.phone}" mask="(999) 9999-9999"/> </td>
+                                                    <td>   <h:message for="phone" style="color:red" /></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><p:outputLabel value="#{MyPropertyFile.Mobile}"/></td>
+                                                    <td> <p:inputMask value="#{SignUpBean.c.mobile1}" id="mobile1" required="true" requiredMessage="Mobile is required" mask="(999)99999999"/> </td>
+                                                    <td>     <h:message for="mobile1" style="color:red" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>   <p:outputLabel for="german" value="#{MyPropertyFile.BirthDate}"/></td>
+                                                    <td>  <p:calendar id="german" value="#{SignUpBean.c.birthDate}" locale="de" navigator="true" pattern="dd/mm/yyyy" required="true" requiredMessage="Birth Day is required" /> </td>
+                                                    <td>   <h:message for="german" style="color:red" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>  <p:outputLabel value="#{MyPropertyFile.Gender}"/></td>
+                                                    <td> <h:selectOneRadio  id="gender2" value="#{SignUpBean.c.gender}">
+                                                            <f:selectItem itemValue="1" itemLabel="Female" />
+                                                            <f:selectItem itemValue="2" itemLabel="Male" />
+                                                        </h:selectOneRadio>  </td>
+                                                    <td>     <h:message for="gender2" style="color:red" /></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><p:commandButton value="#{MyPropertyFile.SignUp}" actionListener="#{SignUpBean.registerNewClient()}" update="upldImg" /></td>
+                                                    <td><p:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="home"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </h:form>
+                            </h:panelGroup>
+                        </div>
+
+                        <div class="portfolio">
+                            <h:panelGroup   rendered="#{SignUpBean.signUpDone}" >
+                                <div class="container col-lg-12">
+                                    <div class=" col-lg-4" />
+                                    <h:form id="login-form" prependId="false">
+                                        <div class=" col-lg-4 " style="
+                                             padding-bottom: 0px;
+                                             margin-bottom: 0px;
+                                             " >
+                                            <p:panelGrid  id="uploadGrid" columns="1" styleClass="ui-panelgrid-blank well" >
+                                                <p:messages  autoUpdate="true" id="msgs" />
+
+                                                <p:growl id="msg"></p:growl>
+                                                <p:outputLabel rendered="#{SignUpBean.picUploaded eq false}" value="upload your image: "/>
+                                                <p:graphicImage rendered="#{not (SignUpBean.newClient.profilePic eq null )}" height="100px" style="  width:50%;   margin-right: auto; margin-left: auto;    display: block;  " value="/Image?imageName=#{SignUpBean.newClient.profilePic.path}"  />
+                                                <p:fileUpload  rendered="#{SignUpBean.picUploaded eq false}"  style="width: 100% !important" styleClass="col-lg-12"
+                                                               invalidSizeMessage="JournalDev: Invalid Size"
+                                                               invalidFileMessage="JournalDev: Invalid File Type"
+                                                               fileLimitMessage="JournalDev: Invalid File Limit" 
+                                                               mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
+                                                               allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                                               fileUploadListener="#{SignUpBean.handleFileUpload}" 
+                                                               update="msg uploadGrid"></p:fileUpload>
 
 
-                        <h:form id="mySignUpForm" prependId="false" enctype="multipart/form-data" >
 
-                            <div class="col-sm-3" align="center"></div>
-                            <div class="table-responsive col-sm-6">
+                                                <h:panelGroup styleClass="col-sm-12 col-xs-12" >
+                                                    <div class="col-sm-1 col-xs-12" />
+                                                    <p:commandButton styleClass="col-sm-3 col-xs-5" update="uploadGrid" id="buttonCncl"  value="Skip" disabled="#{ SignUpBean.picUploaded}" action="#{SignUpBean.goToLoginPage()}" />
+                                                    <div class="col-sm-4 col-xs-2" />
+                                                    <p:commandButton styleClass="col-sm-3 col-xs-5" update="uploadGrid" id="buttonNext" value="start"  disabled="#{not SignUpBean.picUploaded}" action="#{SignUpBean.goToLoginPage()}" />
+                                                    <div class="col-sm-1 col-xs-offset-01" />
 
-                                <table class="table table-striped">
-                                    <tbody>
-                                        <tr>
-                                            <td><p:outputLabel value="#{MyPropertyFile.Name}"/></td>
-                                            <td><p:inputText value="#{SignUpBean.c.name}" id="name" required="true" requiredMessage="#{MyPropertyFile.ClientNameMsgIsRequired}"/>
-                                            <h:message for="name" style="color:red" /> </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <p:outputLabel value="#{MyPropertyFile.Password}"/> </td>
+                                                </h:panelGroup>
+                                            </p:panelGrid>
 
-                                            <td>  <p:password value="#{SignUpBean.c.password}" id="password" required="true" requiredMessage="#{MyPropertyFile.ClientPasswordIsRequired}"> 
-                                                    <f:validateLength minimum="5" maximum="10"/>
-                                                </p:password>
-                                                <h:message for="password" style="color:red" /></td>
+                                            <br/>
+                                            <h:messages />
+                                            <br/>
+                                        </div>
+                                    </h:form>    
+                                    <div class="  col-lg-4" />
 
-                                        </tr>
-
-                                        <tr>
-                                            <td> <p:outputLabel value="#{MyPropertyFile.Mail}"/></td>
-                                            <td>  <p:inputText value="#{SignUpBean.c.email}" id="mail" required="true" requiredMessage="#{MyPropertyFile.ClientMailIsRequired}">
-                                                    <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
-                                                    <f:ajax event="blur" render="mail"/>
-                                                </p:inputText>
-                                                <h:message for="mail" style="color:red" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td><p:outputLabel value="#{MyPropertyFile.ContactEmail}"/></td>
-                                            <td>    <p:inputText value="#{SignUpBean.c.contactEmail}" id="contactmail"  required="true" requiredMessage="#{MyPropertyFile.ClientContactEmailIsRequired}">
-                                                </p:inputText>
-                                                <h:message for="contactmail" style="color:red" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>  <p:outputLabel value="#{MyPropertyFile.Address}"/></td>
-                                            <td>  <p:inputText value="#{SignUpBean.c.address}" id="address"/>
-                                                <h:message for="address" style="color:red" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>   <p:outputLabel value="#{MyPropertyFile.MaritalStatus}"/></td>
-                                            <td>    <h:selectOneMenu id="maritalStatus3" value="#{SignUpBean.c.maritalStatus}">
-                                                    <f:selectItem itemValue="1" itemLabel="Singel" />
-                                                    <f:selectItem itemValue="2" itemLabel="Engaged" />
-                                                    <f:selectItem itemValue="3" itemLabel="Married" />
-                                                    <f:selectItem itemValue="4" itemLabel="Divorced" />
-                                                    <f:selectItem itemValue="5" itemLabel="Widow" />
-                                                    <ui:remove> <f:selectItem itemValue="6" itemLabel="ay 7aga" /> </ui:remove>
-                                                </h:selectOneMenu>
-                                                <h:message for="maritalStatus3" style="color:red" /></td>
-                                        </tr>
-
-                                        <tr>
-
-                                            <td><p:outputLabel value="#{MyPropertyFile.Phone}"/></td>
-                                            <td>   <p:inputMask id="phone" value="#{SignUpBean.c.phone}" mask="(999) 9999-9999"/>
-                                                <h:message for="phone" style="color:red" /></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td><p:outputLabel value="#{MyPropertyFile.Mobile}"/></td>
-                                            <td> <p:inputText value="#{SignUpBean.c.mobile1}" id="mobile1"/>
-                                                <h:message for="mobile1" style="color:red" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>   <p:outputLabel for="german" value="#{MyPropertyFile.BirthDate}"/></td>
-                                            <td>  <p:calendar id="german" value="#{SignUpBean.c.birthDate}" locale="de" navigator="true" pattern="dd/mm/yyyy" />
-                                                <h:message for="german" style="color:red" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>  <p:outputLabel value="#{MyPropertyFile.Gender}"/></td>
-                                            <td> <h:selectOneRadio  id="gender2" value="#{SignUpBean.c.gender}">
-                                                    <f:selectItem itemValue="1" itemLabel="Female" />
-                                                    <f:selectItem itemValue="2" itemLabel="Male" />
-                                                </h:selectOneRadio>
-                                                <h:message for="gender2" style="color:red" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>  <p:outputLabel value="#{MyPropertyFile.Photo}"/>
-                                                <p:growl id="msg"></p:growl></td>
-
-                                            <td> <p:fileUpload value="#{SignUpBean.c.pic}" mode="simple" skinSimple="true" required="true" requiredMessage="#{m}"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>   <p:commandButton value="#{MyPropertyFile.SignUp}" ajax="false" action="#{SignUpBean.registerNewClient()}" /></td>
-                                            <td>    <p:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="home"/></td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </h:form>
-                    </div>
+                                </div>
+                            </h:panelGroup>
+                        </div>
+                    </h:panelGroup>
 
                 </ui:define>
 

@@ -14,28 +14,33 @@
         <Node id="adminpages/CreatePlacePage.xhtml" x="4550" y="32" zoom="true"/>
         <Node id="partnerpages/SignUpCreatePartener.xhtml" x="11971" y="32" zoom="true"/>
         <Node id="companypages/clientWishesPage.xhtml" x="5352" y="32" zoom="true"/>
+        <Node id="genralPages/adminLogin.xhtml" x="13084" y="32" zoom="true"/>
         <Node id="companypages/viewClient.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="clientpages/company/viewPlaceClient.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="guestPages/advancedSearch.xhtml" x="1123" y="32" zoom="true"/>
         <Node id="genralPages/adminLogin.xhtml" x="13084" y="32" zoom="true"/>
         <Node id="adminpages/tagpages/TagDetails.xhtml" x="6078" y="32" zoom="true"/>
+        <Node id="genralPages/waitConfirmtion.xhtml" x="150" y="900" zoom="true"/>
         <Node id="partnerpages/partnerPageEx.xhtml" x="15194" y="32" zoom="true"/>
+        <Node id="guestPages/tripDetails.xhtml" x="150" y="750" zoom="true"/>
         <Node id="clientpages/clientTrips.xhtml" x="400" y="150" zoom="true"/>
         <Node id="adminpages/adminPlace_1.xhtml" x="15565" y="32" zoom="true"/>
+        <Node id="adminpages/services/CreateServices.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="guestPages/trips.xhtml" x="650" y="600" zoom="true"/>
         <Node id="companypages/viewCompany.xhtml" x="650" y="300" zoom="true"/>
-        <Node id="clientpages/trips.xhtml" x="8240" y="32" zoom="true"/>
         <Node id="adminpages/managePlaceImages.xhtml" x="150" y="450" zoom="true"/>
-        <Node id="clientpages/PartenerHotelAllClientView.xhtml" x="900" y="150" zoom="true"/>
-        <Node id="adminpages/adminConfirmation.xhtml" x="2997" y="32" zoom="true"/>
-        <Node id="adminpages/partners/Createpartner.xhtml" x="3779" y="32" zoom="true"/>
+        <Node id="guestPages/PlaceClient.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="companypages/companPageEx.xhtml" x="10338" y="32" zoom="true"/>
-        <Node id="adminpages/trip/createTrip.xhtml" x="4190" y="32" zoom="true"/>
+        <Node id="adminpages/partners/Createpartner.xhtml" x="3779" y="32" zoom="true"/>
+        <Node id="adminpages/adminConfirmation.xhtml" x="2997" y="32" zoom="true"/>
         <Node id="secured/welcome.xhtml" x="10030" y="32" zoom="true"/>
+        <Node id="adminpages/trip/createTrip.xhtml" x="4190" y="32" zoom="true"/>
         <Node id="adminpages/company/compaies.xhtml" x="2241" y="32" zoom="true"/>
         <Node id="index.xhtml" x="14957" y="32" zoom="true"/>
+        <Node id="adminpages/servicescategory/ServicesCategory.xhtml" x="900" y="150" zoom="true"/>
         <Node id="adminpages/*" x="2131" y="197" zoom="true"/>
-        <Node id="*" x="1166" y="307" zoom="false"/>
+        <Node id="*" x="1151" y="151" zoom="false"/>
         <Node id="guestPages/SignUp.xhtml" x="6473" y="32" zoom="true"/>
-        <Node id="clientpages/tripDetails.xhtml" x="9697" y="32" zoom="true"/>
         <Node id="adminpages/partners/viewPartner.xhtml" x="13431" y="32" zoom="true"/>
         <Node id="templates/templatePartener.xhtml" x="2631" y="32" zoom="true"/>
         <Node id="templates/templateCompany.xhtml" x="17769" y="32" zoom="true"/>
@@ -46,31 +51,38 @@
         <Node id="companypages/companyCreateTrip.xhtml" x="8921" y="32" zoom="true"/>
         <Node id="adminpages/tagpages/CreateTag.xhtml" x="18823" y="32" zoom="true"/>
         <Node id="adminpages/client/adminClient.xhtml" x="8541" y="32" zoom="true"/>
-        <Node id="adminpages/company/viewCompany.xhtml" x="7518" y="32" zoom="true"/>
+        <Node id="guestPages/PartenerResturantesAllClientView.xhtml" x="1150" y="150" zoom="true"/>
         <Node id="partnerpages/partnerProfile.xhtml" x="419" y="32" zoom="true"/>
+        <Node id="adminpages/company/viewCompany.xhtml" x="7518" y="32" zoom="true"/>
         <Node id="adminpages/partners/AdminAllPartner.xhtml" x="11164" y="32" zoom="true"/>
         <Node id="templates/templateAdmin.xhtml" x="16287" y="32" zoom="true"/>
         <Node id="companypages/viewPlace.xhtml" x="150" y="150" zoom="true"/>
         <Node id="genralPages/genralPageEx.xhtml" x="18138" y="32" zoom="true"/>
+        <Node id="adminpages/trip/manageTripImages.xhtml" x="400" y="600" zoom="true"/>
         <Node id="adminpages/trip/trips.xhtml" x="5751" y="32" zoom="true"/>
+        <Node id="clientpages/company/viewTripClient.xhtml" x="900" y="450" zoom="true"/>
         <Node id="clientpages/EditClientProfileInfo.xhtml" x="14571" y="32" zoom="true"/>
         <Node id="companypages/viewTrip.xhtml" x="400" y="300" zoom="true"/>
         <Node id="clientpages/ClinetInterests.xhtml" x="16639" y="32" zoom="true"/>
         <Node id="templates/templateGeneral.xhtml" x="7158" y="32" zoom="true"/>
-        <Node id="clientpages/PlaceDetails.xhtml" x="13831" y="32" zoom="true"/>
         <Node id="partnerpages/EditProfilePartener.xhtml" x="14177" y="32" zoom="true"/>
         <Node id="adminpages/company/createCompany.xhtml" x="4928" y="32" zoom="false"/>
         <Node id="guestPages/home.xhtml" x="1361" y="137" zoom="true"/>
         <Node id="guestPages/login.xhtml" x="1688" y="32" zoom="false"/>
         <Node id="companypages/companyProfile.xhtml" x="34" y="32" zoom="true"/>
-        <Node id="adminpages/partners/EditPartner.xhtml" x="3384" y="32" zoom="true"/>
         <Node id="clientpages/company/viewCompanyClient.xhtml" x="10723" y="32" zoom="true"/>
+        <Node id="adminpages/partners/EditPartner.xhtml" x="3384" y="32" zoom="true"/>
         <Node id="clientpages/PlaceClient.xhtml" x="784" y="32" zoom="true"/>
+        <Node id="adminpages/services/Services.xhtml" x="400" y="750" zoom="true"/>
         <Node id="companypages/newjsf.xhtml" x="19217" y="32" zoom="true"/>
+        <Node id="adminpages/servicescategory/CreateServiceCategory.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="guestPages/PlaceDetails.xhtml" x="400" y="450" zoom="true"/>
         <Node id="adminpages/adminHome.xhtml" x="16997" y="32" zoom="true"/>
-        <Node id="clientpages/PartenerHotelShowDetailsClientView.xhtml" x="136" y="346" zoom="true"/>
+        <Node id="guestPages/PartenerHotelAllClientView.xhtml" x="150" y="300" zoom="true"/>
         <Node id="adminpages/trip/viewTrip.xhtml" x="12385" y="32" zoom="true"/>
         <Node id="adminpages/testMap.xhtml" x="18498" y="32" zoom="true"/>
+        <Node id="guestPages/PartenerHotelShowDetailsClientView.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="guestPages/PartenerResturanteShowDetailsClientView.xhtml" x="650" y="450" zoom="true"/>
         <Node id="adminpages/ViewPlacePage.xhtml" x="9329" y="32" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations">

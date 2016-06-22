@@ -28,43 +28,72 @@
             <ui:define name="content">
                 <br/> <br/> <br/>
                 <div  class="col-sm-12" align="center">
-                    <h:form id="CompanyViewForm">
+                    <h:form id="CompanyViewForm" styleClass="col-sm-8"  >
                         <div class="col-sm-2" align="center"></div>
-                        <div class="table-responsive col-sm-8">    
-                            <table class="table table-striped " align="center" >
+                        <div class="table-responsive col-sm-12">    
+                            <table class="table table-striped col-sm-12 " align="center" >
                                 <tbody>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_name}"/></td>
-                                        <td><p:inplace id="name" label="#{CompanyMB.selected.name}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.name}" title="#{bundle.CreateCompanyTitle_name}" required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_name}"/>
+                                        <td><p:inplace id="name" label="#{empty CompanyMB.selected.name?'---':CompanyMB.selected.name}" effectSpeed="fast" event="dblclick" emptyLabel="None">
+                                                <p:inputText value="#{CompanyMB.selected.name}" title="#{bundle.CreateCompanyTitle_name}" 
+                                                             required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_name}"
+                                                             style="width: 330;"/>
+
+                                            </p:inplace></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="#{bundle.ViewCompanyLabel_password}"/></td>
+                                        <td>  <p:inplace id="password"  effectSpeed="fast" event="dblclick">
+                                                <f:facet name="output">
+                                                    <p:outputLabel value="#{empty CompanyMB.selected.password?'---':CompanyMB.selected.password}" />
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputText value="#{CompanyMB.selected.password}" 
+                                                                title="#{bundle.CreateCompanyTitle_password}" style="width: 330;" 
+                                                                required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"
+                                                                validatorMessage="Password length is less than allowable minimum of '6'">
+                                                        <f:validateLength minimum="6" />
+                                                    </p:inputText>>                   
+                                                </f:facet>
 
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_description}"/></td>
-                                        <td><p:inplace id="description" label="#{CompanyMB.selected.description}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.description}" title="#{bundle.CreateCompanyTitle_description}"/>                                          
+                                        <td><p:inplace id="description" label="#{empty CompanyMB.selected.description?'---':CompanyMB.selected.description}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{CompanyMB.selected.description}" title="#{bundle.CreateCompanyTitle_description}" style="width: 330;"/> 
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_email}"/></td>
-                                        <td><h:outputText value="#{CompanyMB.selected.email}" title="#{bundle.ViewCompanyTitle_email}"/></td>
+                                        <td><h:outputText value="#{CompanyMB.selected.email}" title="#{bundle.ViewCompanyTitle_email}" style="width: 330;"/></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_contactEmail}"/></td>
-                                        <td><h:outputText value="#{CompanyMB.selected.contactEmail}" title="#{bundle.ViewCompanyTitle_contactEmail}"/></td>
+                                        <td><p:inplace id="contactEmail" label="#{empty CompanyMB.selected.contactEmail?'---':CompanyMB.selected.contactEmail}" effectSpeed="fast" event="dblclick" style="width: 330;">
+                                                <p:inputText  value="#{CompanyMB.selected.contactEmail}" title="#{bundle.CreateCompanyTitle_contactEmail}"
+                                                              style="width: 85%;" validatorMessage="Contact Email format is invalid">
+                                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                </p:inputText>
+                                            </p:inplace></td>
 
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_website}"/></td>
-                                        <td><p:inplace id="website" label="#{CompanyMB.selected.website}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.website}" title="#{bundle.CreateCompanyTitle_website}"/>                                          
+                                        <td><p:inplace id="website" label="#{empty CompanyMB.selected.website?'---':CompanyMB.selected.website}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{CompanyMB.selected.website}" title="#{bundle.CreateCompanyTitle_website}" 
+                                                             style="width: 330;" validatorMessage="Website is not valid">
+                                                    <f:validateRegex pattern="(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})"/>
+                                                </p:inputText>                                          
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_phone}"/></td>
-                                        <td><p:inplace id="phone" label="#{CompanyMB.selected.phone}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.phone}" title="#{bundle.ViewCompanyTitle_phone}" >
+                                        <td><p:inplace id="phone" label="#{empty CompanyMB.selected.phone?'---':CompanyMB.selected.phone}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{CompanyMB.selected.phone}" title="#{bundle.ViewCompanyTitle_phone}" 
+                                                             style="width: 330;" validatorMessage="Phone length is less than allowable minimum of '9'"
+                                                             converterMessage="Phone should be numbers only">
                                                     <f:convertNumber  type="number" />
                                                     <f:validateLength minimum="9" maximum="10"/>
                                                 </p:inputText>
@@ -72,9 +101,11 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile1}"/></td>
-                                        <td><p:inplace id="mobile1" label="#{CompanyMB.selected.mobile1}" effectSpeed="fast" event="dblclick">
+                                        <td><p:inplace id="mobile1" label="#{empty CompanyMB.selected.mobile1?'---':CompanyMB.selected.mobile1}" effectSpeed="fast" event="dblclick">
                                                 <p:inputText value="#{CompanyMB.selected.mobile1}" title="#{bundle.ViewCompanyTitle_mobile1}" 
-                                                             required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}">
+                                                             required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}"
+                                                             style="width: 330;" validatorMessage="Mobile1 length is less than allowable minimum of '11'"
+                                                             converterMessage="Mobile1 should be numbers only">
                                                     <f:convertNumber  type="number" />
                                                     <f:validateLength minimum="11" maximum="11"/>
                                                 </p:inputText>
@@ -82,8 +113,10 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile2}"/></td>
-                                        <td><p:inplace id="mobile2" label="#{CompanyMB.selected.mobile2}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.mobile2}" title="#{bundle.ViewCompanyTitle_mobile2}">
+                                        <td><p:inplace id="mobile2" label="#{empty CompanyMB.selected.mobile2?'---':CompanyMB.selected.mobile2}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{CompanyMB.selected.mobile2}" title="#{bundle.ViewCompanyTitle_mobile2}"
+                                                             style="width: 330;" validatorMessage="Mobile2 length is less than allowable minimum of '11'"
+                                                             converterMessage="Mobile2 should be numbers only">
                                                     <f:convertNumber  type="number" />
                                                     <f:validateLength minimum="11" maximum="11"/>
                                                 </p:inputText>
@@ -91,14 +124,22 @@
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_address}"/></td>
-                                        <td><p:inplace id="address" label="#{CompanyMB.selected.address}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{CompanyMB.selected.address}" title="#{bundle.CreateCompanyTitle_address}"/>                                          
+                                        <td><p:inplace id="address" label="#{empty CompanyMB.selected.address?'---':CompanyMB.selected.address}" effectSpeed="fast" event="dblclick">
+                                                <p:inputText value="#{CompanyMB.selected.address}" title="#{bundle.CreateCompanyTitle_address}" style="width: 330;"/>                                          
                                             </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.ViewCompanyLabel_tag}"/></td>
-                                        <td><p:dataList value="#{CompanyMB.selected.tagList}" var="tag" >#{tag.name}</p:dataList></td>
-
+                                        <td><p:inplace id="tags" effect="none" style="width: 330;">
+                                                <f:facet name="output">
+                                                    <p:dataList value="#{CompanyMB.updatedTags}" var="tag" >#{tag.name}</p:dataList>           
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:selectManyMenu id="tag" value="#{CompanyMB.updatedTags}" tabindex="indx" style="width: 330;" converter="tagConverter" filter="true" filterMatchMode="contains" showCheckbox="true" scrollHeight="45"  styleClass="col-xs-12">
+                                                        <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}"/>
+                                                    </p:selectManyMenu>                   
+                                                </f:facet>
+                                            </p:inplace></td>
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_validated}"/></td>
@@ -134,38 +175,59 @@
                             </p:blockUI>
                         </div> 
 
+                    </h:form>    
 
-                        <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
+                    <div class="col-sm-4">
+                        <h:form id="picForm" prependId="false">
+                            <p:panel >
+                                <p:graphicImage value="/Image?imageName=#{CompanyMB.selected.profilePic.path}" id="image" styleClass="img-responsive" />
+                                <p:spacer height="3"/>
+                                <br/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="upload profile image" type="button" onclick="PF('uploadImage').show();" />
+                            </p:panel>
+                        </h:form>
 
-                        <div class="col-sm-12" align="center">
-                            <h:form id="form">
-                                <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
-                                <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
-                                            rows="1" paginator="true" id="trip"
-                                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                            rowsPerPageTemplate="1,3,6,12">
+                        <p:dialog header="upload profile image" widgetVar="uploadImage" modal="true" showEffect="explode" hideEffect="bounce" resizable="true" >
+                            <h:form>
+                                <p:fileUpload fileUploadListener="#{CompanyMB.uploadPicProfile}" mode="advanced" dragDropSupport="false" 
+                                              multiple="true" update="imgMessages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
-
-                                    <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
-                                        <div class="col-xs-4 blog-grid-left">
-                                            <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
-                                        </div> 
-                                        <div class="col-xs-8 blog-grid-right">
-                                            <a href="single.html"><h4>#{trip.name}</h4></a>
-                                            <p>Trip Date : #{trip.date}</p>
-                                            <p>#{trip.countBooking} joined</p>
-                                            <h5>#{trip.cost} EGP</h5>
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                        <div class="more m1">
-                                            <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
-                                        </div>
-                                    </div>
-                                </p:dataGrid>
+                                <p:growl id="imgMessages" showDetail="true"  />
                             </h:form>
-                        </div>    
+                        </p:dialog>
 
-                    </h:form>
+
+                    </div>
+
+                    <div class="col-sm-12" align="center">
+                        <h:form id="form">
+                            <h2> Trip Organized by #{CompanyMB.selected.name}</h2>
+                            <p:dataGrid var="trip" value="#{CompanyMB.selected.tripList}" columns="3" layout="grid"
+                                        rows="12" paginator="true" 
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="6,12,16"
+                                        >
+
+
+                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right">
+                                        <a href="single.html"><h4>#{trip.name}</h4></a>
+                                        <p>Trip Date : #{trip.date}</p>
+                                        <p>#{trip.countBooking} joined</p>
+                                        <h5>#{trip.cost} EGP</h5>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <p:commandButton  type="" action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                    </div>
+                                </div>
+                            </p:dataGrid>
+                        </h:form>
+                    </div>    
+
                 </div>
             </ui:define>
 

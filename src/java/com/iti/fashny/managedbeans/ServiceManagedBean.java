@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
@@ -36,11 +37,21 @@ public class ServiceManagedBean {
     private Service service;
     ServiceCategoryMB serviceCategory;
     List<ServiceCategorey> catList;
+    private ServiceCategorey categorey;
 
     public ServiceManagedBean() {
         serviceBusiness = new ServicesBusiness();
         serviceCategory = new ServiceCategoryMB();
+        categorey=new ServiceCategorey();
         prepareCreate();
+    }
+
+    public void setCategorey(ServiceCategorey categorey) {
+        this.categorey = categorey;
+    }
+
+    public ServiceCategorey getCategorey() {
+        return categorey;
     }
 
     public List<ServiceCategorey> getCategories() {
@@ -90,6 +101,10 @@ public class ServiceManagedBean {
         return filteredItems;
     }
 
+    public List<ServiceCategorey> getCatList() {
+        return catList;
+    }
+
     public List<Service> getItems() {
 
         try {
@@ -120,6 +135,8 @@ public class ServiceManagedBean {
         if (getService() != null) {
             try {
                 serviceBusiness.add(service);
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('ServiceCreateDialog').hide()");
                 prepareCreate();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -144,30 +161,7 @@ public class ServiceManagedBean {
             }
         }
     }
-//
-//    public Service getService(java.lang.Integer id) {
-//        return serviceBusiness.showSpecificInfo(id);
-//    }
-
-//    public List<Service> getItemsAvailableSelectMany() {
-//        List<Service> services = null;
-//        try {
-//            serviceList = serviceBusiness.view();
-//        } catch (Exception ex) {
-//            Logger.getLogger(ServiceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return serviceList;
-//    }
-//
-//    public List<Service> getItemsAvailableSelectOne() {
-//        List< Tag> tagsList = null;
-//        try {
-//            serviceList = serviceBusiness.view();
-//        } catch (Exception ex) {
-//            Logger.getLogger(TagManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return serviceList;
-//    }
+    
     public void onRowEdit(RowEditEvent event) {
         service = (Service) event.getObject();
         update();
@@ -188,6 +182,12 @@ public class ServiceManagedBean {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+    }
+
+    public String categoryDetails(int id) {
+//        service = serviceBusiness.showSpecificInfo(id);
+        categorey=serviceBusiness.showCategory(id);
+        return "ServicesDetails";
     }
 
 //    @FacesConverter(forClass = Service.class)

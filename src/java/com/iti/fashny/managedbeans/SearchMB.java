@@ -6,11 +6,13 @@
 package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.CompanyController;
+import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.businessbeans.SearchManager;
 import com.iti.fashny.businessbeans.TagsController;
 import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.SearchEngine;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,30 +40,64 @@ public class SearchMB implements Serializable {
 
     TagsController tagsController;
     CompanyController companyController;
-
+    PlaceBusiness placeBusiness;
+    
     List<String> governorate;
-    String selectdGovernorat;
+    String address;
 
     List<Tag> selectedTags;
     List<Company> selectedCompanies;
-
+   
     String nameSearch;
 
     SearchEngine searchEngine = new SearchManager();
 
     List<Place> placesResult;
 
+    List<Trip> tripsResult;
+    
+    Company selectedCompany;
+    
+    List<Place> selectedPlaces;
+   
     /**
      * Creates a new instance of SearchMB
      */
     public SearchMB() {
         tagsController = new TagsController();
         companyController = new CompanyController();
+        placeBusiness = new PlaceBusiness();
         governorate = new ArrayList<>();
         selectType = SearchType.Place;
-
+        address="";
     }
 
+    public List<Place> getSelectedPlaces() {
+        return selectedPlaces;
+    }
+
+    public void setSelectedPlaces(List<Place> selectedPlaces) {
+        this.selectedPlaces = selectedPlaces;
+    }
+        
+    
+    public List<Trip> getTripsResult() {
+        return tripsResult;
+    }
+
+    public void setTripsResult(List<Trip> tripsResult) {
+        this.tripsResult = tripsResult;
+    }
+
+    public Company getSelectedCompany() {
+        return selectedCompany;
+    }
+
+    public void setSelectedCompany(Company selectedCompany) {
+        this.selectedCompany = selectedCompany;
+    }
+    
+    
     public String getNameSearch() {
         return nameSearch;
     }
@@ -70,12 +106,12 @@ public class SearchMB implements Serializable {
         this.nameSearch = nameSearch;
     }
 
-    public String getSelectdGovernorat() {
-        return selectdGovernorat;
+    public String getAddress() {
+        return address;
     }
 
-    public void setSelectdGovernorat(String selectdGovernorat) {
-        this.selectdGovernorat = selectdGovernorat;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public SearchType[] getSelectTypes() {
@@ -116,6 +152,17 @@ public class SearchMB implements Serializable {
             ex.printStackTrace();
         }
         return companies;
+    }
+    
+    public List<Place> getPlaces(){
+        List<Place> places = new ArrayList();
+        
+        try {
+            places = this.placeBusiness.view();
+        } catch (Exception ex) {
+            Logger.getLogger(SearchMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return places;
     }
 
     public List<String> getGovernorate() {
@@ -166,6 +213,7 @@ public class SearchMB implements Serializable {
                 searchForPlaces();
                 break;
             case Trip:
+                searchForTrips();
                 break;
             case Tag:
                 break;
@@ -176,13 +224,35 @@ public class SearchMB implements Serializable {
     private void searchForPlaces() {
         Place placeExample = new Place();
         placeExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
-        placeExample.setAddress(selectdGovernorat.isEmpty()?null:selectdGovernorat);
+        System.out.println("th address is"+address);
+        placeExample.setAddress(address.isEmpty()?null:address);
         placeExample.setTagList(selectedTags);
         try {
             placesResult = getSearchEngine().searchByExample(placeExample);
             System.out.println(placesResult.size()+"*************************************");
         } catch (Exception ex) {
             Logger.getLogger(SearchMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void searchForTrips() {
+        Trip tripExample = new Trip();
+        tripExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
+        //tripExample.setCompanyId(selectedCompany);
+       // System.out.println("ddddd"+selectedCompany.getId());
+       // tripExample.setPlaceList(selectedPlaces);
+        //tripExample.setTagList(selectedTags);
+        System.out.println("hiiii"+nameSearch);
+        System.out.println(selectedPlaces.size());
+        System.out.println(selectedTags.size());
+        try {
+            tripsResult = getSearchEngine().searchByExample(tripExample);
+            System.out.println(tripsResult.size()+"*************************************");
+        } catch (Exception ex) {
+            Logger.getLogger(SearchMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (Trip trip : tripsResult) {
+            System.out.println(trip.getName());
         }
     }
 
@@ -209,7 +279,7 @@ public class SearchMB implements Serializable {
     }
    
     
-    
+   
     
     
 }
