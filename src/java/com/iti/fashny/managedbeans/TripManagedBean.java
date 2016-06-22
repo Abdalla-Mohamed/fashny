@@ -237,6 +237,9 @@ public class TripManagedBean implements Serializable {
 
     public void reSelected() {
         selected = tripBusiness.showSpecificInfo(selected.getId());
+        if(getCheckTripComplete()){
+        RequestContext.getCurrentInstance().closeDialog(this);
+        }
         
     }
 

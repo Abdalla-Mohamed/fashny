@@ -35,7 +35,7 @@
                                                 <tr>
                                                     <td><p:outputLabel value="#{MyPropertyFile.Name}"/></td>
                                                     <td><p:inputText value="#{SignUpBean.c.name}" id="name" required="true" requiredMessage="#{MyPropertyFile.ClientNameMsgIsRequired}"/> </td>
-                                                       <td>  <h:message for="name" style="color:red" /> </td>
+                                                    <td>  <h:message for="name" style="color:red" /> </td>
                                                 </tr>
                                                 <tr>
                                                     <td> <p:outputLabel value="#{MyPropertyFile.Password}"/> </td>
@@ -43,7 +43,7 @@
                                                     <td>  <p:password value="#{SignUpBean.c.password}" feedback="true" id="password" required="true" requiredMessage="#{MyPropertyFile.ClientPasswordIsRequired}"> 
                                                             <f:validateLength minimum="5" maximum="10"/>
                                                         </p:password> </td>
-                                                      <td>  <h:message for="password" style="color:red" /></td>
+                                                    <td>  <h:message for="password" style="color:red" /></td>
 
                                                 </tr>
 
@@ -53,18 +53,18 @@
                                                             <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
                                                             <f:ajax event="blur" render="mail"/>
                                                         </p:inputText> </td>
-                                                       <td> <h:message for="mail" style="color:red" /></td>
+                                                    <td> <h:message for="mail" style="color:red" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td><p:outputLabel value="#{MyPropertyFile.ContactEmail}"/></td>
-                                                    <td>    <p:inputText value="#{SignUpBean.c.contactEmail}" id="contactmail"  required="true" requiredMessage="#{MyPropertyFile.ClientContactEmailIsRequired}">
+                                                    <td><p:inputText value="#{SignUpBean.c.contactEmail}" id="contactmail" >
                                                         </p:inputText> </td>
-                                                     <td>    <h:message for="contactmail" style="color:red" /></td>
+                                                    <td>    <h:message for="contactmail" style="color:red" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td>  <p:outputLabel value="#{MyPropertyFile.Address}"/></td>
                                                     <td>  <p:inputText value="#{SignUpBean.c.address}" id="address"/> </td>
-                                                      <td>   <h:message for="address" style="color:red" /></td>
+                                                    <td>   <h:message for="address" style="color:red" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td>   <p:outputLabel value="#{MyPropertyFile.MaritalStatus}"/></td>
@@ -76,25 +76,25 @@
                                                             <f:selectItem itemValue="5" itemLabel="Widow" />
                                                             <ui:remove> <f:selectItem itemValue="6" itemLabel="ay 7aga" /> </ui:remove>
                                                         </h:selectOneMenu> </td>
-                                                      <td>    <h:message for="maritalStatus3" style="color:red" /></td>
+                                                    <td>    <h:message for="maritalStatus3" style="color:red" /></td>
                                                 </tr>
 
                                                 <tr>
 
                                                     <td><p:outputLabel value="#{MyPropertyFile.Phone}"/></td>
                                                     <td>   <p:inputMask id="phone" value="#{SignUpBean.c.phone}" mask="(999) 9999-9999"/> </td>
-                                                       <td>   <h:message for="phone" style="color:red" /></td>
+                                                    <td>   <h:message for="phone" style="color:red" /></td>
                                                 </tr>
 
                                                 <tr>
                                                     <td><p:outputLabel value="#{MyPropertyFile.Mobile}"/></td>
-                                                    <td> <p:inputText value="#{SignUpBean.c.mobile1}" id="mobile1"/> </td>
-                                                     <td>     <h:message for="mobile1" style="color:red" /></td>
+                                                    <td> <p:inputMask value="#{SignUpBean.c.mobile1}" id="mobile1" required="true" requiredMessage="Mobile is required" mask="(999)99999999"/> </td>
+                                                    <td>     <h:message for="mobile1" style="color:red" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td>   <p:outputLabel for="german" value="#{MyPropertyFile.BirthDate}"/></td>
-                                                    <td>  <p:calendar id="german" value="#{SignUpBean.c.birthDate}" locale="de" navigator="true" pattern="dd/mm/yyyy" /> </td>
-                                                       <td>   <h:message for="german" style="color:red" /></td>
+                                                    <td>  <p:calendar id="german" value="#{SignUpBean.c.birthDate}" locale="de" navigator="true" pattern="dd/mm/yyyy" required="true" requiredMessage="Birth Day is required" /> </td>
+                                                    <td>   <h:message for="german" style="color:red" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td>  <p:outputLabel value="#{MyPropertyFile.Gender}"/></td>
@@ -102,14 +102,12 @@
                                                             <f:selectItem itemValue="1" itemLabel="Female" />
                                                             <f:selectItem itemValue="2" itemLabel="Male" />
                                                         </h:selectOneRadio>  </td>
-                                                     <td>     <h:message for="gender2" style="color:red" /></td>
+                                                    <td>     <h:message for="gender2" style="color:red" /></td>
                                                 </tr>
+
                                                 <tr>
-                                                    <td>    <p:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="home"/></td>
-                                                    <td>    </td>
-
-                                                    <td>   <p:commandButton value="#{MyPropertyFile.SignUp}" actionListener="#{SignUpBean.registerNewClient()}" update="upldImg" /></td>
-
+                                                    <td><p:commandButton value="#{MyPropertyFile.SignUp}" actionListener="#{SignUpBean.registerNewClient()}" update="upldImg" /></td>
+                                                    <td><p:commandButton value="#{MyPropertyFile.Cancel}" immediate="true" action="home"/></td>
                                                 </tr>
                                             </tbody>
                                         </table>

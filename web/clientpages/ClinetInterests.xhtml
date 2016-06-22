@@ -35,8 +35,11 @@
                                 </p:column>
                             </p:pickList>
                         </div>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-3">
+                            <p:commandButton id="tagSubmit" value="Submit" action="#{interests.clientInterest(login.loginAccount.client)}" style="margin-top:5px" />
+                        </div>
                     </div>
-                    <p:commandButton id="tagSubmit" value="Submit" action="#{interests.clientInterest(login.loginAccount.client)}" style="margin-top:5px" />
                 </h:form>
             </ui:define>
 
