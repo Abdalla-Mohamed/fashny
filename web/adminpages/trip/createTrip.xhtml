@@ -49,7 +49,7 @@
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateTripLabel_date}" for="date" /></td>
                                         <td><p:calendar id="date" value="#{tripMB.selected.date}" pattern="yyyy-MM-dd HH:mm:ss" 
-                                                        title="#{bundle.CreateTripTitle_date}" required="true" 
+                                                        mindate="#{tripMB.date}" title="#{bundle.CreateTripTitle_date}" required="true" 
                                                         requiredMessage="#{bundle.CreateTripRequiredMessage_date}" style="width: 85%;">
                                                 <p:ajax event="dateSelect" update="joinDeadline" />   
                                                 <p:ajax event="blur" update="joinDeadline" />   
