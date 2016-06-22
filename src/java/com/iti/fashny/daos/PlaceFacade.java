@@ -35,6 +35,9 @@ public class PlaceFacade extends AbstractFacade<Place> {
         super(Place.class, em);
     }
 
+    private static final String GET_ACTIVE_VALID_PLACS = "SELECT p FROM Place p where p.validated = :validated and p.active = :active";
+
+    
 @Override
     protected void addAssociationExample(Criteria c, Place mainExample) {
 
@@ -51,7 +54,7 @@ public class PlaceFacade extends AbstractFacade<Place> {
         List<Place> unconfirmPlaces = new ArrayList<>();
         try {
             
-            unconfirmPlaces = getEntityManager().createNamedQuery("Place.findByValidated").setParameter("validated", false).getResultList();
+            unconfirmPlaces = getEntityManager().createQuery(GET_ACTIVE_VALID_PLACS).setParameter("validated", false).getResultList();
 
 
         } catch (Exception e) {
@@ -102,4 +105,16 @@ public class PlaceFacade extends AbstractFacade<Place> {
         }
         return places;
     }
+    
+    
+    public List<Place> findAllActive(){
+        
+        List<Place>parteners = new ArrayList();
+        
+         parteners = getEntityManager().createQuery(GET_ACTIVE_VALID_PLACS)
+                                             .setParameter("validated", true).setParameter("active", true).getResultList();
+                     
+        return parteners;
+    }
+    
 }

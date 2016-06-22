@@ -147,7 +147,7 @@ public class SearchMB implements Serializable {
     public List<Company> getCompanies() {
         List<Company> companies = new ArrayList<>(0);
         try {
-            companies = this.companyController.view();
+            companies = this.companyController.getValidateCompanyForClient();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -158,7 +158,7 @@ public class SearchMB implements Serializable {
         List<Place> places = new ArrayList();
         
         try {
-            places = this.placeBusiness.view();
+            places = this.placeBusiness.viewActive();
         } catch (Exception ex) {
             Logger.getLogger(SearchMB.class.getName()).log(Level.SEVERE, null, ex);
         }

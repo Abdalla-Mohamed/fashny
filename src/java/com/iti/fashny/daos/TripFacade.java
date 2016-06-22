@@ -64,5 +64,18 @@ public class TripFacade extends AbstractFacade<Trip> {
 
     }
     
+      //_________________find validated trips____________________
+      
+       public List<Trip> getValidTrips(){
+            
+            List<Trip>trips = new ArrayList();
+            
+            trips = getEntityManager().createNamedQuery("Trip.findByValidated").setParameter("validated", true).getResultList();
+            
+            return trips;
+        }
+       
+      //_________________find validated trips____________________
+
 
 }

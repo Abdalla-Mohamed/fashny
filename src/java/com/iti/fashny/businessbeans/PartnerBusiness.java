@@ -137,32 +137,6 @@ public class PartnerBusiness implements Commens<Partener> {
         return partenr;
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            
-//            Partener selected = new Partener();
-//             selected.setName("dfa");
-//          selected.setActive(Boolean.TRUE);
-//          selected.setAddress("dfaf");
-//          selected.getContactEmail();
-//          selected.getDescription();
-//          selected.setEmail("adf");
-//          selected.setPassword("dfaf");
-//          selected.setWebsite("dfaf");
-//          selected.setAddress("dfadf");
-//          selected.setType(new PartnType(1));
-//          selected.setWorkHours("dfasdf");
-//          selected.setValidated(Boolean.TRUE);
-//          selected.setMobile1("sfad");
-//          selected.setMobile2("fsfda");
-//          selected.setPhone("wfa");
-//          selected.setActive(Boolean.TRUE);
-//            
-//            new PartnerBusiness().add(selected);
-//        } catch (Exception ex) {
-//            Logger.getLogger(PartnerBusiness.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
     public Partener getCategoryList(Partener partener) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         try {
@@ -215,4 +189,31 @@ public class PartnerBusiness implements Commens<Partener> {
         }
     }
 
+    //___________________view active and valid parteners_________________
+    public List<Partener> viewActive() throws Exception {
+
+        List<Partener> partnerResults = new ArrayList<>();
+
+        DaoFactory daoFactory = new DaoFactory();
+        PartenerFacade partenerDoa = daoFactory.getPartenerDoa();
+        PartnTypeFacade partnTypeDoa = daoFactory.getPartnTypeDoa();
+
+        try {
+            
+              partnerResults = partenerDoa.findAllActive();
+                
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return partnerResults;
+    }
+
+    //___________________view active and valid parteners_________________
+     
+    
 }

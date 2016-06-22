@@ -214,4 +214,32 @@ public class TripBusiness implements Commens<Trip>, Serializable {
         return trip;
     }
 
+    
+    //_____________________ get validated trips_____________
+    
+    
+    public List<Trip> viewValidated() throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        List<Trip> tripResults = new ArrayList<>();
+        try {
+            TripFacade tripFacade = daoFactory.getTripDoa();
+            tripResults = tripFacade.getValidTrips();
+            for (Trip trip : tripResults) {
+                System.out.println(trip.getName());
+                List<Resouce> resouceList = trip.getResouceList();
+                for (Resouce resouceList1 : resouceList) {
+                    System.out.println(resouceList1.getPath());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return tripResults;
+    }
+    
+      //_____________________ get validated trips_____________
+  
 }

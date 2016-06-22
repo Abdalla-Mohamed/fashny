@@ -481,4 +481,18 @@ public class PlaceViewManagedBean_1 implements Serializable {
         }
         return path;
     }
+    
+    //_________________________get valid and active places_____________________
+    
+     public List<Place> getActiveItems() {
+        try {
+            items = placeBusiness.viewActive();
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return items;
+    }
+     
+    //_________________________get valid and active places_____________________
+
 }
