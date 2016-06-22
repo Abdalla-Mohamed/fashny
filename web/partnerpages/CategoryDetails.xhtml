@@ -49,26 +49,26 @@
                             </p:column>
 
 
-                            <p:column style="width: 32px" >
-                                <f:facet name="header"/>
-                                <p:commandButton id="editButton" icon="ui-icon-pencil" onclick="onclick = PF('ServiceCatEditDialog').show();">
-                                </p:commandButton>
-                            </p:column>
+                            <!--                            <p:column style="width: 32px" >
+                                                            <f:facet name="header"/>
+                                                            <p:commandButton id="editButton" icon="ui-icon-pencil" onclick="onclick = PF('ServiceCatEditDialog').show();">
+                                                            </p:commandButton>
+                                                        </p:column>-->
+
 
 
 
                             <p:column style="width:32px">
                                 <f:facet name="header"/>
-                                <p:commandButton id="editButton" icon="ui-icon-pencil"  value="Edit Service" update="editForm" onclick="PF('ServiceCatEditDialog').show();">
+                                <p:commandButton id="editButton2" icon="ui-icon-pencil"  value="Edit Service"  onclick="PF('ServiceCatEditDialog').show();">
                                     <f:setPropertyActionListener value="#{serviceCat}" target="#{serviceCatBean.category}" />
                                 </p:commandButton>               
                             </p:column>
 
 
-
                             <p:column style="width: 32px">
                                 <f:facet name="header"/>
-                                <p:commandButton id="viewButton" icon="ui-icon-search" update="editForm"  action="#{serviceBean.categoryDetails(cat.id)}">
+                                <p:commandButton id="viewButton" icon="ui-icon-search"  action="#{serviceBean.categoryDetails(cat.id)}">
                                     <f:setPropertyActionListener value="#{cat}" target="#{serviceCatBean.category}" />
                                 </p:commandButton>
                             </p:column>

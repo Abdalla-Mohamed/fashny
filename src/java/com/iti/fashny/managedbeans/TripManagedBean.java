@@ -172,10 +172,9 @@ public class TripManagedBean implements Serializable {
         return "tripDetails";
     }
 
-    public String joinTrip(Client client) {
+    synchronized public String joinTrip(Client client) {
         String next = null;
         if (selected != null) {
-
             try {
                 joinTripPK.setClientId(client.getId());
                 joinTripPK.setTripid(selected.getId());
@@ -212,26 +211,38 @@ public class TripManagedBean implements Serializable {
     }
 
     public boolean getCheckTripDate() {
+        selected = tripBusiness.showSpecificInfo(selected.getId());
         return selected.getJoinDeadline().after(getDate());
     }
 
     public boolean getCheckTripComplete() {
+        selected = tripBusiness.showSpecificInfo(selected.getId());
         return selected.getMaxbooking() > selected.getCountBooking();
     }
 
     public boolean getCheckTrip() {
+        selected = tripBusiness.showSpecificInfo(selected.getId());
         boolean equals = false;
-        List<JoinTrip> joinTripList = clientJoinTripBusiness.getJoidTrips(loginManagedBean.getLoginAccount().getClient()).getJoinTripList();
-        for (JoinTrip joinTripList1 : joinTripList) {
-            equals = joinTripList1.getTrip().equals(selected);
-            if (equals) {
-                return true;
+        if (loginManagedBean.isLogged()) {
+            List<JoinTrip> joinTripList = clientJoinTripBusiness.getJoidTrips(loginManagedBean.getLoginAccount().getClient()).getJoinTripList();
+            for (JoinTrip joinTripList1 : joinTripList) {
+                equals = joinTripList1.getTrip().equals(selected);
+                if (equals) {
+                    return true;
+                }
             }
         }
         return equals;
     }
 
-    
+    public void reSelected() {
+        selected = tripBusiness.showSpecificInfo(selected.getId());
+        if(getCheckTripComplete()){
+        RequestContext.getCurrentInstance().closeDialog(this);
+        }
+        
+    }
+
     public List<String> getImagesList() {
         List<String> imagesList = new ArrayList<>();
         List<Resouce> resouceList = new ArrayList<>();
@@ -248,7 +259,6 @@ public class TripManagedBean implements Serializable {
         }
         return imagesList;
     }
-
 
     public TagCloudModel getTagCloud() {
         List<Tag> tagList = selected.getTagList();
@@ -276,6 +286,7 @@ public class TripManagedBean implements Serializable {
 
         return tagModel;
     }
+
     // --------------------------- for page --------------------------------//
     public void onRowEdit(RowEditEvent event) {
 

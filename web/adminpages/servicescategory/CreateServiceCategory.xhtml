@@ -6,14 +6,14 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    
-       <ui:define name="contPageName">
-              Create new category of service
-            </ui:define>
 
-            <ui:define name="contPageDescrp">
+    <ui:define name="contPageName">
+        Create new category of service
+    </ui:define>
 
-            </ui:define>
+    <ui:define name="contPageDescrp">
+
+    </ui:define>
 
     <ui:composition>
         <p:dialog id="ServiceCategoryCreateDlg" widgetVar="ServiceCatCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateServiceCategoreyTitle}">
@@ -30,7 +30,7 @@
                             <p:outputLabel value="#{bundle.CreateServiceCategoreyLabel_active}" for="active"/>
                             <p:selectBooleanCheckbox id="active" value="#{serviceCatBean.category.active}"/>
 
-                           
+
 
                             <p:commandButton action="#{serviceCatBean.save()}" value="#{bundle.Create}" update="datalist"/>
                             <p:commandButton oncomplete="PF('ServiceCatCreateDialog').hide()" value="#{bundle.Cancel}"/>
