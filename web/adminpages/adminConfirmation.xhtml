@@ -22,31 +22,7 @@
         <h:form id="confirmform" prependId="false">
 
             <p:tabView dynamic="true" cache="true">
-                <p:tab title="Places">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable id="placeDT" var="place" value="#{confirmBean.placesList}">
-                            <f:facet name="header">
-                                Places
-                            </f:facet>
-                            <p:column headerText="Name">
-                                <h:outputText value="#{place.name}" />
-                            </p:column>
-                            <p:column headerText="Address">
-                                <h:outputText value="#{place.address}" />
-                            </p:column>
-                            <p:column headerText="Description">
-                                <h:outputText value="#{place.description}" />
-                            </p:column>
-                            <p:column headerText="Work Hours">
-                                <h:outputText value="#{place.workHours}" />
-                            </p:column>
-                            <p:column style="width:150px;text-align: center">
-                                <p:commandButton action="#{confirmBean.confirmPlace()}"  value="Confirm" update="placeDT" styleClass="btnView">
-                                </p:commandButton>
-                            </p:column>
-                        </p:dataTable>
-                    </h:panelGrid>
-                </p:tab>
+             
                 <p:tab title="Trips">
                     <p:dataTable id="tripsDT" var="trip" value="#{confirmBean.tripsList}">
                         <f:facet name="header">
