@@ -39,9 +39,11 @@
                     <p:ajax event="rowEditCancel" listener="#{PartnerCRUDSBean.onRowCancel}" update="PartenerListForm:msgs" />
 
 
+                    <ui:remove>
                     <p:column headerText="#{MyPropertyFile.PartnerId}">
                         <h:outputText value="#{item.id}"/>
                     </p:column>
+                    </ui:remove>
 
                     <p:column headerText="#{MyPropertyFile.PartnerName}">
                         <p:cellEditor>
@@ -63,14 +65,24 @@
                             <f:facet name="input"><p:inputText id="modelInput_contactEmail" value="#{item.contactEmail}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerContactEmailIsRequiredMsg}"/></f:facet>
                         </p:cellEditor>
                     </p:column>      
-
+                    
+                    <ui:remove>
                     <p:column headerText="#{MyPropertyFile.PartnerPassword}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.password}" /></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput_password" value="#{item.password}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerPasswordIsRequiredMsg}"/></f:facet>
                         </p:cellEditor>
                     </p:column>
+                    </ui:remove>
 
+                    
+                    <p:column headerText="#{MyPropertyFile.PartnerDescription}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{item.description}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_description" value="#{item.description}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerNameIsRequiredMsg}" /></f:facet>
+                        </p:cellEditor>
+                    </p:column>                    
+                    
                     <p:column headerText="#{MyPropertyFile.PartnerAddress}">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{item.address}" /></f:facet>
@@ -106,7 +118,22 @@
                         </p:cellEditor>
                     </p:column>
 
+                    <p:column headerText="#{MyPropertyFile.PartnerValidated}">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:selectBooleanCheckbox value="#{item.validated}" disabled="true"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_validated" value="#{item.validated}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerPhoneIsRequiredMsg}"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
+                    
+                    <p:column headerText="#{MyPropertyFile.PartnerActive}">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:selectBooleanCheckbox value="#{item.active}" disabled="true"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput_active" value="#{item.active}" style="width:100%" required="true" requiredMessage="#{MyPropertyFile.PartnerPhoneIsRequiredMsg}"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    
+                    
 
 
                     <p:column style="width:32px">

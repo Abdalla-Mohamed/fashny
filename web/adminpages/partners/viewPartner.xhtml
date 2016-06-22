@@ -20,9 +20,11 @@
                         <p:outputLabel value="#{PartnerCRUDSBean.selected.name}" title="#{MyPropertyFile.PartnerName}"/>
 
 
+                        <ui:remove>
                         <p:outputLabel value="#{MyPropertyFile.PartnerPassword}"/>
                         <p:outputLabel value="#{PartnerCRUDSBean.selected.password}" title="#{MyPropertyFile.PartnerPassword}"/>
-
+                        </ui:remove>
+                        
                         <p:outputLabel value="#{MyPropertyFile.PartnerWebSite}"/>
                         <p:outputLabel value="#{PartnerCRUDSBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}"/>
 
