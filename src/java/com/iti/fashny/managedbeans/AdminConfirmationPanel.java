@@ -9,6 +9,7 @@ import com.iti.fashny.businessbeans.AdminManager;
 import static com.iti.fashny.businessbeans.Example.tst;
 import com.iti.fashny.businessbeans.PlaceBusiness;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
@@ -33,10 +34,12 @@ import org.primefaces.event.UnselectEvent;
 public class AdminConfirmationPanel {
 
     AdminInterface adminInterface;
+    DataModel<Partener> partenerList;
     DataModel<Company> companiesList;
     DataModel<Place> placesList;
     DataModel<Trip> tripsList;
     DataModel<Tag> tagsList;
+    Partener partenerToConfirm;
     Company companyToConfirm;
     Place placeToConfirm;
     Trip tripToConfirm;
@@ -82,6 +85,56 @@ public class AdminConfirmationPanel {
         return tagsList;
     }
 
+    public DataModel<Partener> getPartenerList() {
+        partenerList = new ListDataModel<Partener>(adminInterface.findAllUncofirmPartener());        
+        return partenerList;
+    }
+
+    public DataModel<Company> getCompaniesList() {
+        return companiesList;
+    }
+
+    public Partener getPartenerToConfirm() {
+        return partenerToConfirm;
+    }
+
+    public Company getCompanyToConfirm() {
+        return companyToConfirm;
+    }
+
+    public Trip getTripToConfirm() {
+        return tripToConfirm;
+    }
+
+    public Tag getTagToConfirm() {
+        return tagToConfirm;
+    }
+
+    public void setPartenerList(DataModel<Partener> partenerList) {
+        this.partenerList = partenerList;
+    }
+
+    public void setCompaniesList(DataModel<Company> companiesList) {
+        this.companiesList = companiesList;
+    }
+
+    public void setPartenerToConfirm(Partener partenerToConfirm) {
+        this.partenerToConfirm = partenerToConfirm;
+    }
+
+    public void setCompanyToConfirm(Company companyToConfirm) {
+        this.companyToConfirm = companyToConfirm;
+    }
+
+    public void setTripToConfirm(Trip tripToConfirm) {
+        this.tripToConfirm = tripToConfirm;
+    }
+
+    public void setTagToConfirm(Tag tagToConfirm) {
+        this.tagToConfirm = tagToConfirm;
+    }
+    
+    
     public void setAdminInterface(AdminInterface adminInterface) {
         this.adminInterface = adminInterface;
     }
@@ -98,6 +151,16 @@ public class AdminConfirmationPanel {
         this.tagsList = tagsList;
     }
 
+    public void confirmPartener() {
+        partenerToConfirm = partenerList.getRowData();
+        adminInterface = new AdminManager();
+        try {
+            adminInterface.confirmPartener(partenerToConfirm);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(AdminConfirmationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void confirmPlace() {
         placeToConfirm = placesList.getRowData();
         adminInterface = new AdminManager();

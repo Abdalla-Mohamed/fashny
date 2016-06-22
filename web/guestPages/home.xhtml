@@ -41,7 +41,7 @@
                            
                                
                                 <h:form id="form1">
-                    <p:dataGrid var="place" value="#{placeView_1.items}" columns="3" layout="grid"
+                                    <p:dataGrid var="place" value="#{placeView_1.activeItems}" columns="3" layout="grid"
                                 rows="6" paginator="false" id="places"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 rowIndexVar="rownum" >
@@ -105,7 +105,7 @@
                 
                 <div class="container">
 		 <h:form id="form">
-                    <p:dataGrid var="trip" value="#{tripMB.items}" columns="2" layout="grid"
+                     <p:dataGrid var="trip" value="#{tripMB.validatedItems}" columns="2" layout="grid"
                                 rows="6" paginator="false" id="places"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 >

@@ -13,6 +13,7 @@ import com.iti.fashny.exceptions.NotConfirmAccountException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -22,6 +23,11 @@ public class ClientFacade extends AbstractFacade<Client> {
 
     private static final String GET_CLIENT_TRIPS = "select j.trip  from JoinTrip j where j. = :partenerId";
     private static final String HQL_LOGIN = "FROM Client c WHERE c.email =:email AND c.password =:password ";
+    private static final String HQL_Clients_Count = "select count(c) from Client c";
+    private static final String HQL_ACTIVE_Clients_Count = "select  count(c) FROM Client c where c.active = 1";
+    private static final String HQL_GET_MALES = "select  count(c) FROM Client c where c.gender = 1 and c.active = 1";
+    private static final String HQL_GET_FEMALES = "select  count(c) FROM Client c where c.gender = 2 and c.active = 1";
+   
     Client client;
 
     ClientFacade(EntityManager em) {
@@ -61,5 +67,51 @@ public class ClientFacade extends AbstractFacade<Client> {
 
         return client;
     }
+
+    //_____________________________count all and active clients_________________
+    public int[] getClientsCount(){
+    
+         int [] o = new int [2] ;
+     try{
+      Query q = getEntityManager().createQuery(HQL_Clients_Count);
+         o[0] =  (int) (long) q.getSingleResult();
+         
+       q = getEntityManager().createQuery(HQL_ACTIVE_Clients_Count);
+         o[1] =  (int) (long) q.getSingleResult();
+        
+                         
+         
+      }catch(Exception e){
+          e.printStackTrace();
+      }
+       // [0] is all , [1] is the active
+       return o;
+}
+    
+    //_____________________________count all and active clients_________________
+
+    
+    //________________________count active males and females____________________
+    
+    public int[] getGenderCount(){
+    
+         int [] o = new int [2] ;
+     try{
+      Query q = getEntityManager().createQuery(HQL_GET_MALES);
+         o[0] =  (int) (long) q.getSingleResult();
+         
+       q = getEntityManager().createQuery(HQL_GET_FEMALES);
+         o[1] =  (int) (long) q.getSingleResult();
+        
+                         
+         
+      }catch(Exception e){
+          e.printStackTrace();
+      }
+       // [0] is males , [1] is the females
+       return o;
+}
+    
+    //________________________count active males and females____________________
 
 }

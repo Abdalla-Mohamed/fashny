@@ -15,12 +15,12 @@
             </ui:define>
 
             <ui:define name="content">
-                <c:set var="blockFrom" value="PlaceViewForm:companySignBtn  PlaceViewForm:cancelSignBtn" />
+                <c:set var="blockFrom" value="companySignBtn  cancelSignBtn" />
 
                 <h:panelGroup id="upldImg" >
                     <div  class="col-sm-12" align="center">
                         <h:panelGroup rendered="#{CompanyMB.signUpDone eq false }">
-                            <h:form id="PlaceViewForm">
+                            <h:form  id="companySignup" prependId="false">
                                 <div class="col-sm-3" align="center"></div>
                                 <div class="table-responsive col-sm-6">
 
@@ -31,7 +31,9 @@
                                         <td><p:inputText id="name" value="#{CompanyMB.selected.name}" 
                                                          title="#{bundle.CreateCompanyTitle_name}" required="true" 
                                                          requiredMessage="#{bundle.CreateCompanyRequiredMessage_name}"
-                                                         style="width:300px;"/></td>
+                                                         style="width:300px;">
+                                                         <p:message for="name" style="color: red"/>
+                                            </p:inputText></td>
                                     </tr>.
                                     
                                     <tr>
@@ -41,6 +43,7 @@
                                                         requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}" feedback="true"
                                                         style="width:300px;" validatorMessage="Password length is less than allowable minimum of '6'">
                                                 <f:validateLength minimum="6" />
+                                                <p:message for="password1" style="color: red"/>
                                             </p:password></td>
                                     </tr>
                                     <tr>
@@ -48,7 +51,9 @@
                                         <td><p:inputText id="email" value="#{CompanyMB.selected.email}" title="#{bundle.CreateCompanyTitle_email}" 
                                                          required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_email}"
                                                          validator="com.iti.fashny.validators.CustomeEmailValidator"
-                                                         style="width:300px;"/></td>
+                                                         style="width:300px;">
+                                                <p:message for="email" style="color: red"/>
+                                            </p:inputText></td>
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_contactEmail}" for="contactEmail" /></td>
@@ -56,7 +61,7 @@
                                                          title="#{bundle.CreateCompanyTitle_contactEmail}"
                                                          style="width:300px;" validatorMessage="Contact Email format is invalid">
                                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                            
+                                                <p:message for="contactEmail" style="color: red"/>
                                             </p:inputText></td>
                                     </tr>
                                     <tr>
@@ -65,6 +70,7 @@
                                                          title="#{bundle.CreateCompanyTitle_website}" style="width:300px;" 
                                                          validatorMessage="Website  is not valid">
                                                 <f:validateRegex pattern="(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})"/>
+                                                <p:message for="website" style="color: red"/>
                                             </p:inputText></td>
 
                                     </tr> 
@@ -73,30 +79,29 @@
                                         <td><p:inputText id="mobile1" value="#{CompanyMB.selected.mobile1}" 
                                                          title="#{bundle.CreateCompanyTitle_mobile1}" style="width:300px;"
                                                          required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}"
-                                                         validatorMessage="Mobile1 length is less than allowable minimum of '11'"
-                                                         converterMessage="Mobile1 should be numbers only">
-                                                <f:convertNumber  type="number" />
-                                                <f:validateLength minimum="11" maximum="11"/>
+                                                         validatorMessage="Mobil 1 should be consists of '11' numbers"
+                                                             >
+                                                    <f:validateRegex pattern="(\d{11})"/>
+                                                    <p:message for="mobile1" style="color: red"/>
                                             </p:inputText></td>
                                     </tr> 
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile2}" for="mobile2" /></td>
                                         <td><p:inputText id="mobile2" value="#{CompanyMB.selected.mobile2}" 
                                                          title="#{bundle.CreateCompanyTitle_mobile2}" style="width:300px;"
-                                                         validatorMessage="Mobile2 length is less than allowable minimum of '11'"
-                                                         converterMessage="Mobile2 should be numbers only">
-                                                <f:convertNumber  type="number" />
-                                                <f:validateLength minimum="11" maximum="11"/>                                    
+                                                         validatorMessage="Mobil 2 should be consists of '11' numbers"
+                                                             >
+                                                    <f:validateRegex pattern="(\d{11})"/>
+                                                    <p:message for="mobile2" style="color: red"/>
                                             </p:inputText></td> 
                                     </tr> 
                                     <tr>       
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_phone}" for="phone" /></td>
                                         <td><p:inputText id="phone" value="#{CompanyMB.selected.phone}" 
                                                          title="#{bundle.CreateCompanyTitle_phone}" style="width:300px;"
-                                                         validatorMessage="Phone length is less than allowable minimum of '9'"
-                                                         converterMessage="Phone should be numbers only">
-                                                <f:convertNumber  type="number" />
-                                                <f:validateLength minimum="9" maximum="10"/>
+                                                         validatorMessage="Phone should be consists of '9' or '10' numbers">
+                                                    <f:validateRegex pattern="(\d{9,10})"/>
+                                                    <p:message for="phone" style="color: red"/>
                                             </p:inputText></td>
                                     </tr>
                                     <tr>
@@ -104,20 +109,26 @@
                                         <td><p:inputText id="address1" value="#{CompanyMB.selected.address}" 
                                                          title="#{bundle.CreateCompanyTitle_address}" required="true" 
                                                          requiredMessage="#{bundle.CreateCompanyRequiredMessage_address}"
-                                                         style="width:300px;"/></td>
+                                                         style="width:300px;">
+                                                <p:message for="address1" style="color: red"/>
+                                            </p:inputText></td>
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_workHoures}" for="workHours" /></td>
                                         <td><p:inputText id="workHours" value="#{CompanyMB.selected.workHoures}" 
                                                          title="#{bundle.CreateCompanyTitle_workHoures}" required="true"  
                                                          requiredMessage="#{bundle.CreateCompanyRequiredMessage_workHoures}"
-                                                         style="width:300px;"/></td>
+                                                         style="width:300px;">
+                                                <p:message for="workHours" style="color: red"/>
+                                            </p:inputText></td>
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_description}" for="description" /></td>
-                                        <td><p:inputTextarea rows="4" cols="22" id="description" value="#{CompanyMB.selected.description}"
+                                        <td><p:inputTextarea id="description" rows="4" cols="22"  value="#{CompanyMB.selected.description}"
                                                              title="#{bundle.CreateCompanyTitle_description}" 
-                                                             style="width:300px;"/></td>
+                                                             style="width:300px;">
+                                                <p:message for="description" style="color: red"/>
+                                            </p:inputTextarea></td>
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="Tags:" styleClass="col-xs-12" for="tag"/></td>
@@ -125,6 +136,7 @@
                                                               converter="tagConverter" filter="true" filterMatchMode="contains" 
                                                               showCheckbox="true" scrollHeight="45"  style="width:300px;">
                                                 <f:selectItems value="#{tagBean.items}" var="tag"  itemLabel="#{tag.name}" itemValue="#{tag}" />
+                                            <p:message for="tag" style="color: red"/>
                                             </p:selectManyMenu></td>
                                     </tr>
                                     <tr>
@@ -146,7 +158,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><p:commandButton id="companySignBtn"  actionListener="#{CompanyMB.saveForClient()}" value="#{bundle.Save}" update=":upldImg" /></td>
+                                                <td><p:commandButton id="companySignBtn"  actionListener="#{CompanyMB.saveForClient()}" value="#{bundle.Save}" update=":upldImg companySignup" /></td>
                                                 <td align="right"><p:commandButton id="cancelSignBtn" value="#{bundle.Cancel}" action="#{CompanyMB.cancelForClient()}"
                                                                                    immediate="true"/></td>
                                             </tr>

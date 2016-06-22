@@ -45,6 +45,13 @@
             <to-view-id>/adminpages/ViewPlacePage.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/adminpages/trip/viewTrip.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ViewClient</from-outcome>
+            <to-view-id>/adminpages/client/ViewClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
     <navigation-rule>
         <from-view-id>*</from-view-id>

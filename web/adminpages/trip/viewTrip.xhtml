@@ -25,8 +25,9 @@
             </ui:define>
 
             <ui:define name="content">
+
                 <br/> <br/> <br/>
-                <h:form id="PlaceViewForm">
+                <h:form id="tripViewForm">
                     <div  class="col-sm-12" align="center">
                         <div class="col-sm-2" align="center"></div>
                         <div class="col-sm-8" align="center">    
@@ -45,7 +46,7 @@
                                         <td><p:outputLabel value="#{bundle.ViewTripLabel_companyId}"/></td>
                                         <td><p:inplace id="companyId" label="#{empty tripMB.selected.companyId?'---':tripMB.selected.companyId}" effectSpeed="fast" event="dblclick">
                                                 <f:facet name="output">
-                                                <h:outputText value="#{tripMB.selected.companyId.name}" title="#{bundle.ViewTripTitle_companyId}" />
+                                                    <h:outputText value="#{tripMB.selected.companyId.name}" title="#{bundle.ViewTripTitle_companyId}" />
                                                 </f:facet>
                                                 <f:facet name="input">
                                                     <p:selectOneMenu value="#{tripMB.selected.companyId}" style="width:150px" 
@@ -55,7 +56,7 @@
                                                 </f:facet>
                                             </p:inplace></td>
                                     </tr>
-                                   
+
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewTripLabel_date}"/></td>
                                         <td><p:inplace id="date" label="#{empty tripMB.selected.date?'---':tripMB.selected.date}" effectSpeed="fast" event="dblclick">
@@ -149,7 +150,7 @@
                                                              style="width: 330;"/>
                                             </p:inplace></td>
                                     </tr>
-                                    
+
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.ViewTripLabel_tag}"/></td>
                                         <td><p:inplace id="tags" effect="none" style="width: 330;">
@@ -186,7 +187,7 @@
                                             </p:inplace></td>
                                     </tr>
                                     <tr> 
-                                        <td align="left"><p:commandButton id="update" action="#{tripMB.update}" value="#{bundle.Edit}"/></td>
+                                        <td align="left"><p:commandButton id="update" action="#{tripMB.update}" value="#{bundle.Edit}" update="tripViewForm"/></td>
                                         <td align="right"><p:commandButton id="cancelbtn" value="#{bundle.Close}" action="trips" immediate="true"/></td>
                                     </tr>
                                 </tbody>
@@ -196,7 +197,13 @@
 
                     <div class="col-sm-12" align="center"><br/> <br/> <br/></div>
 
-                    <div class="col-sm-12" align="center">
+                       
+                    <p:blockUI block="bobo" trigger=" @(.btnView) update cancelbtn">
+                        LOADING<br/>
+                        <p:graphicImage name="/processing-bar.gif"/>
+                    </p:blockUI>
+                </h:form>
+                <div class="col-sm-12" align="center">
                         <h3> #{tripMB.selected.name} involves visiting to these places </h3>
                         <h:form id="form">
                             <p:dataGrid var="place" value="#{tripMB.selected.placeList}" columns="3" layout="grid"
@@ -215,15 +222,44 @@
 
                                     </div>
                                     <div class="clearfix"> </div>
-                                    <div class="more m1">
+                                    <div class="more m1" align="center">
                                         <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
-                                        <h:commandButton   action="#{placeView_1.placeDetails(place.id)}" value="More Details"/>
+                                        <p:commandButton    action="#{placeView_1.placeDetails(place.id)}" value="More Details" styleClass="btnView"/>
                                     </div>
                                 </div>
                             </p:dataGrid>
                         </h:form>
-                    </div>    
-                </h:form>
+                    </div> 
+                
+                <div class="col-sm-12" align="center">
+                    <h4 align="center"> Members who joined #{tripMB.selected.name}</h4>
+                    <h:form id="clientform">
+                        <p:dataGrid var="joinTrip" value="#{tripMB.selected.joinTripList}" columns="3" layout="grid"
+                                    rows="3" paginator="true" id="joinTripList"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    rowsPerPageTemplate="3,6,12">
+
+
+                            <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                <div class="col-xs-4 blog-grid-left">
+                                    <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                </div> 
+                                <div class="col-xs-8 blog-grid-right">
+                                    <h3><a href="single.html">#{joinTrip.client.name}</a></h3>
+                                    <p>#{joinTrip.client.email}</p>
+                                    <p>#{joinTrip.client.mobile1}</p>
+                                </div>
+                                <div class="clearfix"> </div>
+                                <div class="more m1" align="center">
+                                    <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
+                                    <p:commandButton   action="#{adminClient.goToViewClient(joinTrip.client.id)}" value="More Details" styleClass="btnView"/>
+                                </div>
+                            </div>
+                        </p:dataGrid>
+
+                    </h:form>
+                </div>
+
             </ui:define>
 
             <ui:define name="rightHeader"> 
