@@ -17,25 +17,37 @@
                         <p:outputLabel value="#{MyPropertyFile.PartnerPassword}"/>
                         <p:inputText value="#{PartnerCRUDSBean.selected.password}" title="#{MyPropertyFile.PartnerPassword}" required="true" requiredMessage="#{MyPropertyFile.PartnerPasswordIsRequiredMsg}"/>
 
+                        
+                         <p:outputLabel  value="Governorate: " />
+                        <h:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px" required="true" requiredMessage="select governrate">
+                            <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                            <p:ajax listener="#{PartnerCRUDSBean.selected.setAddress(addressMB.governorate)}" />
+                            <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{addressMB.governorates}" />
+                        </h:selectOneMenu>
+                        
                         <p:outputLabel value="#{MyPropertyFile.PartnerWebSite}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}" required="true" requiredMessage="#{MyPropertyFile.PartnerWebSiteIsRequiredMsg}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}"/>
 
-
-                        <p:outputLabel value="#{MyPropertyFile.PartnerAddress}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.address}" title="#{MyPropertyFile.PartnerAddress}" required="true" requiredMessage="#{MyPropertyFile.PartnerAddressIsRequiredMsg}"/>
+                        <p:outputLabel  for="city" value="City: " />
+                        <h:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" required="true" requiredMessage="select city">
+                            <p:ajax listener="#{PartnerCRUDSBean.selected.setAddress(addressMB.address)}" />
+                            <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{addressMB.cities}" />
+                        </h:selectOneMenu>   
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerDescription}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerDescriptionIsRequiredMsg}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" />
 
 
                         <ui:remove>
-                        <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerTypeIsRequiredMsg}">
-                            <f:converter converterId="PartenerCreatePartenerConverterForPartenerType" />
-                        </p:inputText>
+                            <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
+                            <p:inputText value="#{PartnerCRUDSBean.selected.type}" title="#{MyPropertyFile.PartnerType}" required="true" requiredMessage="#{MyPropertyFile.PartnerTypeIsRequiredMsg}">
+                                <f:converter converterId="PartenerCreatePartenerConverterForPartenerType" />
+                            </p:inputText>
                         </ui:remove>
-                        
+
                         <p:outputLabel value="#{MyPropertyFile.PartnerType}"/>
                         <h:selectOneMenu value="#{PartnerCRUDSBean.selected.type}" converter="PartenerCreatePartenerConverterForPartenerType" required="true" requiredMessage="#{MyPropertyFile.PartnerTypeIsRequiredMsg}">
                             <f:selectItems value="#{PartnerCRUDSBean.findAll}" var="findall" itemValue="#{findall}" itemLabel="#{findall.name}" />
@@ -51,13 +63,13 @@
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerEmail}"/>
                         <p:inputText value="#{PartnerCRUDSBean.selected.email}" title="#{MyPropertyFile.PartnerEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerEmailIsRequiredMsg}">
-                        <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
+                            <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
                         </p:inputText>
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerContactEmail}"/>
                         <p:inputText value="#{PartnerCRUDSBean.selected.contactEmail}" title="#{MyPropertyFile.PartnerContactEmail}" required="true" requiredMessage="#{MyPropertyFile.PartnerContactEmailIsRequiredMsg}">
-                        <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
+                            <f:validator validatorId="com.iti.fashny.validators.CustomeEmailValidator"/>
                         </p:inputText>
 
 
@@ -66,18 +78,11 @@
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerMobile2}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.mobile2}" title="#{MyPropertyFile.PartnerMobile2}" required="true" requiredMessage="#{MyPropertyFile.PartnerMobile2IsRequiredMsg}"/>
+                        <p:inputText value="#{PartnerCRUDSBean.selected.mobile2}" title="#{MyPropertyFile.PartnerMobile2}" />
 
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerPhone}"/>
-                        <p:inputText value="#{PartnerCRUDSBean.selected.phone}" title="#{MyPropertyFile.PartnerPhone}" required="true" requiredMessage="#{MyPropertyFile.PartnerPhone}"/>
-
-
-                        <p:outputLabel value="#{MyPropertyFile.PartnerProfilePic}"/>
-                        <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.profilePic}" title="#{MyPropertyFile.PartnerProfilePic}"/></ui:remove>
-                        <p:fileUpload fileUploadListener="#{PartnerCRUDSBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
-                                      sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-
+                        <p:inputText value="#{PartnerCRUDSBean.selected.phone}" title="#{MyPropertyFile.PartnerPhone}" />
 
                         <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
                         <ui:remove><p:inputText value="#{PartnerCRUDSBean.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerActiveIsRequiredMsg}"/></ui:remove>
@@ -89,6 +94,6 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-        
+
     </ui:composition>
 </html>

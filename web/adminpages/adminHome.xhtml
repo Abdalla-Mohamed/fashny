@@ -22,18 +22,7 @@
             </ui:define>
 
             <ui:define name="content">
-                <h:form enctype="multipart/form-data" style="width:500px">
-                    <p:growl id="msg"></p:growl>
-                    <p:fileUpload value="#{fileUploadMB.file}"
-                                  invalidSizeMessage="JournalDev: Invalid Size"
-                                  invalidFileMessage="JournalDev: Invalid File Type"
-                                  fileLimitMessage="JournalDev: Invalid File Limit" 
-                                  mode="advanced" multiple="true" fileLimit="3" sizeLimit="#{20480*1000*1000}"
-                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                                  fileUploadListener="#{fileUploadMB.handleFileUpload2}" 
-                                  update="msg"></p:fileUpload>
-                </h:form>
-
+               
                 <h:form>
                     <p:growl id="growl" showDetail="true" />
 

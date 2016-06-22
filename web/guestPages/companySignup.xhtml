@@ -105,13 +105,21 @@
                                             </p:inputText></td>
                                     </tr>
                                     <tr>
-                                        <td><p:outputLabel value="#{bundle.CreateCompanyLabel_address}" for="address1" /></td>
-                                        <td><p:inputText id="address1" value="#{CompanyMB.selected.address}" 
-                                                         title="#{bundle.CreateCompanyTitle_address}" required="true" 
-                                                         requiredMessage="#{bundle.CreateCompanyRequiredMessage_address}"
-                                                         style="width:300px;">
-                                                <p:message for="address1" style="color: red"/>
-                                            </p:inputText></td>
+                                        <td><p:outputLabel  value="Governorate: " /></td>
+                                        <td><h:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px" required="true" requiredMessage="select Governerate">
+                                                <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                                <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                                <f:selectItems value="#{addressMB.governorates}" />
+                                            </h:selectOneMenu></td>
+                                    <tr>
+                                        <td><p:outputLabel  for="city" value="City: " /></td>
+                                        <td><h:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" required="true" requiredMessage="select city">
+                                                    <p:ajax listener="#{CompanyMB.selected.setAddress(addressMB.address)}" />
+                                                    <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{addressMB.cities}" />
+                                                </h:selectOneMenu></td>
+                                    </tr>            
+
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_workHoures}" for="workHours" /></td>
