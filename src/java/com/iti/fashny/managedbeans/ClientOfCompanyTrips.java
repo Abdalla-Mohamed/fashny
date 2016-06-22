@@ -14,6 +14,7 @@ import com.iti.fashny.entities.Company;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Trip;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -172,5 +173,15 @@ public class ClientOfCompanyTrips implements Serializable {
         return "viewClient";
     }
     
+    public List<Trip> tripListCompany(){
+        List<Trip> tripList=new ArrayList<>();
+        try {
+            selected = companyController.gitAllCompanyLists(selected);
+            tripList = selected.getTripList();
+        } catch (Exception ex) {
+            Logger.getLogger(ClientOfCompanyTrips.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tripList;
+    }
     
 }
