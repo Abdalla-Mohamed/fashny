@@ -394,4 +394,20 @@ public class TripManagedBean implements Serializable {
         }
         return path;
     }
+    
+ //_____________________ get validated trips_____________
+
+     public List<Trip> getValidatedItems() {
+
+        try {
+            items = tripBusiness.viewValidated();
+        } catch (Exception ex) {
+            Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return items;
+    }
+  
+ //_____________________ get validated trips_____________
+
 }

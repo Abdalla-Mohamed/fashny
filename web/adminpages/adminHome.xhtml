@@ -33,6 +33,26 @@
                                   fileUploadListener="#{fileUploadMB.handleFileUpload2}" 
                                   update="msg"></p:fileUpload>
                 </h:form>
+
+                <h:form>
+                    <p:growl id="growl" showDetail="true" />
+
+                    <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+                        <p:chart type="pie" model="#{chartsMB.genderModel}" style="width:400px;height:300px">
+                            <p:ajax event="itemSelect" listener="#{chartsMB.itemSelect}" update="growl" />
+                        </p:chart>
+
+                        <p:chart type="bar" model="#{chartsMB.usersModel}" style="width:400px;height:300px">
+                            <p:ajax event="itemSelect" listener="#{chartsMB.itemSelect}" update="growl" />
+                        </p:chart>  
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+                        <p:chart type="bar" model="#{chartsMB.topCompanies}" style="width:400px;" />
+                    </h:panelGrid>
+
+                </h:form>
+
             </ui:define>
 
             <ui:define name="rightHeader">

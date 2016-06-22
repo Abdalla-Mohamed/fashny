@@ -55,6 +55,7 @@
                                 </p:selectOneMenu>
                                         <p:separator/>
                                     </h:panelGroup>
+                                    
                                     <h:panelGroup class="row"   rendered="#{searchMB.renderForTrip()}" layout="block" >
                                         <p:outputLabel for="places" value="places:"  styleClass="col-xs-12" />
                                         <p:selectManyMenu id="places" value="#{searchMB.selectedPlaces}" tabindex="index" converter="converterPlace" filter="true"  filterMatchMode="contains" showCheckbox="true" scrollHeight="100"  styleClass="col-xs-12">
@@ -100,6 +101,7 @@
 
                             </p:panel>
                             -->
+                            <ui:fragment rendered="#{placeRslt.validated and placeRslt.active}">
                             <div class="well col-md-4 col-sm-6 col-xs-12 blog-grid" >
                                 <div class="col-xs-4 blog-grid-left">
                                     <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
@@ -114,6 +116,7 @@
                                     <a class="btn effect6" href="single.html">Learn More</a>
                                 </div>
                             </div>
+                            </ui:fragment>
                         </ui:repeat>
                         
                         <ui:repeat  value="#{searchMB.tripsResult}" var="tripRslt" rendered="#{searchMB.renderForTrip()}">
