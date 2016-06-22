@@ -7,6 +7,7 @@ package com.iti.fashny.managedbeans;
 
 import com.iti.fashny.businessbeans.AdminManager;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
@@ -27,6 +28,7 @@ public class AdminNotifyManagedBean {
     private List<Place> placesList;
     private List<Trip> tripsList;
     private List<Tag> tagsList;
+    private List<Partener> partnerList;
 
     public AdminNotifyManagedBean() {
         adminManager = new AdminManager();
@@ -34,7 +36,9 @@ public class AdminNotifyManagedBean {
         placesList = new ArrayList<>();
         tripsList = new ArrayList<>();
         tagsList = new ArrayList<>();
+        partnerList=new ArrayList<>();
     }
+    
 //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
 
     public AdminManager getAdminManager() {
@@ -81,9 +85,19 @@ public class AdminNotifyManagedBean {
         this.tagsList = tagsList;
     }
 
+    public List<Partener> getPartnerList() {
+        partnerList=getAdminManager().findAllUncofirmPartener();
+        return partnerList;
+    }
+
+    public void setPartnerList(List<Partener> partnerList) {
+        this.partnerList = partnerList;
+    }
+
 //</editor-fold>
+    
     public String notifyCount() {
-        int size = getPlacesList().size()+ getCompaniesList().size() + getTagsList().size() + getTripsList().size();
+        int size = getPartnerList().size()+getCompaniesList().size() + getTagsList().size() + getTripsList().size();
         return size + "";
     }
 }
