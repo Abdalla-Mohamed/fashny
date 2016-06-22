@@ -5,25 +5,32 @@
  */
 package com.iti.fashny.businessbeans;
 
+import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.daos.DaoFactory;
 import com.iti.fashny.daos.PartenerFacade;
 import com.iti.fashny.daos.PartnTypeFacade;
 import com.iti.fashny.daos.PlaceFacade;
+import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.PartnType;
 import com.iti.fashny.entities.Place;
+import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.entities.ServiceCategorey;
 import com.iti.fashny.interfaces.Commens;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
  * @author MANAR ADEL
  */
 public class PartnerBusiness implements Commens<Partener> {
+
+    public PartnerBusiness() {
+    }
 
     @Override
     public Partener login(String email, String password) throws Exception {
@@ -130,6 +137,32 @@ public class PartnerBusiness implements Commens<Partener> {
         return partenr;
     }
 
+//    public static void main(String[] args) {
+//        try {
+//            
+//            Partener selected = new Partener();
+//             selected.setName("dfa");
+//          selected.setActive(Boolean.TRUE);
+//          selected.setAddress("dfaf");
+//          selected.getContactEmail();
+//          selected.getDescription();
+//          selected.setEmail("adf");
+//          selected.setPassword("dfaf");
+//          selected.setWebsite("dfaf");
+//          selected.setAddress("dfadf");
+//          selected.setType(new PartnType(1));
+//          selected.setWorkHours("dfasdf");
+//          selected.setValidated(Boolean.TRUE);
+//          selected.setMobile1("sfad");
+//          selected.setMobile2("fsfda");
+//          selected.setPhone("wfa");
+//          selected.setActive(Boolean.TRUE);
+//            
+//            new PartnerBusiness().add(selected);
+//        } catch (Exception ex) {
+//            Logger.getLogger(PartnerBusiness.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     public Partener getCategoryList(Partener partener) throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         try {
@@ -139,7 +172,7 @@ public class PartnerBusiness implements Commens<Partener> {
             List<ServiceCategorey> serviceCategoreyList = partener.getServiceCategoreyList();
             System.out.println(serviceCategoreyList.size());
             for (ServiceCategorey serviceCategorey : serviceCategoreyList) {
-                System.out.println( serviceCategorey.getName());
+                System.out.println(serviceCategorey.getName());
             }
             daoFactory.commitTransaction();
         } catch (Exception e) {
@@ -151,4 +184,35 @@ public class PartnerBusiness implements Commens<Partener> {
         }
         return partener;
     }
+
+    public void addImageToPartner(UploadedFile image, Partener partener) {
+        DaoFactory daoFactory = new DaoFactory();
+        PartenerFacade partenerFacade = daoFactory.getPartenerDoa();
+        ResouceFacade resouceDoa = daoFactory.getResouceDoa();
+        System.out.println("~~~~~~~~~~~~~~~~~~~  " + image.getFileName() + " ~~~~~~~~~~~~~~~");
+        try {
+            daoFactory.beginTransaction();
+
+            Integer partenerId = partener.getId();
+
+            UploadImage uploadImage = new UploadImage();
+            uploadImage.setFile(image);
+            uploadImage.forPartner("" + partenerId);
+            String filePath = uploadImage.handleFileUpload();
+
+            Resouce resouce = new Resouce(null, filePath);
+            resouceDoa.create(resouce);
+            Partener find = partenerFacade.find(partener.getId());
+            find.setProfilePic(resouce);
+//            Place find = placeDoa.find(placeId);
+//            System.out.println("image count::"+find.getResouceList().size());
+            partener.setProfilePic(resouce);
+
+            daoFactory.commitTransaction();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+        }
+    }
+
 }
