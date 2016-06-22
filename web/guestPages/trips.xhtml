@@ -23,7 +23,7 @@
 
             <ui:define name="content">
                 <h:form id="form" prependId="false">
-                    <p:dataGrid id="trips" var="trip" value="#{tripMB.items}" columns="3" layout="grid"
+                    <p:dataGrid id="trips" var="trip" value="#{tripMB.validatedItems}" columns="3" layout="grid"
                                 rows="12" paginator="true"  paginatorPosition="bottom"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 rowsPerPageTemplate="6,12,16">

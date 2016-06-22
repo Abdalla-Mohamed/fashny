@@ -113,8 +113,8 @@ public class PartnerBusiness implements Commens<Partener> {
         }
         return partnerResults;
     }
-
-    @Override
+    
+        @Override
     public List<Partener> searchByExample(Partener t) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -151,4 +151,31 @@ public class PartnerBusiness implements Commens<Partener> {
         }
         return partener;
     }
+    
+    //___________________view active and valid parteners_________________
+    public List<Partener> viewActive() throws Exception {
+
+        List<Partener> partnerResults = new ArrayList<>();
+
+        DaoFactory daoFactory = new DaoFactory();
+        PartenerFacade partenerDoa = daoFactory.getPartenerDoa();
+        PartnTypeFacade partnTypeDoa = daoFactory.getPartnTypeDoa();
+
+        try {
+            
+              partnerResults = partenerDoa.findAllActive();
+                
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            daoFactory.rollbackTransaction();
+
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return partnerResults;
+    }
+
+    //___________________view active and valid parteners_________________
+     
 }

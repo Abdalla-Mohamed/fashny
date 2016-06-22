@@ -16,6 +16,7 @@ import com.iti.fashny.exceptions.DeletedAccountException;
 import com.iti.fashny.exceptions.Fasa7nyException;
 import com.iti.fashny.exceptions.InvalidLoginDataException;
 import com.iti.fashny.exceptions.NotConfirmAccountException;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,6 +27,8 @@ public class PartenerFacade extends AbstractFacade<Partener> {
 
     private static final String GET_PARTENER_SERVICES= "select s.serviceList  from ServiceCategorey s where s.partenersId = :partenerId";
     private static final String HQL_LOGIN = "FROM Partener p WHERE p.email =:email AND p.password =:password ";
+    private static final String GET_ALL_ACTIVE_PARTENERS = "FROM Partener p where p.validated = :validated and p.active = :active";
+
 
   
      PartenerFacade(EntityManager em) {
@@ -43,6 +46,16 @@ public class PartenerFacade extends AbstractFacade<Partener> {
             valid=true;
         
         return valid;
+    }
+     
+     public List<Partener> findAllActive(){
+        
+        List<Partener>parteners = new ArrayList();
+        
+         parteners = getEntityManager().createQuery(GET_ALL_ACTIVE_PARTENERS)
+                                             .setParameter("validated", true).setParameter("active", true).getResultList();
+                     
+        return parteners;
     }
      
      public List<Service> getPartenerServices(Partener partener){

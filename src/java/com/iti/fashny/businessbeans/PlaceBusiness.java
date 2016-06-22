@@ -22,6 +22,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -92,8 +94,8 @@ public class PlaceBusiness implements Commens<Place> {
         }
         return placeResults;
     }
-
-    public void getPlaceResoures(Place place) {
+    
+        public void getPlaceResoures(Place place) {
         DaoFactory daoFactory = new DaoFactory();
 
         try {
@@ -224,5 +226,35 @@ public class PlaceBusiness implements Commens<Place> {
         }
         return deleted;
     }
+   
+    
+    //___________________view valdited and active places_____________
+    
+    public List<Place> viewActive() throws Exception {
+
+        DaoFactory daoFactory = new DaoFactory();
+        List<Place> placeResults = new ArrayList<>();
+        try {
+            // get doas
+            PlaceFacade placeFacade = daoFactory.getPlaceDoa();
+            // search/read/select 
+            placeResults = placeFacade.findAllActive();
+            for (Place place : placeResults) {
+                System.out.println(place.getName());
+                List<Resouce> resouceList = place.getResouceList();
+                for (Resouce resouceList1 : resouceList) {
+                    System.out.println(resouceList1.getPath());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return placeResults;
+    }
+
+    //___________________view valdited and active places_____________
 
 }
