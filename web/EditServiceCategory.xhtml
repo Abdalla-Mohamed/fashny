@@ -6,15 +6,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    
-       <ui:define name="contPageName">
-                Edit categories
-            </ui:define>
-
-            <ui:define name="contPageDescrp">
-
-            </ui:define>
-
     <ui:composition>
         <p:dialog id="ServiceCatEditDlg" widgetVar="ServiceCatEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditServiceCategoreyTitle}">
             <h:form id="editForm">
@@ -30,7 +21,7 @@
                             <p:outputLabel value="#{bundle.EditServiceCategoreyLabel_active}" for="active" />
                             <p:selectBooleanCheckbox id="active" value="#{serviceCatBean.category.active}" required="true"/>
 
-                          
+                           
 
                             <p:commandButton action="#{serviceCatBean.update()}" value="#{bundle.Edit}" oncomplete="PF('ServiceCatEditDialog').hide()" update="datalist"/>
                             <p:commandButton oncomplete="PF('ServiceCatEditDialog').hide()" value="#{bundle.Cancel}"/>
