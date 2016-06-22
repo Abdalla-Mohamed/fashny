@@ -68,7 +68,7 @@
                             <f:facet name="output"><h:outputText value="#{item.date}" /></f:facet>
                             <f:facet name="input">
                                 <p:calendar id="modelInput_date" value="#{item.date}" style="width:100%" pattern="yyyy-MM-dd" 
-                                             required="true" requiredMessage="#{bundle.EditTripRequiredMessage_date}"/>
+                                            required="true" requiredMessage="#{bundle.EditTripRequiredMessage_date}"/>
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
@@ -105,24 +105,25 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    
+
 
                     <p:column style="width:40px">
-                        <p:commandButton style="width:20px" id="viewButton" icon="ui-icon-search" action="#{tripMB.goToViewTrip(item.id)}"/>
+                        <p:commandButton style="width:20px" id="viewButton" icon="ui-icon-search" action="#{tripMB.goToViewTrip(item.id)}" styleClass="btnView"/>
                     </p:column>
                     <p:column width="5%" >
                         <p:commandButton id="imgButton" icon="fa fa-image" action="#{tripMB.goToImages(item.id)}" class="btnview" />
                     </p:column>
-
-                    <p:column  style="width:32px">
-                        <p:rowEditor />
-                    </p:column>
+            
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" action="#{tripMB.goToCreateTrip()}" />
                     </f:facet>
 
                 </p:dataTable>
 
+                <p:blockUI block="bobo" trigger="@(.btnView) tripDatalist:createButton">
+                    LOADING<br/>
+                    <p:graphicImage name="/processing-bar.gif"/>
+                </p:blockUI>
             </p:panel>
 
         </h:form>      

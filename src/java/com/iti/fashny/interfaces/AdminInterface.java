@@ -10,6 +10,7 @@ import com.iti.fashny.exceptions.Fasa7nyException;
 import com.iti.fashny.entities.Admin;
 import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Company;
+import com.iti.fashny.entities.Partener;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
@@ -29,6 +30,8 @@ public interface AdminInterface {
 
     public List<Admin> FinAllAdmin();
 
+    public void confirmPartener(Partener partener) throws Exception;
+   
     public void confirmPlace(Place place) throws Exception;
 
     public void deactivateTag(Tag tag) throws Exception;
@@ -40,6 +43,8 @@ public interface AdminInterface {
     public void confirmTrip(Trip trip) throws Exception;
 
     public List<ClientReviewPlace> FindAllComment();
+    
+    public List<Partener> findAllUncofirmPartener();
     
     public List<Company> findAllUncofirmCompany();
     
@@ -62,4 +67,6 @@ public interface AdminInterface {
 //    AddlClient(Client);-Company-Partener-
 //    deactivate client-company-partner
 //    public void deactivateTrip(Trip trip)throws Exception;
+
+  
 }
