@@ -31,15 +31,25 @@
                                     </p:password>
 
                                     <p:outputLabel value="#{MyPropertyFile.PartnerWebSite}"/>
-                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.website}" title="#{MyPropertyFile.PartnerWebSite}" />
 
+                                    <p:outputLabel  value="Governorate: " />
+                                    <h:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px" required="true" requiredMessage="select governrate">
+                                        <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                        <p:ajax listener="#{PartnerCRUDSBean.selected.setAddress(addressMB.governorate)}" />
+                                        <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{addressMB.governorates}" />
+                                    </h:selectOneMenu>
 
-                                    <p:outputLabel value="#{MyPropertyFile.PartnerAddress}"/>
-                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.address}" title="#{MyPropertyFile.PartnerAddress}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
-
+                                    <p:outputLabel  for="city" value="City: " />
+                                    <h:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" required="true" requiredMessage="select city">
+                                        <p:ajax listener="#{PartnerCRUDSBean.selected.setAddress(addressMB.address)}" />
+                                        <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                        <f:selectItems value="#{addressMB.cities}" />
+                                    </h:selectOneMenu>
 
                                     <p:outputLabel value="#{MyPropertyFile.PartnerDescription}"/>
-                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
+                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.description}" title="#{MyPropertyFile.PartnerDescription}" />
 
 
                                     <ui:remove>
@@ -78,28 +88,7 @@
 
                                     <p:outputLabel value="#{MyPropertyFile.PartnerMobile1}"/>
                                     <p:inputText value="#{SignUpCreatePartenerBean.selected.mobile1}" title="#{MyPropertyFile.PartnerMobile1}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
-
-
-                                    <p:outputLabel value="#{MyPropertyFile.PartnerMobile2}"/>
-                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.mobile2}" title="#{MyPropertyFile.PartnerMobile2}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
-
-
-                                    <p:outputLabel value="#{MyPropertyFile.PartnerPhone}"/>
-                                    <p:inputText value="#{SignUpCreatePartenerBean.selected.phone}" title="#{MyPropertyFile.PartnerPhone}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/>
-
-                                    <ui:remove>
-                                        <p:outputLabel value="#{MyPropertyFile.PartnerProfilePic}"/>
-                                        <ui:remove><p:inputText value="#{SignUpCreatePartenerBean.selected.profilePic}" title="#{MyPropertyFile.PartnerProfilePic}"/></ui:remove>
-                                        <p:fileUpload fileUploadListener="#{SignUpCreatePartenerBean.handleFileUpload}" dragDropSupport="true" label="Choose" auto="true"
-                                                      sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-                                    </ui:remove>
-
-
-                                    <ui:remove>
-                                        <p:outputLabel value="#{MyPropertyFile.PartnerActive}"/>
-                                        <ui:remove><p:inputText value="#{SignUpCreatePartenerBean.selected.active}" title="#{MyPropertyFile.PartnerActive}" required="true" requiredMessage="#{MyPropertyFile.PartnerThisFieldIsRequired}"/></ui:remove>
-                                        <p:selectBooleanCheckbox value="#{SignUpCreatePartenerBean.selected.active}" />
-                                    </ui:remove>
+                  
 
                                 </p:panelGrid>
 

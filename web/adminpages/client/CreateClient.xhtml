@@ -64,11 +64,27 @@
                                             </p:inputText></td>
                                         <td><p:message for="password"/></td>
                                     </tr>
-                                    <tr>
-                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_address}" for="address" /></td>
-                                        <td><p:inputText id="address" value="#{adminClient.selected.address}" title="#{bundle.CreateClientTitle_address}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_address}"/></td>
-                                        <td><p:message for="address"/></td>
-                                    </tr>
+                                                                    
+                                     <tr>
+                                                    <td>  <p:outputLabel  value="Governorate: " /></td>
+                                                    <td>  <h:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px" required="true" requiredMessage="select governrate">
+                                                            <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                                            <p:ajax listener="#{adminClient.selected.setAddress(addressMB.governorate)}" />
+                                                            <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                                            <f:selectItems value="#{addressMB.governorates}" />
+                                                            </h:selectOneMenu></td>
+                                                <tr>
+                                                    <td>  <p:outputLabel  for="city" value="City: " /></td>
+                                                    <td>  <h:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" required="true" requiredMessage="select city">
+                                                                <p:ajax listener="#{adminClient.selected.setAddress(addressMB.address)}" />
+                                                                <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                                                <f:selectItems value="#{addressMB.cities}" />
+                                                            </h:selectOneMenu>   </td>
+                                                </tr>            
+
+                                                </tr>
+                                    
+                                    
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateClientLabel_birthDate}" for="birthDate" /></td>
                                         <td><p:calendar id="birthDate" pattern="MM/dd/yyyy" value="#{adminClient.selected.birthDate}" title="#{bundle.EditClientTitle_birthDate}" required="true" requiredMessage="#{bundle.EditClientRequiredMessage_birthDate}" showOn="button"/></td>
@@ -117,12 +133,7 @@
                                         <td><p:message for="active"/></td>
 
                                     </tr>
-                                    <tr>
-                                        <td><p:outputLabel value="#{bundle.CreateClientLabel_profilePic}" for="profilePic" /></td>
-                                        <td><p:fileUpload id="profilePic" fileUploadListener="#{adminClient.uploadImage.handleFileUpload}" mode="simple" dragDropSupport="false"
-                                                          auto="true" label="choose" sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /></td>
-
-                                    </tr>
+                                    
                                     <tr>
                                         <td align="center"><p:commandButton action="#{adminClient.create}" value="#{bundle.Save}" id="create" /></td>
                                         <td></td>
