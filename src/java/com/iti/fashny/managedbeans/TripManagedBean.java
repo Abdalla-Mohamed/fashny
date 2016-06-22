@@ -237,10 +237,10 @@ public class TripManagedBean implements Serializable {
 
     public void reSelected() {
         selected = tripBusiness.showSpecificInfo(selected.getId());
-        if(getCheckTripComplete()){
-        RequestContext.getCurrentInstance().closeDialog(this);
+        if (getCheckTripComplete()) {
+            RequestContext.getCurrentInstance().closeDialog(this);
         }
-        
+
     }
 
     public List<String> getImagesList() {
@@ -374,6 +374,11 @@ public class TripManagedBean implements Serializable {
     public void creatByCompany(Company company) {
         selected.setCompanyId(company);
         save();
+    }
+
+    public String creatByCompanyReturn(Company company) {
+        selected.setCompanyId(company);
+        return save();
     }
 
     public String cansel() {
