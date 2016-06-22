@@ -17,6 +17,7 @@ import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.Commens;
 import java.io.File;
 import java.nio.file.Files;
@@ -108,7 +109,6 @@ public class PlaceBusiness implements Commens<Place> {
             daoFactory.rollbackTransaction();
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -134,6 +134,8 @@ public class PlaceBusiness implements Commens<Place> {
             daoFactory.beginTransaction();
             place = placeFacade.find(place.getId());
             List<ClientReviewPlace> clientReviewPlaceList = place.getClientReviewPlaceList();
+            List<Trip> tripList = place.getTripList();
+            tripList.size();
             System.out.println(clientReviewPlaceList.size());
             for (ClientReviewPlace crl : clientReviewPlaceList) {
                 System.out.println(crl.getClientId().getName() + ":" + crl.getComment());
@@ -171,6 +173,24 @@ public class PlaceBusiness implements Commens<Place> {
         return place;
     }
 
+    public Place getTrips(Place place) throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        try {
+            PlaceFacade placeFacade = daoFactory.getPlaceDoa();
+            daoFactory.beginTransaction();
+            place = placeFacade.find(place.getId());
+            System.out.println(place.getId());
+            List<Trip> tripList = place.getTripList();
+            daoFactory.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+            daoFactory.rollbackTransaction();
+        } finally {
+            daoFactory.close();
+        }
+        return place;
+    }
+
     public void addImageToPlace(UploadedFile image, Place place) {
         DaoFactory daoFactory = new DaoFactory();
         PlaceFacade placeDoa = daoFactory.getPlaceDoa();
@@ -193,9 +213,8 @@ public class PlaceBusiness implements Commens<Place> {
 
 //            Place find = placeDoa.find(placeId);
 //            System.out.println("image count::"+find.getResouceList().size());
-
             place.getResouceList().add(resouce);
-            
+
             daoFactory.commitTransaction();
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -208,20 +227,20 @@ public class PlaceBusiness implements Commens<Place> {
         boolean deleted = false;
         DaoFactory daoFactory = new DaoFactory();
         ResouceFacade resouceDoa = daoFactory.getResouceDoa();
-        try{
+        try {
             daoFactory.beginTransaction();
-            
+
             Resouce find = resouceDoa.find(selectedPic.getId());
             find.getPlaceList().clear();
             resouceDoa.remove(find);
-            
+
             Files.delete(new File(selectedPic.getPath()).toPath());
-            deleted =true;
-            
+            deleted = true;
+
             daoFactory.commitTransaction();
-        }catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
-            deleted =false;
+            deleted = false;
             daoFactory.rollbackTransaction();
         }
         return deleted;

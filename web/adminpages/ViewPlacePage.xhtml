@@ -138,7 +138,7 @@
                                                                 </h:inputText></td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2" ><h:outputText value="If you do not now the Latitude and Longitude of the place click the next button"/></td>
+                                                            <td colspan="2" ><h:outputText value="If you do not know the Latitude and Longitude of the place click the next button"/></td>
                                                             <td align="center" ><button onclick="getLocation()" type="button">Get My Position</button></td>
                                                         </tr>
                                                         <tr><td colspan="3" align="center"><div id="mapholder"></div></td></tr>
@@ -149,11 +149,15 @@
                                     </td>
                                 </tr>  
                                 <tr> 
-                                    <td><p:commandButton id="update" action="#{placeView_1.update}" value="#{bundle.Edit}" /></td>
+                                    <td><p:commandButton id="update" action="#{placeView_1.update}" value="#{bundle.Edit}" update="PlaceViewForm"/></td>
                                     <td align="right"><p:commandButton id="cancelbtn" value="#{bundle.Close}" action="adminPlace_1" immediate="true"/></td>
                                 </tr>
                             </tbody>
                         </table>
+                         <p:blockUI block="bobo" trigger="update cancelbtn">
+                                LOADING<br />
+                                <p:graphicImage name="/processing-bar.gif"/>
+                            </p:blockUI>
                     </div> 
 
                     <script

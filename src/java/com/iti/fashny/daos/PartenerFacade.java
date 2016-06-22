@@ -87,5 +87,14 @@ public class PartenerFacade extends AbstractFacade<Partener> {
 
     }
      
-    
+    public List<Partener> getUnconcirmPartener()
+    {
+        List<Partener> unconfirmPartener = new ArrayList<>();
+        try {
+            unconfirmPartener = getEntityManager().createNamedQuery("Partener.findByValidated").setParameter("validated", false).getResultList();           
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return unconfirmPartener;
+    }
 }

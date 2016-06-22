@@ -22,7 +22,7 @@
                     <p:tabView>
                         <p:tab title="old trips">
                             <p:dataGrid var="join" value="#{joinMB.getOldTrips(login.loginAccount.client)}" columns="3" layout="grid"
-                                        rows="12" paginator="true" id="old"
+                                        rows="12" paginator="true" id="old" paginatorPosition="bottom"
                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                         rowsPerPageTemplate="6,12,16">
 

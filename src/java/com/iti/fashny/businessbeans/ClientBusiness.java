@@ -99,7 +99,7 @@ public class ClientBusiness implements Commens<Client> {
         return client;
     }
 
-    public void addImageToPlace(UploadedFile image, Client client) {
+    public void addImageToClient(UploadedFile image, Client client) {
         DaoFactory daoFactory = new DaoFactory();
         ClientFacade clientFacade = daoFactory.getClientDoa();
         ResouceFacade resouceDoa = daoFactory.getResouceDoa();

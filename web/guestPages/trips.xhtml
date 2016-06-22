@@ -22,7 +22,9 @@
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="form" prependId="false">
+                <c:set var="blockFrom" value="@(.btnMoreDetails)" />
+                
+                <h:form id="tripForm">
                     <p:dataGrid id="trips" var="trip" value="#{tripMB.validatedItems}" columns="3" layout="grid"
                                 rows="12" paginator="true"  paginatorPosition="bottom"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -41,17 +43,12 @@
                             </div>
                             <div class="clearfix"> </div>
                             <div class="more m1">
-                                <!--<a class="btn effect6" href="single.html" >View Detail</a>-->
-                                <p:commandButton id="moreDetails"   action="#{tripMB.tripDetails(trip.id)}" value="More Details" styleClass="btn btn-info col-xs-6"/>
-                                <p:rating value="#{tripMB.getRate(trip)}" readonly="true" />                             
+                                <p:commandButton id="moreDetails"   action="#{tripMB.tripDetails(trip.id)}" value="More Details" styleClass="btn btn-info col-xs-6 btnMoreDetails"/>
+                                <p:rating id="rate" value="#{tripMB.getRate(trip)}" readonly="true" />                             
                             </div>
                         </div>
                     </p:dataGrid>
                     
-                    <p:blockUI block="bobo" trigger="trips:moreDetails">
-                        LOADING<br />
-                        <p:graphicImage name="/processing-bar.gif"/>
-                    </p:blockUI>
                 </h:form>
 
             </ui:define>

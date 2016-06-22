@@ -7,6 +7,7 @@ package com.iti.fashny.businessbeans;
 
 import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.daos.TripFacade;
