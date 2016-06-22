@@ -15,60 +15,93 @@
             </ui:define>
 
             <ui:define name="content">
-                
+
                 <h:form prependId="false" id="tripDetails">
 
                     <div class="single">
                         <div class="container">
                             <div class="single-page-artical">
-                                
-                                    <div class="artical-links">
-                                        <ul>
-                                            <li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Date:#{tripMB.selected.date}</li>
-                                            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>#{tripMB.selected.companyId.name}</a></li>
-                                            <li><a href="#"><span class="fa fa-money" aria-hidden="true"></span> Cost:#{tripMB.selected.cost}</a></li>
-                                            <li><p:commandLink id="completed" value="Completed" action="trips" rendered="#{!tripMB.checkTripComplete}" class="fa fa-money"/></li>
-                                            <li><p:commandLink id="expired" value="Expired" action="trips" rendered="#{!tripMB.checkTripDate}"/></li>
-                                        </ul>
-                                    </div>
-                                    <div class="artical-links">
-                                        Tags:<p:tagCloud model="#{tripMB.tagCloud}"/>
-                                    </div>
+
+                                <div class="artical-links">
+                                    <ul>
+                                        <li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Date:#{tripMB.selected.date}</li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>#{tripMB.selected.companyId.name}</a></li>
+                                        <li><a href="#"><span class="fa fa-money" aria-hidden="true"></span> Cost:#{tripMB.selected.cost}</a></li>
+                                        <li><p:commandLink id="completed" value="Completed" action="trips" rendered="#{!tripMB.checkTripComplete}" class="fa fa-money"/></li>
+                                        <li><p:commandLink id="expired" value="Expired" action="trips" rendered="#{!tripMB.checkTripDate}"/></li>
+                                    </ul>
+                                </div>
+                                <br/>
                                 <div class="artical-content">
                                     <h3>#{tripMB.selected.name}</h3>
 
-                
-                                    
-                                    
-                                    
-                <p:contentFlow style="border-width: 0px   " value="#{tripMB.imagesList}" var="image"  >
-                    <p:graphicImage value="/Image?imageName=#{image}" styleClass="content" onclick="none" />
-                    
-                </p:contentFlow>
 
-                                    
+
+
+
+                                    <div class="row">
+                                        <div class="container">
+                                            <br/>
+                                            <p:carousel  value="#{tripMB.imagesList}" circular="true"   numVisible="2" autoPlayInterval="3000"  var="imgVar"  itemStyle="text-align:center;margin: 0px;padding: 0px;" style="margin: 0px;padding: 0px;" responsive="true">
+                                                <f:facet name="header" rendered="false" >
+  </f:facet>
+                                                <p:panelGrid columns="1" style="height:90%;  width:100%;margin:0px 0px" >
+                                                    <p:graphicImage value="/Image?imageName=#{imgVar}" width="80%" height="200"/> 
+
+                                                </p:panelGrid>
+                                            </p:carousel>
+                                            <br/>
+
+                                        </div>
+                                    </div>
+
                                 </div>
-                                
-                                <div class="artical-links banner-bottom1 col-md-12" >
-                                    <div class="container col-md-8" >	
-                                        <div class="banner-bottom1-grids">
-                                            <div class="col-md-8 banner-bottom1-grid-left">
-                                                <h3>Program</h3>
-                                                <p>#{tripMB.selected.program}</p>
+
+
+                                <div class="container">
+                                    <h3>Trip Details</h3>
+                                    <div class="services-grids">
+                                        <div class="col-md-8 services-grid">
+                                            <div class="col-xs-2 services-grid-left">
+                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                            </div>
+                                            <div class="col-xs-10 banner-bottom1-grid-left services-grid-right">
+                                                <h4>Program</h4>
+                                                <p:separator/>
+                                                <pre>#{tripMB.selected.program}</pre>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
-                                    </div>
-                                    <div class="container col-md-4">	
-                                        <div class="banner-bottom1-grids">
-                                            <div class="col-md-8 banner-bottom1-grid-left">
-                                                <h3>Tools Need</h3>
-                                                <p>#{tripMB.selected.needTools}</p>
+                                        <div class="col-md-4 services-grid">
+                                            <div class="col-xs-2 services-grid-left">
+                                                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
                                             </div>
+                                            <div class="col-xs-10  banner-bottom1-grid-left services-grid-right">
+
+                                                <h4>Tools Need</h4>
+                                                <p:separator/>
+                                                <pre>#{tripMB.selected.needTools}</pre>
+
+                                            </div>
+
+
                                             <div class="clearfix"> </div>
                                         </div>
+
+
+                                        <div class="clearfix"> </div>
                                     </div>
-                                </div> 
+                                </div>
+
+                                <br/><br/>
+                                <h:panelGroup rendered="#{not empty tripMB.selected.tagList }" >
+                                <div class="artical-links">
+                                    <ul style="float: left" >
+                                        <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>  <ui:repeat value="#{tripMB.selected.tagList}" var="tag">- #{tag.name} </ui:repeat></li>
+
+                                    </ul>
+                                </div>
+                                    </h:panelGroup>
 
 
                                 <p:commandButton id="joinTrip" value="Join Trip" type="button" onclick="PF('dlg2').show();" rendered="#{tripMB.render}"/>
@@ -135,14 +168,18 @@
 
                             </div>
                         </div>
+
                     </div>
+
+
+
                 </h:form>
 
                 <!-- Keep the first param for next redirection -->
                 <f:facet name="header">
                     Places
                 </f:facet>
-                
+
             </ui:define>
 
         </ui:composition>

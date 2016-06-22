@@ -33,15 +33,15 @@ public class TripFacade extends AbstractFacade<Trip> {
         List<Place> places = mainExample.getPlaceList();
         Company company =   mainExample.getCompanyId();
 
-        if (tags != null) {
+        if (tags != null && !tags.isEmpty()) {
             addTagConditionOnExample(c, tags, "tagList");
         }
-        if ( places != null) {
-            addPlaceConditionOnExample(c, places, "placeList");
-        }
-        if (company != null) {
-            this.addCompanyConditionOnExample(c, company, "companyId");
-        }
+//        if ( places != null && !places.isEmpty()) {
+//            addPlaceConditionOnExample(c, places, "placeList");
+//        }
+//        if (company != null && company.getId() != null && company.getId() != 0) {
+//            this.addCompanyConditionOnExample(c, company, "companyId");
+//        }
 
     }
     

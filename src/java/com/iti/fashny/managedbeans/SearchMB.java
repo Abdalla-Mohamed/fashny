@@ -59,6 +59,7 @@ public class SearchMB implements Serializable {
     Company selectedCompany;
     
     List<Place> selectedPlaces;
+    String anyChars = "%";
    
     /**
      * Creates a new instance of SearchMB
@@ -68,6 +69,7 @@ public class SearchMB implements Serializable {
         companyController = new CompanyController();
         placeBusiness = new PlaceBusiness();
         governorate = new ArrayList<>();
+        selectedCompany = new Company();
         selectType = SearchType.Place;
         address="";
     }
@@ -220,9 +222,10 @@ public class SearchMB implements Serializable {
         }
     }
 
-    String anyChars = "%";
     private void searchForPlaces() {
         Place placeExample = new Place();
+        placeExample.setActive(true);
+        placeExample.setValidated(true);
         placeExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
         System.out.println("th address is"+address);
         placeExample.setAddress(address.isEmpty()?null:address);
@@ -237,17 +240,22 @@ public class SearchMB implements Serializable {
     
     private void searchForTrips() {
         Trip tripExample = new Trip();
+        tripExample.setValidated(true);
         tripExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
-        //tripExample.setCompanyId(selectedCompany);
+        tripExample.setCompanyId(selectedCompany);
+        tripExample.setTagList(selectedTags);
+        tripExample.setPlaceList(selectedPlaces);
+        
        // System.out.println("ddddd"+selectedCompany.getId());
        // tripExample.setPlaceList(selectedPlaces);
         //tripExample.setTagList(selectedTags);
         System.out.println("hiiii"+nameSearch);
         System.out.println(selectedPlaces.size());
         System.out.println(selectedTags.size());
+        System.out.println(selectedCompany.getId());
         try {
             tripsResult = getSearchEngine().searchByExample(tripExample);
-            System.out.println(tripsResult.size()+"*************************************");
+            System.out.println(tripsResult.size()+"\n*************************************");
         } catch (Exception ex) {
             Logger.getLogger(SearchMB.class.getName()).log(Level.SEVERE, null, ex);
         }

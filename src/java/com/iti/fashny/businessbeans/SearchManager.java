@@ -23,7 +23,9 @@ import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -145,7 +147,7 @@ public class SearchManager implements SearchEngine,Serializable {
             PlaceFacade placesFacade = daoFactory.getPlaceDoa();
             placesResult = placesFacade.findByExample(place);
             for (Place placeRslt : placesResult) {
-                placeRslt.getResouceList();
+                placeRslt.getResouceList().size();
                 
             }
 
@@ -165,11 +167,15 @@ public class SearchManager implements SearchEngine,Serializable {
         List<Trip> tripsResult = new ArrayList<>();
 
         try {
-
+            Company companyId = trip.getCompanyId();
+            trip.setCompanyId(null);
+                    
             TripFacade tripFacade = daoFactory.getTripDoa();
             tripsResult = tripFacade.findByExample(trip);
-
+//
+         
         } catch (Exception e) {
+            e.printStackTrace();
 
         } finally {
             daoFactory.close();
@@ -177,6 +183,12 @@ public class SearchManager implements SearchEngine,Serializable {
         }
 
         return tripsResult;
+    }
+
+    private boolean haveAllPlaces(Trip trip, List<Place> placeList) {
+        System.out.println("placcce"+placeList.size());
+        System.out.println("trip place"+trip.getPlaceList().size());
+       return trip.getPlaceList().containsAll(placeList);
     }
 
 }
