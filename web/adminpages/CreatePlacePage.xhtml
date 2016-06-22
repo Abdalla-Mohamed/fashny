@@ -42,10 +42,27 @@
                                                                      style="width:280px;"/></td>
                                                 </tr> 
                                                 <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreatePlaceLabel_address}" for="address" /></td>
+                                                    <ui:remove>      <td><p:outputLabel value="#{bundle.CreatePlaceLabel_address}" for="address" /></td>
                                                     <td><p:inputText id="address" value="#{placeView_1.selected.address}" title="#{bundle.CreatePlaceTitle_address}"
                                                                      required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_address}"
                                                                      style="width:280px;"/></td>
+                                                    </ui:remove>          
+                                                    <td>  <p:outputLabel value=" Address" styleClass="col-xs-12" /></td></tr><tr><td>
+                                         <p:outputLabel  value="Governorate: " /></td><td>
+                                         <p:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px">
+                                    <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                    <p:ajax listener="#{placeView_1.selected.setAddress(addressMB.governorate)}" />
+                                    <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{addressMB.governorates}" />
+                                </p:selectOneMenu></td><tr><td>
+
+                                <p:outputLabel  for="city" value="City: " /></td><td>
+                                 <p:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" >
+                                     <p:ajax listener="#{placeView_1.selected.setAddress(addressMB.address)}" />
+                                    <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{addressMB.cities}" />
+                                 </p:selectOneMenu>   </td></tr>            
+                                                                     
                                                 </tr>
                                                 <tr>
                                                     <td><p:outputLabel value="#{bundle.CreatePlaceLabel_description}" for="description" /></td>
