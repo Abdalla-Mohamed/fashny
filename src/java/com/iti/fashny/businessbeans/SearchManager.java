@@ -31,7 +31,7 @@ import java.util.Objects;
  *
  * @author Abdalla
  */
-public class SearchManager implements SearchEngine,Serializable {
+public class SearchManager implements SearchEngine, Serializable {
 
     @Override
     public List<Client> searchByExample(Client client) throws Exception {
@@ -148,7 +148,7 @@ public class SearchManager implements SearchEngine,Serializable {
             placesResult = placesFacade.findByExample(place);
             for (Place placeRslt : placesResult) {
                 placeRslt.getResouceList().size();
-                
+
             }
 
         } catch (Exception e) {
@@ -167,13 +167,61 @@ public class SearchManager implements SearchEngine,Serializable {
         List<Trip> tripsResult = new ArrayList<>();
 
         try {
-            Company companyId = trip.getCompanyId();
-            trip.setCompanyId(null);
-                    
+
             TripFacade tripFacade = daoFactory.getTripDoa();
-            tripsResult = tripFacade.findByExample(trip);
+            tripsResult = tripFacade.search(trip);
 //
-         
+
+            if (trip.getName() != null && !trip.getName().isEmpty()) {
+                for (Iterator<Trip> iterator = tripsResult.iterator(); iterator.hasNext();) {
+                    Trip next = iterator.next();
+                    if (!next.getName().toLowerCase().contains(trip.getName().toLowerCase())) {
+                        iterator.remove();
+                    }
+                }
+            }
+            if (trip.getDate()!= null ) {
+                for (Iterator<Trip> iterator = tripsResult.iterator(); iterator.hasNext();) {
+                    Trip next = iterator.next();
+                    if (next.getDate().before(trip.getDate())) {
+                        iterator.remove();
+                    }
+                }
+            }
+            if (trip.getCost()> 0) {
+                for (Iterator<Trip> iterator = tripsResult.iterator(); iterator.hasNext();) {
+                    Trip next = iterator.next();
+                    if (next.getCost()> trip.getCost()) {
+                        iterator.remove();
+                    }
+                }
+            }
+
+            if (trip.getTagList() != null && !trip.getTagList().isEmpty()) {
+                for (Iterator<Trip> iterator = tripsResult.iterator(); iterator.hasNext();) {
+                    Trip next = iterator.next();
+                    if (!next.getTagList().containsAll(trip.getTagList())) {
+                        iterator.remove();
+                    }
+                }
+            }
+            if (trip.getPlaceList() != null && !trip.getPlaceList().isEmpty()) {
+                for (Iterator<Trip> iterator = tripsResult.iterator(); iterator.hasNext();) {
+                    Trip next = iterator.next();
+                    if (!next.getPlaceList().containsAll(trip.getPlaceList())) {
+                        iterator.remove();
+                    }
+                }
+            }
+            if (trip.getCompanyId()!= null && trip.getCompanyId().getId() != 0) {
+                for (Iterator<Trip> iterator = tripsResult.iterator(); iterator.hasNext();) {
+                    Trip next = iterator.next();
+                    if (!next.getCompanyId().equals(trip.getCompanyId())) {
+                        iterator.remove();
+                    }
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -186,9 +234,9 @@ public class SearchManager implements SearchEngine,Serializable {
     }
 
     private boolean haveAllPlaces(Trip trip, List<Place> placeList) {
-        System.out.println("placcce"+placeList.size());
-        System.out.println("trip place"+trip.getPlaceList().size());
-       return trip.getPlaceList().containsAll(placeList);
+        System.out.println("placcce" + placeList.size());
+        System.out.println("trip place" + trip.getPlaceList().size());
+        return trip.getPlaceList().containsAll(placeList);
     }
 
 }

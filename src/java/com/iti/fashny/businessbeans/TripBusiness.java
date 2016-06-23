@@ -7,6 +7,7 @@ package com.iti.fashny.businessbeans;
 
 import com.iti.fashny.assets.UploadImage;
 import com.iti.fashny.daos.DaoFactory;
+import com.iti.fashny.daos.PlaceFacade;
 import com.iti.fashny.daos.ResouceFacade;
 import com.iti.fashny.daos.TripFacade;
 import com.iti.fashny.daos.TripFacade;
@@ -99,8 +100,20 @@ public class TripBusiness implements Commens<Trip>, Serializable {
     public Trip showSpecificInfo(int id) {
         Trip trip = new Trip();
         DaoFactory dao = new DaoFactory();
-        TripFacade p = dao.getTripDoa();
-        trip = p.find(id);
+
+        try {
+            TripFacade p = dao.getTripDoa();
+            trip = p.find(id);
+            trip.getCompanyId();
+            trip.getJoinTripList().size();
+            trip.getPlaceList().size();
+            trip.getResouceList().size();
+            trip.getTagList().size();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        } finally {
+            dao.close();
+        }
         return trip;
     }
 
@@ -213,4 +226,28 @@ public class TripBusiness implements Commens<Trip>, Serializable {
         return trip;
     }
 
+    //_____________________ get validated trips_____________
+    public List<Trip> viewValidated() throws Exception {
+        DaoFactory daoFactory = new DaoFactory();
+        List<Trip> tripResults = new ArrayList<>();
+        try {
+            TripFacade tripFacade = daoFactory.getTripDoa();
+            tripResults = tripFacade.getValidTrips();
+            for (Trip trip : tripResults) {
+                System.out.println(trip.getName());
+                List<Resouce> resouceList = trip.getResouceList();
+                for (Resouce resouceList1 : resouceList) {
+                    System.out.println(resouceList1.getPath());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close connection
+            daoFactory.close();
+        }
+        return tripResults;
+    }
+
+    //_____________________ get validated trips_____________
 }

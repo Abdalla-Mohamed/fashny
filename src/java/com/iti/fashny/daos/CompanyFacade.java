@@ -12,9 +12,11 @@ import com.iti.fashny.exceptions.Fasa7nyException;
 import com.iti.fashny.exceptions.InvalidLoginDataException;
 import com.iti.fashny.exceptions.NotConfirmAccountException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import org.hibernate.Criteria;
 
 /**
@@ -25,7 +27,10 @@ public class CompanyFacade extends AbstractFacade<Company> {
 
     private static final String HQL_LOGIN = "FROM Company c WHERE c.email =:email AND c.password =:password ";
     private static final String HQL_CLIENT_COMPANY = "FROM Company c WHERE c.validated = :validated AND c.active = :active";
-
+    private static final String HQL_Company_Count = "select count(c) from Company c";
+    private static final String HQL_VALIDATED_Company_Count = "select  count(c) FROM Company c where c.validated = 1 AND c.active = 1";
+    private static final String HQL_COMPANY_TRIPS_COUNT = "select c.name , size(c.tripList) as t FROM Company c "
+                                     + " where c.validated = 1 AND c.validated = 1 AND c.active = 1 group by c.name order by t desc";
     CompanyFacade(EntityManager em) {
         super(Company.class, em);
     }
@@ -108,4 +113,48 @@ public class CompanyFacade extends AbstractFacade<Company> {
         return company;
 
     }
+    
+     //_____________________________count all and active Companies_________________
+    public int[] getCompanyCount(){
+    
+         int [] o = new int [2] ;
+     try{
+      Query q = getEntityManager().createQuery(HQL_Company_Count);
+         o[0] =  (int) (long) q.getSingleResult();
+         
+       q = getEntityManager().createQuery(HQL_VALIDATED_Company_Count);
+         o[1] =  (int) (long) q.getSingleResult();
+        
+                         
+         
+      }catch(Exception e){
+          e.printStackTrace();
+      }
+        // [0] is all , [1] is the active
+       return o;
+}
+    //_____________________________count all and active Companies_________________
+   
+    
+    //__________________________get companies name and number of trips_____________
+    
+    
+    public List<Object> getCompanyTripsCount(){
+        
+        List<Object> comp = new ArrayList<>();
+           
+      try{
+      Query q = getEntityManager().createQuery(HQL_COMPANY_TRIPS_COUNT);
+      
+         comp = q.getResultList();
+         
+      }catch(Exception e){
+          e.printStackTrace();
+      }
+          
+        return comp;
+    }
+       
+    
+    //__________________________get companies name and number of trips_____________
 }

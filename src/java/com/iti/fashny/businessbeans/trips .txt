@@ -108,22 +108,27 @@
 
 
                     <p:column style="width:40px">
-                        <p:commandButton style="width:20px" id="viewButton" icon="ui-icon-search" action="#{tripMB.goToViewTrip(item.id)}" styleClass="btnView"/>
+                        <p:commandButton style="width:20px" id="viewButton" styleClass="btnview" icon="ui-icon-search" action="#{tripMB.goToViewTrip(item.id)}"/>
+                        <!--<p:tooltip id="toolTipView" for="viewButton" value="View Trip Data" trackMouse="true" />-->
                     </p:column>
                     <p:column width="5%" >
                         <p:commandButton id="imgButton" icon="fa fa-image" action="#{tripMB.goToImages(item.id)}" class="btnview" />
+                        <!--<p:tooltip id="toolTipShowImg" for="imgButton" value="Show Trip's Images" trackMouse="true" />-->                    
                     </p:column>
-            
+
+                    <p:column  style="width:32px">
+                        <p:rowEditor />
+                    </p:column>
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" action="#{tripMB.goToCreateTrip()}" />
+                        <!--<p:tooltip id="toolTipCreate" for="createButton" value="Create New Trip" trackMouse="true" />-->
                     </f:facet>
 
                 </p:dataTable>
-
-                <p:blockUI block="bobo" trigger="@(.btnView) tripDatalist:createButton">
+<!--                <p:blockUI block="bobo" trigger="@(.btnview) tripDatalist:createButton tripDatalist:imgButton">
                     LOADING<br/>
                     <p:graphicImage name="/processing-bar.gif"/>
-                </p:blockUI>
+                </p:blockUI>-->
             </p:panel>
 
         </h:form>      

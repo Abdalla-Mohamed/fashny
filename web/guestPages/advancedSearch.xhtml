@@ -29,6 +29,7 @@
                                         <p:outputLabel for="keyName" value="by name:" styleClass="col-xs-12" />
                                         <p:inputText id="keyName" value="#{searchMB.nameSearch}" placeholder="enter title" styleClass="col-xs-12 "  />
                                     </div>
+
                                     <p:separator/>
                                     <div class="row" >
                                         <p:outputLabel for="tag" value="Tags:" styleClass="col-xs-12" />
@@ -55,6 +56,7 @@
                                         </p:selectOneMenu>
                                         <p:separator/>
                                     </h:panelGroup>
+
                                     <h:panelGroup class="row"   rendered="#{searchMB.renderForTrip()}" layout="block" >
                                         <p:outputLabel for="places" value="places:"  styleClass="col-xs-12" />
                                         <p:selectManyMenu id="places" value="#{searchMB.selectedPlaces}" tabindex="index" converter="converterPlace" filter="true"  filterMatchMode="contains" showCheckbox="true" scrollHeight="100"  styleClass="col-xs-12">
@@ -71,6 +73,14 @@
                                         </p:selectOneMenu>
 
                                         <p:separator/>
+                                    </h:panelGroup>
+                                    <h:panelGroup styleClass="row"   rendered="#{searchMB.renderForTrip()}" layout="block" >
+                                        <p:outputLabel for="keyDate" value="after day:" styleClass="col-xs-12" />
+                                        <p:calendar id="keyDate" value="#{searchMB.selectedDate}"  placeholder="select date" locale="en" navigator="true" pattern="yyyy-MMM-dd" />
+
+                                        <p:outputLabel for="keycost" value="cost less than:" styleClass="col-xs-12" />
+                                        <p:spinner id="keycost" value="#{searchMB.selectedcost}"  placeholder="select date" min="0"  stepFactor="1.0"/>
+
                                     </h:panelGroup>
                                 </h:panelGroup>
                             </p:tab>
@@ -100,36 +110,43 @@
 
                             </p:panel>
                             -->
-                            <div class="well col-md-4 col-sm-6 col-xs-12 blog-grid" >
-                                <div class="col-xs-4 blog-grid-left">
-                                    <a href="single.html"><p:graphicImage styleClass="img-responsive" value="/Image?imageName=#{placeView_1.getFirstImg(placeRslt)}"  width="100%" /></a>
-                                </div> 
-                                <div class="col-xs-8 blog-grid-right">
-                                    <a href="single.html">#{placeRslt.name}</a>
-                                    <h4>27 November 2015</h4>
-                                    <p>#{placeRslt.description}</p>
+                            <ui:fragment rendered="#{placeRslt.validated and placeRslt.active}">
+                                <div class="well col-md-4 col-sm-6 col-xs-12 blog-grid" style="height: 50%" >
+                                    <div class="col-xs-4 blog-grid-left">
+                                        <a href="single.html"><p:graphicImage styleClass="img-responsive" value="/Image?imageName=#{placeView_1.getFirstImg(placeRslt)}" height="150" width="100%" /></a>
+                                    </div> 
+                                    <div class="col-xs-8 blog-grid-right" style="height: 70%">
+                                        <a >#{placeRslt.name}</a>
+                                        <h4></h4>
+                                        <p>#{placeRslt.address}</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                    <div class="more m1">
+                                        <h:form>
+                                            <h:commandButton   action="#{placeView_1.placeDetails(placeRslt.id)}" value="More Details" class="btn effect6"/> 
+                                        </h:form>
+
+                                    </div>
                                 </div>
-                                <div class="clearfix"> </div>
-                                <div class="more m1">
-                                    <a class="btn effect6" href="single.html">Learn More</a>
-                                </div>
-                            </div>
+                            </ui:fragment>
                         </ui:repeat>
 
                         <ui:repeat  value="#{searchMB.tripsResult}" var="tripRslt" rendered="#{searchMB.renderForTrip()}">
-            
-                            <div class="well col-md-4 col-sm-6 col-xs-12 blog-grid" >
+
+                            <div class="well col-md-4 col-sm-6 col-xs-12 blog-grid" style="height: 50%" >
                                 <div class="col-xs-4 blog-grid-left">
-                                    <a href="single.html"><p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" /></a>
+                                    <a ><p:graphicImage styleClass="img-responsive" value="/Image?imageName=#{tripMB.getFirstImg(tripRslt)}" height="100"  width="100%"  /></a>
                                 </div> 
-                                <div class="col-xs-8 blog-grid-right">
-                                    <a href="single.html">#{tripRslt.name}</a>
+                                <div class="col-xs-8 blog-grid-right" style="height: 70%">
+                                    <a >#{tripRslt.name}</a>
                                     <h4>#{tripRslt.date}</h4>
                                     <p>#{tripRslt.companyId.name}</p>
                                 </div>
                                 <div class="clearfix"> </div>
+                               
                                 <div class="more m1">
-                                    <a class="btn effect6" href="single.html">Learn More</a>
+                                    <h:commandButton   action="#{tripMB.tripDetails(tripRslt.id)}" value="More Details" class="btn effect6"/>
+
                                 </div>
                             </div>
                         </ui:repeat>

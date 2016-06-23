@@ -73,10 +73,10 @@ public class HomeMB {
        List<placeImage>bar = new ArrayList();
         // full the lists       
          try {
-           places  = placeBusiness.view();
-           trips  = tripBusiness.view();
-           companies = companyController.view();
-           parteners = partnerBusiness.view();
+           places  = placeBusiness.viewActive();
+           trips  = tripBusiness.viewValidated();
+           companies = companyController.getValidateCompanyForClient();
+           parteners = partnerBusiness.viewActive();
         } catch (Exception ex) {
             Logger.getLogger(HomeMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -149,5 +149,5 @@ public class HomeMB {
         return path;  
     }
         
-    
+   
 }

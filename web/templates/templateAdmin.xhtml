@@ -20,7 +20,7 @@
         <!-- Notifications Menu -->
         <li id="barNotf" class="dropdown notifications-menu"  >
             <!-- Menu toggle button -->
-            <a class="dropdown-toggle"  data-toggle="dropdown"  aria-expanded="false" href="#">
+            <a class="dropdown-toggle"  data-toggle="dropdown"  onclick="showNotify()"  aria-expanded="false" href="#">
                 <i class="fa fa-bell-o"></i>
                 <span class="label label-warning">#{adminNotify.notifyCount()}</span>
             </a>
@@ -31,10 +31,10 @@
                     <div style="position: relative; overflow: hidden; width: auto; height: 200px;" class="slimScrollDiv"><ul style="overflow: hidden; width: 100%; height: 200px;" class="menu">
                             <li><!-- start notification -->
                                 <a >
-                                    <i class="fa fa-picture-o text-aqua"></i> (#{adminNotify.placesList.size()}) new places
+                                    <i class="fa fa-users text-aqua"></i> (#{adminNotify.companiesList.size()}) new Companies
                                 </a>
                                 <a >
-                                    <i class="fa fa-users text-aqua"></i> (#{adminNotify.companiesList.size()}) new Companies
+                                    <i class="fa fa-users text-aqua"></i> (#{adminNotify.partnerList.size()}) new Partner
                                 </a>
                                 <a >
                                     <i class="fa fa-tags text-aqua"></i> (#{adminNotify.tagsList.size()}) new Tags
@@ -52,7 +52,7 @@
         <!-- User Account Menu -->
         <li id="menuProfile" class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a aria-expanded="false"   href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a aria-expanded="false" onclick="showLogout()" onblur="$(this).blur()" href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span >Fas7ny Admin</span>

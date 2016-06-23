@@ -22,13 +22,9 @@
                             <p:outputLabel value="#{bundle.CreateServiceLabel_description}" for="description"/>
                             <p:inputText id="description" value="#{serviceBean.service.description}" title="#{bundle.CreateServiceTitle_description}"/>
 
-                            
+                            <h:outputLabel for="cost" value="#{bundle.CreateServiceLabel_cost}" />
+                            <p:spinner id="cost" value="#{serviceBean.service.cost}" min="0" max="100" />
 
-                            <p:outputLabel value="#{bundle.CreateServiceLabel_cost}" for="cost"/>
-                            <p:inputMask id="cost" maxlength="10" value="#{serviceBean.service.cost}" required="true" requiredMessage="Must enter cost" mask="9?9999999">
-                                <p:message id="c" for="cost" style="color: red"/>
-                            </p:inputMask>
-                            
                             <p:outputLabel value="#{bundle.CreateServiceLabel_active}" for="active"/>
                             <p:selectBooleanCheckbox id="active" value="#{serviceBean.service.active}" required="true" requiredMessage="#{bundle.EditServiceRequiredMessage_description}"/>
 
@@ -40,7 +36,7 @@
                                 <f:selectItems  value="#{serviceBean.items}" var="cat" itemLabel="#{cat.name}" itemValue="#{cat.id}"/>
                             </p:selectOneMenu>
 
-                            <p:commandButton action="#{serviceBean.save()}" value="#{bundle.Save}" update="datalist n c"/>
+                            <p:commandButton action="#{serviceBean.save()}" value="#{bundle.Save}" update="datalist n cost"/>
                             <p:commandButton oncomplete="PF('ServiceCreateDialog').hide()" value="#{bundle.Cancel}"/>
                         </p:panelGrid>
                     </h:panelGroup>

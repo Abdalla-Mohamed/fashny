@@ -59,8 +59,8 @@
                                     </tr>
                                     <tr> 
                                         <td><h:outputLabel for="password" value="#{bundle.ViewClientLabel_password}"/></td>
-                                        <td><p:inplace id="password" label="#{adminClient.selected.password}" effectSpeed="fast" event="dblclick">
-                                                <p:inputText value="#{adminClient.selected.password}" title="#{bundle.CreateClientTitle_password}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_password}"/>
+                                        <td><p:inplace  id="password" label="***" effectSpeed="fast" event="dblclick">
+                                                <p:password redisplay="true" value="#{adminClient.selected.password}" title="#{bundle.CreateClientTitle_password}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_password}"/>
                                                 <p:message for="password"/>
                                             </p:inplace></td>
                                     </tr>

@@ -28,7 +28,7 @@
             <ui:define name="content">
                 <br/> <br/> <br/>
                 <div  class="col-sm-12" align="center">
-                    <h:form id="CompanyViewForm" styleClass="col-sm-8"  >
+                    <h:form id="CompanyViewForm" styleClass="col-sm-8"  prependId="false">
                         <div class="col-sm-2" align="center"></div>
                         <div class="table-responsive col-sm-12">    
                             <table class="table table-striped col-sm-12 " align="center" >
@@ -41,12 +41,14 @@
                                                              style="width: 330;"/>
 
                                             </p:inplace></td>
+                                    <p:tooltip for="name" value="Double click to edit this content" trackMouse="true" />
+
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_password}"/></td>
                                         <td>  <p:inplace id="password"  effectSpeed="fast" event="dblclick">
                                                 <f:facet name="output">
-                                                    <p:outputLabel value="#{empty CompanyMB.selected.password?'---':CompanyMB.selected.password}" />
+                                                    <p:outputLabel value="***" />
                                                 </f:facet>
                                                 <f:facet name="input">
                                                     <p:inputText value="#{CompanyMB.selected.password}" 
@@ -54,16 +56,18 @@
                                                                 required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"
                                                                 validatorMessage="Password length is less than allowable minimum of '6'">
                                                         <f:validateLength minimum="6" />
-                                                    </p:inputText>>                   
+                                                    </p:inputText>                 
                                                 </f:facet>
 
                                             </p:inplace></td>
+                                    <p:tooltip for="password" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_description}"/></td>
                                         <td><p:inplace id="description" label="#{empty CompanyMB.selected.description?'---':CompanyMB.selected.description}" effectSpeed="fast" event="dblclick">
                                                 <p:inputText value="#{CompanyMB.selected.description}" title="#{bundle.CreateCompanyTitle_description}" style="width: 330;"/> 
                                             </p:inplace></td>
+                                    <p:tooltip for="description" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_email}"/></td>
@@ -77,56 +81,58 @@
                                                     <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                 </p:inputText>
                                             </p:inplace></td>
-
+                                    <p:tooltip for="contactEmail" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_website}"/></td>
                                         <td><p:inplace id="website" label="#{empty CompanyMB.selected.website?'---':CompanyMB.selected.website}" effectSpeed="fast" event="dblclick">
                                                 <p:inputText value="#{CompanyMB.selected.website}" title="#{bundle.CreateCompanyTitle_website}" 
-                                                             style="width: 330;" validatorMessage="Website is not valid">
+                                                             style="width: 330;" validatorMessage="Website is invalid">
                                                     <f:validateRegex pattern="(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})"/>
                                                 </p:inputText>                                          
                                             </p:inplace></td>
+                                    <p:tooltip for="website" value="Double click to edit this content" trackMouse="true" />                                   
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_phone}"/></td>
                                         <td><p:inplace id="phone" label="#{empty CompanyMB.selected.phone?'---':CompanyMB.selected.phone}" effectSpeed="fast" event="dblclick">
                                                 <p:inputText value="#{CompanyMB.selected.phone}" title="#{bundle.ViewCompanyTitle_phone}" 
-                                                             style="width: 330;" validatorMessage="Phone length is less than allowable minimum of '9'"
-                                                             converterMessage="Phone should be numbers only">
-                                                    <f:convertNumber  type="number" />
-                                                    <f:validateLength minimum="9" maximum="10"/>
+                                                             style="width: 330;" validatorMessage="Phone should be consists of '9' or '10' numbers"
+                                                             >
+                                                    <f:validateRegex pattern="(\d{9,10})"/>
                                                 </p:inputText>
                                             </p:inplace></td>
+                                    <p:tooltip for="phone" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile1}"/></td>
                                         <td><p:inplace id="mobile1" label="#{empty CompanyMB.selected.mobile1?'---':CompanyMB.selected.mobile1}" effectSpeed="fast" event="dblclick">
                                                 <p:inputText value="#{CompanyMB.selected.mobile1}" title="#{bundle.ViewCompanyTitle_mobile1}" 
                                                              required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}"
-                                                             style="width: 330;" validatorMessage="Mobile1 length is less than allowable minimum of '11'"
-                                                             converterMessage="Mobile1 should be numbers only">
-                                                    <f:convertNumber  type="number" />
-                                                    <f:validateLength minimum="11" maximum="11"/>
+                                                                  style="width: 330;" validatorMessage="Mobil 1 should be consists of '11' numbers"
+                                                             >
+                                                    <f:validateRegex pattern="(\d{11})"/>
                                                 </p:inputText>
                                             </p:inplace></td>
+                                    <p:tooltip for="mobile1" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_mobile2}"/></td>
                                         <td><p:inplace id="mobile2" label="#{empty CompanyMB.selected.mobile2?'---':CompanyMB.selected.mobile2}" effectSpeed="fast" event="dblclick">
                                                 <p:inputText value="#{CompanyMB.selected.mobile2}" title="#{bundle.ViewCompanyTitle_mobile2}"
-                                                             style="width: 330;" validatorMessage="Mobile2 length is less than allowable minimum of '11'"
-                                                             converterMessage="Mobile2 should be numbers only">
-                                                    <f:convertNumber  type="number" />
-                                                    <f:validateLength minimum="11" maximum="11"/>
+                                                             style="width: 330;" validatorMessage="Mobil 2 should be consists of '11' numbers"
+                                                             >
+                                                    <f:validateRegex pattern="(\d{11})"/>
                                                 </p:inputText>
                                             </p:inplace></td>
+                                    <p:tooltip for="mobile2" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_address}"/></td>
                                         <td><p:inplace id="address" label="#{empty CompanyMB.selected.address?'---':CompanyMB.selected.address}" effectSpeed="fast" event="dblclick">
                                                 <p:inputText value="#{CompanyMB.selected.address}" title="#{bundle.CreateCompanyTitle_address}" style="width: 330;"/>                                          
                                             </p:inplace></td>
+                                    <p:tooltip for="address" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.ViewCompanyLabel_tag}"/></td>
@@ -140,6 +146,7 @@
                                                     </p:selectManyMenu>                   
                                                 </f:facet>
                                             </p:inplace></td>
+                                    <p:tooltip for="tags" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_validated}"/></td>
@@ -151,6 +158,7 @@
                                                     <p:selectBooleanCheckbox value="#{CompanyMB.selected.validated}" />                    
                                                 </f:facet>
                                             </p:inplace></td>
+                                    <p:tooltip for="validated" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr>
                                         <td><h:outputText value="#{bundle.ViewCompanyLabel_active}"/></td>
@@ -162,10 +170,13 @@
                                                     <p:selectBooleanCheckbox value="#{CompanyMB.selected.active}" />                    
                                                 </f:facet>
                                             </p:inplace></td>
+                                    <p:tooltip for="active" value="Double click to edit this content" trackMouse="true" />
                                     </tr>
                                     <tr> 
-                                        <td align="left"><p:commandButton id="update" action="#{CompanyMB.update}" value="#{bundle.Edit}"/></td>
+                                        <td align="left"><p:commandButton id="update" action="#{CompanyMB.update}" value="#{bundle.Edit}" update="CompanyViewForm"/></td>
+                                        <p:tooltip for="update" value="Save new information of this company" trackMouse="true" />
                                         <td align="right"><p:commandButton id="cancelbtn" value="#{bundle.Close}" action="compaies" immediate="true"/></td>
+                                        <p:tooltip for="cancelbtn" value="Discard entered information and back to companies page" trackMouse="true" />
                                     </tr>
                                 </tbody>
                             </table> 
@@ -221,7 +232,7 @@
                                     </div>
                                     <div class="clearfix"> </div>
                                     <div class="more m1">
-                                        <p:commandButton  type="" action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                        <p:commandButton  type="" action="#{tripMB.tripDetails(trip.id)}" value="More Details" />
                                     </div>
                                 </div>
                             </p:dataGrid>

@@ -187,7 +187,6 @@ public class ServiceManagedBean {
     public String categoryDetails(int id) {
 //        service = serviceBusiness.showSpecificInfo(id);
         categorey=serviceBusiness.showCategory(id);
-        
         return "ServicesDetails";
     }
 

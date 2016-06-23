@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -16,7 +17,8 @@
 
             <ui:define name="content">
 
-                <h:form prependId="false" id="tripDetails">
+                <h:form  id="tripDetails">
+                    <c:set var="blockFrom" value="tripDetails:joinTrip tripDetails:completed tripDetails:expired tripDetails:join tripDetails:cancel tripDetails:Owend" />
 
                     <div class="single">
                         <div class="container">
@@ -29,6 +31,9 @@
                                         <li><a href="#"><span class="fa fa-money" aria-hidden="true"></span> Cost:#{tripMB.selected.cost}</a></li>
                                         <li><p:commandLink id="completed" value="Completed" action="trips" rendered="#{!tripMB.checkTripComplete}" class="fa fa-money"/></li>
                                         <li><p:commandLink id="expired" value="Expired" action="trips" rendered="#{!tripMB.checkTripDate}"/></li>
+                                        <li><p:commandLink id="Owend" value="Joined" action="trips" rendered="#{tripMB.checkTrip}"/></li>
+                                     
+
                                     </ul>
                                 </div>
                                 <br/>
@@ -44,7 +49,7 @@
                                             <br/>
                                             <p:carousel  value="#{tripMB.imagesList}" circular="true"   numVisible="2" autoPlayInterval="3000"  var="imgVar"  itemStyle="text-align:center;margin: 0px;padding: 0px;" style="margin: 0px;padding: 0px;" responsive="true">
                                                 <f:facet name="header" rendered="false" >
-  </f:facet>
+                                                </f:facet>
                                                 <p:panelGrid columns="1" style="height:90%;  width:100%;margin:0px 0px" >
                                                     <p:graphicImage value="/Image?imageName=#{imgVar}" width="80%" height="200"/> 
 
@@ -95,35 +100,43 @@
 
                                 <br/><br/>
                                 <h:panelGroup rendered="#{not empty tripMB.selected.tagList }" >
-                                <div class="artical-links">
-                                    <ul style="float: left" >
-                                        <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>  <ui:repeat value="#{tripMB.selected.tagList}" var="tag">- #{tag.name} </ui:repeat></li>
+                                    <div class="artical-links">
+                                        <ul style="float: left" >
+                                            <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>  <ui:repeat value="#{tripMB.selected.tagList}" var="tag">- #{tag.name} </ui:repeat></li>
 
-                                    </ul>
-                                </div>
-                                    </h:panelGroup>
+                                        </ul>
+                                    </div>
+                                </h:panelGroup>
 
 
                                 <p:commandButton id="joinTrip" value="Join Trip" type="button" onclick="PF('dlg2').show();" rendered="#{tripMB.render}"/>
 
-                                <p:dialog header="Join Trip" widgetVar="dlg2" modal="true" height="200">
-                                    <h:panelGrid columns="2" styleClass="ui-grid" cellspacing="5">
-                                        <p:outputLabel value="Count Booking : "/>
-                                        <p:outputLabel value="#{tripMB.selected.countBooking}"/>
 
-                                        <p:outputLabel value="Max Booking : "/>
-                                        <p:outputLabel value="#{tripMB.selected.maxbooking}"/>
-
-                                        <p:outputLabel value="Count : "/>
-                                        <p:spinner value="#{tripMB.clientJoinTrip.count}"/>
-
-                                        <f:facet name="footer">
-                                            <p:commandButton id="join" value="Join" action="#{tripMB.joinTrip(login.loginAccount.client)}"  update="tripDetails" styleClass="ui-priority-primary" oncomplete="handleSubmit(args,'dlg2');" />
-                                            <p:commandButton id="cancel" value="Cancel" onclick="dlg2.hide()"/>
-                                        </f:facet>
-
-                                    </h:panelGrid>
+                                <p:dialog header="Join Trip" widgetVar="dlg2" modal="true" height="200" id="joinDialog">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <td><p:outputLabel value="Count Booking22222 : "/></td>
+                                                <td> <p:outputLabel id="countTXT" value="#{tripMB.selected.countBooking}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p:outputLabel value="Max Booking : "/></td>
+                                                <td><p:outputLabel value="#{tripMB.selected.maxbooking}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p:outputLabel value="Count : "/></td>
+                                                <td><p:spinner id="spinnerTXT" value="#{tripMB.clientJoinTrip.count}" min="01" max="#{tripMB.selected.maxbooking-tripMB.selected.countBooking}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><p:commandButton id="join" value="Join" action="#{tripMB.joinTrip(login.loginAccount.client)}"  update="tripDetails" styleClass="ui-priority-primary" oncomplete="handleSubmit(args,'dlg2');" /></td>
+                                                <td><p:commandButton id="cancel" value="Cancel" onclick="dlg2.hide()"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </p:dialog> 
+
+                                <p:poll interval="3" listener="#{tripMB.reSelected()}" update="tripDetails:countTXT tripDetails:completed tripDetails:expired tripDetails:Owend tripDetails:joinTrip" />
+
 
 
 
@@ -161,7 +174,7 @@
                                     </div>
                                 </div>
 
-                                <p:blockUI block="bobo" trigger="joinTrip completed expired join cancel">
+                                <p:blockUI block="bobo" trigger="tripDetails:joinTrip tripDetails:completed tripDetails:expired tripDetails:join tripDetails:cancel">
                                     LOADING<br />
                                     <p:graphicImage name="/processing-bar.gif"/>
                                 </p:blockUI>

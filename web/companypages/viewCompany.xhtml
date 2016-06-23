@@ -32,7 +32,7 @@
                     <div class="col-sm-12" align="center">
                         <h:form id="form">
                             <h2> Trip Organized by #{clientOfCompanyTrips.selected.name}</h2>
-                            <p:dataGrid var="trip" value="#{clientOfCompanyTrips.selected.tripList}" columns="3" layout="grid"
+                            <p:dataGrid var="trip" value="#{clientOfCompanyTrips.tripListCompany()}" columns="3" layout="grid"
                                         rows="3" paginator="true" id="trip"
                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                         rowsPerPageTemplate="3,6,12">
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="clearfix"> </div>
                                     <div class="more m1">
-                                        <h:commandButton   action="#{clientOfCompanyTrips.goToViewTrip(trip.id)}" value="More Details"/>
+                                        <p:commandButton   action="#{clientOfCompanyTrips.goToViewTrip(trip.id)}" value="More Details"/>
                                     </div>
                                 </div>
                             </p:dataGrid>

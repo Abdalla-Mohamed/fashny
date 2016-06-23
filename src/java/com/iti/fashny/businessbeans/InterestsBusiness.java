@@ -98,13 +98,9 @@ public class InterestsBusiness implements Commens<Tag> {
         ClientFacade cf = factory.getClientDoa();  
         try {
             factory.beginTransaction();
-            c = cf.find(c.getId());
-            for (Tag t : tags) {
-                if (!c.getTagList().contains(t)) {
-                    c.getTagList().add(t);
-                    cf.edit(c);
-                }
-            }
+
+             c.setTagList(tags);
+             cf.edit(c);
             factory.commitTransaction();
 
         } catch (Exception e) {

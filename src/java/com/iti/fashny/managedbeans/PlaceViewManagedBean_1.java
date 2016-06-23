@@ -13,6 +13,7 @@ import com.iti.fashny.entities.ClientReviewPlace;
 import com.iti.fashny.entities.Place;
 import com.iti.fashny.entities.Resouce;
 import com.iti.fashny.entities.Tag;
+import com.iti.fashny.entities.Trip;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -173,8 +174,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
         }
         return imagesList;
     }
-
-    public void setImagesList(List<String> imagesList) {
+  public void setImagesList(List<String> imagesList) {
         this.imagesList = imagesList;
     }
 
@@ -208,6 +208,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
 
     public String placeDetails(int id) {
         selected = placeBusiness.showSpecificInfo(id);
+       
         try {
             selected = placeBusiness.getComments(selected);
         } catch (Exception ex) {
@@ -216,6 +217,7 @@ public class PlaceViewManagedBean_1 implements Serializable {
         return "PlaceDetails";
     }
 
+    
     public List<ClientReviewPlace> reviewPlaces() {
         List<ClientReviewPlace> clientReviewPlaceList = new ArrayList<>();
         try {
@@ -226,6 +228,19 @@ public class PlaceViewManagedBean_1 implements Serializable {
         return clientReviewPlaceList;
     }
 
+    public List<Trip> getTripsList() {
+        List<Trip> tripList = new ArrayList<>();
+        
+            try {
+                tripList = placeBusiness.getTrips(selected).getTripList();
+            } catch (Exception ex) {
+                // Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+            }
+        
+        return tripList;
+    }
+    
     public void count() {
         int size = draggableModel.getMarkers().size();
         System.out.println("---->> " + size);
@@ -466,4 +481,18 @@ public class PlaceViewManagedBean_1 implements Serializable {
         }
         return path;
     }
+    
+    //_________________________get valid and active places_____________________
+    
+     public List<Place> getActiveItems() {
+        try {
+            items = placeBusiness.viewActive();
+        } catch (Exception ex) {
+            Logger.getLogger(PlaceViewManagedBean_1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return items;
+    }
+     
+    //_________________________get valid and active places_____________________
+
 }

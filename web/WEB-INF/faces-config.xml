@@ -47,6 +47,22 @@
     </navigation-rule>
     
     <navigation-rule>
+        <from-view-id>/adminpages/trip/viewTrip.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ViewClient</from-outcome>
+            <to-view-id>/adminpages/client/ViewClient.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/companypages/createTrip.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>trips</from-outcome>
+            <to-view-id>/companypages/viewCompany.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>PlaceClient</from-outcome>
@@ -115,5 +131,11 @@
             <to-view-id>/companypages/viewCompany.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
+    <navigation-rule>
+        <from-view-id>/clientpages/EditClientProfileInfo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>goHome</from-outcome>
+            <to-view-id>/guestPages/home.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
