@@ -41,11 +41,24 @@
                                                                      required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_name}"
                                                                      style="width:280px;"/></td>
                                                 </tr> 
+                                               
                                                 <tr>
-                                                    <td><p:outputLabel value="#{bundle.CreatePlaceLabel_address}" for="address" /></td>
-                                                    <td><p:inputText id="address" value="#{placeView_1.selected.address}" title="#{bundle.CreatePlaceTitle_address}"
-                                                                     required="true" requiredMessage="#{bundle.CreatePlaceRequiredMessage_address}"
-                                                                     style="width:280px;"/></td>
+                                                    <td>  <p:outputLabel  value="Governorate: " /></td>
+                                                    <td>  <h:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px" required="true" requiredMessage="select governrate">
+                                                            <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                                            <p:ajax listener="#{placeView_1.selected.setAddress(addressMB.governorate)}" />
+                                                            <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                                            <f:selectItems value="#{addressMB.governorates}" />
+                                                            </h:selectOneMenu></td>
+                                                <tr>
+                                                    <td>  <p:outputLabel  for="city" value="City: " /></td>
+                                                    <td>  <h:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" required="true" requiredMessage="select city">
+                                                                <p:ajax listener="#{placeView_1.selected.setAddress(addressMB.address)}" />
+                                                                <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                                                <f:selectItems value="#{addressMB.cities}" />
+                                                            </h:selectOneMenu>   </td>
+                                                </tr>            
+
                                                 </tr>
                                                 <tr>
                                                     <td><p:outputLabel value="#{bundle.CreatePlaceLabel_description}" for="description" /></td>
@@ -83,14 +96,14 @@
                                                 <tr>
                                                     <td><h:outputText value="Latitude:"/></td>
                                                     <td><h:inputText id="lat" value="#{placeView_1.selected.attd}" style="width:280px;">
-                                                        <f:convertNumber type="number"/>
+                                                            <f:convertNumber type="number"/>
                                                         </h:inputText></td>  
                                                     <td rowspan="2" align="center"><button onclick="getThisLocation()" type="button">Get this Position</button></td>
                                                 </tr>
                                                 <tr>
                                                     <td><h:outputText value="Longitude:"/></td>
                                                     <td><h:inputText id="lon"  value="#{placeView_1.selected.lang}" style="width:280px;">
-                                                        <f:convertNumber type="number"/>
+                                                            <f:convertNumber type="number"/>
                                                         </h:inputText></td>
                                                 </tr>
                                                 <tr>
@@ -102,7 +115,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                              
+
                                 <tr>
                                     <td align="center"><p:commandButton id="create" action="#{placeView_1.save()}" value="#{bundle.Save}" update="createPlaceForm"/></td>
                                     <td align="center"><p:commandButton id="cancel" action="#{placeView_1.cancel()}" value="#{bundle.Cancel}" immediate="true"/></td>
@@ -110,9 +123,9 @@
                             </tbody>
                         </table>
                         <p:blockUI block="bobo" trigger="cancel create">
-                                LOADING<br/>
-                                <p:graphicImage name="/processing-bar.gif"/>
-                            </p:blockUI>
+                            LOADING<br/>
+                            <p:graphicImage name="/processing-bar.gif"/>
+                        </p:blockUI>
                     </div>   
                 </h:form>
 
