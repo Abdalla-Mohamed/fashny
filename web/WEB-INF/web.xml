@@ -23,9 +23,9 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>/fashny/faces/guestPages/home.xhtml</welcome-file>
     </welcome-file-list>
-    <!--    <security-constraint>
+    <security-constraint>
         <display-name>adminConstraint</display-name>
         <web-resource-collection>
             <web-resource-name>adminRes</web-resource-name>
@@ -46,5 +46,5 @@
             <form-login-page>/faces/genralPages/adminLogin.xhtml</form-login-page>
             <form-error-page>/faces/genralPages/adminLogin.xhtml</form-error-page>
         </form-login-config>
-    </login-config>-->
+    </login-config>
 </web-app>
