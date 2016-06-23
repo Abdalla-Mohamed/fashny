@@ -77,10 +77,8 @@
                     <p:menu style="font-size: small" overlay="true" trigger="dynaButton" my="left top" at="left bottom">
                         <p:submenu  label="manage">
                             <p:menuitem value="Update Profile"  outcome="/clientpages/EditClientProfileInfo.xhtml" icon="fa fa-pencil-square-o"/>
-                            <p:menuitem value="My Interests" outcome="/clientpages/ClinetInterests.xhtml" icon="fa fa-tags"/>
                             <p:separator />
                             <p:menuitem value="My Trips"  outcome="/clientpages/clientTrips.xhtml" style="color: blue"  icon="fa fa-plane "/>
-                            <p:menuitem value="My Wishs"  style="color: blue"  icon="fa fa-heart "/>
                         </p:submenu>
                         <p:submenu >
                             <p:menuitem  id="logoutBtn"   action="#{login.logOut}"   value="Logout"  icon="fa fa-sign-out" />
@@ -185,7 +183,7 @@
                                 <li><a href="/fashny/faces/guestPages/home.xhtml" class='${Home}' > Home</a></li>
                                 <li><a href="/fashny/faces/guestPages/PlaceClient.xhtml" class='${Places}'>Places</a></li>
                                 <li><a href="/fashny/faces/guestPages/trips.xhtml" class='${Trips}'>Trips</a></li>
-                                <li><a href="portfolio.html" class='${Companies}'>Companies</a></li>
+                                <li><a href="/fashny/faces/guestPages/company/companiesClient.xhtml" class='${Companies}'>Companies</a></li>
                                 <li><a href="/fashny/faces/guestPages/PartenerHotelAllClientView.xhtml" class='${Hotels}' >Hotels</a></li>
                                 <li ><a href="/fashny/faces/guestPages/PartenerResturantesAllClientView.xhtml" class='${Restaurants}' >Restaurants </a></li>
                                 <ui:fragment rendered="#{!login.logged}"><li><a  onclick="PF('signupDilg').show();;" style="font-style: italic; color: rgb(134, 252, 248) !important;cursor: url(/fashny/resources/signCors.png), auto;  " ><b>Sign up</b></a></li></ui:fragment>
@@ -212,7 +210,7 @@
                     </p:dialog>
                 </nav>
                 <div class="logo">
-                    <a href="index.html">Fa7hny<span>Your Trips </span></a>
+                    <a href="index.html">Fas7ny<span>Your Trips </span></a>
                 </div>
                 <div class="dummy_text">
                     <p>New places , Creative Trips , professional companies

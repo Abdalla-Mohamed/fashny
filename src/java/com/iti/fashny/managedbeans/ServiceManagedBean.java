@@ -8,7 +8,6 @@ package com.iti.fashny.managedbeans;
 import com.iti.fashny.businessbeans.ServicesBusiness;
 import com.iti.fashny.entities.Service;
 import com.iti.fashny.entities.ServiceCategorey;
-import static com.iti.fashny.entities.Service_.categoreyServiceid;
 import com.iti.fashny.entities.Tag;
 import com.iti.fashny.entities.Trip;
 import java.util.List;

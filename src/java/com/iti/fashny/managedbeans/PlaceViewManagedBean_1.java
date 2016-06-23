@@ -481,7 +481,15 @@ public class PlaceViewManagedBean_1 implements Serializable {
         }
         return path;
     }
-    
+   
+     public String getFirstImg2(Place place) {
+         selected=placeBusiness.showSpecificInfo(selected.getId());
+        String path = "0";
+        if (place.getResouceList() != null && !place.getResouceList().isEmpty()) {
+            path = place.getResouceList().get(0).getPath();
+        }
+        return path;
+    }
     //_________________________get valid and active places_____________________
     
      public List<Place> getActiveItems() {

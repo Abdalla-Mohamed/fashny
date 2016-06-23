@@ -224,7 +224,8 @@ public class TripManagedBean implements Serializable {
         selected = tripBusiness.showSpecificInfo(selected.getId());
         boolean equals = false;
         if (loginManagedBean.isLogged()) {
-            List<JoinTrip> joinTripList = clientJoinTripBusiness.getJoidTrips(loginManagedBean.getLoginAccount().getClient()).getJoinTripList();
+            List<JoinTrip> joinTripList=new ArrayList<>();
+            joinTripList = clientJoinTripBusiness.getJoidTrips(loginManagedBean.getLoginAccount().getClient()).getJoinTripList();
             for (JoinTrip joinTripList1 : joinTripList) {
                 equals = joinTripList1.getTrip().equals(selected);
                 if (equals) {
@@ -393,6 +394,19 @@ public class TripManagedBean implements Serializable {
     }
 
     public String getFirstImg(Trip trip) {
+        String path = "0";
+        if (trip.getResouceList() != null && !trip.getResouceList().isEmpty()) {
+            path = trip.getResouceList().get(0).getPath();
+        }
+        return path;
+    }
+    
+    public String getFirstImg2(Trip trip) {
+        try {
+            trip=tripBusiness.getResources(trip);
+        } catch (Exception ex) {
+            Logger.getLogger(TripManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String path = "0";
         if (trip.getResouceList() != null && !trip.getResouceList().isEmpty()) {
             path = trip.getResouceList().get(0).getPath();

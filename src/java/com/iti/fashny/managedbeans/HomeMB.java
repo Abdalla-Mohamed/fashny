@@ -85,10 +85,10 @@ public class HomeMB {
           
            bar.add(new placeImage(places.get(x).getName(),getFirstImg(places.get(x))));
            bar.add(new placeImage(trips.get(x).getName(),getTripFirstImg(trips.get(x))));
-                if(companies.get(x).getProfilePic() != null)
-           bar.add(new placeImage(companies.get(x).getName(),companies.get(x).getProfilePic().getPath()));
-                if(parteners.get(x).getProfilePic() != null)
-           bar.add(new placeImage(parteners.get(x).getName(),parteners.get(x).getProfilePic().getPath()));
+                if(companies.get(0).getProfilePic() != null)
+           bar.add(new placeImage(companies.get(0).getName(),companies.get(0).getProfilePic().getPath()));
+                if(parteners.get(0).getProfilePic() != null)
+           bar.add(new placeImage(parteners.get(0).getName(),parteners.get(0).getProfilePic().getPath()));
          
         }
         

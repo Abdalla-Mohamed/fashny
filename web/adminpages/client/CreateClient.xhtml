@@ -115,9 +115,9 @@
                                     </tr>
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateClientLabel_mobile2}" for="mobile2" /></td>
-                                        <td><p:inputText id="mobile2" value="#{adminClient.selected.mobile2}" title="#{bundle.CreateClientTitle_mobile2}" >
-                                                <f:validateLength minimum="11" maximum="11"/>
-                                            </p:inputText></td>
+                                        <td><p:inputMask id="mobile2" value="#{adminClient.selected.mobile2}" title="#{bundle.CreateClientTitle_mobile2}" mask="(9999)9999999" />
+                                                
+                                           </td>
                                         <td><p:message for="mobile2"/></td>
                                     </tr>
                                     <tr>
