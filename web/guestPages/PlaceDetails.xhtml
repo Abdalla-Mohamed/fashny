@@ -27,8 +27,7 @@
                                 <div class="artical-links">
                                     <ul>
                                         <li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Name:#{placeView_1.selected.name}</li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Work Hours:#{placeView_1.selected.workHours}</a></li>
-                                        <li><a href="#"><span class="fa fa-money" aria-hidden="true"></span>Address:#{placeView_1.selected.address}</a></li>
+                                        <li><a href="#"><span class="fa fa-archive" aria-hidden="true"></span>Address:#{placeView_1.selected.address}</a></li>
                                     </ul>
                                 </div>
                                 <br/>
@@ -59,7 +58,7 @@
                                     <div class="services-grids">
                                         <div class="col-md-8 services-grid">
                                             <div class="col-xs-2 services-grid-left">
-                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
                                             </div>
                                             <div class="col-xs-10 banner-bottom1-grid-left services-grid-right">
                                                 <h4>Description</h4>
@@ -70,13 +69,13 @@
                                         </div>
                                         <div class="col-md-4 services-grid">
                                             <div class="col-xs-2 services-grid-left">
-                                                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                             </div>
                                             <div class="col-xs-10  banner-bottom1-grid-left services-grid-right">
 
-                                                <h4>Tools Need</h4>
+                                                <h4>Work Hours</h4>
                                                 <p:separator/>
-                                                <pre>#{tripMB.selected.needTools}</pre>
+                                                <pre>#{placeView_1.selected.workHours}</pre>
 
                                             </div>
 
