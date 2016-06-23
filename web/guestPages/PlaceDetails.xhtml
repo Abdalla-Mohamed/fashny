@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -11,124 +12,169 @@
                         xmlns:h="http://xmlns.jcp.org/jsf/html">
 
             <ui:define name="title">
-                Selected Place
+                #{placeView_1.selected.name}
             </ui:define>
 
             <ui:define name="content">
 
-                <h:form prependId="false">
-                    <div  class="col-sm-12" align="center">
-                        <div class="col-sm-2" align="center"></div>
-                        <div class="col-sm-8" align="center"> 
-                            <h:panelGrid columns="2">
+                <h:form  id="placeDetails">
+                    <!--<c:set var="blockFrom" value="placeDetails:joinTrip placeDetails:completed placeDetails:expired placeDetails:join placeDetails:cancel placeDetails:Owend" />-->
 
-                                <h:outputLabel for="name" value="#{bundle.ViewPlaceLabel_name}" />
-                                <h:outputText id="name" value="#{placeView_1.selected.name}"/>
+                    <div class="single">
+                        <div class="container">
+                            <div class="single-page-artical">
 
-                                <h:outputLabel for="desc" value="#{bundle.ViewPlaceLabel_description}" />
-                                <h:outputText id="desc" value="#{placeView_1.selected.description}"/>
+                                <div class="artical-links">
+                                    <ul>
+                                        <li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Name:#{placeView_1.selected.name}</li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Work Hours:#{placeView_1.selected.workHours}</a></li>
+                                        <li><a href="#"><span class="fa fa-money" aria-hidden="true"></span>Address:#{placeView_1.selected.address}</a></li>
+                                    </ul>
+                                </div>
+                                <br/>
+                                <div class="artical-content">
+                                    <h3>#{placeView_1.selected.name}</h3>
 
-                                <h:outputLabel for="work" value="#{bundle.ViewPlaceLabel_workHours}" />
-                                <h:outputText id="work" value="#{placeView_1.selected.workHours}"/>
+                                    <div class="row">
+                                        <div class="container">
+                                            <br/>
+                                            <p:carousel  value="#{placeView_1.imagesList}" circular="true"   numVisible="2" autoPlayInterval="3000"  var="imgVar"  itemStyle="text-align:center;margin: 0px;padding: 0px;" style="margin: 0px;padding: 0px;" responsive="true">
+                                                <f:facet name="header" rendered="false" >
+                                                </f:facet>
+                                                <p:panelGrid columns="1" style="height:90%;  width:100%;margin:0px 0px" >
+                                                    <p:graphicImage value="/Image?imageName=#{imgVar}" width="80%" height="200"/> 
 
-                                <h:outputLabel for="address" value="#{bundle.ViewPlaceLabel_address}" />
-                                <h:outputText id="address" value="#{placeView_1.selected.address}"/>
-                            </h:panelGrid>
+                                                </p:panelGrid>
+                                            </p:carousel>
+                                            <br/>
 
-                            <p:separator style="width:1000px;height:10px"/>
+                                        </div>
+                                    </div>
 
-
-
-                            <p:separator style="width:1000px;height:10px"/>
-
-
-
-                            <p:imageSwitch  effect="fade" widgetVar="switcher" id="manuelSwitcher" >
-                                <ui:repeat value="#{placeView_1.imagesList}" var="image" id="manuelSwitcherImages">
-                                    <p:graphicImage  styleClass="img-responsive "  value="/Image?imageName=#{image}" id="image" width="800" height="400"/>
-                                </ui:repeat>
-                            </p:imageSwitch>
-
-                            <p:separator style="width:1000px;height:10px"/>
-
-                            <p:dataGrid var="comment" value="#{placeView_1.reviewPlaces()}" columns="1" layout="grid"
-                                        rows="12" id="places" 
-                                        rowsPerPageTemplate="6,12,16">
-
-                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                    <p:outputPanel>
-                                        <h:panelGrid columns="2" cellpadding="5">
-                                            <h:outputText value="Name:" />
-                                            <h:outputText value="#{comment.clientId.name}"/>
-
-                                            <h:outputText value="Comment:" />
-                                            <h:outputText value="#{comment.comment}"/>
-                                        </h:panelGrid>
-                                    </p:outputPanel>
-                                </h:panelGrid>
-                                <hr />
-                            </p:dataGrid>
-
-                            <p:separator style="width:1000px;height:10px"/>
+                                </div>
 
 
-                            <div align="right" class="col-sm-2">  
-                                <p:dataTable  value="#{placeView_1.selected.tripList}" var="trip">
-                                    <p:column headerText="Name">
-                                        <h:outputText value="#{trip.name}"/>
-                                    </p:column>
-                                    <p:column headerText="Name">
-                                        <h:outputText value="#{trip.cost}"/>
-                                    </p:column>
-
-                                </p:dataTable>
-                            </div>
-
-                            <div class="col-sm-12" align="center">
-                                <div class="col-sm-2" align="center"></div>
-                                <div class="table-responsive col-sm-8"> 
-                                    <h:form id="form">
-                                        <h2> Trips </h2><br/>
-                                        <p:dataGrid var="trip" value="#{placeView_1.selected.tripList}" columns="3" layout="grid"
-                                                    rows="3" paginator="true" id="trip"
-                                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                    rowsPerPageTemplate="3,6,12,16">
-
-
-                                            <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
-                                                <div class="col-xs-4 blog-grid-left">
-                                                    <p:commandLink action="#{tripMB.tripDetails(trip.id)}">
-                                                        <p:graphicImage styleClass="img-responsive" name="19.jpg" width="100%" />
-                                                    </p:commandLink>
-                                                </div> 
-                                                <div class="col-xs-8 blog-grid-right">
-                                                    <p:commandLink action="#{tripMB.tripDetails(trip.id)}">
-                                                        <h4>#{trip.name}</h4>
-                                                    </p:commandLink>
-                                                    <p>#{trip.cost}</p>
-                                                    <p>#{trip.date}</p>
-                                                </div>
-                                                <div class="clearfix"> </div>
-                                                <div class="more m1">
-                                                    <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
-                                                </div>
+                                <div class="container">
+                                    <h3>Place Details</h3>
+                                    <div class="services-grids">
+                                        <div class="col-md-8 services-grid">
+                                            <div class="col-xs-2 services-grid-left">
+                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                             </div>
-                                        </p:dataGrid>
-                                    </h:form>
-                                </div>
-                            </div>                      
+                                            <div class="col-xs-10 banner-bottom1-grid-left services-grid-right">
+                                                <h4>Description</h4>
+                                                <p:separator/>
+                                                <pre>#{placeView_1.selected.description}</pre>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                        <div class="col-md-4 services-grid">
+                                            <div class="col-xs-2 services-grid-left">
+                                                <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                                            </div>
+                                            <div class="col-xs-10  banner-bottom1-grid-left services-grid-right">
 
-                            <p:panel id="leave" header="leave a comment" footer="Comments" style="margin-bottom:20px" rendered="#{login.logged and login.loginAccount.role=='Client'}">
-                                <div class="table-form">
-                                    <p:inputTextarea id="commenttxt" value="#{placeView_1.clientReviewPlace.comment}" rows="6" cols="33" />	
-                                    <p:commandButton value="Comment" id="comment" action="#{placeView_1.comment(login.loginAccount.client)}"  update="places commenttxt" styleClass="ui-priority-primary" />
+                                                <h4>Tools Need</h4>
+                                                <p:separator/>
+                                                <pre>#{tripMB.selected.needTools}</pre>
+
+                                            </div>
+
+
+                                            <div class="clearfix"> </div>
+                                        </div>
+
+
+                                        <div class="clearfix"> </div>
+                                    </div>
                                 </div>
-                            </p:panel>
+
+                                <br/><br/>
+                                <h:panelGroup rendered="#{not empty placeView_1.selected.tagList }" >
+                                    <div class="artical-links">
+                                        <ul style="float: left" >
+                                            <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>  <ui:repeat value="#{placeView_1.selected.tagList}" var="tag">- #{tag.name} </ui:repeat></li>
+
+                                        </ul>
+                                    </div>
+                                </h:panelGroup>
+
+
+                                <div class="col-sm-12" align="center">
+                                    <div class="col-sm-2" align="center"></div>
+                                    <div class="table-responsive col-sm-8"> 
+                                        <h:form id="form">
+                                            <h2> Trips #{placeView_1.selected.name}</h2><br/>
+                                            <p:dataGrid var="trip" value="#{placeView_1.selected.tripList}" columns="3" layout="grid"
+                                                        rows="3" paginator="true" id="place"
+                                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                        rowsPerPageTemplate="3,6,12,16">
+
+
+                                                <div class="well col-md-12 col-sm-6 col-xs-12 blog-grid" >
+                                                    <div class="col-xs-4 blog-grid-left">
+                                                        <p:commandLink action="#{tripMB.tripDetails(trip.id)}">
+                                                            <p:graphicImage styleClass="img-responsive" value="/Image?imageName=#{tripMB.getFirstImg2(trip)}" width="100%" />
+                                                        </p:commandLink>
+                                                    </div> 
+                                                    <div class="col-xs-8 blog-grid-right">
+                                                        <p:commandLink action="#{tripMB.tripDetails(trip.id)}">
+                                                            <h4>#{trip.name}</h4>
+                                                        </p:commandLink>
+                                                        <p>#{trip.cost}</p>
+                                                        <p>#{trip.date}</p>
+                                                    </div>
+                                                    <div class="clearfix"> </div>
+                                                    <div class="more m1">
+                                                        <h:commandButton   action="#{tripMB.tripDetails(trip.id)}" value="More Details"/>
+                                                    </div>
+                                                </div>
+                                            </p:dataGrid>
+                                        </h:form>
+                                    </div>
+                                </div>
+                                <p:separator style="width:1000px;height:10px"/>
+                                <h3>Comments</h3>
+                                <p:dataGrid var="comment" value="#{placeView_1.reviewPlaces()}" columns="1" layout="grid"
+                                            rows="12" id="places" 
+                                            rowsPerPageTemplate="6,12,16">
+
+                                    <div class="comments-top-top">
+                                        <div class="top-comment-left">
+                                            <p:graphicImage styleClass="img-responsive" value="/Image?imageName=#{comment.clientId.profilePic.path}" width="100%" />
+                                        </div>
+                                        <div class="top-comment-right">
+                                            <ul>
+                                                <li><span class="left-at">#{comment.clientId.name}</span></li>
+                                            </ul>
+                                            <p>#{comment.comment}</p>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                    <hr />
+                                </p:dataGrid>
+
+                                <p:separator style="width:1000px;height:10px"/>
+                                <p:panel id="leave" header="leave a comment" footer="Comments" style="margin-bottom:20px" rendered="#{login.logged and login.loginAccount.role=='Client'}">
+                                    <div class="table-form">
+                                        <p:inputTextarea id="commenttxt" value="#{placeView_1.clientReviewPlace.comment}" rows="6" cols="33" />	
+                                        <p:commandButton value="Comment" id="comment" action="#{placeView_1.comment(login.loginAccount.client)}"  update="places commenttxt" styleClass="ui-priority-primary" />
+                                    </div>
+                                </p:panel>
+
+                            </div>
                         </div>
+
                     </div>
 
 
+
                 </h:form>
+
+                <!-- Keep the first param for next redirection -->
+                <f:facet name="header">
+                    Places
+                </f:facet>
 
                 <!-- Keep the first param for next redirection -->
                 <f:facet name="header">

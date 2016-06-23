@@ -121,7 +121,7 @@
                                         <td><p:selectBooleanCheckbox id="active" value="#{CompanyMB.selected.active}" /></td>
                                     </tr>                                        
                                     <tr>
-                                        <td><p:commandButton id="create" action="#{CompanyMB.save()}" value="#{bundle.Save}" update="createCompanyForm" update="createCompanyForm"/></td>
+                                        <td><p:commandButton id="create" action="#{CompanyMB.save()}" value="#{bundle.Save}" update="createCompanyForm"/></td>
                                         <p:tooltip for="create" value="Save information of a new company" trackMouse="true" />
                                         <td align="right"><p:commandButton id="cancel" value="#{bundle.Cancel}" action="#{CompanyMB.goToCompanies()}" immediate="true"/></td>
                                         <p:tooltip for="cancel" value="Discard entered information and back to companies page" trackMouse="true" />
