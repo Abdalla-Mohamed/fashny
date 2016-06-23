@@ -100,8 +100,20 @@ public class TripBusiness implements Commens<Trip>, Serializable {
     public Trip showSpecificInfo(int id) {
         Trip trip = new Trip();
         DaoFactory dao = new DaoFactory();
-        TripFacade p = dao.getTripDoa();
-        trip = p.find(id);
+
+        try {
+            TripFacade p = dao.getTripDoa();
+            trip = p.find(id);
+            trip.getCompanyId();
+            trip.getJoinTripList().size();
+            trip.getPlaceList().size();
+            trip.getResouceList().size();
+            trip.getTagList().size();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        } finally {
+            dao.close();
+        }
         return trip;
     }
 
@@ -214,10 +226,7 @@ public class TripBusiness implements Commens<Trip>, Serializable {
         return trip;
     }
 
-    
     //_____________________ get validated trips_____________
-    
-    
     public List<Trip> viewValidated() throws Exception {
         DaoFactory daoFactory = new DaoFactory();
         List<Trip> tripResults = new ArrayList<>();
@@ -239,7 +248,6 @@ public class TripBusiness implements Commens<Trip>, Serializable {
         }
         return tripResults;
     }
-    
-      //_____________________ get validated trips_____________
-  
+
+    //_____________________ get validated trips_____________
 }

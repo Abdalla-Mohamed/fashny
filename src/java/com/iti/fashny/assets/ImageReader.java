@@ -48,7 +48,7 @@ public class ImageReader extends HttpServlet {
         response.setContentType("image/png");
         String imageName = request.getParameter("imageName");
         int thumbWidth = 450;
-        int thumbHeight = 360;
+        int thumbHeight = 400;
 //        String pathToWeb = "C:/Book_Shop/images/";//getServletContext().getRealPath("/");
         File f = new File(imageName);
         System.out.println(f.getAbsolutePath());

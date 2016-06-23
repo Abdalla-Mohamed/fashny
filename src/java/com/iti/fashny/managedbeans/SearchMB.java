@@ -16,6 +16,7 @@ import com.iti.fashny.entities.Trip;
 import com.iti.fashny.interfaces.SearchEngine;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
@@ -59,7 +60,11 @@ public class SearchMB implements Serializable {
     Company selectedCompany;
     
     List<Place> selectedPlaces;
+    String anyChars = "%";
    
+    
+    private Date selectedDate;
+    private int  selectedcost;
     /**
      * Creates a new instance of SearchMB
      */
@@ -68,10 +73,30 @@ public class SearchMB implements Serializable {
         companyController = new CompanyController();
         placeBusiness = new PlaceBusiness();
         governorate = new ArrayList<>();
+        selectedCompany = new Company();
+        
         selectType = SearchType.Place;
         address="";
     }
 
+    public int getSelectedcost() {
+        return selectedcost;
+    }
+
+    public void setSelectedcost(int selectedcost) {
+        this.selectedcost = selectedcost;
+    }
+
+    
+    public Date getSelectedDate() {
+        return selectedDate;
+    }
+
+    public void setSelectedDate(Date selectedDate) {
+        this.selectedDate = selectedDate;
+    }
+
+    
     public List<Place> getSelectedPlaces() {
         return selectedPlaces;
     }
@@ -207,22 +232,21 @@ public class SearchMB implements Serializable {
 
 //        return null;
         switch (selectType) {
-            case Company:
-                break;
+           
             case Place:
                 searchForPlaces();
                 break;
             case Trip:
                 searchForTrips();
                 break;
-            case Tag:
-                break;
+            
         }
     }
 
-    String anyChars = "%";
     private void searchForPlaces() {
         Place placeExample = new Place();
+        placeExample.setActive(true);
+        placeExample.setValidated(true);
         placeExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
         System.out.println("th address is"+address);
         placeExample.setAddress(address.isEmpty()?null:address);
@@ -237,17 +261,24 @@ public class SearchMB implements Serializable {
     
     private void searchForTrips() {
         Trip tripExample = new Trip();
-        tripExample.setName(nameSearch.isEmpty()?null:anyChars+nameSearch+anyChars);
-        //tripExample.setCompanyId(selectedCompany);
+        tripExample.setValidated(true);
+        tripExample.setName(nameSearch.isEmpty()?null:nameSearch);
+        tripExample.setCompanyId(selectedCompany);
+        tripExample.setTagList(selectedTags);
+        tripExample.setPlaceList(selectedPlaces);
+        tripExample.setDate(selectedDate);
+        tripExample.setCost(selectedcost);
+        
        // System.out.println("ddddd"+selectedCompany.getId());
        // tripExample.setPlaceList(selectedPlaces);
         //tripExample.setTagList(selectedTags);
         System.out.println("hiiii"+nameSearch);
         System.out.println(selectedPlaces.size());
         System.out.println(selectedTags.size());
+        System.out.println(selectedCompany.getId());
         try {
             tripsResult = getSearchEngine().searchByExample(tripExample);
-            System.out.println(tripsResult.size()+"*************************************");
+            System.out.println(tripsResult.size()+"\n*************************************");
         } catch (Exception ex) {
             Logger.getLogger(SearchMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -267,7 +298,7 @@ public class SearchMB implements Serializable {
         return  selectType == SearchType.Place;
     }
     public boolean renderForCompany() {
-        return  selectType == SearchType.Company;
+        return  false;
     }
 
     public List<Place> getPlacesResult() {
