@@ -61,10 +61,24 @@
                                                         </p:inputText> </td>
                                                     <td>    <h:message for="contactmail" style="color:red" /></td>
                                                 </tr>
+                                               
                                                 <tr>
-                                                    <td>  <p:outputLabel value="#{MyPropertyFile.Address}"/></td>
-                                                    <td>  <p:inputText value="#{SignUpBean.c.address}" id="address"/> </td>
-                                                    <td>   <h:message for="address" style="color:red" /></td>
+                                                    <td>  <p:outputLabel  value="Governorate: " /></td>
+                                                    <td>  <h:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px" required="true" requiredMessage="select governrate">
+                                                            <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                                            <p:ajax listener="#{SignUpBean.c.setAddress(addressMB.governorate)}" />
+                                                            <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                                            <f:selectItems value="#{addressMB.governorates}" />
+                                                            </h:selectOneMenu></td>
+                                                <tr>
+                                                    <td>  <p:outputLabel  for="city" value="City: " /></td>
+                                                    <td>  <h:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" required="true" requiredMessage="select city">
+                                                                <p:ajax listener="#{SignUpBean.c.setAddress(addressMB.address)}" />
+                                                                <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                                                <f:selectItems value="#{addressMB.cities}" />
+                                                            </h:selectOneMenu>   </td>
+                                                </tr>            
+
                                                 </tr>
                                                 <tr>
                                                     <td>   <p:outputLabel value="#{MyPropertyFile.MaritalStatus}"/></td>

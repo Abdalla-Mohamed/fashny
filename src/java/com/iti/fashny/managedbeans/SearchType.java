@@ -12,6 +12,6 @@ import java.io.Serializable;
  * @author Abdalla
  */
 public enum SearchType implements Serializable {
-    Place, Company, Trip, Tag
+    Place,  Trip
     
 }

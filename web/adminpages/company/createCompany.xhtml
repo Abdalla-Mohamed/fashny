@@ -37,14 +37,14 @@
                                         <td><p:inputText id="name" value="#{CompanyMB.selected.name}" title="#{bundle.CreateCompanyTitle_name}" style="width: 85%;"
                                                          required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_name}"/></td>
                                     </tr>                                        
-                                                                           
+
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_password}" for="password" /></td>
                                         <td><p:password id="password" value="#{CompanyMB.selected.password}" feedback="true"
                                                         title="#{bundle.CreateCompanyTitle_password}" style="width: 85%;" 
                                                         required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_password}"
                                                         validatorMessage="Password length is less than allowable minimum of '6'">
-                                            <f:validateLength minimum="6" />
+                                                <f:validateLength minimum="6" />
                                             </p:password>
                                         </td>
                                     </tr>                                        
@@ -75,29 +75,44 @@
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile1}" for="mobile1" /></td>
                                         <td><p:inputText id="mobile1" value="#{CompanyMB.selected.mobile1}" title="#{bundle.CreateCompanyTitle_mobile1}" 
                                                          required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_mobile1}" style="width: 85%;"
-                                                          validatorMessage="Mobil 1 should be consists of '11' numbers"
-                                                             >
-                                                    <f:validateRegex pattern="(\d{11})"/>
+                                                         validatorMessage="Mobil 1 should be consists of '11' numbers"
+                                                         >
+                                                <f:validateRegex pattern="(\d{11})"/>
                                             </p:inputText></td>
                                     </tr>                                        
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_mobile2}" for="mobile2" /></td>
                                         <td><p:inputText id="mobile2" value="#{CompanyMB.selected.mobile2}" title="#{bundle.CreateCompanyTitle_mobile2}" 
                                                          style="width: 85%;" validatorMessage="Mobil 2 should be consists of '11' numbers">
-                                                    <f:validateRegex pattern="(\d{11})"/>                                   
-                                        </p:inputText> </td>   
+                                                <f:validateRegex pattern="(\d{11})"/>                                   
+                                            </p:inputText> </td>   
                                     </tr>                                        
                                     <tr>                                           
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_phone}" for="phone" /></td>
                                         <td><p:inputText id="phone" value="#{CompanyMB.selected.phone}" title="#{bundle.CreateCompanyTitle_phone}" 
                                                          style="width: 85%;" validatorMessage="Phone should be consists of '9' or '10' numbers">
-                                                    <f:validateRegex pattern="(\d{9,10})"/>
+                                                <f:validateRegex pattern="(\d{9,10})"/>
                                             </p:inputText></td>
                                     </tr> 
-                                     <tr>    
-                                        <td><p:outputLabel value="#{bundle.CreateCompanyLabel_address}" for="address" /></td>
-                                        <td><p:inputText id="address" value="#{CompanyMB.selected.address}" title="#{bundle.CreateCompanyTitle_address}" style="width: 85%;" required="true" requiredMessage="#{bundle.CreateCompanyRequiredMessage_address}"/></td>
+
+                                    <tr>
+                                        <td><p:outputLabel  value="Governorate: " /></td>
+                                        <td><h:selectOneMenu id="country" value="#{addressMB.governorate}" style="width:150px" required="true" requiredMessage="select Governerate">
+                                                <p:ajax listener="#{addressMB.onCountryChange()}" update="city" />
+                                                <f:selectItem itemLabel="Select governorate" itemValue="" noSelectionOption="true" />
+                                                <f:selectItems value="#{addressMB.governorates}" />
+                                            </h:selectOneMenu></td>
+                                    <tr>
+                                        <td><p:outputLabel  for="city" value="City: " /></td>
+                                        <td><h:selectOneMenu id="city" value="#{addressMB.city}" style="width:150px" required="true" requiredMessage="select city">
+                                                    <p:ajax listener="#{CompanyMB.selected.setAddress(addressMB.address)}" />
+                                                    <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                                    <f:selectItems value="#{addressMB.cities}" />
+                                                </h:selectOneMenu></td>
+                                    </tr>            
+
                                     </tr>
+
                                     <tr>
                                         <td><p:outputLabel value="#{bundle.CreateCompanyLabel_workHoures}" for="workHours" /></td>
                                         <td><p:inputText id="workHours" value="#{CompanyMB.selected.workHoures}" title="#{bundle.CreateCompanyTitle_workHoures}" style="width: 85%;" required="true"  requiredMessage="#{bundle.CreateCompanyRequiredMessage_workHoures}"/></td>
